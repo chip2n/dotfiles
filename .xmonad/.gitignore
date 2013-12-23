@@ -1,0 +1,10 @@
+# Vim files
+*.un~
+*.swp
+*.swo
+
+# Haskell stuffs
+*.o
+*.hi
+*.errors
+xmonad-*

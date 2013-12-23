@@ -1,0 +1,4 @@
+#include "/home/chip/.colors/chiptheme"
+
+urxvt*scrollBar: false
+urxvt*font:-*-lemon-*-*-*-*-*-*-*-*-*-*-*-*

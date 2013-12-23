@@ -1,0 +1,94 @@
+" Enable 256 colors
+let &t_Co=256
+
+" Enable syntax highlighting
+syntax on
+
+" Set colorscheme
+colorscheme busybee
+
+" Remove the compatibility crap
+set nocompatible
+
+" Disables modelines, which prevents some security exploits
+set modelines=0
+
+" Set the default encoding to UTF-8
+"set encoding=utf-8
+
+" Set the minimum amount of visible lines above/under
+" the cursor to 3 (default is 0)
+set scrolloff=3
+
+" Set automatic indentation
+set autoindent
+
+" Show the modes in the status bar
+set showmode
+
+" Show the current command in the status bar
+set showcmd
+
+" Enable the wildmenu (shows the tab completion options)
+set wildmenu
+set wildmode=list:longest
+
+" Make the screen flash instead of playing sound when error occurs
+set visualbell
+
+" Highlight the current cursor line
+set cursorline
+hi CursorLine cterm=NONE ctermbg=black ctermfg=white guibg=darkred guifg=white
+
+" Set fast terminal connection
+set ttyfast
+
+" Show line and character number
+set ruler
+
+" Always show status line
+set laststatus=2
+
+" Set relativenumber when not in insert mode - numbers otherwise
+set relativenumber
+autocmd InsertEnter * :set number
+autocmd InsertLeave * :set relativenumber
+
+" Create an undo file to store the undo history
+set undofile
+
+" Set maximum line width to 79
+set textwidth=79
+set colorcolumn=80
+highlight ColorColumn ctermbg=0
+
+" Enable save on lost focus
+au FocusLost * :wa
+
+
+" Disable arrow keys - thou shalt not use them
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+nnoremap j gj
+nnoremap k gk
+
+
+" Set tab options
+set expandtab
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
+
+
+set cindent
+
+" Allow backspaces to delete text further than insert point
+set backspace=indent,eol,start
+
+:filetype plugin on
