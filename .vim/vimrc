@@ -29,7 +29,7 @@ syntax on
 
         hi Pmenu ctermfg=10 ctermbg=0
         hi PmenuSel ctermfg=0 ctermbg=14
-        hi LineNr ctermfg=8 ctermbg=none
+        hi LineNr ctermfg=0 ctermbg=none
         hi CursorLine ctermfg=15 ctermbg=4 cterm=none
         hi CursorLineNr ctermfg=none ctermbg=4
         hi CursorColumn ctermfg=none ctermbg=0
