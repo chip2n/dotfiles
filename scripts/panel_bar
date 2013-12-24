@@ -2,6 +2,7 @@
 #
 # Example panel for LemonBoy's bar
 
+host=$(uname -n)
 while read -r line ; do
     case $line in
         S*)
@@ -55,5 +56,5 @@ while read -r line ; do
             done
             ;;
     esac
-    printf "%s\n" "\\l $wm_infos \\c $title \\r $sys_infos  "
+    printf "%s\n" "\\l  \f4 \f7${host} -$wm_infos \\c $title \\r $sys_infos  "
 done

@@ -1,4 +1,5 @@
 xset +fp /usr/share/fonts/local
+xset +fp /usr/share/fonts/artwiz-fonts
 xset +fp /home/chip/.fonts
 xset fp rehash
 setxkbmap se
