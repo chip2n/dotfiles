@@ -6,6 +6,7 @@ setxkbmap se
 dropboxd &
 #compton -c &
 feh --bg-scale /home/chip/Dropbox/Wallpapers/grey.png
+skype &
 
 export PATH=$HOME/scripts:$HOME/local_scripts:$PATH
 

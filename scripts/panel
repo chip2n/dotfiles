@@ -20,6 +20,7 @@ bspc control --subscribe > "$PANEL_FIFO" &
 xtitle -sf 'T%s' > "$PANEL_FIFO" &
 #clock -sf 'S%a %H:%M' > "$PANEL_FIFO" &
 conky -c "${LOCATION}panel_conky" > $PANEL_FIFO &
+panel_trayer
 
 case "$flavor" in
     bar)
