@@ -2,3 +2,11 @@
 
 urxvt*scrollBar: false
 urxvt*font:-*-lemon-*-*-*-*-*-*-*-*-*-*-*-*
+urxvt*internalBorder: 10
+urxvt*letterspace: -5
+urxvt*cursorUnderline: 1
+urxvt*cursorBlink:                true
+urxvt*depth:                        33
+urxvt.perl-ext-common:  default,matcher
+urxvt.url-launcher:      /usr/bin/chromium
+urxvt.matcher.button:   1
