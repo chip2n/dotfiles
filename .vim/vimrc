@@ -137,3 +137,7 @@ set backspace=indent,eol,start
 " Hide status line
 set laststatus=0
 
+# Fold according to syntax - no nesting
+set foldmethod=syntax
+set foldnestmax=1
+
