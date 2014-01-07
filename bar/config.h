@@ -1,7 +1,7 @@
 /* The height of the bar (in pixels) */
 #define BAR_HEIGHT  18
 /* The width of the bar. Set to -1 to fit screen */
-#define BAR_WIDTH   -1
+#define BAR_WIDTH   1920
 /* Offset from the left. Set to 0 to have no effect */
 #define BAR_OFFSET 0
 /* Choose between an underline or an overline */
