@@ -10,7 +10,7 @@ Make symlinks from relevant directories. For standard bspwm functionality, symli
     export PANEL_FIFO=/tmp/panel-fifo
     
 The following packages are used by the bar:
-* trayer
+* trayer-srg
 * acpi
 * xtitle
 * conky
