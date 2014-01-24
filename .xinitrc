@@ -8,7 +8,7 @@ dropboxd &
 feh --bg-scale /home/chip/Dropbox/Wallpapers/grey.png
 skype &
 
-export PATH=$HOME/scripts:$HOME/local_scripts:$PATH
+export PATH=$HOME/scripts:$HOME/local_scripts:$PATH:$HOME/.cabal/bin
 
 # XMonad
 #exec xmonad
