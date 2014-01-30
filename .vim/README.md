@@ -1,4 +1,0 @@
-.vim
-====
-
-My vim files.

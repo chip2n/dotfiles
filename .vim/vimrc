@@ -1,3 +1,23 @@
+" be iMproved
+set nocompatible
+
+" ---------- Vundle handles plugins ---------- "
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+
+" Github repos
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/syntastic'
+Bundle 'Lokaltog/vim-easymotion'
+let g:EasyMotion_leader_key = '<Leader>'
+Bundle 'tpope/vim-surround'
+
+:filetype plugin indent on
+" -------------------------------------------- "
+
 " Enable 256 colors
 let &t_Co=256
 
@@ -29,7 +49,7 @@ syntax on
 
         hi Pmenu ctermfg=10 ctermbg=0
         hi PmenuSel ctermfg=0 ctermbg=14
-        hi LineNr ctermfg=0 ctermbg=none
+        hi LineNr ctermfg=8 ctermbg=0
         hi CursorLine ctermfg=15 ctermbg=4 cterm=none
         hi CursorLineNr ctermfg=none ctermbg=4
         hi CursorColumn ctermfg=none ctermbg=0
@@ -132,7 +152,6 @@ set cindent
 " Allow backspaces to delete text further than insert point
 set backspace=indent,eol,start
 
-:filetype plugin on
 
 " Hide status line
 set laststatus=0
@@ -140,4 +159,3 @@ set laststatus=0
 " Fold according to syntax - no nesting
 set foldmethod=syntax
 set foldnestmax=1
-
