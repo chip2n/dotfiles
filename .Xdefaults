@@ -2,6 +2,7 @@
 
 urxvt*scrollBar: false
 urxvt*font:-*-lemon-*-*-*-*-*-*-*-*-*-*-*-*
+#urxvt*font:-*-terminus-*-*-*-*-14-*-*-*-*-*-*-*
 urxvt*internalBorder: 10
 urxvt*letterspace: -5
 urxvt*cursorUnderline: 1
