@@ -10,6 +10,9 @@ Bundle 'gmarik/vundle'
 
 " Github repos
 Bundle 'scrooloose/nerdtree'
+" Set backspace to open/focus NERDTree
+nnoremap <BS> :NERDTreeFocus <CR>
+
 Bundle 'scrooloose/syntastic'
 Bundle 'Lokaltog/vim-easymotion'
 let g:EasyMotion_leader_key = '<Leader>'
@@ -139,13 +142,17 @@ inoremap <right> <nop>
 nnoremap j gj
 nnoremap k gk
 
+" Navigate between vim splits
+nmap <silent> <c-h> :wincmd h<CR>
+nmap <silent> <c-j> :wincmd j<CR>
+nmap <silent> <c-k> :wincmd k<CR>
+nmap <silent> <c-l> :wincmd l<CR>
 
 " Set tab options
 set expandtab
 set shiftwidth=4
 set softtabstop=4
 set tabstop=4
-
 
 set cindent
 
