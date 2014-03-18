@@ -139,6 +139,8 @@ inoremap <up> <nop>
 inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
+
+" Enables moving between rows of a single line
 nnoremap j gj
 nnoremap k gk
 
