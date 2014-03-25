@@ -1,9 +1,10 @@
 #!/bin/bash
 
 VOL=`amixer get Master | awk 'FNR == 5 {print $4}' | tr -d '[]%'`
+STATUS=`amixer get Master | awk 'FNR == 5 {print $6}' | tr -d '[]'`
 
 icon=""
-if [[ $VOL -lt 1 ]]; then
+if [[ $STATUS == "off" ]]; then
 	icon=""
 else
 	icon=""
