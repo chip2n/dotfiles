@@ -7,17 +7,11 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
-
-" Github repos
 Bundle 'scrooloose/nerdtree'
-" Set backspace to open/focus NERDTree
-nnoremap <BS> :NERDTreeFocus <CR>
-
 Bundle 'scrooloose/syntastic'
 Bundle 'Lokaltog/vim-easymotion'
 let g:EasyMotion_leader_key = '<Leader>'
 Bundle 'tpope/vim-surround'
-
 Bundle 'tikhomirov/vim-glsl'
 
 :filetype plugin indent on
@@ -55,9 +49,13 @@ syntax on
         hi Pmenu ctermfg=10 ctermbg=0
         hi PmenuSel ctermfg=0 ctermbg=14
         hi LineNr ctermfg=8 ctermbg=0
-        hi CursorLine ctermfg=15 ctermbg=4 cterm=none
-        hi CursorLineNr ctermfg=none ctermbg=4
+        hi CursorLine ctermfg=none ctermbg=0 cterm=none
+        hi CursorLineNr ctermfg=none ctermbg=0
         hi CursorColumn ctermfg=none ctermbg=0
+
+        hi Visual ctermbg=0
+        hi OverLength ctermbg=1 ctermfg=15
+        match OverLength /\%81v.\+/
 
         " Syntax checker colors
         highlight SignColumn ctermbg=none
@@ -73,9 +71,6 @@ syntax on
         hi SpellCap ctermfg=0 ctermbg=1
 
 "}
-
-" Remove the compatibility crap
-set nocompatible
 
 " Disables modelines, which prevents some security exploits
 set modelines=0
@@ -123,14 +118,8 @@ autocmd InsertLeave * :set relativenumber
 " Create an undo file to store the undo history
 set undofile
 
-" Set maximum line width to 79
-"set textwidth=79
-"set colorcolumn=80
-"highlight ColorColumn ctermbg=0
-
 " Enable save on lost focus
 au FocusLost * :wa
-
 
 " Disable arrow keys - thou shalt not use them
 nnoremap <up> <nop>
@@ -152,6 +141,9 @@ nmap <silent> <c-j> :wincmd j<CR>
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-l> :wincmd l<CR>
 
+" Set backspace to open/focus NERDTree
+nnoremap <BS> :NERDTreeFocus <CR>
+
 " Set tab options
 set expandtab
 set shiftwidth=4
@@ -162,7 +154,6 @@ set cindent
 
 " Allow backspaces to delete text further than insert point
 set backspace=indent,eol,start
-
 
 " Hide status line
 set laststatus=0
