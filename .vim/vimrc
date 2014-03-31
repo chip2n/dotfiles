@@ -13,6 +13,8 @@ Bundle 'Lokaltog/vim-easymotion'
 let g:EasyMotion_leader_key = '<Leader>'
 Bundle 'tpope/vim-surround'
 Bundle 'tikhomirov/vim-glsl'
+Bundle 'Twinside/vim-hoogle'
+Bundle 'flazz/vim-colorschemes'
 
 :filetype plugin indent on
 " -------------------------------------------- "
