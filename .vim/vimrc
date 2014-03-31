@@ -163,3 +163,6 @@ set laststatus=0
 " Fold according to syntax - no nesting
 set foldmethod=syntax
 set foldnestmax=1
+
+" Ignore tab-completion for certain files
+set wildignore=*.hi,*.o,*.a,*.so,*.swp,*.swo,*.jpg,*.png
