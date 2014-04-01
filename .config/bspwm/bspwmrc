@@ -1,8 +1,8 @@
 #! /bin/sh
 
-bspc monitor DVI-D-0 -d     
-bspc monitor DVI-I-0 -d  
-#bspc monitor -d     
+#bspc monitor DVI-D-0 -d     
+#bspc monitor DVI-I-0 -d  
+bspc monitor -d     
 
 bspc config top_padding         14
 bspc config border_width        1
