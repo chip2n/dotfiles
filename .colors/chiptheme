@@ -1,11 +1,10 @@
 ! vim:nu:ai:si:et:ts=4:sw=4:ft=xdefaults:
 
-urxvt*background: #081317
+urxvt*background: #1c1c1c
 urxvt*foreground: #cdcdcd
 
 ! black
-!*color0:             #403f3e
-urxvt*color0:             #242323
+urxvt*color0:             #2e2c2c
 urxvt*color8:             #666362
 ! red
 urxvt*color1:             #91444d
