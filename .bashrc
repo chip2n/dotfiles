@@ -8,5 +8,6 @@
 alias ls='ls --color=auto'
 alias cabal='/home/chip/.cabal/bin/cabal'
 alias g='git'
+alias cl='clear'
 #PS1='[\u@\h \W]\$ '
 PS1='»  '
