@@ -11,3 +11,4 @@
     ps = push
     pl = pull
     f = fetch
+    c = commit
