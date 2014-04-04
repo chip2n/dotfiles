@@ -1,0 +1,13 @@
+[user]
+	email = andreas.arvidson@gmail.com
+	name = Andreas Arvidsson
+[push]
+	default = simple
+[alias]
+    ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+    st = status
+    ai = add -i
+    a = add
+    ps = push
+    pl = pull
+    f = fetch
