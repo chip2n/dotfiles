@@ -28,7 +28,7 @@ syntax on
 " COLORS {
         " syntax highlighting groups
         hi Comment      ctermfg=8
-        hi Constant     ctermfg=15 
+        hi Constant     ctermfg=11
         hi Identifier   ctermfg=4
         hi Statement    ctermfg=2
         hi PreProc      ctermfg=6
@@ -49,18 +49,20 @@ syntax on
         hi Folded ctermbg=0 ctermfg=8
 
         hi Pmenu ctermfg=10 ctermbg=0
-        hi PmenuSel ctermfg=0 ctermbg=14
-        hi LineNr ctermfg=8 ctermbg=0
+        hi PmenuSel ctermfg=0 ctermbg=2
+        hi LineNr ctermfg=8 ctermbg=none
         hi CursorLine ctermfg=none ctermbg=0 cterm=none
         hi CursorLineNr ctermfg=none ctermbg=0
         hi CursorColumn ctermfg=none ctermbg=0
+
+        hi MatchParen cterm=bold ctermbg=2
 
         hi Visual ctermbg=0
         hi OverLength ctermbg=1 ctermfg=15
         match OverLength /\%81v.\+/
 
         " Syntax checker colors
-        highlight SignColumn ctermbg=none
+        hi SignColumn ctermbg=none
         hi SyntasticErrorSign ctermfg=1 ctermbg=none
         hi SyntasticWarningSign ctermfg=3 ctermbg=none
         hi SyntasticStyleErrorSign ctermfg=1 ctermbg=none
