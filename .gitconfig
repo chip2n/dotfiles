@@ -12,3 +12,5 @@
     pl = pull
     f = fetch
     c = commit
+[core]
+	editor = vim
