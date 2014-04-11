@@ -12,5 +12,7 @@
     pl = pull
     f = fetch
     c = commit
+    rainbows = commit
+    candy = push
 [core]
 	editor = vim
