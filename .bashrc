@@ -5,7 +5,7 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias ls='ls --color=auto'
+alias ls='ls --color=auto -l'
 alias cabal='/home/chip/.cabal/bin/cabal'
 alias g='git'
 alias cl='clear'
