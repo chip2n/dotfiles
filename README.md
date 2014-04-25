@@ -22,3 +22,7 @@ Also, the following packages are optional for the same functionality and look:
 * lxappearance
 
 [Bar-aint-recursive](https://github.com/LemonBoy/bar) needs to be downloaded manually and compiled with the config.h present in bar/config.h.
+
+Recommended GTK3 themes:
+* Dorian Theme 3.10 (dorian-theme-3.10)   NOTE: Follow instructions to install the firefox theme.
+* Elementary icon theme (elementary-icon-theme in community repo)
