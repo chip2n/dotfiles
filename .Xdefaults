@@ -8,6 +8,10 @@ urxvt*letterspace: -5
 urxvt*cursorUnderline: 1
 urxvt*cursorBlink:                true
 urxvt*depth:                        33
-urxvt.perl-ext-common:  default,matcher
+urxvt.keysym.M-g: perl:copy-pasta:copy
+urxvt.keysym.M-h: perl:copy-pasta:paste
+urxvt.keysym.M-u: perl:url-select:select_next
+urxvt.perl-ext-common:  default,matcher,url-select,copy-pasta
+urxvt.perl-lib: .urxvt/perl
 urxvt.url-launcher:      /usr/bin/chromium
 urxvt.matcher.button:   1
