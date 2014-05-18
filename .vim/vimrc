@@ -69,9 +69,6 @@ set showcmd
 set wildmenu
 set wildmode=list:longest
 
-" Make the screen flash instead of playing sound when error occurs
-set visualbell
-
 " Highlight the current cursor line
 set cursorline
 
