@@ -37,12 +37,14 @@ match OverLength /\%81v.\+/
 " Remove annoying interface stuffz
 " Menu bar
 set guioptions-=m
-" Tab bar
+" Tool bar
 set guioptions-=T
 " Right scrollbar
 set guioptions-=r
 " Left scrollbar
 set guioptions-=L
+" Remove tab bar
+set guioptions-=e
 
 " Disables modelines, which prevents some security exploits
 set modelines=0
