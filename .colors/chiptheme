@@ -1,7 +1,7 @@
 ! vim:nu:ai:si:et:ts=4:sw=4:ft=xdefaults:
 
 urxvt*background: #0c0c0c
-urxvt*foreground: #cdcdcd
+urxvt*foreground: #ffffff
 
 ! black
 urxvt*color0:             #1e1c1c

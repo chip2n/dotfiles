@@ -21,6 +21,7 @@ Also, the following packages are optional for the same functionality and look:
 * gnome-themes-standard
 * lxappearance
 * xclip (perl script for copy paste in URXVT)
+* unclutter (removes mouse cursor)
 
 [Bar-aint-recursive](https://github.com/LemonBoy/bar) needs to be downloaded manually and compiled with the config.h present in bar/config.h.
 

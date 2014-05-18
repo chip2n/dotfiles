@@ -7,6 +7,7 @@ dropboxd &
 compton -c -C -r 4 -l 1 -t 1 -o 0.3 --inactive-dim 0.3 &
 feh --bg-scale /home/chip/Dropbox/Wallpapers/grey.png
 skype &
+unclutter &
 
 export PATH=$HOME/.cabal/bin:$HOME/scripts:$HOME/local_scripts:$PATH
 

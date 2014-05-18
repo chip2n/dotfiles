@@ -25,7 +25,10 @@ let &t_Co=256
 
 " Enable syntax highlighting
 syntax on
-colorscheme babymate256
+colorscheme darkspectrum
+
+" Set font for GVim
+set guifont=Terminus\ 8
 
 " Marks too long lines
 hi OverLength ctermbg=2 ctermfg=15
@@ -86,9 +89,6 @@ autocmd InsertLeave * :set relativenumber
 
 " Create an undo file to store the undo history
 set undofile
-
-" Enable save on lost focus
-au FocusLost * :wa
 
 " Disable arrow keys - thou shalt not use them
 nnoremap <up> <nop>
