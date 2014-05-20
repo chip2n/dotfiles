@@ -8,6 +8,7 @@ dropboxd &
 feh --bg-scale /home/chip/Dropbox/Wallpapers/grey.png
 skype &
 unclutter &
+xbacklight -set 100
 
 export PATH=$HOME/.cabal/bin:$HOME/scripts:$HOME/local_scripts:$PATH
 
