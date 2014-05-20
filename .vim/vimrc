@@ -27,7 +27,7 @@ let &t_Co=256
 syntax on
 set background=dark
 " colorscheme fu
-colorscheme lucius
+colorscheme mustang
 
 " Set font for GVim
 set guifont=Terminus\ 8
@@ -120,7 +120,7 @@ set shiftwidth=2
 set softtabstop=2
 set tabstop=2
 
-set cindent
+"set cindent
 
 " Allow backspaces to delete text further than insert point
 set backspace=indent,eol,start
