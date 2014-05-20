@@ -25,7 +25,9 @@ let &t_Co=256
 
 " Enable syntax highlighting
 syntax on
-colorscheme darkspectrum
+set background=dark
+" colorscheme fu
+colorscheme lucius
 
 " Set font for GVim
 set guifont=Terminus\ 8
