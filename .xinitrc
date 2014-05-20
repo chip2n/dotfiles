@@ -5,7 +5,7 @@ xset fp rehash
 setxkbmap se
 dropboxd &
 # compton -c -C -r 4 -l 1 -t 1 -o 0.3 --inactive-dim 0.3 &
-feh --bg-scale /home/chip/Dropbox/Wallpapers/grey.png
+feh --bg-scale /home/chip/Dropbox/wallpapers/grey.png
 skype &
 unclutter &
 xbacklight -set 100

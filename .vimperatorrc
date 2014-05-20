@@ -1,7 +1,6 @@
 set autocomplete=false
 set noscrollbars
 set gui=tabs
-set gui=nonavigation
 
 map <silent> <C-F1> :js toggle_bottombar()<CR>
 
