@@ -16,7 +16,7 @@ Bundle 'tikhomirov/vim-glsl'
 Bundle 'Twinside/vim-hoogle'
 Bundle 'flazz/vim-colorschemes'
 Bundle 'vim-scripts/ScrollColors'
-"Bundle 'chip2n/chiptheme'
+Bundle 'chip2n/chiptheme'
 
 :filetype plugin indent on
 " -------------------------------------------- "
