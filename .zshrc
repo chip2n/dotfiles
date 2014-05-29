@@ -12,6 +12,10 @@ compinit
 # End of lines added by compinstall
 #
 
+# Backspace and ^h working even after returning from command mode
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+
 autoload -U colors
 colors
 autoload -U promptinit
