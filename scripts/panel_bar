@@ -56,5 +56,5 @@ while read -r line ; do
             done
             ;;
     esac
-    printf "%s\n" "%{l}  %{F#5ba7c2} ${host} -$wm_infos %{c} %{Fwhite}$title %{r} $sys_infos  "
+    printf "%s\n" "%{l}  %{F#5ba7c2} ${host} -$wm_infos %{c} %{F#666060}$title %{r} $sys_infos  "
 done
