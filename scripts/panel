@@ -24,7 +24,7 @@ panel_trayer
 
 case "$flavor" in
     bar)
-        cat "$PANEL_FIFO" | panel_bar | bar &
+        cat "$PANEL_FIFO" | panel_bar | bar -f "-misc-stlarch-medium-*-normal-*-10-*-*-*-c-*-*-1" -g 1920x18 -B "#171616" -F "#ffffff" -u 2
         ;;
     dzen2)
         . panel_colors
