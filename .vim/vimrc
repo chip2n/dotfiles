@@ -118,6 +118,9 @@ nmap <silent> <c-l> :wincmd l<CR>
 " Set backspace to open/focus NERDTree
 nnoremap <BS> :NERDTreeFocus <CR>
 
+" Set space to show ctags of selected tags
+nnoremap <Space> g<C-]>
+
 " Set tab options
 set expandtab
 set shiftwidth=2
