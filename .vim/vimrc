@@ -51,6 +51,9 @@ set guioptions-=e
 " Disables modelines, which prevents some security exploits
 set modelines=0
 
+" New splits appear below current window
+set splitbelow
+
 " Set the default encoding to UTF-8
 "set encoding=utf-8
 
