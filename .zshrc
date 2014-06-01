@@ -12,10 +12,15 @@ compinit
 # End of lines added by compinstall
 #
 
+# Backspace and ^h working even after returning from command mode
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+
 autoload -U colors
 colors
 autoload -U promptinit
-PROMPT='»  '
+#PROMPT='%{$F[red]%}»  '
+PROMPT="%{%F{9}%}»  %{%F{15}%}"
 
 alias ls='ls --color=auto -l -h --group-directories-first'
 alias sz='du -sk * | sort -n'
