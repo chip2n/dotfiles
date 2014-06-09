@@ -12,6 +12,8 @@ xbacklight -set 100
 
 export PATH=$HOME/.cabal/bin:$HOME/scripts:$HOME/local_scripts:$PATH
 
+export CLASSPATH=/usr/lib/jvm/java-7-openjdk/lib/tools.jar
+
 # XMonad
 #exec xmonad
 

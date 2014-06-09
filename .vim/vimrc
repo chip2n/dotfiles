@@ -17,6 +17,10 @@ Bundle 'Twinside/vim-hoogle'
 Bundle 'flazz/vim-colorschemes'
 Bundle 'vim-scripts/ScrollColors'
 Bundle 'chip2n/chiptheme'
+Bundle 'vim-scripts/javacomplete'
+
+autocmd Filetype java setlocal omnifunc=javacomplete#Complete
+autocmd Filetype java map <leader> b :call javacomplete#GoToDefinition()<CR>
 
 :filetype plugin indent on
 " -------------------------------------------- "
@@ -87,9 +91,6 @@ set ttyfast
 " Show line and character number
 set ruler
 
-" Always show status line
-set laststatus=2
-
 " Set relativenumber when not in insert mode - numbers otherwise
 set relativenumber
 autocmd InsertEnter * :set number
@@ -145,6 +146,10 @@ set foldnestmax=1
 
 " Ignore tab-completion for certain files
 set wildignore=*.hi,*.o,*.a,*.so,*.swp,*.swo,*.jpg,*.png
+
+" Per project .vimrc
+:set exrc
+:set secure
 
 " ----------------------------------------------------------------------
 " Save your backups to a less annoying place than the current directory.
