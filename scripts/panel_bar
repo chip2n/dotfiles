@@ -24,27 +24,27 @@ while read -r line ; do
                 case $item in
                     O*)
                         # focused occupied desktop
-                        wm_infos="$wm_infos %{U#ffa500+u}%{F#ffffff}${name}%{-u}"
+                        wm_infos="$wm_infos %{U#ffffa500+u}%{F#ffffffff}${name}%{-u}"
                         ;;
                     F*)
                         # focused free desktop
-                        wm_infos="$wm_infos %{U#ffa500+u}%{F#666060}${name}%{-u}"
+                        wm_infos="$wm_infos %{U#ffffa500+u}%{F#ff666060}${name}%{-u}"
                         ;;
                     U*)
                         # focused urgent desktop
-                        wm_infos="$wm_infos %{U#ffa500+u}%{F#ffffff}${name}%{-u}"
+                        wm_infos="$wm_infos %{U#ffffa500+u}%{F#ffffffff}${name}%{-u}"
                         ;;
                     o*)
                         # occupied desktop
-                        wm_infos="$wm_infos %{F#ffffff}${name}"
+                        wm_infos="$wm_infos %{F#ffffffff}${name}"
                         ;;
                     f*)
                         # free desktop
-                        wm_infos="$wm_infos %{F#666060}${name}"
+                        wm_infos="$wm_infos %{F#ff666060}${name}"
                         ;;
                     u*)
                         # urgent desktop
-                        wm_infos="$wm_infos %{Ured+u}%{F#ffffff}${name}%{-u}"
+                        wm_infos="$wm_infos %{Ured+u}%{F#ffffffff}${name}%{-u}"
                         ;;
                     L*)
                         # layout
@@ -56,5 +56,5 @@ while read -r line ; do
             done
             ;;
     esac
-    printf "%s\n" "%{l}  %{F#5ba7c2} ${host} -$wm_infos %{c} %{F#666060}$title %{r} $sys_infos  "
+    printf "%s\n" "%{l}  %{F#ff5ba7c2} ${host} -$wm_infos %{c} %{ffF#666060}$title %{r} $sys_infos  "
 done
