@@ -18,6 +18,7 @@ Bundle 'flazz/vim-colorschemes'
 Bundle 'vim-scripts/ScrollColors'
 Bundle 'chip2n/chiptheme'
 Bundle 'vim-scripts/javacomplete'
+Bundle 'klen/python-mode'
 
 autocmd Filetype java setlocal omnifunc=javacomplete#Complete
 autocmd Filetype java map <leader> b :call javacomplete#GoToDefinition()<CR>
