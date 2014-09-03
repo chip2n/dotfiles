@@ -1,0 +1,9 @@
+{
+	"color_scheme": "Packages/User/base16-eighties.dark (SL).tmTheme",
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"theme": "Spacegray Eighties.sublime-theme",
+	"vintageous_use_ctrl_keys": true
+}
