@@ -8,23 +8,64 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 Bundle 'scrooloose/nerdtree'
+let NERDTreeIgnore = ['\.pyc$']
+let NERDTreeQuitOnOpen = 1
 Bundle 'scrooloose/syntastic'
 Bundle 'Lokaltog/vim-easymotion'
 let g:EasyMotion_leader_key = '<Leader>'
 Bundle 'tpope/vim-surround'
 Bundle 'tikhomirov/vim-glsl'
-Bundle 'Twinside/vim-hoogle'
 Bundle 'flazz/vim-colorschemes'
 Bundle 'vim-scripts/ScrollColors'
 Bundle 'chip2n/chiptheme'
-Bundle 'vim-scripts/javacomplete'
 Bundle 'klen/python-mode'
+Bundle 'xolox/vim-misc'
+Bundle 'xolox/vim-easytags'
+let g:easytags_async=1
+let g:easytags_syntax_keyword='always'
+let g:easytags_on_cursorhold=0
+Bundle 'majutsushi/tagbar'
 
 autocmd Filetype java setlocal omnifunc=javacomplete#Complete
 autocmd Filetype java map <leader> b :call javacomplete#GoToDefinition()<CR>
 
 :filetype plugin indent on
 " -------------------------------------------- "
+
+" Disable arrow keys - thou shalt not use them
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+
+" Enables moving between rows of a single line
+nnoremap j gj
+nnoremap k gk
+
+" Navigate between vim splits
+nmap <silent> <c-h> :wincmd h<CR>
+nmap <silent> <c-j> :wincmd j<CR>
+nmap <silent> <c-k> :wincmd k<CR>
+nmap <silent> <c-l> :wincmd l<CR>
+
+" Set split to 80 char width
+nmap <silent> <c-p> :vertical resize 83<CR>
+
+" Set backspace to open/focus NERDTree
+nnoremap <BS> :NERDTreeToggle <CR>
+nnoremap <S-BS> :TagbarToggle <CR>
+
+" Set space to show ctags of selected tags
+nnoremap <Space> <C-]>
+nnoremap <S-Space> <C-T>
+
+" Easier 'pagedown' and 'pageup' bindings
+nnoremap <C-J> <C-D>
+nnoremap <C-k> <C-U>
 
 " Enable 256 colors
 let &t_Co=256
@@ -93,41 +134,12 @@ set ttyfast
 set ruler
 
 " Set relativenumber when not in insert mode - numbers otherwise
-set relativenumber
+"set relativenumber
 autocmd InsertEnter * :set number
 autocmd InsertLeave * :set relativenumber
 
 " Create an undo file to store the undo history
 set undofile
-
-" Disable arrow keys - thou shalt not use them
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
-inoremap <right> <nop>
-
-" Enables moving between rows of a single line
-nnoremap j gj
-nnoremap k gk
-
-" Navigate between vim splits
-nmap <silent> <c-h> :wincmd h<CR>
-nmap <silent> <c-j> :wincmd j<CR>
-nmap <silent> <c-k> :wincmd k<CR>
-nmap <silent> <c-l> :wincmd l<CR>
-
-" Set split to 80 char width
-nmap <silent> <c-p> :vertical resize 83<CR>
-
-" Set backspace to open/focus NERDTree
-nnoremap <BS> :NERDTreeFocus <CR>
-
-" Set space to show ctags of selected tags
-nnoremap <Space> g<C-]>
 
 " Set tab options
 set expandtab
