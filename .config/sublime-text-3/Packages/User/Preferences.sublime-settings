@@ -1,9 +1,11 @@
 {
 	"color_scheme": "Packages/User/base16-eighties.dark (SL).tmTheme",
+	"font_size": 10,
 	"ignored_packages":
 	[
 		"Vintage"
 	],
+	"overlay_scroll_bars": "enabled",
 	"theme": "Spacegray Eighties.sublime-theme",
 	"vintageous_use_ctrl_keys": true
 }
