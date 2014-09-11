@@ -7,5 +7,6 @@
 	],
 	"overlay_scroll_bars": "enabled",
 	"theme": "Spacegray Eighties.sublime-theme",
-	"vintageous_use_ctrl_keys": true
+	"vintageous_use_ctrl_keys": true,
+	"caret_style": "wide"
 }
