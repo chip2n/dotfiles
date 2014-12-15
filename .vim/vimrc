@@ -19,12 +19,18 @@ Bundle 'flazz/vim-colorschemes'
 Bundle 'vim-scripts/ScrollColors'
 Bundle 'chip2n/chiptheme'
 Bundle 'klen/python-mode'
+let g:pymode_folding = 0
+let g:pymode_options_colorcolumn = 0
+Bundle 'tmhedberg/SimpylFold'
 Bundle 'xolox/vim-misc'
 Bundle 'xolox/vim-easytags'
 let g:easytags_async=1
 let g:easytags_syntax_keyword='always'
 let g:easytags_on_cursorhold=0
 Bundle 'majutsushi/tagbar'
+Bundle 'kien/ctrlp.vim'
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
 
 autocmd Filetype java setlocal omnifunc=javacomplete#Complete
 autocmd Filetype java map <leader> b :call javacomplete#GoToDefinition()<CR>
@@ -85,6 +91,9 @@ set lazyredraw
 " Marks too long lines
 hi OverLength ctermbg=2 ctermfg=15
 match OverLength /\%81v.\+/
+
+" Mark column 80
+set colorcolumn=80
 
 " Remove annoying interface stuffz
 " Menu bar
@@ -157,11 +166,11 @@ set backspace=indent,eol,start
 set laststatus=0
 
 " Fold according to syntax - no nesting
-set foldmethod=syntax
-set foldnestmax=1
+"set foldmethod=syntax
+"set foldnestmax=1
 
 " Ignore tab-completion for certain files
-set wildignore=*.hi,*.o,*.a,*.so,*.swp,*.swo,*.jpg,*.png
+set wildignore=*.hi,*.o,*.a,*.so,*.swp,*.swo,*.jpg,*.png,*.pyc,*.bson
 
 " Per project .vimrc
 :set exrc
