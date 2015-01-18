@@ -11,6 +11,7 @@ Bundle 'scrooloose/nerdtree'
 let NERDTreeIgnore = ['\.pyc$']
 let NERDTreeQuitOnOpen = 1
 Bundle 'scrooloose/syntastic'
+let g:syntastic_mode_map = {'mode': 'passive'}
 Bundle 'Lokaltog/vim-easymotion'
 let g:EasyMotion_leader_key = '<Leader>'
 Bundle 'tpope/vim-surround'
@@ -18,15 +19,17 @@ Bundle 'tikhomirov/vim-glsl'
 Bundle 'flazz/vim-colorschemes'
 Bundle 'vim-scripts/ScrollColors'
 Bundle 'chip2n/chiptheme'
-Bundle 'klen/python-mode'
-let g:pymode_folding = 0
-let g:pymode_options_colorcolumn = 0
+"Bundle 'klen/python-mode'
+"let g:pymode_folding = 0
+"let g:pymode_options_colorcolumn = 0
 Bundle 'tmhedberg/SimpylFold'
 Bundle 'xolox/vim-misc'
 Bundle 'xolox/vim-easytags'
 let g:easytags_async=1
 let g:easytags_syntax_keyword='always'
 let g:easytags_on_cursorhold=0
+let g:easytags_auto_update=0
+let g:easytags_auto_highlight=0
 Bundle 'majutsushi/tagbar'
 Bundle 'kien/ctrlp.vim'
 let g:ctrlp_map = '<c-p>'
