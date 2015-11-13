@@ -7,7 +7,6 @@
 
 alias ls='ls --color=auto -l -h --group-directories-first'
 alias sz='du -sk * | sort -n'
-alias cabal='/home/chip/.cabal/bin/cabal'
 alias g='git'
 alias c='cabal'
 alias cl='clear'
