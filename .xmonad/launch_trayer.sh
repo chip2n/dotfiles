@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 for PID in `pgrep -x trayer`; do
     kill ${PID} > /dev/null &

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 for PID in `pgrep -x conky`; do
     kill ${PID} > /dev/null

@@ -2,6 +2,7 @@ import XMonad
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.ResizableTile
+import XMonad.Layout.Reflect
 import XMonad.Hooks.DynamicLog
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
@@ -27,10 +28,12 @@ myPP = defaultPP
       , ppVisible = dzenColor "white" colorBarBg . pad
       , ppHidden = dzenColor "white" colorBarBg . pad
       , ppHiddenNoWindows = dzenColor "#7b7b7b" colorBarBg . pad
-      , ppSep = " | "
-      , ppLayout = dzenColor colorFocusedBorder colorBarBg .
+      , ppSep = pad "|"
+      , ppOrder = \(workspaces:layout:title:xs) -> (layout:workspaces:title:xs)
+      , ppLayout = dzenColor colorFocusedBorder colorBarBg . (" " ++) . pad .
                    (\x -> case x of
                        "Spacing 3 ResizableTall" -> "^i(" ++ myBitmapsDir ++ "/tall.xbm)"
+                       "Spacing 3 ReflectX ResizableTall" -> "^i(" ++ myBitmapsDir ++ "/rtall.xbm)"
                        "Spacing 3 Mirror ResizableTall" -> "^i(" ++ myBitmapsDir ++ "/mtall.xbm)"
                        "Spacing 3 Full" -> "^i(" ++ myBitmapsDir ++ "/full2.xbm)"
                        _               -> x
@@ -40,7 +43,9 @@ myPP = defaultPP
 toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
 --}}}
 
-myWorkspaces = ["    1 ", "  2 ", "  3 ", "  4   "]
+workspaceIcons = map diceIcon [1..5]
+    where diceIcon s = "^i(" ++ myBitmapsDir ++ "dice" ++ show s ++ ".xbm)"
+myWorkspaces = take 4 workspaceIcons
 
 myConfig = defaultConfig
     { terminal    = "xterm"
@@ -54,9 +59,9 @@ myConfig = defaultConfig
     , manageHook = myManageHook
     }
 
-myLayout = spacing 3 . avoidStruts $ tiled ||| Mirror tiled ||| Full
+myLayout = spacing 3 . avoidStruts $ tiled ||| reflectHoriz tiled ||| Mirror tiled ||| Full
   where
-    tiled = ResizableTall 1 (3/100) (1/2) []
+    tiled = ResizableTall 1 (3/100) (2/3) []
 
 myManageHook = composeOne [
       className =? "floatingTerminal" -?> doRectFloat (W.RationalRect 0.3 0.35 0.4 0.35),
