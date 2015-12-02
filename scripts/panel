@@ -14,17 +14,23 @@ flavor=${1:-bar}
 [ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
 mkfifo "$PANEL_FIFO"
 
-bspc config top_padding $PANEL_HEIGHT
+clock() {
+  DATE=$(date "+%T")
+  echo "S$DATE"
+}
 
+bspc config top_padding $PANEL_HEIGHT
 bspc control --subscribe > "$PANEL_FIFO" &
 xtitle -sf 'T%s' > "$PANEL_FIFO" &
-#clock -sf 'S%a %H:%M' > "$PANEL_FIFO" &
+#clock > "$PANEL_FIFO" &
 conky -c "${LOCATION}panel_conky" > $PANEL_FIFO &
 panel_trayer
 
 case "$flavor" in
     bar)
-        cat "$PANEL_FIFO" | panel_bar | bar-aint-recursive -f "-misc-stlarch-medium-*-normal-*-10-*-*-*-c-*-*-1" -g 1920x18 -B "#171616" -F "#ffffff" -u 2
+        #cat "$PANEL_FIFO" | panel_bar | lemonbar -f "-misc-stlarch-medium-*-normal-*-10-*-*-*-c-*-*-1" -g 1920x18 -B "#171616" -F "#ffffff" -u 2
+        cat "$PANEL_FIFO" | panel_bar | lemonbar -f "-*-terminus-medium-*-normal-*-12-*-*-*-c-*-*-1" -f "-*-siji-medium-*-normal-*-10-*-*-*-c-*-*-1" -g 1920x18 -B "#171616" -F "#ffffff" -u 2
+        #cat "$PANEL_FIFO" | panel_bar | lemonbar -g 1920x18 -B "#171616" -F "#ffffff" -u 2
         ;;
     dzen2)
         . panel_colors
