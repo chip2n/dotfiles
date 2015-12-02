@@ -92,7 +92,7 @@ super + shift + Return
     bspc rule -a urxvt -o floating=off
 
 super + p
-    dmenu_run
+    dmenu_run -fn "terminus:pixelsize=12" -h 18
 
 # make sxhkd reload its configuration files:
 super + Escape
