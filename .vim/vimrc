@@ -8,7 +8,7 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 Bundle 'scrooloose/nerdtree'
-let NERDTreeIgnore = ['\.pyc$']
+let NERDTreeIgnore = ['\.pyc$', '\.hi$', '\.o$', '\.dyn_hi$', '\.dyn_o$']
 let NERDTreeQuitOnOpen = 1
 Bundle 'scrooloose/syntastic'
 let g:syntastic_mode_map = {'mode': 'passive'}
