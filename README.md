@@ -16,14 +16,13 @@ The following packages are used by the bar:
 * conky
 
 Also, the following packages are optional for the same functionality and look:
-* stlarch_font
+* lemonbar
+* siji-git (for glyphs)
 * dmenu
 * gnome-themes-standard
 * lxappearance
 * xclip (perl script for copy paste in URXVT)
 * unclutter (removes mouse cursor)
-
-[Bar-aint-recursive](https://github.com/LemonBoy/bar) needs to be downloaded manually and compiled with the config.h present in bar/config.h.
 
 Recommended GTK3 themes:
 * Dorian Theme 3.10 (dorian-theme-3.10)   NOTE: Follow instructions to install the firefox theme.
