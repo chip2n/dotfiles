@@ -11,5 +11,5 @@ urxvt*depth:                        33
 urxvt.keysym.M-u: perl:url-select:select_next
 urxvt.perl-ext-common:  default,matcher,url-select,copy-pasta
 urxvt.perl-lib: .urxvt/perl
-urxvt.url-launcher:      /usr/bin/chromium
+urxvt.url-launcher:      /usr/bin/qutebrowser
 urxvt.matcher.button:   1
