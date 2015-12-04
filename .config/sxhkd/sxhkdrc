@@ -94,6 +94,9 @@ super + shift + Return
 super + p
     dmenu_run -fn "terminus:pixelsize=12" -h 18
 
+super + w
+    qutebrowser
+
 # make sxhkd reload its configuration files:
 super + Escape
     pkill -USR1 -x sxhkd
