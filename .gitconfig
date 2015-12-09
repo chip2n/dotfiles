@@ -15,5 +15,6 @@
     c = commit
     rainbows = commit
     candy = push
+    yolo = push --force
 [core]
 	editor = vim
