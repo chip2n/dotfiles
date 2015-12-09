@@ -41,6 +41,10 @@ autocmd Filetype java map <leader> b :call javacomplete#GoToDefinition()<CR>
 :filetype plugin indent on
 " -------------------------------------------- "
 
+" New leader key
+let mapleader="ö"
+let maplocalleader="ö"
+
 " Disable arrow keys - thou shalt not use them
 nnoremap <up> <nop>
 nnoremap <down> <nop>
