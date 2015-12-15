@@ -23,7 +23,6 @@ while read -r line ; do
             while [ $# -gt 0 ] ; do
                 item=$1
                 name=${item#?}
-                echo $item
                 case $item in
                     O*)
                         # focused occupied desktop
