@@ -4,7 +4,7 @@ xset +fp /home/chip/.fonts
 xset fp rehash
 setxkbmap se
 dropbox &
-compton &
+# compton &
 feh --bg-scale /home/chip/gray.png
 skype -style GTK &
 unclutter &

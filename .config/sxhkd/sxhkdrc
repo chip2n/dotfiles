@@ -92,7 +92,7 @@ super + shift + Return
     bspc rule -a urxvt -o floating=off
 
 super + p
-    dmenu_run -fn "terminus:pixelsize=12" -h 18
+    dmenu_run -fn "terminus:pixelsize=12" -h 28 -nb "#26292c"
 
 super + w
     qutebrowser
