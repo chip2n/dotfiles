@@ -5,7 +5,7 @@ xset fp rehash
 setxkbmap se
 dropbox &
 compton &
-feh --bg-scale /home/chip/Dropbox/Wallpapers/cloud.png
+feh --bg-scale /home/chip/gray.png
 skype -style GTK &
 unclutter &
 xbacklight -set 100
