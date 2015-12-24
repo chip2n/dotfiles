@@ -1,0 +1,6 @@
+geometry 7x1-250+6
+max_geometry 7x1-250+5
+icon_size 8
+background "#26292c"
+grow_gravity NE
+icon_gravity NE
