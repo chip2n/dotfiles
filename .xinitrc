@@ -6,7 +6,7 @@ setxkbmap se
 dropbox &
 compton &
 feh --bg-scale /home/chip/Dropbox/Wallpapers/cloud.png
-skype &
+skype -style GTK &
 unclutter &
 xbacklight -set 100
 
