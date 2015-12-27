@@ -1,15 +1,15 @@
 #include "/home/chip/.colors/chiptheme"
 
-urxvt*scrollBar: false
-#urxvt*font:-*-lemon-*-*-*-*-*-*-*-*-*-*-*-*
-urxvt*font:-*-terminus-*-*-*-*-12-*-*-*-*-*-*-*
-urxvt*internalBorder: 10
-urxvt*letterspace: -5
-urxvt*cursorUnderline: 1
-urxvt*cursorBlink:                true
-urxvt*depth:                        33
-urxvt.keysym.M-u: perl:url-select:select_next
-urxvt.perl-ext-common:  default,matcher,url-select,copy-pasta
-urxvt.perl-lib: .urxvt/perl
-urxvt.url-launcher:      /usr/bin/qutebrowser
-urxvt.matcher.button:   1
+URxvt*scrollBar: false
+#URxvt*font:-*-lemon-*-*-*-*-*-*-*-*-*-*-*-*
+URxvt*font:-*-terminus-*-*-*-*-12-*-*-*-*-*-*-*
+URxvt*internalBorder: 10
+URxvt*letterspace: -5
+URxvt*cursorUnderline: 1
+URxvt*cursorBlink:                true
+URxvt*depth:                        33
+URxvt.keysym.M-u: perl:url-select:select_next
+URxvt.perl-ext-common:  default,matcher,url-select,copy-pasta
+URxvt.perl-lib: .urxvt/perl
+URxvt.url-launcher:      /usr/bin/qutebrowser
+URxvt.matcher.button:   1
