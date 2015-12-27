@@ -18,5 +18,8 @@ export CLASSPATH=/usr/lib/jvm/java-7-openjdk/lib/tools.jar
 #exec xmonad
 
 # BSPWM
-sxhkd &
-exec bspwm
+#sxhkd &
+#exec bspwm
+
+# i3
+exec i3
