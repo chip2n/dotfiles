@@ -96,11 +96,11 @@ set guifont=Terminus\ 8
 set lazyredraw
 
 " Marks too long lines
-hi OverLength ctermbg=2 ctermfg=15
+hi OverLength ctermbg=1 ctermfg=15
 match OverLength /\%81v.\+/
 
 " Mark column 80
-set colorcolumn=80
+"set colorcolumn=80
 
 " Remove annoying interface stuffz
 " Menu bar
