@@ -7,39 +7,59 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
-Bundle 'scrooloose/nerdtree'
-let NERDTreeIgnore = ['\.pyc$', '\.hi$', '\.o$', '\.dyn_hi$', '\.dyn_o$']
-let NERDTreeQuitOnOpen = 1
-Bundle 'scrooloose/syntastic'
-let g:syntastic_mode_map = {'mode': 'passive'}
-Bundle 'Lokaltog/vim-easymotion'
-let g:EasyMotion_leader_key = '<Leader>'
+Bundle 'chip2n/chiptheme'
 Bundle 'tpope/vim-surround'
 Bundle 'tikhomirov/vim-glsl'
 Bundle 'flazz/vim-colorschemes'
 Bundle 'vim-scripts/ScrollColors'
-Bundle 'chip2n/chiptheme'
+Bundle 'tmhedberg/SimpylFold'
+Bundle 'xolox/vim-misc'
+
+Bundle 'scrooloose/nerdtree'
+let NERDTreeIgnore = ['\.pyc$', '\.hi$', '\.o$', '\.dyn_hi$', '\.dyn_o$']
+let NERDTreeQuitOnOpen = 1
+
+Bundle 'scrooloose/syntastic'
+let g:syntastic_mode_map = {'mode': 'passive'}
+
+Bundle 'Lokaltog/vim-easymotion'
+let g:EasyMotion_leader_key = '<Leader>'
+
 "Bundle 'klen/python-mode'
 "let g:pymode_folding = 0
 "let g:pymode_options_colorcolumn = 0
-Bundle 'tmhedberg/SimpylFold'
-Bundle 'xolox/vim-misc'
+
 Bundle 'xolox/vim-easytags'
 let g:easytags_async=1
 let g:easytags_syntax_keyword='always'
 let g:easytags_on_cursorhold=0
 let g:easytags_auto_update=0
 let g:easytags_auto_highlight=0
+
 Bundle 'majutsushi/tagbar'
-Bundle 'kien/ctrlp.vim'
+
+Bundle 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+nnoremap <C-b> :CtrlPBuffer <CR>
+
+Bundle 'JazzCore/ctrlp-cmatcher'
+" NOTE: Must run .vim/bundle/ctrlp-matcher/install.sh
+let g:ctrlp_match_func = {'match': 'matcher#cmatch'}
+
+Bundle 'Shougo/unite.vim'
+
+" NOTE: Must be compiled using make
+Bundle 'Shougo/vimproc.vim'
 
 autocmd Filetype java setlocal omnifunc=javacomplete#Complete
 autocmd Filetype java map <leader> b :call javacomplete#GoToDefinition()<CR>
 
 :filetype plugin indent on
 " -------------------------------------------- "
+
+" Hide buffers instead of closing them
+set hidden
 
 " New leader key
 let mapleader="ö"
@@ -66,9 +86,9 @@ nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-l> :wincmd l<CR>
 
 " Set split to 80 char width
-nmap <silent> <c-p> :vertical resize 83<CR>
+"nmap <silent> <c-p> :vertical resize 83<CR>
 
-" Set backspace to open/focus NERDTree
+" Set backspace to open/focus NERDTree and Tagbar
 nnoremap <BS> :NERDTreeToggle <CR>
 nnoremap <S-BS> :TagbarToggle <CR>
 
@@ -87,7 +107,7 @@ let &t_Co=256
 syntax on
 set background=dark
 " colorscheme fu
-colorscheme chiptheme
+colorscheme test
 
 " Set font for GVim
 set guifont=Terminus\ 8
@@ -96,8 +116,10 @@ set guifont=Terminus\ 8
 set lazyredraw
 
 " Marks too long lines
-hi OverLength ctermbg=1 ctermfg=15
-match OverLength /\%81v.\+/
+" NOTE: Theme must highlight OverLength
+augroup vimrc_autocmds
+  autocmd BufEnter * match OverLength /\%81v.\+/
+augroup END
 
 " Mark column 80
 "set colorcolumn=80
@@ -117,8 +139,10 @@ set guioptions-=e
 " Disables modelines, which prevents some security exploits
 set modelines=0
 
-" New splits appear below current window
+" New horizontal splits appear below current window
 set splitbelow
+" New vertical splits appear to the right of current window
+set splitright
 
 " Set the default encoding to UTF-8
 "set encoding=utf-8
@@ -169,15 +193,17 @@ set fillchars+=vert:\
 " Allow backspaces to delete text further than insert point
 set backspace=indent,eol,start
 
-" Hide status line
-set laststatus=0
-
 " Fold according to syntax - no nesting
 "set foldmethod=syntax
 "set foldnestmax=1
 
 " Ignore tab-completion for certain files
-set wildignore=*.hi,*.o,*.a,*.so,*.swp,*.swo,*.jpg,*.png,*.pyc,*.bson
+" Haskell
+set wildignore+=*.hi,*.dyn_hi,*.dyn_o
+" Images
+set wildignore+=*.jpg,*.png
+" Misc
+set wildignore+=*.o,*.a,*.so,*.swp,*.swo,*.pyc,*.bson
 
 " Per project .vimrc
 :set exrc
