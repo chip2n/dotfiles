@@ -232,20 +232,26 @@ client.background       #ffffff
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-    status_command i3status
-    #tray_output primary
-    position top
-    font pango:Terminus, Siji 8
-	  strip_workspace_numbers yes
-    colors {
-        background $BAR_BG_COLOR
-        statusline #788491
-        separator #51c4d4
+#bar {
+#    i3bar_command ~/scripts/panel i3
+#}
 
-        focused_workspace  $BAR_BG_COLOR $BAR_BG_COLOR #4FC0E8
-        active_workspace   $BAR_BG_COLOR $BAR_BG_COLOR #4FC0E8
-        inactive_workspace $BAR_BG_COLOR $BAR_BG_COLOR #C1D1E0
-        urgent_workspace   $BAR_BG_COLOR $BAR_BG_COLOR #C1D1E0
-    }
-}
+#
+#bar {
+#    #status_command i3status
+#    status_command i3blocks
+#    tray_output primary
+#    position top
+#    font pango:Terminus, Siji 8
+#	  strip_workspace_numbers yes
+#    colors {
+#        background $BAR_BG_COLOR
+#        statusline #788491
+#        separator #51c4d4
+#
+#        focused_workspace  $BAR_BG_COLOR $BAR_BG_COLOR #4FC0E8
+#        active_workspace   $BAR_BG_COLOR $BAR_BG_COLOR #4FC0E8
+#        inactive_workspace $BAR_BG_COLOR $BAR_BG_COLOR #C1D1E0
+#        urgent_workspace   $BAR_BG_COLOR $BAR_BG_COLOR #C1D1E0
+#    }
+#}
