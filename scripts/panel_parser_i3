@@ -1,0 +1,49 @@
+#! /bin/sh
+
+#. panel_colors
+. $(dirname $0)/panel_colors
+
+host=$(uname -n)
+while read -r line ; do
+    case $line in
+        SKY*)
+            # skype output
+            skype="%{F${sky_color_fg} B${sky_color_bg}}  ${line#???} %{F- B-}"
+            ;;
+        S*)
+            # clock output
+            sys_infos="${line#?}"
+            ;;
+        T*)
+            # xtitle output
+            title="${line#?}"
+            ;;
+        WSP*)
+          # i3 workspaces
+          wsp=""
+          set -- ${line#???}
+          while [ $# -gt 0 ] ; do
+            case $1 in
+             FOC*)
+               color_fg=$wsp_focused_color_fg
+               color_bg=$wsp_focused_color_bg
+               color_ul=$wsp_focused_color_ul
+               ;;
+             INA*|ACT*)
+               color_fg=$wsp_unfocused_color_fg
+               color_bg=$wsp_unfocused_color_bg
+               color_ul=$wsp_unfocused_color_ul
+               ;;
+             URG*)
+               color_fg=$wsp_urgent_color_fg
+               color_bg=$wsp_urgent_color_bg
+               color_ul=$wsp_urgent_color_ul
+               ;;
+            esac
+            wsp="${wsp}%{F${color_fg} B${color_bg} U${color_ul}+u}${1#?????}%{-u} "
+            shift
+          done
+          ;;
+    esac
+    printf "%s\n" "%{l}  %{F$COLOR_HOST_FG} ${host}  ${wsp} %{c} %{F$COLOR_TITLE_FG}$title %{r} $skype $sys_infos  "
+done

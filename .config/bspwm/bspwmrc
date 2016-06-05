@@ -27,4 +27,4 @@ bspc config focused_frame_opacity 0.05
 bspc rule -a BSPWM_FRAME --frame
 bspc rule -a Gimp floating=on
 
-/home/chip/scripts/panel &
+/home/chip/scripts/panel bspwm &

@@ -1,6 +1,10 @@
 #! /bin/sh
 
+. panel_colors
+
 LOCATION="/home/chip/scripts/"
+
+flavor=${1:-i3}
 
 if [ $(pgrep -cx panel) -gt 1 ] ; then
     printf "%s\n" "The panel is already running." >&2
@@ -8,8 +12,6 @@ if [ $(pgrep -cx panel) -gt 1 ] ; then
 fi
 
 trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
-
-flavor=${1:-bar}
 
 [ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
 mkfifo "$PANEL_FIFO"
@@ -19,25 +21,23 @@ clock() {
   echo "S$DATE"
 }
 
-bspc config top_padding $PANEL_HEIGHT
-bspc control --subscribe > "$PANEL_FIFO" &
 xtitle -sf 'T%s' > "$PANEL_FIFO" &
 #clock > "$PANEL_FIFO" &
 conky -c "${LOCATION}panel_conky" > $PANEL_FIFO &
 #panel_trayer
-stalonetray &
+#stalonetray &
 
 case "$flavor" in
-    bar)
-        #cat "$PANEL_FIFO" | panel_bar | lemonbar -f "-misc-stlarch-medium-*-normal-*-10-*-*-*-c-*-*-1" -g 1920x18 -B "#171616" -F "#ffffff" -u 2
-        cat "$PANEL_FIFO" | panel_bar | lemonbar -f "-*-terminus-medium-*-normal-*-12-*-*-*-c-*-*-1" -f "-*-siji-medium-*-normal-*-10-*-*-*-c-*-*-1" -g 1920x18+0+4 -B "#26292c" -F "#ffffff" -u 2
-        #cat "$PANEL_FIFO" | panel_bar | lemonbar -g 1920x18 -B "#171616" -F "#ffffff" -u 2
+    i3)
+        # TODO: must use fork of i3-py to avoid unicode bug
+        ${LOCATION}i3_workspaces.py > "$PANEL_FIFO" &
+        #${LOCATION}skype.py > "$PANEL_FIFO" &
+        cat "$PANEL_FIFO" | ${LOCATION}panel_parser_i3 | lemonbar -f "-*-terminus-medium-*-normal-*-12-*-*-*-c-*-*-1" -f "-*-siji-medium-*-normal-*-10-*-*-*-c-*-*-1" -g 1920x18+0+4 -B "${bar_color_bg}" -F "${bar_color_fg}" -u 2
         ;;
-    dzen2)
-        . panel_colors
-        FONT_FAMILY='DejaVu Sans'
-        FONT_SIZE=11
-        cat "$PANEL_FIFO" | panel_dzen2 -f "$FONT_FAMILY" -s "$FONT_SIZE" | dzen2 -h $PANEL_HEIGHT -dock -ta l -title-name panel -fn "${FONT_FAMILY}:pixelsize=${FONT_SIZE}" -fg "$COLOR_FOREGROUND" -bg "$COLOR_BACKGROUND" &
+    bspwm)
+        bspc config top_padding $PANEL_HEIGHT
+        bspc control --subscribe > "$PANEL_FIFO" &
+        cat "$PANEL_FIFO" | ${LOCATION}panel_parser_bspwm | lemonbar -f "-*-terminus-medium-*-normal-*-12-*-*-*-c-*-*-1" -f "-*-siji-medium-*-normal-*-10-*-*-*-c-*-*-1" -g 1920x18+0+4 -B "${bar_color_bg}" -F "${bar_color_fg}" -u 2
         ;;
 esac
 
