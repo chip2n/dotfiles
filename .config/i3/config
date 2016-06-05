@@ -27,10 +27,12 @@ font -*-terminus-*-*-*-*-12-*-*-*-*-*-*-*
 # X core fonts rendering does not support right-to-left and this being a bitmap
 # font, it doesn’t scale on retina/hidpi displays.
 
+
 focus_follows_mouse no
 
 # Disable titlebars
 for_window [class="^.*"] border pixel 1
+for_window [instance="^stalonetray$"] border pixel 0
 
 # Floating windows
 for_window [class="^.*" instance="floating"] floating enable
