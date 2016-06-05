@@ -3,7 +3,7 @@
 #
 
 super + shift + q
-    bspc quit && killall panel && killall panel_bar
+    bspc quit && killall panel && killall panel_parser_bspwm
 
 super + shift + c
     bspc window -c
