@@ -38,19 +38,31 @@ let g:easytags_auto_highlight=0
 
 Bundle 'majutsushi/tagbar'
 
+"Bundle 'wincent/command-t'
+"if &term =~ "rxvt-unicode" || &term =~ "screen"
+"  let g:CommandTCancelMap = ['<ESC>', '<C-c>']
+"endif
+" NOTE: Install with:
+"   > cd ~/.vim/bundle/command-t/ruby/commant-t
+"   > ruby extconf.rb
+"   > make
+
 Bundle 'ctrlpvim/ctrlp.vim'
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 0
 nnoremap <C-b> :CtrlPBuffer <CR>
 
 Bundle 'JazzCore/ctrlp-cmatcher'
 " NOTE: Must run .vim/bundle/ctrlp-matcher/install.sh
 let g:ctrlp_match_func = {'match': 'matcher#cmatch'}
 
-Bundle 'Shougo/unite.vim'
+Bundle 'jlanzarotta/bufexplorer'
+
+"Bundle 'Shougo/unite.vim'
 
 " NOTE: Must be compiled using make
-Bundle 'Shougo/vimproc.vim'
+"Bundle 'Shougo/vimproc.vim'
 
 autocmd Filetype java setlocal omnifunc=javacomplete#Complete
 autocmd Filetype java map <leader> b :call javacomplete#GoToDefinition()<CR>
@@ -80,10 +92,10 @@ nnoremap j gj
 nnoremap k gk
 
 " Navigate between vim splits
-nmap <silent> <c-h> :wincmd h<CR>
-nmap <silent> <c-j> :wincmd j<CR>
-nmap <silent> <c-k> :wincmd k<CR>
-nmap <silent> <c-l> :wincmd l<CR>
+nmap <silent> <C-h> :wincmd h<CR>
+nmap <silent> <C-j> :wincmd j<CR>
+nmap <silent> <C-k> :wincmd k<CR>
+nmap <silent> <C-l> :wincmd l<CR>
 
 " Set split to 80 char width
 "nmap <silent> <c-p> :vertical resize 83<CR>
@@ -97,8 +109,8 @@ nnoremap <Space> <C-]>
 nnoremap <S-Space> <C-T>
 
 " Easier 'pagedown' and 'pageup' bindings
-nnoremap <C-J> <C-D>
-nnoremap <C-k> <C-U>
+"nnoremap <C-j> <C-D>
+"nnoremap <C-k> <C-U>
 
 " Enable 256 colors
 let &t_Co=256
@@ -117,9 +129,9 @@ set lazyredraw
 
 " Marks too long lines
 " NOTE: Theme must highlight OverLength
-augroup vimrc_autocmds
-  autocmd BufEnter * match OverLength /\%81v.\+/
-augroup END
+"augroup vimrc_autocmds
+"  autocmd BufEnter * match OverLength /\%81v.\+/
+"augroup END
 
 " Mark column 80
 "set colorcolumn=80
@@ -174,9 +186,10 @@ set ttyfast
 set ruler
 
 " Set relativenumber when not in insert mode - numbers otherwise
-"set relativenumber
-autocmd InsertEnter * :set number
-autocmd InsertLeave * :set relativenumber
+set relativenumber
+set number
+"autocmd InsertEnter * :set norelativenumber
+"autocmd InsertLeave * :set relativenumber
 
 " Create an undo file to store the undo history
 set undofile
@@ -191,7 +204,7 @@ set tabstop=2
 set fillchars+=vert:\
 
 " Allow backspaces to delete text further than insert point
-set backspace=indent,eol,start
+"set backspace=indent,eol,start
 
 " Fold according to syntax - no nesting
 "set foldmethod=syntax
