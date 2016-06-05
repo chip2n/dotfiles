@@ -1,6 +1,7 @@
-geometry 7x1-250+6
-max_geometry 7x1-250+5
+geometry 7x1-306+1
+max_geometry 7x1-250+0
 icon_size 8
-background "#26292c"
+background "#1f1f1f"
 grow_gravity NE
 icon_gravity NE
+window_type normal
