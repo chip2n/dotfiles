@@ -7,7 +7,7 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
-Bundle 'chip2n/chiptheme'
+"Bundle 'chip2n/chiptheme'
 Bundle 'tpope/vim-surround'
 Bundle 'tikhomirov/vim-glsl'
 Bundle 'flazz/vim-colorschemes'
@@ -119,7 +119,7 @@ let &t_Co=256
 syntax on
 set background=dark
 " colorscheme fu
-colorscheme test
+colorscheme chiptheme
 
 " Set font for GVim
 set guifont=Terminus\ 8
