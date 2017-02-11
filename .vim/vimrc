@@ -14,6 +14,7 @@ Bundle 'flazz/vim-colorschemes'
 Bundle 'vim-scripts/ScrollColors'
 Bundle 'tmhedberg/SimpylFold'
 Bundle 'xolox/vim-misc'
+Bundle 'udalov/kotlin-vim'
 
 Bundle 'scrooloose/nerdtree'
 let NERDTreeIgnore = ['\.pyc$', '\.hi$', '\.o$', '\.dyn_hi$', '\.dyn_o$']
