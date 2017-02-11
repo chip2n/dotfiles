@@ -2,24 +2,36 @@ xset +fp /usr/share/fonts/local
 xset +fp /usr/share/fonts/artwiz-fonts
 xset +fp /home/chip/.fonts
 xset fp rehash
-setxkbmap se
+
+setxkbmap se -option caps:escape
+
 dropbox &
-# compton &
+## compton &
 feh --bg-scale /home/chip/dotfiles/gray.png
-skype -style GTK &
+#skype -style GTK &
 unclutter &
-xbacklight -set 100
+#xbacklight -set 100
 
 export PATH=$HOME/.cabal/bin:$HOME/scripts:$HOME/local_scripts:$PATH
 
-export CLASSPATH=/usr/lib/jvm/java-7-openjdk/lib/tools.jar
+#export CLASSPATH=/usr/lib/jvm/java-7-openjdk/lib/tools.jar
+
+# Lenovo trackpoint acceleration and sensitivity
+xinput --set-prop 12 'libinput Accel Speed' 1.0
+#echo 180 > /sys/bus/serio/devices/serio2/sensitivity
+
+# Disable trackpad on thinkpad
+xinput --set-prop 11 'Device Enabled' 0
+
+# Disable beep
+xset -b
 
 # XMonad
-#exec xmonad
+exec xmonad
 
 # BSPWM
 #sxhkd &
 #exec bspwm
 
 # i3
-exec i3
+#exec i3
