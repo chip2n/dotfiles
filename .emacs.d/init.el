@@ -17,6 +17,7 @@
 ; neotree
 (use-package neotree
   :ensure t)
+(setq neo-window-width 40)
 (define-key evil-normal-state-map (kbd "<backspace>") 'neotree-toggle)
 
 ; helm
