@@ -3,16 +3,16 @@ COLOR_FREE_FG='#ff77838c'
 COLOR_URGENT_FG='#ffffffff'
 COLOR_URGENT_UNDERLINE='#ffff0000'
 COLOR_FOCUSED_UNDERLINE='#ffffa500'
-COLOR_HOST_FG='#ff5ba7c2'
-COLOR_TITLE_FG='#ff77838c'
+COLOR_HOST_FG='#ff3a8ba6'
+COLOR_TITLE_FG='#ffe7f0f3'
 
 bar_color_fg="#f2f3f2"
-bar_color_bg="#1f1f1f"
+bar_color_bg="#021d1f"
 
 wsp_colorbg=$bar_color_bg
 wsp_focused_color_fg="#f2f3f2"
 wsp_focused_color_bg=$wsp_colorbg
-wsp_focused_color_ul="#58756c"
+wsp_focused_color_ul="#3a8ba6"
 wsp_unfocused_color_fg="#f2f3f2"
 wsp_unfocused_color_bg=$wsp_colorbg
 wsp_unfocused_color_ul=$wsp_colorbg
