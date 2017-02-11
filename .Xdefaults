@@ -2,10 +2,10 @@
 
 URxvt*scrollBar: false
 #URxvt*font:-*-lemon-*-*-*-*-*-*-*-*-*-*-*-*
-URxvt*font:-*-terminus-*-*-*-*-12-*-*-*-*-*-*-*
+URxvt*font:-*-terminus-medium-*-*-*-14-*-*-*-*-*-*-*
 URxvt*internalBorder: 10
 URxvt*letterspace: -5
-URxvt*cursorUnderline: 1
+URxvt*cursorUnderline: 0
 URxvt*cursorBlink:                true
 URxvt*depth:                        33
 URxvt.keysym.M-u: perl:url-select:select_next
