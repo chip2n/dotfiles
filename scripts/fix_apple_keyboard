@@ -1,0 +1,5 @@
+#!/bin/sh
+
+setxkbmap -option ctrl:nocaps se
+xmodmap ~/.Xmodmap
+xset -b
