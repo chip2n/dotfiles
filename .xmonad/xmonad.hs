@@ -3,6 +3,8 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Reflect
+import XMonad.Layout.NoBorders
+import XMonad.Actions.CycleWS
 import XMonad.Hooks.DynamicLog
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
@@ -19,7 +21,7 @@ main = do
 
 
 -- Status bar {{{
-myBar = "dzen2 -fn terminus-8 -x '0' -y '0' -h '18' -w '1920' -ta 'l' -fg '#ffffff' -bg '" ++ colorBarBg ++ "'"
+myBar = "dzen2 -fn terminus-8 -x '0' -y '0' -h '18' -w '1920' -ta 'l' -fg '#ffffff' -bg '" ++ colorBarBg ++ "' -xs 1"
 myBitmapsDir = "/home/chip/.xmonad/icons/"
 
 myPP = defaultPP
@@ -45,10 +47,10 @@ toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
 
 workspaceIcons = map diceIcon [1..5]
     where diceIcon s = "^i(" ++ myBitmapsDir ++ "dice" ++ show s ++ ".xbm)"
-myWorkspaces = take 4 workspaceIcons
+myWorkspaces = workspaceIcons
 
 myConfig = defaultConfig
-    { terminal    = "xterm"
+    { terminal    = "urxvt"
     , workspaces  = myWorkspaces
     , modMask     = mod4Mask
     , keys        = myKeys
@@ -57,9 +59,10 @@ myConfig = defaultConfig
     , focusedBorderColor = colorFocusedBorder
     , layoutHook = myLayout
     , manageHook = myManageHook
+    , focusFollowsMouse = False
     }
 
-myLayout = spacing 3 . avoidStruts $ tiled ||| reflectHoriz tiled ||| Mirror tiled ||| Full
+myLayout = spacing 3 . avoidStruts $ tiled ||| reflectHoriz tiled ||| Mirror tiled ||| noBorders Full
   where
     tiled = ResizableTall 1 (3/100) (2/3) []
 
@@ -71,8 +74,8 @@ myManageHook = composeOne [
 
 -- Theme {{{
 -- Colors
-colorNormalBorder = "#1c404b"
-colorFocusedBorder = "#5FD7FF"
+colorNormalBorder = "#1d3036"
+colorFocusedBorder = "#3a8ba6"
 
 colorBarBg = "#1B1D1E"
 
@@ -99,6 +102,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask, xK_comma), sendMessage (IncMasterN 1))
     , ((modMask, xK_period), sendMessage (IncMasterN (-1)))
     , ((modMask, xK_t), withFocused $ windows . W.sink)
+    , ((modMask .|. shiftMask .|. controlMask, xK_j), shiftNextScreen)
 
     -- quit or restart
     , ((modMask, xK_q), spawn "killall conky dzen2 && xmonad --recompile && xmonad --restart")
@@ -106,11 +110,11 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     ]
     ++
     -- workspace switch
-    zipWith (\w k -> ((modMask, k), windows (W.view w))) (XMonad.workspaces conf) [xK_1 .. xK_9]
+    zipWith (\w k -> ((modMask, k), windows (W.greedyView w))) (XMonad.workspaces conf) [xK_1 .. xK_9]
     ++
     -- workspace switch (multihead swapping)
-    zipWith (\w k -> ((modMask .|. shiftMask .|. controlMask, k), windows (W.greedyView w))) (XMonad.workspaces conf) [xK_1 .. xK_9]
-    ++
+    --zipWith (\w k -> ((modMask .|. shiftMask .|. controlMask, k), windows (W.greedyView w))) (XMonad.workspaces conf) [xK_1 .. xK_9]
+    -- ++
     -- workspace window move
     zipWith (\w k -> ((modMask .|. shiftMask, k), windows (W.shift w))) (XMonad.workspaces conf) [xK_1 .. xK_9]
     ++
