@@ -56,6 +56,9 @@
 (use-package all-the-icons
   :ensure t)
 
+; hide welcome screen
+(setq inhibit-startup-screen t)
+
 ; highlight the current line
 (global-hl-line-mode +1)
 
