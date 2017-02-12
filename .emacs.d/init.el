@@ -10,6 +10,10 @@
 (require 'use-package)
 
 ; evil
+(use-package evil-leader
+  :ensure t)
+(global-evil-leader-mode)
+(evil-leader/set-leader "<SPC>")
 (use-package evil
   :ensure t)
 (evil-mode 1)
@@ -27,7 +31,17 @@
 (use-package helm
   :ensure t)
 (helm-mode 1)
-(define-key evil-normal-state-map (kbd "SPC") 'helm-M-x)
+(evil-leader/set-key
+  "<SPC>" 'helm-M-x
+  "b" 'helm-buffers-list )
+
+; projectile
+(use-package projectile
+  :ensure t)
+(use-package helm-projectile
+  :ensure t)
+(evil-leader/set-key
+  "p" 'helm-projectile)
 
 ; clojure-mode
 (use-package clojure-mode
@@ -84,8 +98,10 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" default)))
- '(package-selected-packages (quote (nlinum clojure-mode evil))))
+    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" default)))
+ '(package-selected-packages
+   (quote
+    (evil-leader helm-projectile projectile smart-mode-line nlinum clojure-mode evil))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
