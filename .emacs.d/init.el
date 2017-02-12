@@ -65,6 +65,9 @@
 ; enable line numbering
 (global-linum-mode 1)
 
+; show matching parentesis
+(show-paren-mode 1)
+
 ; doom theme
 (use-package doom-themes
   :ensure t)
