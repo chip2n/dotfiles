@@ -92,6 +92,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     -- layouts
     , ((modMask, xK_space), sendMessage NextLayout)
     , ((modMask .|. shiftMask, xK_space), setLayout $ XMonad.layoutHook conf)
+    , ((modMask, xK_f), sendMessage $ JumpToLayout "Full")
     , ((modMask, xK_h), sendMessage Shrink)
     , ((modMask, xK_l), sendMessage Expand)
     , ((modMask, xK_minus), sendMessage MirrorShrink)
