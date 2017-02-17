@@ -1,6 +1,7 @@
-import XMonad
+import XMonad hiding ((|||))
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
+import XMonad.Layout.LayoutCombinators
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Reflect
 import XMonad.Layout.NoBorders
@@ -104,6 +105,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask, xK_comma), sendMessage (IncMasterN 1))
     , ((modMask, xK_period), sendMessage (IncMasterN (-1)))
     , ((modMask, xK_t), withFocused $ windows . W.sink)
+    , ((modMask, xK_Tab), toggleWS)
     , ((modMask .|. shiftMask .|. controlMask, xK_j), shiftNextScreen)
 
     -- quit or restart
