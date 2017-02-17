@@ -93,6 +93,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. shiftMask, xK_space), setLayout $ XMonad.layoutHook conf)
     , ((modMask, xK_h), sendMessage Shrink)
     , ((modMask, xK_l), sendMessage Expand)
+    , ((modMask, xK_minus), sendMessage MirrorShrink)
+    , ((modMask, xK_plus), sendMessage MirrorExpand)
     , ((modMask, xK_j), windows W.focusDown)
     , ((modMask, xK_k), windows W.focusUp)
     , ((modMask .|. shiftMask, xK_j), windows W.swapDown)
