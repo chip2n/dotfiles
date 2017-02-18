@@ -1,41 +1,42 @@
-; package.el
+; load scripts
+(add-to-list 'load-path "~/.emacs.d/scripts")
+
+;; ---------------------- package stuff ----------------------
+;; package.el
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (package-initialize)
 
-; use-package
+;; use-package
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
 (require 'use-package)
+;; -----------------------------------------------------------
 
-; evil
-(use-package evil-leader
-  :ensure t)
-(global-evil-leader-mode)
-(evil-leader/set-leader "<SPC>")
-(use-package evil
-  :ensure t)
-(evil-mode 1)
 
-; neotree
-(use-package neotree
-  :ensure t)
-(setq neo-window-width 40)
-(define-key evil-normal-state-map (kbd "<backspace>") 'neotree-toggle)
-(add-hook 'neotree-mode-hook
-	  (lambda ()
-	    (define-key evil-normal-state-local-map (kbd "o") 'neotree-enter)))
+(require 'private)
 
-; helm
-(use-package helm
-  :ensure t)
-(helm-mode 1)
-(evil-leader/set-key
-  "<SPC>" 'helm-M-x
-  "b" 'helm-buffers-list )
+(require 'init-evil)
+(require 'init-helm)
+(require 'init-neotree)
 
-; projectile
+;; slack
+(use-package slack
+  :commands (slack-start)
+  :init
+  (setq slack-buffer-emojify t)
+  (setq slack-prefer-current-team t)
+  :ensure t
+  :config
+  (slack-register-team
+   :name "remente"
+   :default t
+   :client-id private/slack-client-id-remente
+   :client-secret private/slack-client-secret-remente
+   :token private/slack-token-remente))
+
+;; projectile
 (use-package projectile
   :ensure t)
 (use-package helm-projectile
@@ -43,32 +44,46 @@
 (evil-leader/set-key
   "p" 'helm-projectile)
 
-; clojure-mode
-(use-package clojure-mode
-  :ensure t)
+;; smartparens: https://github.com/Fuco1/smartparens
+(use-package smartparens
+  :ensure t
+  :config
+  (progn
+    (show-smartparens-global-mode t)))
+;;(require 'smartparens-config)
 
-; cider
-(use-package cider
-  :ensure t)
-(add-hook 'clojure-mode-hook 'cider-mode)
+(add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
 
-; all-the-icons
+(require 'clojure)
+(require 'haskell)
+
+
+;; ---------------------- interface stuff ----------------------
+
+;; winner-mode
+;; enables undo/redo of window changes
+(winner-mode)
+(evil-leader/set-key
+  "h" 'winner-undo
+  "l" 'winner-redo)
+
+;; buffer-move
+;; rearrange buffers in a more straightforward way
+(use-package buffer-move
+  :ensure t)
+(define-key evil-normal-state-map (kbd "M-h") 'buf-move-left)
+(define-key evil-normal-state-map (kbd "M-k") 'buf-move-up)
+(define-key evil-normal-state-map (kbd "M-l") 'buf-move-right)
+(define-key evil-normal-state-map (kbd "M-j") 'buf-move-down)
+
+;; all-the-icons
 (use-package all-the-icons
   :ensure t)
 
-; hide welcome screen
+;; hide welcome screen
 (setq inhibit-startup-screen t)
 
-; highlight the current line
-(global-hl-line-mode +1)
-
-; enable line numbering
-(global-linum-mode 1)
-
-; show matching parentesis
-(show-paren-mode 1)
-
-; doom theme
+;; doom theme
 (use-package doom-themes
   :ensure t)
 (load-theme 'doom-one t)
@@ -76,12 +91,50 @@
       doom-enable-italic t)
 (require 'doom-neotree)
 
-; Set default font
+;; Set default font
 (set-face-attribute 'default nil
                     :family "Source Code Pro"
                     :height 110
                     :weight 'normal
                     :width 'normal)
+
+;; disable gui fluff
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+
+;; -------------------------------------------------------------
+
+
+;; ---------------------- editor stuff ----------------------
+
+;; utf-8 as default encoding
+(set-language-environment "UTF-8")
+
+;; set default comment column to 70
+(setq-default comment-column 70)
+
+;; highlight the current line
+(global-hl-line-mode +1)
+
+;; enable line numbering
+(global-linum-mode 1)
+
+;; show matching parenthesis
+(show-paren-mode 1)
+
+;; ----------------------------------------------------------
+
+;; ---------------------- keybindings ----------------------
+
+;; open init.el
+(evil-leader/set-key
+  "c" (lambda ()
+	(interactive)
+	(find-file "~/.emacs.d/init.el"))
+  "f" 'helm-find-files)
+
+;; ---------------------------------------------------------
 
 ; smart-mode-line
 ;(use-package smart-mode-line
@@ -91,11 +144,6 @@
 ;(setq sml/no-confirm-load-theme t)
 ;(setq sml/theme 'powerline)
 ;(sml/setup)
-
-; disable gui fluff
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -107,7 +155,7 @@
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" default)))
  '(package-selected-packages
    (quote
-    (evil-leader helm-projectile projectile smart-mode-line nlinum clojure-mode evil))))
+    (url-http-extra-headers url-http smartparens haskell-mode buffer-move elscreen slack emacs-slack evil-leader helm-projectile projectile smart-mode-line nlinum clojure-mode evil))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
