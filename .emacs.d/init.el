@@ -14,31 +14,18 @@
 (require 'use-package)
 ;; -----------------------------------------------------------
 
-
-(require 'private)
-
 (require 'init-evil)
 (require 'init-helm)
 (require 'init-neotree)
+(require 'init-slack)
 
-;; slack
-(use-package slack
-  :commands (slack-start)
-  :init
-  (setq slack-buffer-emojify t)
-  (setq slack-prefer-current-team t)
-  :ensure t
-  :config
-  (slack-register-team
-   :name "remente"
-   :default t
-   :client-id private/slack-client-id-remente
-   :client-secret private/slack-client-secret-remente
-   :token private/slack-token-remente))
+(require 'clojure)
+(require 'haskell)
 
 ;; projectile
 (use-package projectile
   :ensure t)
+(projectile-mode)
 (use-package helm-projectile
   :ensure t)
 (evil-leader/set-key
@@ -53,9 +40,6 @@
 ;;(require 'smartparens-config)
 
 (add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
-
-(require 'clojure)
-(require 'haskell)
 
 
 ;; ---------------------- interface stuff ----------------------
@@ -76,33 +60,7 @@
 (define-key evil-normal-state-map (kbd "M-l") 'buf-move-right)
 (define-key evil-normal-state-map (kbd "M-j") 'buf-move-down)
 
-;; all-the-icons
-(use-package all-the-icons
-  :ensure t)
-
-;; hide welcome screen
-(setq inhibit-startup-screen t)
-
-;; doom theme
-(use-package doom-themes
-  :ensure t)
-(load-theme 'doom-one t)
-(setq doom-enable-bold t
-      doom-enable-italic t)
-(require 'doom-neotree)
-
-;; Set default font
-(set-face-attribute 'default nil
-                    :family "Source Code Pro"
-                    :height 110
-                    :weight 'normal
-                    :width 'normal)
-
-;; disable gui fluff
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-
+(require 'init-theme)
 ;; -------------------------------------------------------------
 
 
@@ -155,7 +113,7 @@
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" default)))
  '(package-selected-packages
    (quote
-    (url-http-extra-headers url-http smartparens haskell-mode buffer-move elscreen slack emacs-slack evil-leader helm-projectile projectile smart-mode-line nlinum clojure-mode evil))))
+    (evil-surround url-http-extra-headers url-http smartparens haskell-mode buffer-move elscreen slack emacs-slack evil-leader helm-projectile projectile smart-mode-line nlinum clojure-mode evil))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

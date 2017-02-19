@@ -7,6 +7,15 @@
   "<SPC>" 'helm-M-x
   "b" 'helm-buffers-list)
 
+;; projectile
+(use-package projectile
+  :ensure t)
+(projectile-mode)
+(use-package helm-projectile
+  :ensure t)
+(evil-leader/set-key
+  "p" 'helm-projectile)
+
 ;; -----------------------------------------------------------------------
 ;; Add keybinding for opening buffers in splits
 ;;
