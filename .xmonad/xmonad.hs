@@ -1,4 +1,5 @@
 import XMonad hiding ((|||))
+import XMonad.Config.Desktop
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.LayoutCombinators
@@ -20,9 +21,8 @@ main = do
     spawnPipe "~/.xmonad/launch_trayer.sh"
     xmonad b
 
-
 -- Status bar {{{
-myBar = "dzen2 -fn terminus-8 -x '0' -y '0' -h '18' -w '1920' -ta 'l' -fg '#ffffff' -bg '" ++ colorBarBg ++ "' -xs 1"
+myBar = "dzen2 -dock -fn terminus-8 -x '0' -y '0' -h '18' -w '1920' -ta 'l' -fg '#ffffff' -bg '" ++ colorBarBg ++ "' -xs 1"
 myBitmapsDir = "/home/chip/.xmonad/icons/"
 
 myPP = defaultPP
@@ -50,7 +50,7 @@ workspaceIcons = map diceIcon [1..5]
     where diceIcon s = "^i(" ++ myBitmapsDir ++ "dice" ++ show s ++ ".xbm)"
 myWorkspaces = workspaceIcons
 
-myConfig = defaultConfig
+myConfig = desktopConfig
     { terminal    = "urxvt"
     , workspaces  = myWorkspaces
     , modMask     = mod4Mask
@@ -60,6 +60,7 @@ myConfig = defaultConfig
     , focusedBorderColor = colorFocusedBorder
     , layoutHook = myLayout
     , manageHook = myManageHook
+    , handleEventHook = docksEventHook
     , focusFollowsMouse = False
     }
 
