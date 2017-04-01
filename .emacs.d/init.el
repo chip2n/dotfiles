@@ -20,7 +20,8 @@
 (require 'init-slack)
 
 (require 'clojure)
-(require 'haskell)
+(require 'init-haskell)
+(require 'init-python)
 (require 'yaml)
 (require 'markdown)
 
@@ -29,7 +30,13 @@
   :ensure t)
 (projectile-mode)
 (use-package helm-projectile
-  :ensure t)
+  :ensure t
+  :init
+  (defvar helm-source-file-not-found
+    (helm-build-dummy-source
+	"Create file"
+      :action 'find-file))
+  (add-to-list 'helm-projectile-sources-list helm-source-file-not-found t))
 (evil-leader/set-key
   "p" 'helm-projectile
   "P" 'helm-projectile-switch-project)
@@ -73,7 +80,7 @@
 
 ;; splitting windows
 (evil-leader/set-key
-  "wh" 'split-window-left
+  "wl" 'split-window-right
   "wj" 'split-window-below)
 
 (evil-leader/set-key
@@ -133,7 +140,7 @@
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" default)))
  '(package-selected-packages
    (quote
-    (evil-magit magit markdown-mode yaml-mode evil-surround url-http-extra-headers url-http smartparens haskell-mode buffer-move elscreen slack emacs-slack evil-leader helm-projectile projectile smart-mode-line nlinum clojure-mode evil))))
+    (pyvenv evil-magit magit markdown-mode yaml-mode evil-surround url-http-extra-headers url-http smartparens haskell-mode buffer-move elscreen slack emacs-slack evil-leader helm-projectile projectile smart-mode-line nlinum clojure-mode evil))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

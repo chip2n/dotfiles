@@ -15,12 +15,10 @@
       doom-enable-italic t)
 (require 'doom-neotree)
 
-;; Set default font
+;; set default font
 (set-face-attribute 'default nil
-                    :family "Source Code Pro"
-                    :height 110
-                    :weight 'normal
-                    :width 'normal)
+                    :family "Terminus"
+                    :height 110)
 
 ;; disable gui fluff
 (menu-bar-mode -1)
