@@ -35,10 +35,10 @@ myPP = defaultPP
       , ppOrder = \(workspaces:layout:title:xs) -> (layout:workspaces:title:xs)
       , ppLayout = dzenColor colorFocusedBorder colorBarBg . (" " ++) . pad .
                    (\x -> case x of
-                       "Spacing 3 ResizableTall" -> "^i(" ++ myBitmapsDir ++ "/tall.xbm)"
-                       "Spacing 3 ReflectX ResizableTall" -> "^i(" ++ myBitmapsDir ++ "/rtall.xbm)"
-                       "Spacing 3 Mirror ResizableTall" -> "^i(" ++ myBitmapsDir ++ "/mtall.xbm)"
-                       "Spacing 3 Full" -> "^i(" ++ myBitmapsDir ++ "/full2.xbm)"
+                       "ResizableTall" -> "^i(" ++ myBitmapsDir ++ "/tall.xbm)"
+                       "ReflectX ResizableTall" -> "^i(" ++ myBitmapsDir ++ "/rtall.xbm)"
+                       "Mirror ResizableTall" -> "^i(" ++ myBitmapsDir ++ "/mtall.xbm)"
+                       "Full" -> "^i(" ++ myBitmapsDir ++ "/full2.xbm)"
                        _               -> x
                    )
     }
@@ -64,7 +64,7 @@ myConfig = desktopConfig
     , focusFollowsMouse = False
     }
 
-myLayout = spacing 3 . avoidStruts $ tiled ||| reflectHoriz tiled ||| Mirror tiled ||| noBorders Full
+myLayout = avoidStruts $ tiled ||| reflectHoriz tiled ||| Mirror tiled ||| noBorders Full
   where
     tiled = ResizableTall 1 (3/100) (2/3) []
 
@@ -79,7 +79,7 @@ myManageHook = composeOne [
 colorNormalBorder = "#1d3036"
 colorFocusedBorder = "#3a8ba6"
 
-colorBarBg = "#1B1D1E"
+colorBarBg = "#021d1f"
 
 barFont = "terminus"
 --}}}
