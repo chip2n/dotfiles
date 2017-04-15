@@ -59,8 +59,7 @@
   (progn
     (show-smartparens-global-mode t)))
 ;;(require 'smartparens-config)
-
-(add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
+;;(add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
 
 ;; magit: https://github.com/magit/magit
 (use-package magit
