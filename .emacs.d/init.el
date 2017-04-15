@@ -79,9 +79,22 @@
 (use-package evil-snipe
   :ensure t)
 (evil-snipe-override-mode 1)
+;; turn off evil-snipe in ranger
+(add-hook 'ranger-mode-hook 'turn-off-evil-snipe-override-mode)
 ;; turn off evil-snipe in magit
 (add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode)
 
+;; ranger: https://github.com/ralesi/ranger.el
+(use-package ranger
+  :ensure t)
+(evil-leader/set-key
+  "r" 'ranger)
+;; make ranger the default file browser
+(ranger-override-dired-mode t)
+;; disable file preview by default
+(setq ranger-preview-file nil)
+;; hide hidden files by default
+(setq ranger-show-hidden nil)
 
 
 ;; ---------------------- interface stuff ----------------------
