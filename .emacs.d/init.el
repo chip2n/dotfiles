@@ -14,6 +14,9 @@
 (require 'use-package)
 ;; -----------------------------------------------------------
 
+(use-package hydra
+  :ensure t)
+
 (require 'init-evil)
 (require 'init-helm)
 (require 'init-neotree)
