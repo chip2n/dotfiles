@@ -69,6 +69,12 @@
 (evil-leader/set-key
   "g" 'magit-status)
 
+;; ace-jump-mode
+(use-package ace-jump-mode
+  :ensure t)
+(evil-leader/set-key
+  "s" 'ace-jump-word-mode)
+
 
 ;; ---------------------- interface stuff ----------------------
 
