@@ -33,6 +33,9 @@
 (use-package groovy-mode
   :ensure t)
 
+;; save session when exiting emacs
+(desktop-save-mode 1)
+
 ;; projectile
 (use-package projectile
   :ensure t)
