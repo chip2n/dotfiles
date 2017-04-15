@@ -79,6 +79,9 @@
 (use-package evil-snipe
   :ensure t)
 (evil-snipe-override-mode 1)
+;; turn off evil-snipe in magit
+(add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode)
+
 
 
 ;; ---------------------- interface stuff ----------------------
