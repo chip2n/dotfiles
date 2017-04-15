@@ -15,6 +15,9 @@
   :ensure t)
 (evil-leader/set-key
   "p" 'helm-projectile)
+(use-package helm-ag
+  :ensure t)
+
 
 ;; -----------------------------------------------------------------------
 ;; Add keybinding for opening buffers in splits
