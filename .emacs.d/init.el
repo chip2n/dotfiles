@@ -75,6 +75,11 @@
 (evil-leader/set-key
   "s" 'ace-jump-word-mode)
 
+;; evil-snipe: https://github.com/hlissner/evil-snipe
+(use-package evil-snipe
+  :ensure t)
+(evil-snipe-override-mode 1)
+
 
 ;; ---------------------- interface stuff ----------------------
 
