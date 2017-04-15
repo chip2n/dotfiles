@@ -117,8 +117,10 @@
 
 ;; splitting windows
 (evil-leader/set-key
-  "wl" 'split-window-right
-  "wj" 'split-window-below)
+  "wh" 'split-window-right
+  "wl" (lambda () (interactive) (split-window-right) (other-window 1))
+  "wk" 'split-window-below
+  "wj" (lambda () (interactive) (split-window-below) (other-window 1)))
 
 (evil-leader/set-key
   "x" 'evil-quit
