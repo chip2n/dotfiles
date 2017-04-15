@@ -139,9 +139,6 @@
 ;; highlight the current line
 (global-hl-line-mode +1)
 
-;; enable line numbering
-(global-linum-mode 1)
-
 ;; show matching parenthesis
 (show-paren-mode 1)
 
