@@ -28,6 +28,8 @@
 (require 'yaml)
 (require 'markdown)
 
+(require 'init-org)
+
 ;; projectile
 (use-package projectile
   :ensure t)
