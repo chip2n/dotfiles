@@ -30,6 +30,9 @@
 
 (require 'init-org)
 
+(use-package groovy-mode
+  :ensure t)
+
 ;; projectile
 (use-package projectile
   :ensure t)
