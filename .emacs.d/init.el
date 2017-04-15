@@ -142,6 +142,12 @@
 ;; show matching parenthesis
 (show-paren-mode 1)
 
+;; disable copy to clipboard on selection
+(setq x-select-enable-clipboard nil)
+
+;; enable line numbering
+;;(global-linum-mode 1)
+
 ;; ----------------------------------------------------------
 
 ;; ---------------------- keybindings ----------------------
