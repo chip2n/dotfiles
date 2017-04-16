@@ -192,10 +192,19 @@
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" default)))
  '(package-selected-packages
    (quote
-    (intero ranger hydra groovy-mode gradle-mode ace-jump-mode evil-snipe kotlin-mode helm-ag pyvenv evil-magit magit markdown-mode yaml-mode evil-surround url-http-extra-headers url-http smartparens haskell-mode buffer-move elscreen slack emacs-slack evil-leader helm-projectile projectile smart-mode-line nlinum clojure-mode evil))))
+    (telephone-line intero ranger hydra groovy-mode gradle-mode ace-jump-mode evil-snipe kotlin-mode helm-ag pyvenv evil-magit magit markdown-mode yaml-mode evil-surround url-http-extra-headers url-http smartparens haskell-mode buffer-move elscreen slack emacs-slack evil-leader helm-projectile projectile smart-mode-line nlinum clojure-mode evil))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-level-1 ((t (:background "#23272e" :foreground "#51afef" :weight bold)))))
+ '(org-level-1 ((t (:inherit outline-1 :height 1.0))))
+ '(org-level-2 ((t (:inherit outline-2 :height 1.0))))
+ '(org-level-3 ((t (:inherit outline-3 :height 1.0))))
+ '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
+ '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
+ '(telephone-line-accent-active ((t (:inherit mode-line :background "#3c404a" :foreground "white"))))
+ '(telephone-line-evil-emacs ((t (:inherit telephone-line-evil :background "orchid1"))))
+ '(telephone-line-evil-insert ((t (:inherit telephone-line-evil :background "#5972ab"))))
+ '(telephone-line-evil-normal ((t (:inherit telephone-line-evil :background "#2f333a"))))
+ '(telephone-line-evil-visual ((t (:inherit telephone-line-evil :background "#5972ab")))))

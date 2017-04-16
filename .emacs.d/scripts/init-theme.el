@@ -15,6 +15,22 @@
       doom-enable-italic t)
 (require 'doom-neotree)
 
+;; telephone-line (https://github.com/dbordak/telephone-line)
+(use-package telephone-line
+  :ensure t)
+(setq telephone-line-lhs
+        '((evil   . (telephone-line-evil-tag-segment))
+          (accent . (telephone-line-vc-segment
+                     telephone-line-process-segment))
+          (nil    . (telephone-line-minor-mode-segment
+                     telephone-line-buffer-segment))))
+(setq telephone-line-rhs
+        '((nil    . (telephone-line-misc-info-segment))
+          (accent . (telephone-line-major-mode-segment))
+          (evil   . (telephone-line-airline-position-segment))))
+
+(telephone-line-mode t)
+
 ;; set default font
 (set-face-attribute 'default nil
                     :family "Terminus"
@@ -34,6 +50,7 @@
 (set-frame-parameter nil 'internal-border-width 10)
 (set-frame-parameter nil 'left-fringe 10)
 (set-frame-parameter nil 'right-fringe 10)
+
 
 ;;(use-package smart-mode-line
 ;;  :ensure t)
