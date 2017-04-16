@@ -16,6 +16,8 @@
 (define-key evil-normal-state-map (kbd "C-S-h") 'evil-window-decrease-width)
 (define-key evil-normal-state-map (kbd "C-S-k") 'evil-window-increase-height)
 (define-key evil-normal-state-map (kbd "C-S-j") 'evil-window-decrease-height)
+(define-key evil-normal-state-map (kbd "C-u") 'evil-scroll-up)
+(define-key evil-normal-state-map (kbd "C-d") 'evil-scroll-down)
 
 (use-package evil-surround
   :ensure t)
