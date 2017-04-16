@@ -28,3 +28,6 @@
         (neotree-dir project-dir)
         (neotree-find file-name))
     (message "Could not find git project root."))))
+
+;; open neotree at current working directory
+(setq neo-smart-open t)
