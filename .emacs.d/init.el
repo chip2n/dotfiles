@@ -175,7 +175,11 @@
   "c" (lambda ()
 	(interactive)
 	(find-file "~/.emacs.d/init.el"))
-  "f" 'helm-find-files)
+  "f" 'helm-find-files
+  "er" 'eval-region
+  "ed" 'eval-defun
+  "eb" 'eval-buffer
+  "ee" 'eval-expression)
 
 ;; ---------------------------------------------------------
 
