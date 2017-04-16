@@ -2,3 +2,36 @@
 *~
 *.swp
 *.swo
+
+# Random application configs
+.config/Android Open Source Project
+.config/QtProject.conf
+.config/UDP Software
+.config/autostart
+.config/ranger
+.config/skypeforlinux
+.config/vlc
+.config/xfce4
+.config/qutebrowser/qsettings
+.config/Genymobile
+.config/Slack
+.config/Thunar
+.config/Trolltech.conf
+.config/chromium
+.config/geany
+.config/inkscape
+.config/menus
+.config/htop
+.config/mimeapps.list
+.config/termite
+.config/spotify
+.config/VirtualBox
+.config/discord
+.config/gcloud
+.config/configstore
+.config/dconf
+.config/gtk-2.0
+.config/gtk-3.0
+.vim/plugged
+.xmonad/.stack-work
+.xmonad/xmonad.state
