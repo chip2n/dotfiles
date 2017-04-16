@@ -157,6 +157,11 @@
 ;; disable copy to clipboard on selection
 (setq x-select-enable-clipboard nil)
 
+;; smooth-scrolling (https://github.com/aspiers/smooth-scrolling)
+(use-package smooth-scrolling
+  :ensure t)
+(setq smooth-scroll-margin 5)
+
 ;; enable line numbering
 ;;(global-linum-mode 1)
 
@@ -194,7 +199,7 @@
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" default)))
  '(package-selected-packages
    (quote
-    (telephone-line intero ranger hydra groovy-mode gradle-mode ace-jump-mode evil-snipe kotlin-mode helm-ag pyvenv evil-magit magit markdown-mode yaml-mode evil-surround url-http-extra-headers url-http smartparens haskell-mode buffer-move elscreen slack emacs-slack evil-leader helm-projectile projectile smart-mode-line nlinum clojure-mode evil))))
+    (smooth-scrolling telephone-line intero ranger hydra groovy-mode gradle-mode ace-jump-mode evil-snipe kotlin-mode helm-ag pyvenv evil-magit magit markdown-mode yaml-mode evil-surround url-http-extra-headers url-http smartparens haskell-mode buffer-move elscreen slack emacs-slack evil-leader helm-projectile projectile smart-mode-line nlinum clojure-mode evil))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
