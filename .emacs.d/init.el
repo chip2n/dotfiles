@@ -161,6 +161,7 @@
 (use-package smooth-scrolling
   :ensure t)
 (setq smooth-scroll-margin 5)
+(smooth-scrolling-mode 1)
 
 ;; enable line numbering
 ;;(global-linum-mode 1)
