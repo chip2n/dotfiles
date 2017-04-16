@@ -48,7 +48,7 @@
 
 ;; margin stuff
 (set-frame-parameter nil 'internal-border-width 10)
-(set-frame-parameter nil 'left-fringe 10)
+(set-frame-parameter nil 'left-fringe 5)
 (set-frame-parameter nil 'right-fringe 10)
 
 
