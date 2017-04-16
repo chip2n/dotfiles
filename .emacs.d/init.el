@@ -96,6 +96,16 @@
 ;; hide hidden files by default
 (setq ranger-show-hidden nil)
 
+;; diminish-mode
+(use-package diminish
+  :ensure t)
+(diminish 'evil-snipe-local-mode)
+(diminish 'auto-revert-mode)
+(diminish 'helm-mode)
+(diminish 'undo-tree-mode)
+(diminish 'company-mode)
+(diminish 'projectile-mode)
+
 
 ;; ---------------------- interface stuff ----------------------
 
