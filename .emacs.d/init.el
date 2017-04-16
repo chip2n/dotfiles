@@ -173,6 +173,8 @@
 
 ;; ---------------------------------------------------------
 
+(require 'init-tetris)
+
 ; smart-mode-line
 ;(use-package smart-mode-line
 ;  :ensure t)
