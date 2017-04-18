@@ -4,7 +4,7 @@
 (setq org-log-done 'time)
 
 ;; add org directory (allows searching for todos and scheduling items)
-(setq org-agenda-files (list "~/Dropbox/org"))
+(setq org-agenda-files (list "~/org/personal" "~/org/remente"))
 
 (setq org-capture-templates
       '(("a" "My TODO task format." entry
