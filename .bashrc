@@ -12,7 +12,12 @@ alias c='cabal'
 alias cl='clear'
 alias woman,='sudo'
 alias feh='feh --scale-down'
-alias vimr='gvim /home/chip/.vim/vimrc'
 alias top='htop'
-#PS1='[\u@\h \W]\$ '
-PS1='\[\e[0;34m\]»\[\e[m\]  '
+alias vim='nvim'
+alias web='qutebrowser --backend webengine'
+PS1='\[\e[1;34m\]>>  \[\e[m\]'
+
+export LS_COLORS="di=1;34:"
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

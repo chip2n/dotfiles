@@ -27,3 +27,7 @@ Also, the following packages are optional for the same functionality and look:
 Recommended GTK3 themes:
 * Dorian Theme 3.10 (dorian-theme-3.10)   NOTE: Follow instructions to install the firefox theme.
 * Elementary icon theme (elementary-icon-theme in community repo)
+
+Emacs stuff
+-----------
+Font: Adobe Source Code Pro (package: adobe-source-code-pro-fonts)

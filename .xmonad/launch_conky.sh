@@ -4,4 +4,4 @@ for PID in `pgrep -x conky`; do
     kill ${PID} > /dev/null
 done
 
-conky -c /home/chip/.xmonad/conky_dzen | dzen2 -fn terminus-8 -x '1520' -y '0' -h '18' -w '1920' -ta 'r' -bg '#1b1d1e' &
+conky -c /home/chip/.xmonad/conky_dzen | dzen2 -fn terminus-8 -x '1520' -y '0' -h '18' -w '1920' -ta 'r' -bg '#021d1f' &

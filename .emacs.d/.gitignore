@@ -1,0 +1,10 @@
+elpa/
+scripts/private.el
+.emacs.desktop
+.emacs.desktop.lock
+bookmarks
+emojis
+eshell
+projectile-bookmarks.eld
+projectile.cache
+url

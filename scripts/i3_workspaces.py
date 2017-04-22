@@ -66,9 +66,26 @@ class i3ws(object):
             text = self.format(workspaces, outputs)
             self.display(text)
     
+    #def format(self, workspaces, outputs):
+    #    # Formats the text according to the workspace data given.
+    #    out = '' 
+    #    for workspace in workspaces:
+    #        output = None
+    #        for output_ in outputs:
+    #            if output_['name'] == workspace['output']:
+    #                output = output_
+    #                break
+    #        if not output:
+    #            continue
+    #        st = self.state.get_state(workspace, output)
+    #        name = workspace['name']
+    #        item= self.ws_format % (st, name)
+    #        out += item
+    #    return self.end_format % out
+
     def format(self, workspaces, outputs):
         # Formats the text according to the workspace data given.
-        out = '' 
+        out = []
         for workspace in workspaces:
             output = None
             for output_ in outputs:
@@ -79,9 +96,15 @@ class i3ws(object):
                 continue
             st = self.state.get_state(workspace, output)
             name = workspace['name']
+            out.append((st, name))
+
+        out.sort(key=lambda x: x[1])
+        out2 = ''
+        for (st, name) in out:
             item= self.ws_format % (st, name)
-            out += item
-        return self.end_format % out
+            out2 += item
+
+        return self.end_format % out2
     
     def display(self, text):
         # Displays the text in stout

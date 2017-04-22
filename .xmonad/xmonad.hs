@@ -1,8 +1,12 @@
-import XMonad
+import XMonad hiding ((|||))
+import XMonad.Config.Desktop
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
+import XMonad.Layout.LayoutCombinators
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Reflect
+import XMonad.Layout.NoBorders
+import XMonad.Actions.CycleWS
 import XMonad.Hooks.DynamicLog
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
@@ -17,9 +21,8 @@ main = do
     spawnPipe "~/.xmonad/launch_trayer.sh"
     xmonad b
 
-
 -- Status bar {{{
-myBar = "dzen2 -fn terminus-8 -x '0' -y '0' -h '18' -w '1920' -ta 'l' -fg '#ffffff' -bg '" ++ colorBarBg ++ "'"
+myBar = "dzen2 -dock -fn terminus-8 -x '0' -y '0' -h '18' -w '1920' -ta 'l' -fg '#ffffff' -bg '" ++ colorBarBg ++ "' -xs 1"
 myBitmapsDir = "/home/chip/.xmonad/icons/"
 
 myPP = defaultPP
@@ -32,10 +35,10 @@ myPP = defaultPP
       , ppOrder = \(workspaces:layout:title:xs) -> (layout:workspaces:title:xs)
       , ppLayout = dzenColor colorFocusedBorder colorBarBg . (" " ++) . pad .
                    (\x -> case x of
-                       "Spacing 3 ResizableTall" -> "^i(" ++ myBitmapsDir ++ "/tall.xbm)"
-                       "Spacing 3 ReflectX ResizableTall" -> "^i(" ++ myBitmapsDir ++ "/rtall.xbm)"
-                       "Spacing 3 Mirror ResizableTall" -> "^i(" ++ myBitmapsDir ++ "/mtall.xbm)"
-                       "Spacing 3 Full" -> "^i(" ++ myBitmapsDir ++ "/full2.xbm)"
+                       "ResizableTall" -> "^i(" ++ myBitmapsDir ++ "/tall.xbm)"
+                       "ReflectX ResizableTall" -> "^i(" ++ myBitmapsDir ++ "/rtall.xbm)"
+                       "Mirror ResizableTall" -> "^i(" ++ myBitmapsDir ++ "/mtall.xbm)"
+                       "Full" -> "^i(" ++ myBitmapsDir ++ "/full2.xbm)"
                        _               -> x
                    )
     }
@@ -45,10 +48,10 @@ toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
 
 workspaceIcons = map diceIcon [1..5]
     where diceIcon s = "^i(" ++ myBitmapsDir ++ "dice" ++ show s ++ ".xbm)"
-myWorkspaces = take 4 workspaceIcons
+myWorkspaces = workspaceIcons
 
-myConfig = defaultConfig
-    { terminal    = "xterm"
+myConfig = desktopConfig
+    { terminal    = "urxvt"
     , workspaces  = myWorkspaces
     , modMask     = mod4Mask
     , keys        = myKeys
@@ -57,9 +60,11 @@ myConfig = defaultConfig
     , focusedBorderColor = colorFocusedBorder
     , layoutHook = myLayout
     , manageHook = myManageHook
+    , handleEventHook = docksEventHook
+    , focusFollowsMouse = False
     }
 
-myLayout = spacing 3 . avoidStruts $ tiled ||| reflectHoriz tiled ||| Mirror tiled ||| Full
+myLayout = avoidStruts $ tiled ||| reflectHoriz tiled ||| Mirror tiled ||| noBorders Full
   where
     tiled = ResizableTall 1 (3/100) (2/3) []
 
@@ -71,10 +76,10 @@ myManageHook = composeOne [
 
 -- Theme {{{
 -- Colors
-colorNormalBorder = "#1c404b"
-colorFocusedBorder = "#5FD7FF"
+colorNormalBorder = "#1d3036"
+colorFocusedBorder = "#3a8ba6"
 
-colorBarBg = "#1B1D1E"
+colorBarBg = "#021d1f"
 
 barFont = "terminus"
 --}}}
@@ -88,8 +93,11 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     -- layouts
     , ((modMask, xK_space), sendMessage NextLayout)
     , ((modMask .|. shiftMask, xK_space), setLayout $ XMonad.layoutHook conf)
+    , ((modMask, xK_f), sendMessage $ JumpToLayout "Full")
     , ((modMask, xK_h), sendMessage Shrink)
     , ((modMask, xK_l), sendMessage Expand)
+    , ((modMask, xK_minus), sendMessage MirrorShrink)
+    , ((modMask, xK_plus), sendMessage MirrorExpand)
     , ((modMask, xK_j), windows W.focusDown)
     , ((modMask, xK_k), windows W.focusUp)
     , ((modMask .|. shiftMask, xK_j), windows W.swapDown)
@@ -99,6 +107,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask, xK_comma), sendMessage (IncMasterN 1))
     , ((modMask, xK_period), sendMessage (IncMasterN (-1)))
     , ((modMask, xK_t), withFocused $ windows . W.sink)
+    , ((modMask, xK_Tab), toggleWS)
+    , ((modMask .|. shiftMask .|. controlMask, xK_j), shiftNextScreen)
 
     -- quit or restart
     , ((modMask, xK_q), spawn "killall conky dzen2 && xmonad --recompile && xmonad --restart")
@@ -106,11 +116,11 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     ]
     ++
     -- workspace switch
-    zipWith (\w k -> ((modMask, k), windows (W.view w))) (XMonad.workspaces conf) [xK_1 .. xK_9]
+    zipWith (\w k -> ((modMask, k), windows (W.greedyView w))) (XMonad.workspaces conf) [xK_1 .. xK_9]
     ++
     -- workspace switch (multihead swapping)
-    zipWith (\w k -> ((modMask .|. shiftMask .|. controlMask, k), windows (W.greedyView w))) (XMonad.workspaces conf) [xK_1 .. xK_9]
-    ++
+    --zipWith (\w k -> ((modMask .|. shiftMask .|. controlMask, k), windows (W.greedyView w))) (XMonad.workspaces conf) [xK_1 .. xK_9]
+    -- ++
     -- workspace window move
     zipWith (\w k -> ((modMask .|. shiftMask, k), windows (W.shift w))) (XMonad.workspaces conf) [xK_1 .. xK_9]
     ++
