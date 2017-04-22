@@ -3,13 +3,13 @@
 " ==Darkness_Colorscheme_Settings==
 
 "StatusLine settings
-hi StatusLine           color: #557282; background: #081317; font-size: 8pt;
+hi StatusLine           color: #f2f3f2; background: #081317; font-size: 8pt;
 "hi StatusLineBroken     color: #557282; background: #f9f9f9; "font-size: 8pt;
 "hi StatusLineSecure     color: #557282; background: #f9f9f9; "font-size: 8pt;
 
 "CmdLine settings excluding Gradient
-hi Normal               color: #557282; background: #181512;
-hi CmdLine              background: #181512; color: #557282; font-size: 9pt;
+hi Normal               color: #f2f3f2; background: #181512;
+hi CmdLine              background: #181512; color: #f2f3f2; font-size: 9pt;
 hi CompDesc             color: #766782; width: 50%; font-size: 9pt;
 hi CompIcon             width: 0px; min-width: 0px; visibility: hidden; display: inline-block; margin-right: .5ex;
 hi CompItem[selected]   background: #181512; color: #D6C3B6; 
