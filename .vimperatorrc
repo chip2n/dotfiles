@@ -1,6 +1,11 @@
 set autocomplete=false
 set noscrollbars
 set gui=tabs
+set gui=nonavigation
+set hintchars=asdfghjklqwertyuiopzxcvbnm
+
+noremap j 5j
+noremap k 5k
 
 map <silent> <C-F1> :js toggle_bottombar()<CR>
 
