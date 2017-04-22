@@ -26,6 +26,9 @@ xinput --set-prop 11 'Device Enabled' 0
 # Disable beep
 xset -b
 
+# ssh-agent
+eval $(ssh-agent)
+
 # XMonad
 exec xmonad
 
