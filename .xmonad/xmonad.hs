@@ -6,8 +6,11 @@ import XMonad.Layout.LayoutCombinators
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.Reflect
 import XMonad.Layout.NoBorders
+import XMonad.Layout.Gaps
+import XMonad.Layout.Spacing
 import XMonad.Actions.CycleWS
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.InsertPosition
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
 import XMonad.Util.Run
@@ -22,7 +25,7 @@ main = do
     xmonad b
 
 -- Status bar {{{
-myBar = "dzen2 -dock -fn terminus-8 -x '0' -y '0' -h '18' -w '1920' -ta 'l' -fg '#ffffff' -bg '" ++ colorBarBg ++ "' -xs 1"
+myBar = "dzen2 -dock -fn terminus-8 -x '0' -y '0' -h '" ++ show barHeight ++ "' -w '1920' -ta 'l' -fg '#ffffff' -bg '" ++ colorBarBg ++ "' -xs 1"
 myBitmapsDir = "/home/chip/.xmonad/icons/"
 
 myPP = defaultPP
@@ -30,14 +33,14 @@ myPP = defaultPP
         ppCurrent = dzenColor colorFocusedBorder colorBarBg . pad
       , ppVisible = dzenColor "white" colorBarBg . pad
       , ppHidden = dzenColor "white" colorBarBg . pad
-      , ppHiddenNoWindows = dzenColor "#7b7b7b" colorBarBg . pad
-      , ppSep = pad "|"
+      , ppHiddenNoWindows = dzenColor colorNormalBorder colorBarBg . pad
+      , ppSep = pad " | "
       , ppOrder = \(workspaces:layout:title:xs) -> (layout:workspaces:title:xs)
       , ppLayout = dzenColor colorFocusedBorder colorBarBg . (" " ++) . pad .
                    (\x -> case x of
-                       "ResizableTall" -> "^i(" ++ myBitmapsDir ++ "/tall.xbm)"
-                       "ReflectX ResizableTall" -> "^i(" ++ myBitmapsDir ++ "/rtall.xbm)"
-                       "Mirror ResizableTall" -> "^i(" ++ myBitmapsDir ++ "/mtall.xbm)"
+                       "Spacing 4 ResizableTall" -> "^i(" ++ myBitmapsDir ++ "/tall.xbm)"
+                       "Spacing 4 ReflectX ResizableTall" -> "^i(" ++ myBitmapsDir ++ "/rtall.xbm)"
+                       "Spacing 4 Mirror ResizableTall" -> "^i(" ++ myBitmapsDir ++ "/mtall.xbm)"
                        "Full" -> "^i(" ++ myBitmapsDir ++ "/full2.xbm)"
                        _               -> x
                    )
@@ -64,31 +67,37 @@ myConfig = desktopConfig
     , focusFollowsMouse = False
     }
 
-myLayout = avoidStruts $ tiled ||| reflectHoriz tiled ||| Mirror tiled ||| noBorders Full
+--myLayout = gaps [(L,8), (U,8), (R,8), (D,8)] $ avoidStruts $ tiled ||| reflectHoriz tiled ||| Mirror tiled ||| noBorders Full
+myLayout = (gaps [(L,4), (R,4), (D,4)] $ spacing 4 $ avoidStruts $ tiled ||| reflectHoriz tiled ||| Mirror tiled) ||| noBorders Full
   where
     tiled = ResizableTall 1 (3/100) (2/3) []
 
 myManageHook = composeOne [
       className =? "floatingTerminal" -?> doRectFloat (W.RationalRect 0.3 0.35 0.4 0.35),
+      className =? "slaveTerminal" -?> insertPosition Above Older,
+      --className =? "floatingTerminal" -?> doFloat,
+      --className =? "slaveTerminal" -?> doF (W.swapDown),
       isFullscreen -?> doFullFloat
     ] 
         
 
 -- Theme {{{
 -- Colors
-colorNormalBorder = "#1d3036"
+colorNormalBorder = "#153b47"
 colorFocusedBorder = "#3a8ba6"
 
-colorBarBg = "#021d1f"
+--colorBarBg = "#021d1f"
+colorBarBg = "#21242b"
+barHeight = 24
 
 barFont = "terminus"
 --}}}
 
 -- Key bindings {{{
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
-    [ ((modMask, xK_Return), spawn $ XMonad.terminal conf)
-    , ((modMask, xK_o), spawn $ (XMonad.terminal conf) ++ " -class floatingTerminal" )
-    , ((modMask, xK_p), spawn $ "dmenu_run -nb '" ++ colorBarBg ++ "'"  )
+    [ ((modMask, xK_Return), spawn $ (XMonad.terminal conf) ++ " -name slaveTerminal" )
+    , ((modMask .|. shiftMask, xK_Return), spawn $ (XMonad.terminal conf) ++ " -name floatingTerminal" )
+    , ((modMask, xK_p), spawn $ "dmenu_run -h " ++ show barHeight ++" -nb '" ++ colorBarBg ++ "'"  )
 
     -- layouts
     , ((modMask, xK_space), sendMessage NextLayout)
@@ -102,7 +111,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask, xK_k), windows W.focusUp)
     , ((modMask .|. shiftMask, xK_j), windows W.swapDown)
     , ((modMask .|. shiftMask, xK_k), windows W.swapUp)
-    , ((modMask .|. shiftMask, xK_Return), windows W.swapMaster)
+    --, ((modMask .|. shiftMask, xK_Return), windows W.swapMaster)
     , ((modMask .|. shiftMask, xK_c), kill)
     , ((modMask, xK_comma), sendMessage (IncMasterN 1))
     , ((modMask, xK_period), sendMessage (IncMasterN (-1)))
