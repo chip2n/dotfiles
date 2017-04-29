@@ -29,6 +29,9 @@ xset -b
 # ssh-agent
 eval $(ssh-agent)
 
+# environment variables
+source ~/env.sh
+
 # XMonad
 exec xmonad
 
