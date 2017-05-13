@@ -158,10 +158,10 @@
 (setq x-select-enable-clipboard nil)
 
 ;; smooth-scrolling (https://github.com/aspiers/smooth-scrolling)
-(use-package smooth-scrolling
-  :ensure t)
-(setq smooth-scroll-margin 5)
-(smooth-scrolling-mode 1)
+;(use-package smooth-scrolling
+;  :ensure t)
+;(setq smooth-scroll-margin 5)
+;(smooth-scrolling-mode 1)
 
 ;; file backup
 (defvar --backup-directory (concat user-emacs-directory "backups"))
