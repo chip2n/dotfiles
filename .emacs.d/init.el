@@ -25,6 +25,7 @@
 (require 'clojure)
 (require 'init-haskell)
 (require 'init-python)
+(require 'init-javascript)
 (require 'yaml)
 (require 'markdown)
 
@@ -105,7 +106,6 @@
 (diminish 'undo-tree-mode)
 (diminish 'company-mode)
 (diminish 'projectile-mode)
-
 
 ;; ---------------------- interface stuff ----------------------
 
@@ -221,7 +221,7 @@
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" default)))
  '(package-selected-packages
    (quote
-    (smooth-scrolling telephone-line intero ranger hydra groovy-mode gradle-mode ace-jump-mode evil-snipe kotlin-mode helm-ag pyvenv evil-magit magit markdown-mode yaml-mode evil-surround url-http-extra-headers url-http smartparens haskell-mode buffer-move elscreen slack emacs-slack evil-leader helm-projectile projectile smart-mode-line nlinum clojure-mode evil)))
+    (js2-mode gnuplot gnuplot-mode elogcat smooth-scrolling telephone-line intero ranger hydra groovy-mode gradle-mode ace-jump-mode evil-snipe kotlin-mode helm-ag pyvenv evil-magit magit markdown-mode yaml-mode evil-surround url-http-extra-headers url-http smartparens haskell-mode buffer-move elscreen slack emacs-slack evil-leader helm-projectile projectile smart-mode-line nlinum clojure-mode evil)))
  '(projectile-generic-command "find -L . -type f -print0"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
