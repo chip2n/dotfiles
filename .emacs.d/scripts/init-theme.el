@@ -13,7 +13,8 @@
 (load-theme 'doom-one t)
 (setq doom-enable-bold t
       doom-enable-italic t)
-(require 'doom-neotree)
+;;(require 'doom-neotree)
+(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 
 ;; telephone-line (https://github.com/dbordak/telephone-line)
 (use-package telephone-line
