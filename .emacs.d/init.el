@@ -219,22 +219,26 @@
  '(custom-safe-themes
    (quote
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" default)))
+ '(global-hl-line-mode t)
  '(package-selected-packages
    (quote
     (js2-mode gnuplot gnuplot-mode elogcat smooth-scrolling telephone-line intero ranger hydra groovy-mode gradle-mode ace-jump-mode evil-snipe kotlin-mode helm-ag pyvenv evil-magit magit markdown-mode yaml-mode evil-surround url-http-extra-headers url-http smartparens haskell-mode buffer-move elscreen slack emacs-slack evil-leader helm-projectile projectile smart-mode-line nlinum clojure-mode evil)))
- '(projectile-generic-command "find -L . -type f -print0"))
+ '(projectile-generic-command "find -L . -type f -print0")
+ '(telephone-line-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(mode-line ((t (:background "blue" :foreground "#bbc2cf"))))
+ '(mode-line ((t (:background "#282c34" :foreground "#bbc2cf"))))
+ '(mode-line-inactive ((t (:background "#282c34" :foreground "#5B6268"))))
  '(org-level-1 ((t (:inherit outline-1 :height 1.0))))
  '(org-level-2 ((t (:inherit outline-2 :height 1.0))))
  '(org-level-3 ((t (:inherit outline-3 :height 1.0))))
  '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
  '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
  '(telephone-line-accent-active ((t (:inherit mode-line :background "#3c404a" :foreground "white"))))
+ '(telephone-line-accent-inactive ((t (:inherit mode-line-inactive :background "#3c404a" :foreground "black"))))
  '(telephone-line-evil-emacs ((t (:inherit telephone-line-evil :background "orchid1"))))
  '(telephone-line-evil-insert ((t (:inherit telephone-line-evil :background "#5972ab"))))
  '(telephone-line-evil-normal ((t (:inherit telephone-line-evil :background "#2f333a"))))
