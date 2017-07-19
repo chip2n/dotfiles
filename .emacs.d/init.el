@@ -76,7 +76,8 @@
 (use-package ace-jump-mode
   :ensure t)
 (evil-leader/set-key
-  "s" 'ace-jump-word-mode)
+  "s" 'ace-jump-char-mode
+  "S" 'helm-swoop-without-pre-input)
 
 ;; evil-snipe: https://github.com/hlissner/evil-snipe
 (use-package evil-snipe

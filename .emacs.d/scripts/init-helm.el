@@ -18,6 +18,9 @@
 (use-package helm-ag
   :ensure t)
 
+(use-package helm-swoop
+  :ensure t)
+
 ;; vim movement in helm
 (defun helm-like-unite/pre ()
   (set-cursor-color "#ffffff"))
