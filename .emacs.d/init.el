@@ -27,6 +27,7 @@
 (require 'init-python)
 (require 'init-javascript)
 (require 'init-racket)
+(require 'init-jade)
 (require 'yaml)
 (require 'markdown)
 
