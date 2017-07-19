@@ -215,6 +215,7 @@
 
 ;; ---------------------------------------------------------
 
+;; tetris (because I can)
 (require 'init-tetris)
 
 ;; set chrome as default browser for browsing urls
