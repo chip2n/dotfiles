@@ -83,6 +83,7 @@
 (use-package evil-snipe
   :ensure t)
 (evil-snipe-override-mode 1)
+(setq evil-snipe-scope 'buffer)
 ;; turn off evil-snipe in ranger
 (add-hook 'ranger-mode-hook 'turn-off-evil-snipe-override-mode)
 ;; turn off evil-snipe in magit
