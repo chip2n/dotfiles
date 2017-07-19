@@ -210,11 +210,21 @@
   "er" 'eval-region
   "ed" 'eval-defun
   "eb" 'eval-buffer
-  "ee" 'eval-expression)
+  "ee" 'eval-expression
+  "es" 'shell-region)
 
 ;; ---------------------------------------------------------
 
 (require 'init-tetris)
+
+;; set chrome as default browser for browsing urls
+(setq browse-url-browser-function 'browse-url-chrome)
+
+;; execute shell commands from buffer region
+(defun shell-region (start end)
+  "execute region in an inferior shell"
+  (interactive "r")
+  (shell-command  (buffer-substring-no-properties start end)))
 
 ; smart-mode-line
 ;(use-package smart-mode-line
