@@ -26,6 +26,7 @@
 (require 'init-haskell)
 (require 'init-python)
 (require 'init-javascript)
+(require 'init-racket)
 (require 'yaml)
 (require 'markdown)
 
