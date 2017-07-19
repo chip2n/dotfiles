@@ -143,7 +143,8 @@
   "wh" 'split-window-right
   "wl" (lambda () (interactive) (split-window-right) (other-window 1))
   "wk" 'split-window-below
-  "wj" (lambda () (interactive) (split-window-below) (other-window 1)))
+  "wj" (lambda () (interactive) (split-window-below) (other-window 1))
+  "wf" 'delete-other-windows)
 
 (evil-leader/set-key
   "x" 'evil-quit
