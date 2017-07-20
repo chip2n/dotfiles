@@ -14,3 +14,9 @@
    :client-id private/slack-client-id-remente
    :client-secret private/slack-client-secret-remente
    :token private/slack-token-remente))
+
+(use-package alert
+  :ensure t
+  :commands (alert)
+  :init
+  (setq alert-default-style 'libnotify))

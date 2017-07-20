@@ -23,6 +23,7 @@ Also, the following packages are optional for the same functionality and look:
 * lxappearance
 * xclip (perl script for copy paste in URXVT)
 * unclutter (removes mouse cursor)
+* notify-osd (for desktop notifications)
 
 Recommended GTK3 themes:
 * Dorian Theme 3.10 (dorian-theme-3.10)   NOTE: Follow instructions to install the firefox theme.
