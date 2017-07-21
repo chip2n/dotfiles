@@ -32,6 +32,9 @@ eval $(ssh-agent)
 # environment variables
 source ~/env.sh
 
+# desktop notifications
+/usr/lib/notify-osd/notify-osd &
+
 # XMonad
 exec xmonad
 
