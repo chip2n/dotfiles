@@ -3,6 +3,9 @@
 ;; add timestamp to completed todos
 (setq org-log-done 'time)
 
+;; prevent indentation after sections
+(setq org-adapt-indentation nil)
+
 ;; add org directory (allows searching for todos and scheduling items)
 (setq org-agenda-files (list "~/org/personal" "~/org/remente"))
 
