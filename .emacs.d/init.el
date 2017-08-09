@@ -56,6 +56,25 @@
   "p" 'helm-projectile
   "P" 'helm-projectile-switch-project)
 
+;; eyebrowse
+(use-package eyebrowse
+  :ensure t
+  :init
+  (eyebrowse-mode t))
+(evil-leader/set-key
+  "w0" 'eyebrowse-switch-to-window-config-0
+  "w1" 'eyebrowse-switch-to-window-config-1
+  "w2" 'eyebrowse-switch-to-window-config-2
+  "w3" 'eyebrowse-switch-to-window-config-3
+  "w4" 'eyebrowse-switch-to-window-config-4
+  "w5" 'eyebrowse-switch-to-window-config-5
+  "w6" 'eyebrowse-switch-to-window-config-6
+  "w7" 'eyebrowse-switch-to-window-config-7
+  "w8" 'eyebrowse-switch-to-window-config-8
+  "w9" 'eyebrowse-switch-to-window-config-9
+  "wc" 'eyebrowse-close-window-config
+  "wn" 'eyebrowse-rename-window-config)
+
 ;; smartparens: https://github.com/Fuco1/smartparens
 (use-package smartparens
   :ensure t
@@ -251,7 +270,7 @@
  '(global-hl-line-mode t)
  '(package-selected-packages
    (quote
-    (helm-swoop nethack nethack-el evil-paredit paredit racket-mode jade-mode js2-mode gnuplot gnuplot-mode elogcat smooth-scrolling telephone-line intero ranger hydra groovy-mode gradle-mode ace-jump-mode evil-snipe kotlin-mode helm-ag pyvenv evil-magit magit markdown-mode yaml-mode evil-surround url-http-extra-headers url-http smartparens haskell-mode buffer-move elscreen slack emacs-slack evil-leader helm-projectile projectile smart-mode-line nlinum clojure-mode evil)))
+    (eyebrowse helm-swoop nethack nethack-el evil-paredit paredit racket-mode jade-mode js2-mode gnuplot gnuplot-mode elogcat smooth-scrolling telephone-line intero ranger hydra groovy-mode gradle-mode ace-jump-mode evil-snipe kotlin-mode helm-ag pyvenv evil-magit magit markdown-mode yaml-mode evil-surround url-http-extra-headers url-http smartparens haskell-mode buffer-move elscreen slack emacs-slack evil-leader helm-projectile projectile smart-mode-line nlinum clojure-mode evil)))
  '(projectile-generic-command "find -L . -type f -print0")
  '(telephone-line-mode t))
 (custom-set-faces
