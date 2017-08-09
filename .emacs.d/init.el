@@ -89,6 +89,9 @@
 (add-hook 'ranger-mode-hook 'turn-off-evil-snipe-override-mode)
 ;; turn off evil-snipe in magit
 (add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode)
+;; enable snipe in visual mode
+(evil-define-key 'visual evil-snipe-mode-map "s" 'evil-snipe-s)
+(evil-define-key 'visual evil-snipe-mode-map "S" 'evil-snipe-S)
 
 ;; ranger: https://github.com/ralesi/ranger.el
 (use-package ranger
