@@ -51,7 +51,8 @@
 	"Create file"
       :action 'find-file))
   (add-to-list 'helm-projectile-sources-list helm-source-file-not-found t)
-  (add-to-list 'projectile-globally-ignored-directories "*node_modules"))
+  (add-to-list 'projectile-globally-ignored-directories "*node_modules")
+  (setq projectile-enable-caching t))
 (evil-leader/set-key
   "p" 'helm-projectile
   "P" 'helm-projectile-switch-project)
@@ -270,7 +271,7 @@
  '(global-hl-line-mode t)
  '(package-selected-packages
    (quote
-    (eyebrowse helm-swoop nethack nethack-el evil-paredit paredit racket-mode jade-mode js2-mode gnuplot gnuplot-mode elogcat smooth-scrolling telephone-line intero ranger hydra groovy-mode gradle-mode ace-jump-mode evil-snipe kotlin-mode helm-ag pyvenv evil-magit magit markdown-mode yaml-mode evil-surround url-http-extra-headers url-http smartparens haskell-mode buffer-move elscreen slack emacs-slack evil-leader helm-projectile projectile smart-mode-line nlinum clojure-mode evil)))
+    (json-mode eyebrowse helm-swoop nethack nethack-el evil-paredit paredit racket-mode jade-mode js2-mode gnuplot gnuplot-mode elogcat smooth-scrolling telephone-line intero ranger hydra groovy-mode gradle-mode ace-jump-mode evil-snipe kotlin-mode helm-ag pyvenv evil-magit magit markdown-mode yaml-mode evil-surround url-http-extra-headers url-http smartparens haskell-mode buffer-move elscreen slack emacs-slack evil-leader helm-projectile projectile smart-mode-line nlinum clojure-mode evil)))
  '(projectile-generic-command "find -L . -type f -print0")
  '(telephone-line-mode t))
 (custom-set-faces
