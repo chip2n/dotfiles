@@ -12,3 +12,6 @@
 
 ;; disable inconsistent return warnings
 (setq js2-strict-inconsistent-return-warning nil)
+
+(use-package json-mode
+  :ensure t)
