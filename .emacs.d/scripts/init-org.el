@@ -1,5 +1,8 @@
 (provide 'init-org)
 
+(use-package org-bullets
+  :ensure t)
+
 ;; add timestamp to completed todos
 (setq org-log-done 'time)
 
@@ -8,6 +11,12 @@
 
 ;; add org directory (allows searching for todos and scheduling items)
 (setq org-agenda-files (list "~/org/personal" "~/org/remente"))
+
+;; set org tag column
+(setq org-tags-column -80)
+
+;; show fully expanded items when using org-tags-sparse-tree
+(push '(tags-tree . local) org-show-context-detail)
 
 (setq org-capture-templates
       '(("a" "My TODO task format." entry
@@ -27,7 +36,7 @@ SCHEDULED: %t")))
    [_t_] todos
  ╰─^──^───────────^───^─────╯
 "
-  ("a" org-agenda-list)
+  ("a" org-agenda)
   ("t" org-todo-list)
   ("q" nil))
 (evil-leader/set-key
@@ -70,7 +79,7 @@ SCHEDULED: %t")))
   ("k" org-agenda-previous-line)
   ("t" org-agenda-todo)
   ("q" org-agenda-exit :exit t))
-(add-hook 'org-agenda-mode-hook 'chip-hydra-org-agenda-mode/body)
+;;(add-hook 'org-agenda-mode-hook 'chip-hydra-org-agenda-mode/body)
 
 ;; remove font height differences for headers
 (custom-set-faces
@@ -80,3 +89,16 @@ SCHEDULED: %t")))
   '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
   '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
 )
+
+(require 'org-agenda)
+(define-key org-agenda-mode-map "j" 'org-agenda-next-line)
+(define-key org-agenda-mode-map "k" 'org-agenda-previous-line)
+(define-key org-agenda-mode-map (kbd "RET") 'org-agenda-cycle-show)
+(define-key org-agenda-mode-map (kbd "C-h") 'windmove-left)
+(define-key org-agenda-mode-map (kbd "C-l") 'windmove-right)
+(define-key org-agenda-mode-map (kbd "C-j") 'windmove-down)
+(define-key org-agenda-mode-map (kbd "C-k") 'windmove-up)
+(define-key org-agenda-mode-map (kbd "C-S-l") 'evil-window-increase-width)
+(define-key org-agenda-mode-map (kbd "C-S-h") 'evil-window-decrease-width)
+(define-key org-agenda-mode-map (kbd "C-S-k") 'evil-window-increase-height)
+(define-key org-agenda-mode-map (kbd "C-S-j") 'evil-window-decrease-height)
