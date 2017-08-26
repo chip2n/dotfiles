@@ -33,6 +33,75 @@
 
 (require 'init-org)
 
+
+
+
+(autoload 'chord-mode "tablature-mode" "Guitar tablature." t)
+(add-to-list 'auto-mode-alist '("\\.tab\\'" . chord-mode))
+(defhydra chip-hydra-tablature
+    (:hint nil)
+  ("h" tab-backward-char)
+  ("j" next-line)
+  ("k" previous-line)
+  ("l" tab-forward-char))
+
+(defun tab-increment-note () ; ---------------------------------------------------------
+"Move current note up one fret"
+(interactive)
+	(if (tab-check-in-tab)
+	(let ((fret (tab-analyze-fret)))
+		(if (and (/= fret -1) (<= fret 24)) (progn
+		(setq fret (+ fret 1))
+		(tab-string (int-to-string fret) tab-current-string)
+		))
+	)
+	; else
+	(insert (this-command-keys)))
+)
+
+(defun tab-decrement-note () ; ---------------------------------------------------------
+"Move current note down one fret"
+(interactive)
+	(if (tab-check-in-tab)
+	(let ((fret (tab-analyze-fret)))
+		(if (and (/= fret -1) (>= fret 1)) (progn
+		(setq fret (- fret 1))
+		(tab-string (int-to-string fret) tab-current-string)
+		))
+	)
+	; else
+	(insert (this-command-keys)))
+)
+
+(evil-define-key 'normal tab-mode-map
+  "h" 'tab-backward-char
+  "H" 'tab-backward-barline
+  "L" 'tab-forward-barline
+  "l" 'tab-forward-char
+  "K" 'tab-increment-note
+  "J" 'tab-decrement-note
+  "x" 'tab-delete-note
+  "d" 'tab-delete-chord-forward
+  "i" 'tab-insert
+  (kbd "RET") 'tab-barline
+  "0" (lambda () (interactive) (tab-string "0" tab-current-string))
+  "1" (lambda () (interactive) (tab-string "1" tab-current-string))
+  "2" (lambda () (interactive) (tab-string "2" tab-current-string))
+  "3" (lambda () (interactive) (tab-string "3" tab-current-string))
+  "4" (lambda () (interactive) (tab-string "4" tab-current-string))
+  "5" (lambda () (interactive) (tab-string "5" tab-current-string))
+  "6" (lambda () (interactive) (tab-string "6" tab-current-string))
+  "7" (lambda () (interactive) (tab-string "7" tab-current-string))
+  "8" (lambda () (interactive) (tab-string "8" tab-current-string))
+  "9" (lambda () (interactive) (tab-string "9" tab-current-string))
+  )
+
+
+
+
+
+
+
 (use-package groovy-mode
   :ensure t)
 
@@ -247,7 +316,7 @@
  '(global-hl-line-mode t)
  '(package-selected-packages
    (quote
-    (helm-swoop nethack nethack-el evil-paredit paredit racket-mode jade-mode js2-mode gnuplot gnuplot-mode elogcat smooth-scrolling telephone-line intero ranger hydra groovy-mode gradle-mode ace-jump-mode evil-snipe kotlin-mode helm-ag pyvenv evil-magit magit markdown-mode yaml-mode evil-surround url-http-extra-headers url-http smartparens haskell-mode buffer-move elscreen slack emacs-slack evil-leader helm-projectile projectile smart-mode-line nlinum clojure-mode evil)))
+    (general helm-swoop nethack nethack-el evil-paredit paredit racket-mode jade-mode js2-mode gnuplot gnuplot-mode elogcat smooth-scrolling telephone-line intero ranger hydra groovy-mode gradle-mode ace-jump-mode evil-snipe kotlin-mode helm-ag pyvenv evil-magit magit markdown-mode yaml-mode evil-surround url-http-extra-headers url-http smartparens haskell-mode buffer-move elscreen slack emacs-slack evil-leader helm-projectile projectile smart-mode-line nlinum clojure-mode evil)))
  '(projectile-generic-command "find -L . -type f -print0")
  '(telephone-line-mode t))
 (custom-set-faces
