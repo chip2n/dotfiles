@@ -35,6 +35,8 @@ source ~/env.sh
 # desktop notifications
 /usr/lib/notify-osd/notify-osd &
 
+export _JAVA_AWT_WM_NONREPARENTING=1
+
 # XMonad
 exec xmonad
 
