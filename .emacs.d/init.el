@@ -119,10 +119,31 @@
     (helm-build-dummy-source
 	"Create file"
       :action 'find-file))
-  (add-to-list 'helm-projectile-sources-list helm-source-file-not-found t))
+  (add-to-list 'helm-projectile-sources-list helm-source-file-not-found t)
+  (add-to-list 'projectile-globally-ignored-directories "*node_modules")
+  (setq projectile-enable-caching t))
 (evil-leader/set-key
   "p" 'helm-projectile
   "P" 'helm-projectile-switch-project)
+
+;; eyebrowse
+(use-package eyebrowse
+  :ensure t
+  :init
+  (eyebrowse-mode t))
+(evil-leader/set-key
+  "w0" 'eyebrowse-switch-to-window-config-0
+  "w1" 'eyebrowse-switch-to-window-config-1
+  "w2" 'eyebrowse-switch-to-window-config-2
+  "w3" 'eyebrowse-switch-to-window-config-3
+  "w4" 'eyebrowse-switch-to-window-config-4
+  "w5" 'eyebrowse-switch-to-window-config-5
+  "w6" 'eyebrowse-switch-to-window-config-6
+  "w7" 'eyebrowse-switch-to-window-config-7
+  "w8" 'eyebrowse-switch-to-window-config-8
+  "w9" 'eyebrowse-switch-to-window-config-9
+  "wc" 'eyebrowse-close-window-config
+  "wn" 'eyebrowse-rename-window-config)
 
 ;; smartparens: https://github.com/Fuco1/smartparens
 (use-package smartparens
@@ -157,6 +178,9 @@
 (add-hook 'ranger-mode-hook 'turn-off-evil-snipe-override-mode)
 ;; turn off evil-snipe in magit
 (add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode)
+;; enable snipe in visual mode
+(evil-define-key 'visual evil-snipe-mode-map "s" 'evil-snipe-s)
+(evil-define-key 'visual evil-snipe-mode-map "S" 'evil-snipe-S)
 
 ;; ranger: https://github.com/ralesi/ranger.el
 (use-package ranger
@@ -316,8 +340,9 @@
  '(global-hl-line-mode t)
  '(package-selected-packages
    (quote
-    (general helm-swoop nethack nethack-el evil-paredit paredit racket-mode jade-mode js2-mode gnuplot gnuplot-mode elogcat smooth-scrolling telephone-line intero ranger hydra groovy-mode gradle-mode ace-jump-mode evil-snipe kotlin-mode helm-ag pyvenv evil-magit magit markdown-mode yaml-mode evil-surround url-http-extra-headers url-http smartparens haskell-mode buffer-move elscreen slack emacs-slack evil-leader helm-projectile projectile smart-mode-line nlinum clojure-mode evil)))
+    (general evil-org org-bullets org-mode json-mode eyebrowse helm-swoop nethack nethack-el evil-paredit paredit racket-mode jade-mode js2-mode gnuplot gnuplot-mode elogcat smooth-scrolling telephone-line intero ranger hydra groovy-mode gradle-mode ace-jump-mode evil-snipe kotlin-mode helm-ag pyvenv evil-magit magit markdown-mode yaml-mode evil-surround url-http-extra-headers url-http smartparens haskell-mode buffer-move elscreen slack emacs-slack evil-leader helm-projectile projectile smart-mode-line nlinum clojure-mode evil)))
  '(projectile-generic-command "find -L . -type f -print0")
+ '(safe-local-variable-values (quote ((org-use-tag-inheritance))))
  '(telephone-line-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
