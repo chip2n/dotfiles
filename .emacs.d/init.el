@@ -29,12 +29,9 @@
 (require 'init-jade)
 (require 'init-yaml)
 (require 'init-markdown)
-
 (require 'init-org)
 (require 'init-tablature)
-
-(use-package groovy-mode
-  :ensure t)
+(require 'init-groovy)
 
 ;; save session when exiting emacs
 (desktop-save-mode 1)
