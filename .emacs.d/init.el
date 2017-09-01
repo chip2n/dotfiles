@@ -28,7 +28,7 @@
 (require 'init-racket)
 (require 'init-jade)
 
-(require 'yaml)
+(require 'init-yaml)
 (require 'markdown)
 
 (require 'init-org)
