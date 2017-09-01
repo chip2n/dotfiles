@@ -21,8 +21,7 @@
 (require 'init-helm)
 (require 'init-neotree)
 (require 'init-slack)
-
-(require 'clojure)
+(require 'init-clojure)
 (require 'init-haskell)
 (require 'init-python)
 (require 'init-javascript)

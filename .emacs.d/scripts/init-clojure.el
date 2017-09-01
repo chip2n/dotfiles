@@ -1,4 +1,4 @@
-(provide 'clojure)
+(provide 'init-clojure)
 
 ;; clojure-mode: https://github.com/clojure-emacs/clojure-mode
 (use-package clojure-mode
