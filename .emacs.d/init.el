@@ -27,9 +27,8 @@
 (require 'init-javascript)
 (require 'init-racket)
 (require 'init-jade)
-
 (require 'init-yaml)
-(require 'markdown)
+(require 'init-markdown)
 
 (require 'init-org)
 (require 'init-tablature)
