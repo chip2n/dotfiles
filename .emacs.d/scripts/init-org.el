@@ -16,7 +16,7 @@
 (setq org-tags-column -80)
 
 ;; show fully expanded items when using org-tags-sparse-tree
-(push '(tags-tree . local) org-show-context-detail)
+;;(push '(tags-tree . local) org-show-context-detail)
 
 (setq org-capture-templates
       '(("a" "My TODO task format." entry
