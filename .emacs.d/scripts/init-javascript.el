@@ -2,6 +2,9 @@
 
 (setq js-indent-level 2)
 
+;; ignore shebangs
+(setq js2-skip-preprocessor-directives t)
+
 (use-package js2-mode
   :ensure t)
 (add-to-list 'auto-mode-alist (cons (rx ".js" eos) 'js2-mode))
