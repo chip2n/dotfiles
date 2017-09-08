@@ -17,61 +17,32 @@
 (use-package hydra
   :ensure t)
 
+;; emacs tools
 (require 'init-evil)
 (require 'init-helm)
 (require 'init-neotree)
-(require 'init-slack)
+(require 'init-org)
+(require 'init-projectile)
+(require 'init-eyebrowse)
+
+;; languages
 (require 'init-clojure)
 (require 'init-haskell)
 (require 'init-python)
 (require 'init-javascript)
 (require 'init-racket)
+(require 'init-groovy)
 (require 'init-jade)
 (require 'init-yaml)
 (require 'init-markdown)
-(require 'init-org)
+
+;; applications
+(require 'init-magit)
 (require 'init-tablature)
-(require 'init-groovy)
+(require 'init-slack)
 
 ;; save session when exiting emacs
 (desktop-save-mode 1)
-
-;; projectile
-(use-package projectile
-  :ensure t)
-(projectile-mode)
-(use-package helm-projectile
-  :ensure t
-  :init
-  (defvar helm-source-file-not-found
-    (helm-build-dummy-source
-	"Create file"
-      :action 'find-file))
-  (add-to-list 'helm-projectile-sources-list helm-source-file-not-found t)
-  (add-to-list 'projectile-globally-ignored-directories "*node_modules")
-  (setq projectile-enable-caching t))
-(evil-leader/set-key
-  "p" 'helm-projectile
-  "P" 'helm-projectile-switch-project)
-
-;; eyebrowse
-(use-package eyebrowse
-  :ensure t
-  :init
-  (eyebrowse-mode t))
-(evil-leader/set-key
-  "w0" 'eyebrowse-switch-to-window-config-0
-  "w1" 'eyebrowse-switch-to-window-config-1
-  "w2" 'eyebrowse-switch-to-window-config-2
-  "w3" 'eyebrowse-switch-to-window-config-3
-  "w4" 'eyebrowse-switch-to-window-config-4
-  "w5" 'eyebrowse-switch-to-window-config-5
-  "w6" 'eyebrowse-switch-to-window-config-6
-  "w7" 'eyebrowse-switch-to-window-config-7
-  "w8" 'eyebrowse-switch-to-window-config-8
-  "w9" 'eyebrowse-switch-to-window-config-9
-  "wc" 'eyebrowse-close-window-config
-  "wn" 'eyebrowse-rename-window-config)
 
 ;; smartparens: https://github.com/Fuco1/smartparens
 (use-package smartparens
@@ -81,14 +52,6 @@
     (show-smartparens-global-mode t)))
 ;;(require 'smartparens-config)
 ;;(add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
-
-;; magit: https://github.com/magit/magit
-(use-package magit
-  :ensure t)
-(use-package evil-magit
-  :ensure t)
-(evil-leader/set-key
-  "g" 'magit-status)
 
 ;; ace-jump-mode
 (use-package ace-jump-mode
