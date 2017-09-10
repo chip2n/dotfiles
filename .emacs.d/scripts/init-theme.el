@@ -46,6 +46,8 @@
 (blink-cursor-mode 0)
 
 (set-cursor-color "#ffffff")
+(set-background-color "#21242b")
+(set-face-background hl-line-face "#1c1f24")
 
 ;; margin stuff
 (set-frame-parameter nil 'internal-border-width 10)
