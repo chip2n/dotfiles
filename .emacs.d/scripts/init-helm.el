@@ -63,9 +63,11 @@
           (interactive)
           (execute-kbd-macro [?\C-s]))
        "search")
+  ("<tab>" nil)
   ("<escape>" keyboard-escape-quit "quit helm")
   ("?" helm-help "help"))
-(define-key helm-map (kbd "<escape>") 'helm-like-unite/body)
+(define-key helm-map (kbd "<tab>") 'helm-like-unite/body)
+(define-key helm-map (kbd "<escape>") 'helm-keyboard-quit)
 
 (defun helm-persistent-delete-marked ()
   "Kill buffer without quitting helm."
