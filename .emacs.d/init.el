@@ -15,11 +15,13 @@
 (require 'use-package)
 ;; -----------------------------------------------------------
 
+(require 'init-evil)
+(require 'init-theme)
+
 (use-package hydra
   :ensure t)
 
 ;; emacs tools
-(require 'init-evil)
 (require 'init-helm)
 (require 'init-neotree)
 (require 'init-org)
@@ -135,7 +137,6 @@
   "x" 'evil-quit
   "X" 'evil-delete-buffer)
 
-(require 'init-theme)
 ;; -------------------------------------------------------------
 
 
@@ -146,9 +147,6 @@
 
 ;; set default comment column to 70
 (setq-default comment-column 70)
-
-;; highlight the current line
-(global-hl-line-mode +1)
 
 ;; show matching parenthesis
 (show-paren-mode 1)
@@ -230,9 +228,12 @@
    (quote
     ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" default)))
  '(global-hl-line-mode t)
+ '(org-modules
+   (quote
+    (org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-w3m org-drill)))
  '(package-selected-packages
    (quote
-    (general evil-org org-bullets org-mode json-mode eyebrowse helm-swoop nethack nethack-el evil-paredit paredit racket-mode jade-mode js2-mode gnuplot gnuplot-mode elogcat smooth-scrolling telephone-line intero ranger hydra groovy-mode gradle-mode ace-jump-mode evil-snipe kotlin-mode helm-ag pyvenv evil-magit magit markdown-mode yaml-mode evil-surround url-http-extra-headers url-http smartparens haskell-mode buffer-move elscreen slack emacs-slack evil-leader helm-projectile projectile smart-mode-line nlinum clojure-mode evil)))
+    (org-plus-contrib org-drill general evil-org org-bullets org-mode json-mode eyebrowse helm-swoop nethack nethack-el evil-paredit paredit racket-mode jade-mode js2-mode gnuplot gnuplot-mode elogcat smooth-scrolling telephone-line intero ranger hydra groovy-mode gradle-mode ace-jump-mode evil-snipe kotlin-mode helm-ag pyvenv evil-magit magit markdown-mode yaml-mode evil-surround url-http-extra-headers url-http smartparens haskell-mode buffer-move elscreen slack emacs-slack evil-leader helm-projectile projectile smart-mode-line nlinum clojure-mode evil)))
  '(projectile-generic-command "find -L . -type f -print0")
  '(safe-local-variable-values (quote ((org-use-tag-inheritance))))
  '(telephone-line-mode t))

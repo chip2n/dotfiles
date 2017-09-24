@@ -1,5 +1,11 @@
 (provide 'init-theme)
 
+;; margin stuff
+(set-frame-parameter nil 'internal-border-width 0)
+
+;; highlight the current line
+(global-hl-line-mode +1)
+
 ;; all-the-icons
 (use-package all-the-icons
   :ensure t)
@@ -33,9 +39,10 @@
 (telephone-line-mode t)
 
 ;; set default font
-(set-face-attribute 'default nil
-                    :family "Terminus"
-                    :height 110)
+;;(set-face-attribute 'default nil
+;;                    :family "terminus"
+;;                    :height 100)
+(set-default-font "-*-terminus-*-*-*-*-14-*-*-*-*-*-*-*")
 
 ;; disable gui fluff
 (menu-bar-mode -1)
@@ -49,32 +56,84 @@
 (set-background-color "#21242b")
 (set-face-background hl-line-face "#1c1f24")
 
-;; margin stuff
-(set-frame-parameter nil 'internal-border-width 10)
-(set-frame-parameter nil 'left-fringe 5)
-(set-frame-parameter nil 'right-fringe 10)
-
-
-;;(use-package smart-mode-line
-;;  :ensure t)
-;;(setq sml/no-confirm-load-theme t)
 
 
 
-;;(deftheme smart-mode-line-chiptheme "Chip theme for smart-mode-line.")
-;;
-;;(custom-theme-set-faces
-;; 'smart-mode-line-chiptheme
-;; '(mode-line-buffer-id ((t :inherit sml/filename :foreground nil :background nil))) 
-;; '(mode-line-inactive ((t :foreground "gray60" :background "#404045" :inverse-video nil)))
-;; '(mode-line     ((t :foreground "gray60" :background "#ff0000" :inverse-video nil)))
-;; '(sml/global    ((t :foreground "gray50" :inverse-video nil)))
-;; '(sml/modes     ((t :inherit sml/global :foreground "White")))
-;; '(sml/filename  ((t :inherit sml/global :foreground "#eab700" :weight bold)))
-;; '(sml/prefix    ((t :inherit sml/global :foreground "#bf6000")))
-;; '(sml/read-only ((t :inherit sml/not-modified :foreground "DeepSkyBlue")))
-;; '(persp-selected-face ((t :foreground "ForestGreen" :inherit sml/filename)))
-;; '(helm-candidate-number ((t :foreground nil :background nil :inherit sml/filename))))
-;;
-;;(setq sml/theme 'chiptheme)
-;;(sml/setup)
+
+(defun chip/show-header ()
+  ""
+  (interactive)
+  (progn
+    (sl/display-header)
+    (set-face-attribute 'header-line nil :box '(:line-width 8 :color "#21242b"))
+    (set-face-background 'header-line "#21242b")
+    ))
+
+(defun chip/hide-header ()
+  ""
+  (interactive)
+  (setq header-line-format nil))
+
+(defun chip/update-header ()
+  ""
+  (interactive)
+  (if (buffer-file-name)
+      (chip/show-header)
+    (chip/hide-header)))
+
+
+
+
+;; Display file paths in header
+(defmacro with-face (str &rest properties)
+  `(propertize ,str 'face (list ,@properties)))
+
+(defun sl/make-header ()
+  ""
+  (let* ((sl/full-header (abbreviate-file-name buffer-file-name))
+         (sl/header (file-name-directory sl/full-header))
+         (sl/drop-str "[...]"))
+    (if (> (length sl/full-header)
+           (window-body-width))
+        (if (> (length sl/header)
+               (window-body-width))
+            (progn
+              (concat (with-face sl/drop-str
+                                 :background "blue"
+                                 :weight 'bold
+                                 )
+                      (with-face (substring sl/header
+                                            (+ (- (length sl/header)
+                                                  (window-body-width))
+                                               (length sl/drop-str))
+                                            (length sl/header))
+                                 ;; :background "red"
+                                 :weight 'bold
+                                 )))
+          (concat (with-face sl/header
+                             ;; :background "red"
+                             :foreground "#98be65"
+                             :weight 'bold
+                             )))
+      (concat (with-face sl/header
+                         ;; :background "green"
+                         ;; :foreground "black"
+                         :weight 'bold
+                         :foreground "#98be65"
+                         )
+              (with-face (file-name-nondirectory buffer-file-name)
+                         :weight 'bold
+                         ;; :background "red"
+                         )))))
+
+(defun sl/display-header ()
+  (setq header-line-format
+        '("" ;; invocation-name
+          (:eval (if (buffer-file-name)
+                     (concat " " (sl/make-header))
+                   "%b")))))
+
+
+
+(add-hook 'buffer-list-update-hook
+          'chip/update-header)
