@@ -143,3 +143,25 @@
 
 (add-hook 'buffer-list-update-hook
           'chip/update-header)
+
+
+
+;; Change line-wrap fringe icons
+(define-fringe-bitmap 'right-curly-arrow
+  [#b00000000
+   #b00000000
+   #b00000000
+   #b00011000
+   #b00111100
+   #b00111100
+   #b00011000
+   #b00000000])
+(define-fringe-bitmap 'left-curly-arrow
+  [#b00000000
+   #b00000000
+   #b00000000
+   #b00011000
+   #b00111100
+   #b00111100
+   #b00011000
+   #b00000000])
