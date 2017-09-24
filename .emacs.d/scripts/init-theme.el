@@ -79,7 +79,7 @@
   (interactive)
   (if (buffer-file-name)
       (chip/show-header)
-    (chip/hide-header)))
+    (chip/show-header)))
 
 
 
@@ -130,8 +130,14 @@
   (setq header-line-format
         '("" ;; invocation-name
           (:eval (if (buffer-file-name)
-                     (concat " " (sl/make-header))
-                   "%b")))))
+                     (concat " "
+			     (concat (all-the-icons-faicon "codepen" :height 0.8 :v-adjust 0.04)
+				     (concat " " (sl/make-header))))
+                     (concat " "
+			     (concat (all-the-icons-faicon "codepen" :height 0.8 :v-adjust 0.04)
+				     "%b")))
+))))
+
 
 
 
