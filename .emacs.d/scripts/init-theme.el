@@ -135,7 +135,7 @@
 				     (concat " " (sl/make-header))))
                      (concat " "
 			     (concat (all-the-icons-faicon "codepen" :height 0.8 :v-adjust 0.04)
-				     "%b")))
+				     " %b")))
 ))))
 
 
