@@ -16,3 +16,7 @@
 (evil-leader/set-key
   "p" 'helm-projectile
   "P" 'helm-projectile-switch-project)
+
+;; For projectile-ag
+(use-package ag
+  :ensure t)
