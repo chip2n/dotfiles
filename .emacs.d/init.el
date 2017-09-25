@@ -154,6 +154,9 @@
 ;; disable copy to clipboard on selection
 (setq x-select-enable-clipboard nil)
 
+;; indent with spaces by default
+(setq-default indent-tabs-mode nil)
+
 ;; smooth-scrolling (https://github.com/aspiers/smooth-scrolling)
 ;(use-package smooth-scrolling
 ;  :ensure t)
