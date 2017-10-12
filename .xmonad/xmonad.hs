@@ -73,13 +73,10 @@ myLayout = (gaps [(L,4), (R,4), (D,4)] $ spacing 4 $ avoidStruts $ tiled ||| ref
     tiled = ResizableTall 1 (3/100) (2/3) []
 
 myManageHook = composeOne [
-      className =? "floatingTerminal" -?> doRectFloat (W.RationalRect 0.3 0.35 0.4 0.35),
-      className =? "slaveTerminal" -?> insertPosition Above Older,
-      --className =? "floatingTerminal" -?> doFloat,
-      --className =? "slaveTerminal" -?> doF (W.swapDown),
+      appName =? "floatingTerminal" -?> doRectFloat (W.RationalRect 0.3 0.35 0.4 0.35),
+      appName =? "slaveTerminal" -?> doF (W.swapDown),
       isFullscreen -?> doFullFloat
     ] 
-        
 
 -- Theme {{{
 -- Colors
