@@ -207,8 +207,8 @@
 ;; tetris (because I can)
 (require 'init-tetris)
 
-;; set chrome as default browser for browsing urls
-(setq browse-url-browser-function 'browse-url-chrome)
+;; set firefox as default browser for browsing urls
+(setq browse-url-browser-function 'browse-url-firefox)
 
 ;; execute shell commands from buffer region
 (defun shell-region (start end)
