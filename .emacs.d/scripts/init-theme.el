@@ -42,7 +42,7 @@
 ;;(set-face-attribute 'default nil
 ;;                    :family "terminus"
 ;;                    :height 100)
-(set-default-font "-*-terminus-*-*-*-*-14-*-*-*-*-*-*-*")
+(set-frame-font "-*-terminus-*-*-*-*-14-*-*-*-*-*-*-*" nil t)
 
 ;; disable gui fluff
 (menu-bar-mode -1)
