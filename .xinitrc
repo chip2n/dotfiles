@@ -46,3 +46,6 @@ exec xmonad
 
 # i3
 #exec i3
+
+# EXWM
+#exec dbus-launch --exit-with-session emacs
