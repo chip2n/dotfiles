@@ -15,6 +15,7 @@ alias feh='feh --scale-down'
 alias top='htop'
 alias vim='nvim'
 alias web='qutebrowser --backend webengine'
+alias wifi='sudo wifi-menu'
 PS1='\[\e[1;34m\]>>  \[\e[m\]'
 
 export LS_COLORS="di=1;34:"
