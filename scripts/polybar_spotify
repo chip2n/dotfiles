@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Uses playerctl to extract artist and song title for polybar.
+# Will truncate song title if too long (looking at you, Grateful Dead)
+
+#playerctl status &> /dev/null
+#
+#if [ $? -eq 0 ] ; then
+#  ARTIST=$(playerctl metadata "xesam:artist")
+#  TITLE=$(playerctl metadata "xesam:title")
+#  
+#  if [ ${#TITLE} -ge 40 ]
+#  then TITLE="$(echo $TITLE | cut -c-40)..."
+#  fi
+#  
+#  echo " |   %{F#77838c}  %{F##dfdfdf}$ARTIST - $TITLE"
+#else
+#  echo ""
+#fi
+
+song | zscroll -p "  -  "  -l 40 -d 0.4 -b '%{F#77838c}  ' -a '  |' -u true "song"
+
+#playerctl metadata "xesam:title" | zscroll -b "$(playerctl metadata 'xesam:artist') - " -l 40 -d 0.1 

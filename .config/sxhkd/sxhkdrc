@@ -3,81 +3,90 @@
 #
 
 super + shift + q
-    bspc quit && killall panel && killall panel_parser_bspwm
+    bspc quit && killall polybar
+#    bspc quit && killall panel && killall panel_parser_bspwm
 
 super + shift + c
-    bspc window -c
-
-super + t
-    bspc desktop -l next
-
-super + b
-    bspc desktop -B
-
-super + {s,f,v}
-    bspc window -t {floating,fullscreen,sticky}
-
-super + {grave,Tab}
-    bspc {window,desktop} -f last
-
-super + apostrophe
-    bspc window -s last
-
-super + {o,i}
-    bspc control --record-history off; \
-    bspc window {older,newer} -f; \
-    bspc control --record-history on
-
-super + y
-    bspc window -w last.manual
+    bspc node -c
 
 super + m
-    bspc window -s biggest
+    bspc desktop -l next
+
+# set the window state
+super + {t,shift + t, s, f}
+    bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+# set the node flags
+super + ctrl + {x,y,z}
+    bspc node -g {locked,sticky,private}
+
+#super + b
+#    bspc desktop -B
+#
+#super + {s,f,v}
+#    bspc window -t {floating,fullscreen,sticky}
+#
+#super + {grave,Tab}
+#    bspc {window,desktop} -f last
+#
+#super + apostrophe
+#    bspc window -s last
+#
+#super + {o,i}
+#    bspc control --record-history off; \
+#    bspc window {older,newer} -f; \
+#    bspc control --record-history on
+#
+#super + y
+#    bspc window -w last.manual
+#
+#super + m
+#    bspc window -s biggest
 
 super + {_,shift + }{h,j,k,l}
-    bspc window -{f,s} {left,down,up,right}
+    bspc node -{f,s} {west,south,north,east}
 
-super + shift + c
-    bspc window -f next
-
-super + {comma,period}
-    bspc desktop -C {backward,forward}
-
-super + bracket{left,right}
-    bspc desktop -f {prev,next}
-
-super + shift + f
-    create_frame
+super + {_, shift +} + Tab
+    bspc node -f {next,prev}.local
+#
+#super + {comma,period}
+#    bspc desktop -C {backward,forward}
+#
+#super + bracket{left,right}
+#    bspc desktop -f {prev,next}
+#
+#super + shift + f
+#    create_frame
+#
 
 super + ctrl + {h,j,k,l}
-    bspc window -p {left,down,up,right}
+    bspc node -p {west,south,north,east}
 
-super + ctrl + {_,shift + }space
-    bspc {window -p cancel,desktop -c}
-
+#super + ctrl + {_,shift + }space
+#    bspc {window -p cancel,desktop -c}
+#
 super + alt + {h,j,k,l}
-    bspc window -e {left -10,down +10,up -10,right +10}
+    bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
 
 super + alt + shift + {h,j,k,l}
-    bspc window -e {right -10,up +10,down -10,left +10}
-
-super + ctrl + {1-9}
-    bspc window -r 0.{1-9}
-
+    bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+#
+#super + ctrl + {1-9}
+#    bspc window -r 0.{1-9}
+#
 super + {_,shift + }{1-9,0}
-    bspc {desktop -f,window -d} ^{1-9,10}
-
-~button1
-    bspc pointer -g focus
-
-super + button{1-3}
-    bspc pointer -g {move,resize_side,resize_corner}
-
-super + !button{1-3}
-    bspc pointer -t %i %i
-
-super + @button{1-3}
-    bspc pointer -u
+    bspc {desktop -f,node -d} '^{1-9,10}'
+#
+#
+#super + button{1-3}
+#    bspc pointer -g {move,resize_side,resize_corner}
+#
+#super + !button{1-3}
+#    bspc pointer -t %i %i
+#
+#super + @button{1-3}
+#    bspc pointer -u
+#
 
 #
 # wm independent hotkeys
@@ -87,12 +96,10 @@ super + Return
     urxvt
 
 super + shift + Return
-    bspc rule -a urxvt -o floating=on; \
-    urxvt; \
-    bspc rule -a urxvt -o floating=off
+    urxvt -name floaty
 
 super + p
-    dmenu_run -fn "terminus:pixelsize=12" -h 28 -nb "#26292c"
+    dmenu_run -fn "terminus:pixelsize=14" -h 28 -nb "#21242b" -nf "#dfdfdf" -sf "#dfdfdf" -sb "#2a2f3a" -y 6 -x 8 -w 1903
 
 super + w
     qutebrowser

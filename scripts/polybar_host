@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo "%{F#77838c} %{F##dfdfdf}$(cat /etc/hostname)"

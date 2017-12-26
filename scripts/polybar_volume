@@ -1,0 +1,53 @@
+#!/bin/bash
+
+VOL=`amixer get Master | awk 'FNR == 5 {print $4}' | tr -d '[]%'`
+STATUS=`amixer get Master | awk 'FNR == 5 {print $6}' | tr -d '[]'`
+
+icon=""
+if [[ $STATUS == "off" ]]; then
+	icon=""
+else
+	icon=""
+fi
+
+bar=""
+case $VOL in
+	100)
+		bar="----------"
+		;;
+	0)
+		bar="%{F#203d47}──────────"
+		;;
+	[1-9])
+		bar="─%{F#203d47}─────────"
+		;;
+	1*)
+		bar="──%{F#203d47}────────"
+		;;
+	2*)
+		bar="───%{F#203d47}───────"
+		;;
+	3*)
+		bar="────%{F#203d47}──────"
+		;;
+	4*)
+		bar="─────%{F#203d47}─────"
+		;;
+	5*)
+		bar="──────%{F#203d47}────"
+		;;
+	6*)
+		bar="───────%{F#203d47}───"
+		;;
+	7*)
+		bar="────────%{F#203d47}──"
+		;;
+	8*)
+		bar="─────────%{F#203d47}─"
+		;;
+	*)
+		bar="──────────"
+		;;
+esac
+
+echo "%{F#77838c}$icon %{F#3a8ba6}$bar%{F#ffffff}"

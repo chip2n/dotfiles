@@ -1,0 +1,19 @@
+#!/bin/bash
+
+playerctl status &> /dev/null
+
+if [ $? -eq 0 ] ; then
+  ARTIST=$(playerctl metadata "xesam:artist")
+  TITLE=$(playerctl metadata "xesam:title")
+  
+  if [ ${#TITLE} -ge 40 ]
+  then TITLE="$(echo $TITLE | cut -c-40)..."
+  fi
+  
+  ARTIST=$(playerctl metadata "xesam:artist")
+  TITLE=$(playerctl metadata "xesam:title")
+  
+  echo "$ARTIST - $TITLE"
+else
+  echo "-"
+fi
