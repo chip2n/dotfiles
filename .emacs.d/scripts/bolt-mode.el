@@ -12,7 +12,7 @@
              (x-functions-regexp (regexp-opt x-functions 'words))
              (x-user-functions-regexp "^\\([[:alnum:]]+\\)\(.*\) \{")
              (x-constants-regexp (regexp-opt x-constants 'words))
-             (x-comments-regexp "^[[:space:]]*//.*")
+             (x-comments-regexp "^.*\\(//.*\\)")
              )
         `(
           (,x-keywords-regexp . font-lock-keyword-face)
@@ -20,7 +20,7 @@
           (,x-functions-regexp . font-lock-function-name-face)
           (,x-user-functions-regexp . (1 font-lock-function-name-face))
           (,x-constants-regexp . font-lock-constant-face)
-          (,x-comments-regexp . font-lock-comment-face)
+          (,x-comments-regexp . (1 font-lock-comment-face))
           )
         )
       )
