@@ -16,7 +16,6 @@
 ;; -----------------------------------------------------------
 
 
-
 (use-package exwm
   :ensure t)
 (require 'exwm-config)
@@ -122,6 +121,7 @@
 (require 'init-jade)
 (require 'init-yaml)
 (require 'init-markdown)
+(require 'bolt-mode)
 
 ;; applications
 (require 'init-magit)
