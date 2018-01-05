@@ -226,6 +226,19 @@
 (use-package writeroom-mode
   :ensure t)
 
+;; code folding
+(add-hook 'prog-mode-hook #'hs-minor-mode)
+(use-package vimish-fold
+  :ensure t)
+;; persist folds when buffers are killed
+(vimish-fold-global-mode 1)
+(evil-leader/set-key
+  "zz" 'hs-toggle-hiding
+  "zh" 'hs-hide-block
+  "zH" 'hs-hide-all
+  "zs" 'hs-show-block
+  "zS" 'hs-show-all)
+
 ;; -------------------------------------------------------------
 
 
@@ -325,7 +338,7 @@
     (org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-w3m org-drill)))
  '(package-selected-packages
    (quote
-    (exwm notmuch elfeed writeroom-mode avy ag xref-js2 js2-refactor org-plus-contrib org-drill general evil-org org-bullets org-mode json-mode eyebrowse helm-swoop nethack nethack-el evil-paredit paredit racket-mode jade-mode js2-mode gnuplot gnuplot-mode elogcat smooth-scrolling telephone-line intero ranger hydra groovy-mode gradle-mode ace-jump-mode evil-snipe kotlin-mode helm-ag pyvenv evil-magit magit markdown-mode yaml-mode evil-surround url-http-extra-headers url-http smartparens haskell-mode buffer-move elscreen slack emacs-slack evil-leader helm-projectile projectile smart-mode-line nlinum clojure-mode evil)))
+    (vimish-fold highlight-indent-guides exwm notmuch elfeed writeroom-mode avy ag xref-js2 js2-refactor org-plus-contrib org-drill general evil-org org-bullets org-mode json-mode eyebrowse helm-swoop nethack nethack-el evil-paredit paredit racket-mode jade-mode js2-mode gnuplot gnuplot-mode elogcat smooth-scrolling telephone-line intero ranger hydra groovy-mode gradle-mode ace-jump-mode evil-snipe kotlin-mode helm-ag pyvenv evil-magit magit markdown-mode yaml-mode evil-surround url-http-extra-headers url-http smartparens haskell-mode buffer-move elscreen slack emacs-slack evil-leader helm-projectile projectile smart-mode-line nlinum clojure-mode evil)))
  '(projectile-generic-command "find -L . -type f -print0")
  '(safe-local-variable-values (quote ((org-use-tag-inheritance))))
  '(telephone-line-mode t))
