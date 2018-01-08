@@ -1,4 +1,4 @@
-(provide 'init-bolt)
+(provide 'bolt-mode)
 
 (setq bolt-highlights
       (let* (
