@@ -15,12 +15,12 @@
              (x-comments-regexp "^.*\\(//.*\\)")
              )
         `(
+          (,x-comments-regexp . (1 font-lock-comment-face))
           (,x-keywords-regexp . font-lock-keyword-face)
           (,x-types-regexp . font-lock-type-face)
           (,x-functions-regexp . font-lock-function-name-face)
           (,x-user-functions-regexp . (1 font-lock-function-name-face))
           (,x-constants-regexp . font-lock-constant-face)
-          (,x-comments-regexp . (1 font-lock-comment-face))
           )
         )
       )
