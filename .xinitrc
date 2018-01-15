@@ -3,6 +3,9 @@ xset +fp /usr/share/fonts/artwiz-fonts
 xset +fp /home/chip/.fonts
 xset fp rehash
 
+# set keyboard repeat rate
+xset r rate 200 25
+
 #setxkbmap se -option caps:escape
 setxkbmap se
 xmodmap /home/chip/.xmodmap
