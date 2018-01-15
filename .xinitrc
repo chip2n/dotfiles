@@ -3,7 +3,10 @@ xset +fp /usr/share/fonts/artwiz-fonts
 xset +fp /home/chip/.fonts
 xset fp rehash
 
-setxkbmap se -option caps:escape
+#setxkbmap se -option caps:escape
+setxkbmap se
+xmodmap /home/chip/.xmodmap
+xcape -e 'Control_L=Escape;'
 
 dropbox &
 compton &
