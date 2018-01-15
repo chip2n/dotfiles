@@ -6,7 +6,7 @@ xset fp rehash
 setxkbmap se -option caps:escape
 
 dropbox &
-## compton &
+compton &
 feh --bg-scale /home/chip/dotfiles/gray.png
 #skype -style GTK &
 unclutter &
