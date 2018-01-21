@@ -7,4 +7,9 @@ killall -q polybar
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 # launch bar
-polybar example &
+#polybar multi_main_bspwm &
+#polybar multi_support_bspwm &
+
+polybar single_xmonad &
+
+#polybar single_bspwm &
