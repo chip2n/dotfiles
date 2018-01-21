@@ -129,6 +129,7 @@
 (require 'init-slack)
 (require 'init-elfeed)
 (require 'init-email)
+(require 'init-erc)
 
 ;; save session when exiting emacs
 (desktop-save-mode 1)
