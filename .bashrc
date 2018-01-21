@@ -5,7 +5,7 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias ls='ls --color=auto -l -h --group-directories-first'
+alias ls='ls --color=auto -h --group-directories-first'
 alias sz='du -sk * | sort -n'
 alias g='git'
 alias c='cabal'
