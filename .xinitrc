@@ -44,11 +44,11 @@ source ~/env.sh
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 # XMonad
-#exec xmonad
+exec xmonad
 
 # BSPWM
-sxhkd &
-exec bspwm
+#sxhkd &
+#exec bspwm
 
 # i3
 #exec i3
