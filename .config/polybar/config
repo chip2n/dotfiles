@@ -28,6 +28,21 @@ tray-position = right
 tray-padding = 10
 tray-offset-y = -2
 
+[bar/multi_main_xmonad]
+inherit = bar/base
+monitor = DP1
+modules-left = host
+modules-center = xmonad
+modules-right = music memory cpu wlan battery date
+tray-position = right
+tray-padding = 10
+tray-offset-y = -2
+
+[bar/multi_support_xmonad]
+inherit = bar/base
+monitor = eDP1
+modules-center = xmonad
+
 [bar/single_bspwm]
 inherit = bar/base
 monitor = eDP1

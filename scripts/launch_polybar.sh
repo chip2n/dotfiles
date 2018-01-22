@@ -1,5 +1,8 @@
 #!/bin/bash
 
+MODE=${1:-"single"}
+echo $MODE
+
 # terminate already running bar instances
 killall -q polybar
 
@@ -7,9 +10,10 @@ killall -q polybar
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 # launch bar
-#polybar multi_main_bspwm &
-#polybar multi_support_bspwm &
-
-polybar single_xmonad &
-
-#polybar single_bspwm &
+case $MODE in
+    "single")
+        polybar single_xmonad &;;
+    "multi")
+        polybar multi_main_xmonad &
+        polybar multi_support_xmonad &;;
+esac
