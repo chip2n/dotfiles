@@ -1,6 +1,12 @@
 (provide 'init-jade)
 
-(use-package jade-mode
-  :ensure t)
+(use-package pug-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist (cons (rx ".jade" eos) 'pug-mode))
+  (add-to-list 'auto-mode-alist (cons (rx ".pug" eos) 'pug-mode)))
 
-(add-to-list 'auto-mode-alist (cons (rx ".jade" eos) 'jade-mode))
+(use-package stylus-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist (cons (rx ".styl" eos) 'pug-mode)))

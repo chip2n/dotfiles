@@ -5,5 +5,3 @@
 (use-package evil-magit
   :ensure t
   :after magit)
-(evil-leader/set-key
-  "g" 'magit-status)

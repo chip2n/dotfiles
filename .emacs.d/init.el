@@ -1,363 +1,43 @@
-; load scripts
-(add-to-list 'load-path "~/.emacs.d/scripts")
-
-;; ---------------------- package stuff ----------------------
-;; package.el
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (package-initialize)
 
-;; use-package
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-(require 'use-package)
-;; -----------------------------------------------------------
-
-
-(use-package exwm
-  :ensure t)
-(require 'exwm-config)
-
-(setq exwm-workspace-number 2)
-
-(require 'exwm-randr)
-(setq exwm-randr-workspace-output-plist '(0 "DVI-D-0" 1 "DVI-I-0"))
-(add-hook 'exwm-randr-screen-change-hook
-          (lambda ()
-            (start-process-shell-command
-             "xrandr" nil "xrandr --output DVI-D-0 --left-of DVI-I-0 --auto")))
-(exwm-randr-enable)
-
-
-
-(exwm-input-set-key (kbd "s-SPC") 'helm-M-x)
-
-(push ?\s-w exwm-input-prefix-keys)
-(push ?\s-e exwm-input-prefix-keys)
-(exwm-input-set-key (kbd "s-w") (lambda () (interactive) (exwm-workspace-switch 0)))
-(exwm-input-set-key (kbd "s-e") (lambda () (interactive) (exwm-workspace-switch 1)))
-
-(push ?\s-h exwm-input-prefix-keys)
-(push ?\s-k exwm-input-prefix-keys)
-(push ?\s-j exwm-input-prefix-keys)
-(push ?\s-l exwm-input-prefix-keys)
-(exwm-input-set-key (kbd "s-h") 'evil-window-left)
-(exwm-input-set-key (kbd "s-k") 'evil-window-up)
-(exwm-input-set-key (kbd "s-l") 'evil-window-right)
-(exwm-input-set-key (kbd "s-j") 'evil-window-down)
-
-(push ?\s-b exwm-input-prefix-keys)
-(exwm-input-set-key (kbd "s-b") 'helm-buffers-list)
-
-(push ?\s-\C-h exwm-input-prefix-keys)
-(push ?\s-\C-j exwm-input-prefix-keys)
-(push ?\s-\C-k exwm-input-prefix-keys)
-(push ?\s-\C-l exwm-input-prefix-keys)
-(exwm-input-set-key (kbd "s-C-h") 'split-window-right)
-(exwm-input-set-key (kbd "s-C-j") (lambda () (interactive) (split-window-below) (other-window 1)))
-(exwm-input-set-key (kbd "s-C-k") 'split-window-below)
-(exwm-input-set-key (kbd "s-C-l") (lambda () (interactive) (split-window-right) (other-window 1)))
-
-(push ?\s-\S-h exwm-input-prefix-keys)
-(push ?\s-\S-j exwm-input-prefix-keys)
-(push ?\s-\S-k exwm-input-prefix-keys)
-(push ?\s-\S-l exwm-input-prefix-keys)
-(exwm-input-set-key (kbd "s-S-l") 'evil-window-increase-width)
-(exwm-input-set-key (kbd "s-S-h") 'evil-window-decrease-width)
-(exwm-input-set-key (kbd "s-S-k") 'evil-window-increase-height)
-(exwm-input-set-key (kbd "s-S-j") 'evil-window-decrease-height)
-
-(push ?\: exwm-input-prefix-keys)
-
-
-
-
-(defvar exwm-app-launcher--prompt "$ "
-  "Prompt for the EXWM application launcher")
-(defun exwm-app-launcher (command)
-      (interactive (list (read-shell-command exwm-app-launcher--prompt)))
-      (start-process-shell-command command nil command))
-
-(defun exwm-rename-buffer ()
-  (interactive)
-  (exwm-workspace-rename-buffer
-   (concat exwm-class-name ":"
-           (if (<= (length exwm-title) 50) exwm-title
-             (concat (substring exwm-title 0 49) "...")))))
-
-;; Add these hooks in a suitable place (e.g., as done in exwm-config-default)
-(add-hook 'exwm-update-class-hook 'exwm-rename-buffer)
-(add-hook 'exwm-update-title-hook 'exwm-rename-buffer)
-
-
-(exwm-enable)
-
-
-
-(server-start)
-
-(require 'init-evil)
+(add-to-list 'load-path "~/.emacs.d/scripts")
+(require 'init-use-package)
 (require 'init-theme)
-
-(use-package hydra
-  :ensure t)
-
-;; emacs tools
-(require 'init-helm)
-(require 'init-neotree)
-(require 'init-org)
+(require 'init-evil)
+(require 'init-company)
+(require 'init-ivy)
+(require 'init-avy)
+(require 'init-hydra)
+(require 'init-magit)
+(require 'init-erc)
+(require 'init-elfeed)
 (require 'init-projectile)
+(require 'init-org)
 (require 'init-eyebrowse)
-
-;; languages
-(require 'init-clojure)
-(require 'init-haskell)
-(require 'init-python)
-(require 'init-javascript)
-(require 'init-racket)
-(require 'init-groovy)
-(require 'init-jade)
-(require 'init-yaml)
+(require 'init-yasnippet)
+(require 'init-diminish)
+(require 'init-snipe)
 (require 'init-markdown)
+(require 'init-javascript)
+(require 'init-python)
+(require 'init-jade)
+(require 'init-pdf)
+(require 'init-keybindings)
+(require 'init-pamparam)
+(require 'init-japanese)
 (require 'bolt-mode)
 
-;; applications
-(require 'init-magit)
-(require 'init-tablature)
-(require 'init-slack)
-(require 'init-elfeed)
-(require 'init-email)
-(require 'init-erc)
+;; save backups in separate directory
+(setq backup-directory-alist `(("." . "~/.emacs.d/.backups")))
+;; save auto saves in separate directory
+(setq auto-save-file-name-transforms
+      `((".*" "~/.emacs.d/.auto-saves" t)))
 
-;; save session when exiting emacs
-(desktop-save-mode 1)
+;; follow symlinks
+(setq vc-follow-symlinks t)
 
-;; smartparens: https://github.com/Fuco1/smartparens
-(use-package smartparens
-  :ensure t
-  :config
-  (progn
-    (show-smartparens-global-mode t)))
-;;(require 'smartparens-config)
-;;(add-hook 'prog-mode-hook 'turn-on-smartparens-strict-mode)
-
-;; avy
-(use-package avy
-  :ensure t)
-(evil-leader/set-key
-  "s" 'avy-goto-char-2
-  "S" 'helm-swoop-without-pre-input)
-
-;; evil-snipe: https://github.com/hlissner/evil-snipe
-(use-package evil-snipe
-  :ensure t)
-(evil-snipe-override-mode 1)
-(setq evil-snipe-scope 'buffer)
-;; turn off evil-snipe in ranger
-(add-hook 'ranger-mode-hook 'turn-off-evil-snipe-override-mode)
-;; turn off evil-snipe in magit
-(add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode)
-;; enable snipe in visual mode
-(evil-define-key 'visual evil-snipe-mode-map "s" 'evil-snipe-s)
-(evil-define-key 'visual evil-snipe-mode-map "S" 'evil-snipe-S)
-
-;; ranger: https://github.com/ralesi/ranger.el
-(use-package ranger
-  :ensure t)
-(evil-leader/set-key
-  "r" 'ranger)
-;; make ranger the default file browser
-(ranger-override-dired-mode t)
-;; disable file preview by default
-(setq ranger-preview-file nil)
-;; hide hidden files by default
-(setq ranger-show-hidden nil)
-
-;; diminish-mode
-(use-package diminish
-  :ensure t)
-(diminish 'evil-snipe-local-mode)
-(diminish 'auto-revert-mode)
-(diminish 'helm-mode)
-(diminish 'undo-tree-mode)
-(diminish 'company-mode)
-(diminish 'projectile-mode)
-
-;; ---------------------- interface stuff ----------------------
-
-;; winner-mode
-;; enables undo/redo of window changes
-(winner-mode)
-(evil-leader/set-key
-  "h" 'winner-undo
-  "l" 'winner-redo)
-
-(add-to-list 'winner-boring-buffers "*helm M-x*")
-(add-to-list 'winner-boring-buffers "*helm mini*")
-(add-to-list 'winner-boring-buffers "*Helm Completions*")
-(add-to-list 'winner-boring-buffers "*Helm Find Files*")
-(add-to-list 'winner-boring-buffers "*helm mu*")
-(add-to-list 'winner-boring-buffers "*helm mu contacts*")
-(add-to-list 'winner-boring-buffers "*helm-mode-describe-variable*")
-(add-to-list 'winner-boring-buffers "*helm-mode-describe-function*")
-
-;; buffer-move
-;; rearrange buffers in a more straightforward way
-(use-package buffer-move
-  :ensure t)
-(define-key evil-normal-state-map (kbd "M-h") 'buf-move-left)
-(define-key evil-normal-state-map (kbd "M-k") 'buf-move-up)
-(define-key evil-normal-state-map (kbd "M-l") 'buf-move-right)
-(define-key evil-normal-state-map (kbd "M-j") 'buf-move-down)
-
-;; splitting windows
-(evil-leader/set-key
-  "wh" 'split-window-right
-  "wl" (lambda () (interactive) (split-window-right) (other-window 1))
-  "wk" 'split-window-below
-  "wj" (lambda () (interactive) (split-window-below) (other-window 1))
-  "wf" 'delete-other-windows)
-
-(evil-leader/set-key
-  "x" 'evil-quit
-  "X" 'evil-delete-buffer)
-
-(use-package writeroom-mode
-  :ensure t)
-
-;; code folding
-(add-hook 'prog-mode-hook #'hs-minor-mode)
-(use-package vimish-fold
-  :ensure t)
-;; persist folds when buffers are killed
-(vimish-fold-global-mode 1)
-(evil-leader/set-key
-  "zz" 'hs-toggle-hiding
-  "zh" 'hs-hide-block
-  "zH" 'hs-hide-all
-  "zs" 'hs-show-block
-  "zS" 'hs-show-all)
-
-;; -------------------------------------------------------------
-
-
-;; ---------------------- editor stuff ----------------------
-
-;; utf-8 as default encoding
-(set-language-environment "UTF-8")
-
-;; set default comment column to 70
-(setq-default comment-column 70)
-
-;; show matching parenthesis
-(show-paren-mode 1)
-
-;; disable copy to clipboard on selection
-(setq x-select-enable-clipboard nil)
-
-;; indent with spaces by default
-(setq-default indent-tabs-mode nil)
-
-;; smooth-scrolling (https://github.com/aspiers/smooth-scrolling)
-;(use-package smooth-scrolling
-;  :ensure t)
-;(setq smooth-scroll-margin 5)
-;(smooth-scrolling-mode 1)
-
-;; file backup
-(defvar --backup-directory (concat user-emacs-directory "backups"))
-(if (not (file-exists-p --backup-directory))
-        (make-directory --backup-directory t))
-(setq backup-directory-alist `(("." . ,--backup-directory)))
-(setq make-backup-files t               ; backup of a file the first time it is saved.
-      backup-by-copying t               ; don't clobber symlinks
-      version-control t                 ; version numbers for backup files
-      delete-old-versions t             ; delete excess backup files silently
-      delete-by-moving-to-trash t
-      kept-old-versions 6               ; oldest versions to keep when a new numbered backup is made (default: 2)
-      kept-new-versions 9               ; newest versions to keep when a new numbered backup is made (default: 2)
-      auto-save-default t               ; auto-save every buffer that visits a file
-      auto-save-timeout 20              ; number of seconds idle time before auto-save (default: 30)
-      auto-save-interval 200            ; number of keystrokes between auto-saves (default: 300)
-      )
-
-;; enable line numbering
-;;(global-linum-mode 1)
-
-;; ----------------------------------------------------------
-
-;; ---------------------- keybindings ----------------------
-
-;; open init.el
-(evil-leader/set-key
-  "c" (lambda ()
-	(interactive)
-	(find-file "~/.emacs.d/init.el"))
-  "f" 'helm-find-files
-  "er" 'eval-region
-  "ed" 'eval-defun
-  "eb" 'eval-buffer
-  "ee" 'eval-expression
-  "es" 'shell-region)
-
-;; ---------------------------------------------------------
-
-;; tetris (because I can)
-(require 'init-tetris)
-
-;; set firefox as default browser for browsing urls
-(setq browse-url-browser-function 'browse-url-firefox)
-
-;; execute shell commands from buffer region
-(defun shell-region (start end)
-  "execute region in an inferior shell"
-  (interactive "r")
-  (shell-command  (buffer-substring-no-properties start end)))
-
-; smart-mode-line
-;(use-package smart-mode-line
-;  :ensure t)
-;(use-package smart-mode-line-powerline-theme
-;  :ensure t)
-;(setq sml/no-confirm-load-theme t)
-;(setq sml/theme 'powerline)
-;(sml/setup)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" default)))
- '(global-hl-line-mode t)
- '(org-modules
-   (quote
-    (org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail org-w3m org-drill)))
- '(package-selected-packages
-   (quote
-    (vimish-fold highlight-indent-guides exwm notmuch elfeed writeroom-mode avy ag xref-js2 js2-refactor org-plus-contrib org-drill general evil-org org-bullets org-mode json-mode eyebrowse helm-swoop nethack nethack-el evil-paredit paredit racket-mode jade-mode js2-mode gnuplot gnuplot-mode elogcat smooth-scrolling telephone-line intero ranger hydra groovy-mode gradle-mode ace-jump-mode evil-snipe kotlin-mode helm-ag pyvenv evil-magit magit markdown-mode yaml-mode evil-surround url-http-extra-headers url-http smartparens haskell-mode buffer-move elscreen slack emacs-slack evil-leader helm-projectile projectile smart-mode-line nlinum clojure-mode evil)))
- '(projectile-generic-command "find -L . -type f -print0")
- '(safe-local-variable-values (quote ((org-use-tag-inheritance))))
- '(telephone-line-mode t))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(mode-line ((t (:background "#282c34" :foreground "#bbc2cf"))))
- '(mode-line-inactive ((t (:background "#282c34" :foreground "#5B6268"))))
- '(org-level-1 ((t (:inherit outline-1 :height 1.0))))
- '(org-level-2 ((t (:inherit outline-2 :height 1.0))))
- '(org-level-3 ((t (:inherit outline-3 :height 1.0))))
- '(org-level-4 ((t (:inherit outline-4 :height 1.0))))
- '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
- '(telephone-line-accent-active ((t (:inherit mode-line :background "#3c404a" :foreground "white"))))
- '(telephone-line-accent-inactive ((t (:inherit mode-line-inactive :background "#3c404a" :foreground "black"))))
- '(telephone-line-evil-emacs ((t (:inherit telephone-line-evil :background "orchid1"))))
- '(telephone-line-evil-insert ((t (:inherit telephone-line-evil :background "#5972ab"))))
- '(telephone-line-evil-normal ((t (:inherit telephone-line-evil :background "#2f333a"))))
- '(telephone-line-evil-visual ((t (:inherit telephone-line-evil :background "#5972ab")))))
+;; disable lock files
+(setq create-lockfiles nil) 

@@ -1,22 +1,15 @@
 (provide 'init-projectile)
 
 (use-package projectile
-  :ensure t)
-(projectile-mode)
-(use-package helm-projectile
   :ensure t
-  :init
-  (defvar helm-source-file-not-found
-    (helm-build-dummy-source
-	"Create file"
-      :action 'find-file))
-  (add-to-list 'helm-projectile-sources-list helm-source-file-not-found t)
+  :after (ivy)
+  :config
   (add-to-list 'projectile-globally-ignored-directories "*node_modules")
-  (setq projectile-enable-caching t))
-(evil-leader/set-key
-  "p" 'helm-projectile
-  "P" 'helm-projectile-switch-project)
+  (setq projectile-enable-caching t)
+  (setq projectile-completion-system 'ivy)
+  (projectile-mode))
 
 ;; For projectile-ag
 (use-package ag
-  :ensure t)
+  :ensure t
+  :after (projectile))

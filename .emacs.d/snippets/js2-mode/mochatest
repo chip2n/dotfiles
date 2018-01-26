@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: mochatest
+# key: mochatest
+# --
+it('$1', () => {
+  $2
+})

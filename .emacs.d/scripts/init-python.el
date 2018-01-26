@@ -2,8 +2,9 @@
 
 ;; anaconda-mode: https://github.com/proofit404/anaconda-mode
 (use-package anaconda-mode
-  :ensure t)
-(add-hook 'python-mode-hook 'anaconda-mode)
+  :ensure t
+  :config
+  (add-hook 'python-mode-hook 'anaconda-mode))
 
 ;; pyvenv: https://github.com/jorgenschaefer/pyvenv
 (use-package pyvenv
