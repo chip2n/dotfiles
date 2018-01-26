@@ -38,6 +38,9 @@
    `(lazy-highlight ((,class (:background ,grey-3))))
    `(trailing-whitespace ((,class (:background ,red-2))))
    `(vertical-border ((,class (:foreground ,grey-2))))
+   ;; Header faces
+   `(header-line ((,class (:box ()
+			 :background ,grey-2 :foreground ,white-1))))
    ;; Mode line faces
    `(mode-line ((,class (:box ()
 			 :background ,grey-2 :foreground ,white-1))))
