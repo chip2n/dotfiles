@@ -4,11 +4,12 @@
 (let* ((class '((class color) (min-colors 89)))
       ;; Chip palette colors.
       (white-1 "#ffffff")
-      (grey-1 "#21242b") (grey-2 "#282c34") (grey-3 "#3c404a")
-      (blue-1 "#3a8ba6") (blue-2 "#67acd5")
-      (red-1 "#f28479") (red-2 "#fd8a7e")
-      (green-1 "#7fdd98") (green-2 "#85e79f")
-      (pink-1 "#f49bbe") (pink-2 "#ffa2c6")
+      (grey-1 "#21242b") (grey-2 "#282c34") (grey-3 "#3c404a") (grey-4 "#494e5a")
+
+      (red-1 "#d98077") (red-2 "#f1988e")
+      (green-1 "#89d2b0") (green-2 "#b4e9c2")
+      (blue-1 "#67acd5") (blue-2 "#96d3e8")
+      (pink-1 "#dc8cac") (pink-2 "#ecb3c9")
 
       (highlight grey-2)
 
@@ -64,14 +65,14 @@
    `(success ((,class (:foreground ,cham-3))))
 
    ;; Font lock faces
-   `(font-lock-builtin-face ((,class (:foreground ,pink-1))))
-   `(font-lock-comment-face ((,class (:foreground ,grey-3))))
+   `(font-lock-builtin-face ((,class (:foreground ,pink-2))))
+   `(font-lock-comment-face ((,class (:foreground ,grey-4))))
    `(font-lock-constant-face ((,class (:foreground ,blue-2))))
-   `(font-lock-function-name-face ((,class (:foreground ,pink-1))))
-   `(font-lock-keyword-face ((,class (:foreground ,green-1))))
+   `(font-lock-function-name-face ((,class (:foreground ,pink-2))))
+   `(font-lock-keyword-face ((,class (:foreground ,blue-2))))
    `(font-lock-string-face ((,class (:foreground ,green-2))))
-   `(font-lock-type-face ((,class (:foreground ,red-1))))
-   `(font-lock-variable-name-face ((,class (:foreground ,pink-1))))
+   `(font-lock-type-face ((,class (:foreground ,red-2))))
+   `(font-lock-variable-name-face ((,class (:foreground ,pink-2))))
 
    ;; Markdown faces
    `(markdown-markup-face ((,class (:foreground ,grey-3))))
