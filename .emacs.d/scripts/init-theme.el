@@ -7,9 +7,9 @@
 (set-frame-parameter nil 'internal-border-width 10)
 
 ;; disable gui fluff
+(scroll-bar-mode -1)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
-(scroll-bar-mode -1)
 
 ;; hide welcome screen
 (setq inhibit-startup-screen t)
