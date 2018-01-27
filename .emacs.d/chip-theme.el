@@ -29,6 +29,7 @@
    'chip
    `(default ((,class (:foreground ,white-1 :background ,grey-1))))
    `(cursor ((,class (:background ,grey-3))))
+
    ;; Highlighting faces
    `(fringe ((,class (:foreground ,grey-3 :background ,grey-1))))
    `(highlight ((,class (:background ,highlight))))
@@ -40,16 +41,20 @@
    `(vertical-border ((,class (:foreground ,grey-2))))
    `(link ((,class (:foreground ,blue-2 :underline t))))
    `(link-visited ((,class (:foreground ,blue-1 :underline t))))
+
    ;; Header faces
    `(header-line ((,class (:box ()
 			 :background ,grey-2 :foreground ,white-1))))
+
    ;; Mode line faces
    `(mode-line ((,class (:box ()
 			 :background ,grey-2 :foreground ,white-1))))
    `(mode-line-inactive ((,class (:box ()
 				  :background ,grey-2 :foreground ,grey-3))))
+
    ;; Magit faces
    `(magit-section-highlight ((,class (:background ,highlight))))
+
    ;; Escape and prompt faces
    `(minibuffer-prompt ((,class (:weight bold :foreground ,grey-3))))
    `(escape-glyph ((,class (:foreground ,red-3))))
@@ -57,6 +62,7 @@
    `(error ((,class (:foreground ,red-2))))
    `(warning ((,class (:foreground ,orange-3))))
    `(success ((,class (:foreground ,cham-3))))
+
    ;; Font lock faces
    `(font-lock-builtin-face ((,class (:foreground ,pink-1))))
    `(font-lock-comment-face ((,class (:foreground ,grey-3))))
@@ -66,19 +72,30 @@
    `(font-lock-string-face ((,class (:foreground ,green-2))))
    `(font-lock-type-face ((,class (:foreground ,red-1))))
    `(font-lock-variable-name-face ((,class (:foreground ,pink-1))))
+
    ;; Markdown faces
    `(markdown-markup-face ((,class (:foreground ,grey-3))))
+
    ;; Telephone line faces
-   `(telephone-line-evil-normal ((,class (:background ,grey-2 :foreground ,white-1))))
-   `(telephone-line-evil-insert ((,class (:background ,blue-2 :foreground ,white-1))))
-   `(telephone-line-evil-visual ((,class (:background ,blue-2 :foreground ,white-1))))
-   `(telephone-line-evil-emacs ((,class (:background ,pink-1 :foreground ,white-1))))
-   `(telephone-line-evil-motion ((,class (:background ,pink-1 :foreground ,white-1))))
-   `(telephone-line-accent-active ((,class (:background ,grey-3 :foreground ,white-1))))
-   `(telephone-line-accent-inactive ((,class (:background ,grey-2 :foreground ,grey-3))))
+   `(telephone-line-evil-normal
+     ((,class (:background ,grey-2 :foreground ,white-1))))
+   `(telephone-line-evil-insert
+     ((,class (:background ,blue-2 :foreground ,white-1))))
+   `(telephone-line-evil-visual
+     ((,class (:background ,blue-2 :foreground ,white-1))))
+   `(telephone-line-evil-emacs
+     ((,class (:background ,pink-1 :foreground ,white-1))))
+   `(telephone-line-evil-motion
+     ((,class (:background ,pink-1 :foreground ,white-1))))
+   `(telephone-line-accent-active
+     ((,class (:background ,grey-3 :foreground ,white-1))))
+   `(telephone-line-accent-inactive
+     ((,class (:background ,grey-2 :foreground ,grey-3))))
+
    ;; Button and link faces
    `(link ((,class (:underline t :foreground ,blue-3))))
    `(link-visited ((,class (:underline t :foreground ,blue-2))))
+
    ;; Message faces
    `(message-header-name ((,class (:foreground ,blue-3))))
    `(message-header-cc ((,class (:foreground ,butter-3))))
