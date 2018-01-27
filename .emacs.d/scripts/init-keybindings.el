@@ -137,6 +137,7 @@
    "<SPC>" 'execute-extended-command
    "c" 'chip/open-config-file
    "er" 'eval-region
+   "eb" 'eval-buffer
    "ed" 'eval-defun
    "es" 'eval-last-sexp
    "ee" 'eval-expression))
