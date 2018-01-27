@@ -32,6 +32,18 @@
 .config/dconf
 .config/gtk-2.0
 .config/gtk-3.0
+.config/Mist
+.config/Electron
+.config/Code - OSS/
+.config/CCP
+.config/google-chrome
+.config/gconf
+.config/matterhorn
+.config/mopidy
+.config/oni
+.config/pavucontrol.ini
+.config/pulse
+.config/teamviewer
 .vim/plugged
 .xmonad/.stack-work
 .xmonad/xmonad.state
