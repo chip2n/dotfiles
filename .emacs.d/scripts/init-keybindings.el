@@ -4,7 +4,7 @@
   "Setup keybindings for window management"
   (interactive)
   (general-define-key
-   :keymaps '(normal visual)
+   :keymaps '(normal visual motion)
    "C-h" 'windmove-left
    "C-k" 'windmove-up
    "C-l" 'windmove-right
@@ -100,12 +100,13 @@
    :keymaps '(elfeed-search-mode-map)
    "o" 'elfeed-search-show-entry))
 
-(defun chip/setup-company-keys ()
-  "Setup keybindings for company mode"
+(defun chip/setup-language-keys ()
+  "Setup keybindings for languages"
   (interactive)
   (general-define-key
-   :keymaps '(insert)
-   "<tab>" 'company-complete))
+   :prefix leader
+   :states 'normal
+   "j" 'uim-mode))
 
 (defun chip/setup-applications-keys ()
   "Setup keybindings for miscellaneous applications under common prefix"
@@ -128,9 +129,13 @@
   (chip/setup-projectile-keys)
   (chip/setup-eyebrowse-keys)
   (chip/setup-elfeed-keys)
-  (chip/setup-company-keys)
+  (chip/setup-language-keys)
   (chip/setup-applications-keys)
   ;; misc
+  (general-define-key
+   :keymaps '(Info-mode-map)
+   "<SPC>" nil)
+  (define-key Info-mode-map (kbd "<SPC>") nil)
   (general-define-key
    :prefix leader
    :keymaps '(normal visual emacs)
