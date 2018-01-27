@@ -45,11 +45,11 @@ for_window [class="^.*" instance="floating"] floating enable
 floating_modifier $mod
 
 # Set workspace names
-set $WS1 1:
-set $WS2 2:
-set $WS3 3:
-set $WS4 4:
-set $WS5 5:
+set $WS1 1:1
+set $WS2 2:2
+set $WS3 3:3
+set $WS4 4:4
+set $WS5 5:5
 
 # switch to workspace
 bindsym $mod+1 workspace $WS1
@@ -247,22 +247,22 @@ client.background       #ffffff
 #    i3bar_command ~/scripts/panel i3
 #}
 
-#
-#bar {
-#    #status_command i3status
-#    status_command i3blocks
-#    tray_output primary
-#    position top
-#    font pango:Terminus, Siji 8
-#	  strip_workspace_numbers yes
-#    colors {
-#        background $BAR_BG_COLOR
-#        statusline #788491
-#        separator #51c4d4
-#
-#        focused_workspace  $BAR_BG_COLOR $BAR_BG_COLOR #4FC0E8
-#        active_workspace   $BAR_BG_COLOR $BAR_BG_COLOR #4FC0E8
-#        inactive_workspace $BAR_BG_COLOR $BAR_BG_COLOR #C1D1E0
-#        urgent_workspace   $BAR_BG_COLOR $BAR_BG_COLOR #C1D1E0
-#    }
-#}
+
+bar {
+    #status_command i3status
+    status_command i3blocks
+    tray_output primary
+    position top
+    font pango:Terminus, Siji 8
+	  strip_workspace_numbers yes
+    colors {
+        background $BAR_BG_COLOR
+        statusline #788491
+        separator #51c4d4
+
+        focused_workspace  $BAR_BG_COLOR $BAR_BG_COLOR #4FC0E8
+        active_workspace   $BAR_BG_COLOR $BAR_BG_COLOR #4FC0E8
+        inactive_workspace $BAR_BG_COLOR $BAR_BG_COLOR #C1D1E0
+        urgent_workspace   $BAR_BG_COLOR $BAR_BG_COLOR #C1D1E0
+    }
+}
