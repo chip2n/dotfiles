@@ -38,6 +38,8 @@
    `(lazy-highlight ((,class (:background ,grey-3))))
    `(trailing-whitespace ((,class (:background ,red-2))))
    `(vertical-border ((,class (:foreground ,grey-2))))
+   `(link ((,class (:foreground ,blue-2 :underline t))))
+   `(link-visited ((,class (:foreground ,blue-1 :underline t))))
    ;; Header faces
    `(header-line ((,class (:box ()
 			 :background ,grey-2 :foreground ,white-1))))
