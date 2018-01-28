@@ -8,10 +8,12 @@
 
       (red-1 "#d98077") (red-2 "#f1988e")
       (green-1 "#89d2b0") (green-2 "#b4e9c2")
+      (yellow-1 "#eae1a6") (yellow-2 "#fbf2bf")
       (blue-1 "#67acd5") (blue-2 "#96d3e8")
       (pink-1 "#dc8cac") (pink-2 "#ecb3c9")
 
       (highlight grey-2)
+      (diff-added "#556f55")
 
       ;; Tango palette colors.
       (butter-1 "#fce94f") (butter-2 "#edd400") (butter-3 "#c4a000")
@@ -55,6 +57,26 @@
 
    ;; Magit faces
    `(magit-section-highlight ((,class (:background ,highlight))))
+   `(magit-section-heading ((,class (:foreground ,yellow-1 :weight bold))))
+   `(magit-hash ((,class (:foreground ,grey-4))))
+   `(magit-dimmed ((,class (:foreground ,grey-4))))
+   `(magit-signature-error ((,class (:foreground ,red-1))))
+   `(magit-log-author ((,class (:foreground ,red-1))))
+   `(magit-log-date ((,class (:foreground ,grey-4))))
+   `(magit-log-graph ((,class (:foreground ,grey-4))))
+   `(magit-diff-added ((,class (:background ,diff-added :foreground ,white-1))))
+   `(magit-diff-added-highlight ((,class (:background ,diff-added :foreground ,white-1))))
+   `(magit-diff-hunk-heading ((,class (:background ,grey-2 :foreground ,grey-4))))
+   `(magit-diff-hunk-heading-highlight ((,class (:background ,grey-3 :foreground ,white-1))))
+   `(magit-diff-context ((,class (:foreground ,grey-3))))
+   `(magit-diff-context-highlight ((,class (:background ,grey-2 :foreground ,white-1))))
+   `(magit-head ((,class (:foreground ,blue-2 :weight bold))))
+   `(magit-branch-local ((,class (:foreground ,blue-2 :weight bold))))
+   `(magit-branch-remote ((,class (:foreground ,green-2 :weight bold))))
+   `(magit-branch-remote-head ((,class (:box (:line-width 1)
+					     :foreground ,green-2))))
+   `(magit-branch-current ((,class (:box (:line-width 1)
+					     :foreground ,blue-2))))
    `(git-commit-summary ((,class (:foreground ,white-1))))
 
    ;; Slack faces
