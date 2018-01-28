@@ -56,6 +56,12 @@
    ;; Magit faces
    `(magit-section-highlight ((,class (:background ,highlight))))
 
+   ;; Slack faces
+   `(slack-message-output-header ((,class (:foreground ,blue-2 :weight bold))))
+   `(slack-message-output-reaction ((,class (:foreground ,grey-4))))
+   `(lui-button-face ((,class (:foreground ,blue-2 :underline t))))
+   `(lui-time-stamp-face ((,class (:foreground ,pink-2 :weight bold))))
+
    ;; Escape and prompt faces
    `(minibuffer-prompt ((,class (:weight bold :foreground ,grey-3))))
    `(escape-glyph ((,class (:foreground ,red-3))))

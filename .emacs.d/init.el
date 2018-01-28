@@ -14,6 +14,7 @@
 (require 'init-magit)
 (require 'init-erc)
 (require 'init-elfeed)
+(require 'init-slack)
 (require 'init-projectile)
 (require 'init-org)
 (require 'init-eyebrowse)
