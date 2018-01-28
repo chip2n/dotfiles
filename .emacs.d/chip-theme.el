@@ -62,6 +62,16 @@
    `(lui-button-face ((,class (:foreground ,blue-2 :underline t))))
    `(lui-time-stamp-face ((,class (:foreground ,pink-2 :weight bold))))
 
+   ;; Erc faces
+   `(erc-nick-default-face ((,class (:foreground ,green-1 :weight bold))))
+   `(erc-current-nick-face ((,class (:foreground ,green-1 :weight bold))))
+   `(erc-notice-face ((,class (:foreground ,grey-3))))
+   `(erc-input-face ((,class (:foreground ,white-1))))
+   `(erc-timestamp-face ((,class (:foreground ,pink-2 :weight bold))))
+   `(erc-prompt-face ((,class (:foreground ,grey-3 :weight bold))))
+   `(erc-nick-msg-face ((,class (:foreground ,red-1))))
+   `(erc-direct-msg-face ((,class (:foreground ,red-2))))
+
    ;; Escape and prompt faces
    `(minibuffer-prompt ((,class (:weight bold :foreground ,grey-3))))
    `(escape-glyph ((,class (:foreground ,red-3))))
