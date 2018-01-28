@@ -55,6 +55,7 @@
 
    ;; Magit faces
    `(magit-section-highlight ((,class (:background ,highlight))))
+   `(git-commit-summary ((,class (:foreground ,white-1))))
 
    ;; Slack faces
    `(slack-message-output-header ((,class (:foreground ,blue-2 :weight bold))))
