@@ -55,6 +55,10 @@
    `(mode-line-inactive ((,class (:box ()
 				  :background ,grey-2 :foreground ,grey-3))))
 
+   ;; Org
+   `(org-todo ((,class (:foreground ,red-2 :weight bold))))
+   `(org-done ((,class (:foreground ,green-2 :weight bold))))
+
    ;; Magit faces
    `(magit-section-highlight ((,class (:background ,highlight))))
    `(magit-section-heading ((,class (:foreground ,yellow-1 :weight bold))))
