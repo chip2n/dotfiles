@@ -24,6 +24,7 @@
 (require 'init-markdown)
 (require 'init-javascript)
 (require 'init-python)
+(require 'init-csharp)
 (require 'init-jade)
 (require 'init-pdf)
 (require 'init-keybindings)
