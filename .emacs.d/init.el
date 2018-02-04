@@ -22,6 +22,7 @@
 (require 'init-diminish)
 (require 'init-snipe)
 (require 'init-markdown)
+(require 'init-yaml)
 (require 'init-javascript)
 (require 'init-python)
 (require 'init-csharp)
