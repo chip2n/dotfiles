@@ -58,6 +58,14 @@
    ;; Org
    `(org-todo ((,class (:foreground ,red-2 :weight bold))))
    `(org-done ((,class (:foreground ,green-2 :weight bold))))
+   `(org-level-1 ((,class (:foreground ,red-2 :weight bold))))
+   `(org-level-2 ((,class (:foreground ,blue-2 :weight bold))))
+   `(org-level-3 ((,class (:foreground ,pink-2 :weight bold))))
+   `(org-level-4 ((,class (:foreground ,green-2 :weight bold))))
+   `(org-level-5 ((,class (:foreground ,red-2 :weight bold))))
+   `(org-level-6 ((,class (:foreground ,blue-2 :weight bold))))
+   `(org-level-7 ((,class (:foreground ,pink-2 :weight bold))))
+   `(org-level-8 ((,class (:foreground ,green-2 :weight bold))))
 
    ;; Magit faces
    `(magit-section-highlight ((,class (:background ,highlight))))
