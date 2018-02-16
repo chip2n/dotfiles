@@ -23,6 +23,7 @@
 (require 'init-snipe)
 (require 'init-markdown)
 (require 'init-yaml)
+(require 'init-toml)
 (require 'init-javascript)
 (require 'init-python)
 (require 'init-csharp)
