@@ -26,6 +26,8 @@
 (require 'init-javascript)
 (require 'init-python)
 (require 'init-csharp)
+(require 'init-kotlin)
+(require 'init-groovy)
 (require 'init-jade)
 (require 'init-pdf)
 (require 'init-keybindings)
