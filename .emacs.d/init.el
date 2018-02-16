@@ -47,3 +47,22 @@
 
 ;; disable lock files
 (setq create-lockfiles nil) 
+
+;; disable copy to clipboard on selection
+(setq x-select-enable-clipboard nil)
+
+;; indent with spaces by default
+(setq-default indent-tabs-mode nil)
+
+;; copy file name of current buffer
+(defun chip/copy-file-name-of-buffer ()
+  "Put the current file name on the clipboard"
+  (interactive)
+  (let ((filename (if (equal major-mode 'dired-mode)
+                      default-directory
+                    (buffer-file-name))))
+    (when filename
+      (with-temp-buffer
+        (insert filename)
+        (clipboard-kill-region (point-min) (point-max)))
+      (message filename))))
