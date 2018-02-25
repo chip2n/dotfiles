@@ -14,3 +14,12 @@
 
 ;; open links in same window
 ;(setq org-link-frame-setup (file . find-file))
+
+(use-package evil-org
+  :ensure t
+  :after org
+  :config
+  (add-hook 'org-mode-hook 'evil-org-mode)
+  (add-hook 'evil-org-mode-hook
+            (lambda ()
+              (evil-org-set-key-theme))))
