@@ -15,6 +15,8 @@
 ;; open links in same window
 ;(setq org-link-frame-setup (file . find-file))
 
+(require 'org-drill)
+
 (use-package evil-org
   :ensure t
   :after org
