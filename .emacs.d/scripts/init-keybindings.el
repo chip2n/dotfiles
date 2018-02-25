@@ -116,6 +116,16 @@
    :states 'normal
    "ae" 'elfeed))
 
+(defun chip/setup-org-keys ()
+  "Setup keybindings for org mode"
+  (interactive)
+  (general-define-key
+   :prefix leader
+   :states 'normal
+   "oo" 'org-open-at-point
+   "on" 'org-narrow-to-subtree
+   "ow" 'widen))
+
 (use-package general
   :ensure t
   :after (evil ivy hydra magit company)
@@ -131,6 +141,7 @@
   (chip/setup-elfeed-keys)
   (chip/setup-language-keys)
   (chip/setup-applications-keys)
+  (chip/setup-org-keys)
   ;; misc
   (general-define-key
    :keymaps '(Info-mode-map)
