@@ -53,6 +53,7 @@
 
 ;; indent with spaces by default
 (setq-default indent-tabs-mode nil)
+(setq-default tabs-width 4)
 
 ;; copy file name of current buffer
 (defun chip/copy-file-name-of-buffer ()
