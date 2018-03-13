@@ -35,6 +35,7 @@
 (require 'init-keybindings)
 (require 'init-pamparam)
 (require 'init-japanese)
+(require 'init-neotree)
 (require 'bolt-mode)
 
 (use-package ein
