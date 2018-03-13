@@ -36,6 +36,18 @@
 (require 'init-japanese)
 (require 'bolt-mode)
 
+(use-package ranger
+  :ensure t)
+(evil-leader/set-key
+  "r" 'ranger)
+;; make ranger the default file browser
+;(ranger-override-dired-mode t)
+;; disable file preview by default
+(setq ranger-preview-file nil)
+;; hide hidden files by default
+(setq ranger-show-hidden nil)
+
+
 ;; save backups in separate directory
 (setq backup-directory-alist `(("." . "~/.emacs.d/.backups")))
 ;; save auto saves in separate directory
