@@ -49,7 +49,7 @@
 (setq create-lockfiles nil) 
 
 ;; disable copy to clipboard on selection
-(setq x-select-enable-clipboard nil)
+(setq select-enable-clipboard nil)
 
 ;; indent with spaces by default
 (setq-default indent-tabs-mode nil)
