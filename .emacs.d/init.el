@@ -36,6 +36,10 @@
 (require 'init-japanese)
 (require 'bolt-mode)
 
+(use-package ein
+  :ensure t)
+
+
 (use-package ranger
   :ensure t)
 (evil-leader/set-key
