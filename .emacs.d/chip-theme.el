@@ -7,7 +7,7 @@
       (grey-1 "#21242b") (grey-2 "#282c34") (grey-3 "#3c404a") (grey-4 "#494e5a")
 
       (red-1 "#d98077") (red-2 "#f1988e")
-      (green-1 "#89d2b0") (green-2 "#b4e9c2")
+      (green-1 "#89d2b0") (green-2 "#b9e59f")
       (yellow-1 "#eae1a6") (yellow-2 "#fbf2bf")
       (blue-1 "#67acd5") (blue-2 "#96d3e8")
       (pink-1 "#dc8cac") (pink-2 "#ecb3c9")
@@ -54,6 +54,13 @@
 			 :background ,grey-2 :foreground ,white-1))))
    `(mode-line-inactive ((,class (:box ()
 				  :background ,grey-2 :foreground ,grey-3))))
+
+   ;; Term colors
+   `(term-color-red ((,class (:foreground ,red-2))))
+   `(term-color-blue ((,class (:foreground ,blue-2))))
+   `(term-color-green ((,class (:foreground ,green-2))))
+   `(term-color-yellow ((,class (:foreground ,yellow-2))))
+   `(term-color-pink ((,class (:foreground ,pink-2))))
 
    ;; Org
    `(org-todo ((,class (:foreground ,red-2 :weight bold))))
@@ -107,6 +114,9 @@
    `(erc-nick-msg-face ((,class (:foreground ,red-1))))
    `(erc-direct-msg-face ((,class (:foreground ,red-2))))
 
+   ;; EIN
+   `(ein:cell-input-area ((,class (:background ,grey-3))))
+
    ;; Escape and prompt faces
    `(minibuffer-prompt ((,class (:weight bold :foreground ,grey-3))))
    `(escape-glyph ((,class (:foreground ,red-3))))
@@ -156,6 +166,11 @@
    `(message-header-to ((,class (:weight bold :foreground ,butter-3))))
    `(message-cited-text ((,class (:slant italic :foreground ,alum-5))))
    `(message-separator ((,class (:weight bold :foreground ,cham-3)))))
+
+   ;; Tabbar faces
+   `(tabbar-default
+     ((,class (:background ,red-1 :foreground ,blue-1))))
+
 
   (custom-theme-set-variables
    'chip
