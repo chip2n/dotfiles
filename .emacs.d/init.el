@@ -31,6 +31,7 @@
 (require 'init-kotlin)
 (require 'init-groovy)
 (require 'init-jade)
+;(require 'init-graphviz)
 (require 'init-pdf)
 (require 'init-keybindings)
 (require 'init-pamparam)
