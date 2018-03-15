@@ -46,8 +46,6 @@
 
 (use-package ranger
   :ensure t)
-(evil-leader/set-key
-  "r" 'ranger)
 ;; make ranger the default file browser
 ;(ranger-override-dired-mode t)
 ;; disable file preview by default
