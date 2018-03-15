@@ -4,6 +4,7 @@
 (package-initialize)
 
 (add-to-list 'load-path "~/.emacs.d/scripts")
+;(require 'init-exwm)
 (require 'init-use-package)
 (require 'init-theme)
 (require 'init-evil)
