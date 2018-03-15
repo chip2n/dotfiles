@@ -45,7 +45,9 @@
    "f" 'counsel-find-file)
   (general-define-key
    :keymaps '(ivy-minibuffer-map)
-   "C-o" 'chip/hydra-ivy/body)
+   "C-o" 'chip/hydra-ivy/body
+   "C-j" 'ivy-next-line
+   "C-k" 'ivy-previous-line)
   (define-key ivy-minibuffer-map (kbd "<escape>") 'minibuffer-keyboard-quit))
 
 (defun chip/setup-avy-keys ()
