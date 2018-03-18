@@ -128,6 +128,15 @@
    "on" 'org-narrow-to-subtree
    "ow" 'widen))
 
+(defun chip/setup-multi-term-keys ()
+  "Setup keybindings for multi-term"
+  (interactive)
+  (general-define-key
+   :prefix leader
+   :states 'normal
+   "tl" 'multi-term-next
+   "th" 'multi-term-prev))
+
 (use-package general
   :ensure t
   :after (evil ivy hydra magit company)
@@ -144,6 +153,7 @@
   (chip/setup-language-keys)
   (chip/setup-applications-keys)
   (chip/setup-org-keys)
+  (chip/setup-multi-term-keys)
   ;; misc
   (general-define-key
    :keymaps '(Info-mode-map)
