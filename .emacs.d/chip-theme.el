@@ -11,6 +11,7 @@
       (yellow-1 "#eae1a6") (yellow-2 "#fbf2bf")
       (blue-1 "#67acd5") (blue-2 "#96d3e8")
       (pink-1 "#dc8cac") (pink-2 "#ecb3c9")
+      (magenta-1 "#dc8cac") (magenta-2 "#ecb3c9")
 
       (highlight grey-2)
       (diff-added "#556f55")
@@ -56,11 +57,13 @@
 				  :background ,grey-2 :foreground ,grey-3))))
 
    ;; Term colors
+   `(term-color-black ((,class (:foreground ,grey-3))))
    `(term-color-red ((,class (:foreground ,red-2))))
    `(term-color-blue ((,class (:foreground ,blue-2))))
    `(term-color-green ((,class (:foreground ,green-2))))
    `(term-color-yellow ((,class (:foreground ,yellow-2))))
    `(term-color-pink ((,class (:foreground ,pink-2))))
+   `(term-color-magenta ((,class (:foreground ,magenta-2))))
 
    ;; Org
    `(org-todo ((,class (:foreground ,red-2 :weight bold))))
