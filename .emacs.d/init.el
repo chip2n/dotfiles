@@ -32,6 +32,8 @@
 (require 'init-kotlin)
 (require 'init-groovy)
 (require 'init-jade)
+(require 'init-clojure)
+(require 'init-lispy)
 ;(require 'init-graphviz)
 (require 'init-pdf)
 (require 'init-keybindings)
