@@ -5,7 +5,10 @@
   :init
   (setq evil-want-C-u-scroll t)
   :config
-  (evil-mode 1))
+  (evil-mode 1)
+  ;; allow cursor to move past last character - useful in lisp for
+  ;; evaluating last sexp
+  (setq evil-move-cursor-back nil))
   
 (use-package evil-surround
   :ensure t
