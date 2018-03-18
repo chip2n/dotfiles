@@ -42,6 +42,11 @@
 (require 'init-neotree)
 (require 'bolt-mode)
 
+(use-package multi-term
+  :ensure t
+  :config
+  (setq multi-term-program "/bin/bash"))
+
 (use-package ein
   :ensure t)
 
