@@ -137,6 +137,31 @@
    "tl" 'multi-term-next
    "th" 'multi-term-prev))
 
+(defun chip/setup-elisp-keys ()
+  "Setup keybindings for emacs-lisp-mode"
+  (interactive)
+  (general-define-key
+   :prefix leader
+   :states 'normal
+   :keymaps 'emacs-lisp-mode-map
+   "er" 'eval-region
+   "eb" 'eval-buffer
+   "ed" 'eval-defun
+   "es" 'eval-last-sexp
+   "ee" 'eval-expression))
+
+(defun chip/setup-clojure-keys ()
+  "Setup keybindings for clojure-mode"
+  (interactive)
+  (general-define-key
+   :prefix leader
+   :states 'normal
+   :keymaps 'clojure-mode-map
+   "er" 'cider-eval-region
+   "eb" 'cider-eval-buffer
+   "ed" 'cider-eval-defun-at-point
+   "es" 'cider-eval-last-sexp))
+
 (use-package general
   :ensure t
   :after (evil ivy hydra magit company)
@@ -154,6 +179,8 @@
   (chip/setup-applications-keys)
   (chip/setup-org-keys)
   (chip/setup-multi-term-keys)
+  (chip/setup-elisp-keys)
+  (chip/setup-clojure-keys)
   ;; misc
   (general-define-key
    :keymaps '(Info-mode-map)
@@ -163,12 +190,7 @@
    :prefix leader
    :keymaps '(normal visual emacs)
    "<SPC>" 'execute-extended-command
-   "c" 'chip/open-config-file
-   "er" 'eval-region
-   "eb" 'eval-buffer
-   "ed" 'eval-defun
-   "es" 'eval-last-sexp
-   "ee" 'eval-expression))
+   "c" 'chip/open-config-file))
 
 (defun chip/open-config-file ()
   "Open Emacs configuration file"
