@@ -8,8 +8,10 @@
   (evil-mode 1)
   ;; allow cursor to move past last character - useful in lisp for
   ;; evaluating last sexp
-  (setq evil-move-cursor-back nil))
-  
+  ;; (setq evil-move-cursor-back t)
+  (setq evil-move-beyond-eol t)
+  )
+
 (use-package evil-surround
   :ensure t
   :after (evil)
