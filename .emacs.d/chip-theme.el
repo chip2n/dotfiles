@@ -32,7 +32,7 @@
   (custom-theme-set-faces
    'chip
    `(default ((,class (:foreground ,white-1 :background ,grey-1))))
-   `(cursor ((,class (:background ,grey-3))))
+   `(cursor ((,class (:background ,grey-4))))
 
    ;; Highlighting faces
    `(fringe ((,class (:foreground ,grey-3 :background ,grey-1))))
@@ -45,6 +45,10 @@
    `(vertical-border ((,class (:foreground ,grey-2))))
    `(link ((,class (:foreground ,blue-2 :underline t))))
    `(link-visited ((,class (:foreground ,blue-1 :underline t))))
+
+   ;; Paren match
+   `(show-paren-match
+     ((,class (:background ,grey-4))))
 
    ;; Header faces
    `(header-line ((,class (:box ()
