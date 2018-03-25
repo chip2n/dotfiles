@@ -80,6 +80,10 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tabs-width 4)
 
+;; show matching parens
+(show-paren-mode 1)
+(setq show-paren-delay 0)
+
 ;; copy file name of current buffer
 (defun chip/copy-file-name-of-buffer ()
   "Put the current file name on the clipboard"
