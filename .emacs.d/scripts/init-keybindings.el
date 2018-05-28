@@ -125,6 +125,7 @@
    :prefix leader
    :states 'normal
    "oo" 'org-open-at-point
+   "oe" 'org-latex-export-to-pdf
    "on" 'org-narrow-to-subtree
    "ow" 'widen))
 
