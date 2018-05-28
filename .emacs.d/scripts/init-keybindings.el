@@ -162,9 +162,22 @@
    "ed" 'cider-eval-defun-at-point
    "es" 'cider-eval-last-sexp))
 
+(defun chip/setup-pdf-tools-keys ()
+  "Setup keybindings for pdf-view-mode"
+  (interactive)
+  (general-define-key
+   :states 'normal
+   :keymaps 'pdf-view-mode-map
+   "j" 'pdf-view-next-line-or-next-page
+   "k" 'pdf-view-previous-line-or-previous-page
+   "gg" 'pdf-view-first-page
+   "G" 'pdf-view-last-page
+   "C-u" 'pdf-view-scroll-down-or-previous-page
+   "C-d" 'pdf-view-scroll-up-or-next-page))
+
 (use-package general
   :ensure t
-  :after (evil ivy hydra magit company)
+  :after (evil ivy hydra magit company pdf-tools)
   :config
   (setq leader "<SPC>")
   (chip/setup-window-keys)
@@ -181,6 +194,7 @@
   (chip/setup-multi-term-keys)
   (chip/setup-elisp-keys)
   (chip/setup-clojure-keys)
+  (chip/setup-pdf-tools-keys)
   ;; misc
   (general-define-key
    :keymaps '(Info-mode-map)
