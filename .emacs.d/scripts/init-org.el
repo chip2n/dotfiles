@@ -24,4 +24,10 @@
   (add-hook 'org-mode-hook 'evil-org-mode)
   (add-hook 'evil-org-mode-hook
             (lambda ()
-              (evil-org-set-key-theme))))
+              (evil-org-set-key-theme)))
+  (setq org-file-apps
+        '(("\\.png\\'" . "feh \"%s\"")
+          (auto-mode . emacs)
+          ("\\.mm\\'" . default)
+          ("\\.x?html?\\'" . default)
+          ("\\.pdf\\'" . default))))
