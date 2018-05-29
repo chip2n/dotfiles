@@ -26,7 +26,7 @@
             (lambda ()
               (evil-org-set-key-theme)))
   (setq org-file-apps
-        '(("\\.png\\'" . "feh \"%s\"")
+        '(("\\.png\\'" . "feh --scale-down \"%s\"")
           (auto-mode . emacs)
           ("\\.mm\\'" . default)
           ("\\.x?html?\\'" . default)
