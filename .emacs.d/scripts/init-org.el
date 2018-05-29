@@ -18,16 +18,19 @@
 (require 'org-drill)
 
 (use-package evil-org
-  :ensure t
-  :after org
-  :config
-  (add-hook 'org-mode-hook 'evil-org-mode)
-  (add-hook 'evil-org-mode-hook
-            (lambda ()
-              (evil-org-set-key-theme)))
-  (setq org-file-apps
-        '(("\\.png\\'" . "feh --scale-down \"%s\"")
-          (auto-mode . emacs)
-          ("\\.mm\\'" . default)
-          ("\\.x?html?\\'" . default)
-          ("\\.pdf\\'" . default))))
+   :ensure t
+   :after org
+   :config
+   (add-hook 'org-mode-hook 'evil-org-mode)
+   (add-hook 'evil-org-mode-hook
+             (lambda ()
+               (evil-org-set-key-theme)))
+   (setq org-file-apps
+         '(("\\.png\\'" . "feh --scale-down \"%s\"")
+           ("\\.jpg\\'" . "feh --scale-down \"%s\"")
+           (auto-mode . emacs)
+           ("\\.mm\\'" . default)
+           ("\\.x?html?\\'" . default)
+           ("\\.pdf\\'" . default)))
+   (setq org-ellipsis "  ")
+   (setq org-startup-indented t))

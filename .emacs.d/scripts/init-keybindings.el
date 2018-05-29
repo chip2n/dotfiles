@@ -127,7 +127,10 @@
    "oo" 'org-open-at-point
    "oe" 'org-latex-export-to-pdf
    "on" 'org-narrow-to-subtree
-   "ow" 'widen))
+   "ow" 'widen)
+  (general-define-key
+   :states 'normal
+   "RET" 'org-open-at-point))
 
 (defun chip/setup-multi-term-keys ()
   "Setup keybindings for multi-term"

@@ -70,6 +70,7 @@
    `(term-color-magenta ((,class (:foreground ,magenta-2))))
 
    ;; Org
+   `(org-ellipsis ((,class (:foreground ,grey-4))))
    `(org-todo ((,class (:foreground ,red-2 :weight bold))))
    `(org-done ((,class (:foreground ,green-2 :weight bold))))
    `(org-level-1 ((,class (:foreground ,red-2 :weight bold))))
