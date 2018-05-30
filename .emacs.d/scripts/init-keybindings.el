@@ -124,6 +124,7 @@
   (general-define-key
    :prefix leader
    :states 'normal
+   "oa" 'org-agenda
    "oo" 'org-open-at-point
    "oe" 'org-latex-export-to-pdf
    "on" 'org-narrow-to-subtree
