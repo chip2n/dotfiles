@@ -209,7 +209,8 @@
    :prefix leader
    :keymaps '(normal visual emacs)
    "<SPC>" 'execute-extended-command
-   "c" 'chip/open-config-file))
+   "c" 'chip/open-config-file
+   "d" 'kill-this-buffer))
 
 (defun chip/open-config-file ()
   "Open Emacs configuration file"
