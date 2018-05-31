@@ -20,7 +20,8 @@
    "wl" (lambda () (interactive) (split-window-right) (other-window 1))
    "wk" 'split-window-below
    "wj" (lambda () (interactive) (split-window-below) (other-window 1))
-   "wf" 'delete-other-windows))
+   "wf" 'delete-other-windows
+   "wd" 'evil-delete-buffer))
 
 (defun chip/setup-code-keys ()
   "Setup keybindings for code editing"
