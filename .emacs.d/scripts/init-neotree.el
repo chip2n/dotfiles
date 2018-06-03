@@ -9,6 +9,7 @@
   (define-key evil-normal-state-map (kbd "S-<backspace>") 'neotree-project-dir)
   (add-hook 'neotree-mode-hook
 	    (lambda ()
+              (display-line-numbers-mode -1)
 	      (define-key evil-normal-state-local-map (kbd "m") 'chip-hydra-neotree/body)
 	      (define-key evil-normal-state-local-map (kbd "o") 'neotree-enter)
 	      (define-key evil-normal-state-local-map (kbd "O") 'neotree-quick-look)

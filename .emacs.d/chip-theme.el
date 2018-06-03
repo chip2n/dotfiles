@@ -45,6 +45,7 @@
    `(vertical-border ((,class (:foreground ,grey-2))))
    `(link ((,class (:foreground ,blue-2 :underline t))))
    `(link-visited ((,class (:foreground ,blue-1 :underline t))))
+   `(line-number ((,class (:foreground ,grey-3))))
 
    ;; Paren match
    `(show-paren-match
