@@ -34,11 +34,11 @@
 (require 'init-jade)
 (require 'init-clojure)
 (require 'init-lispy)
-;(require 'init-graphviz)
+;; (require 'init-graphviz)
 (require 'init-pdf)
 (require 'init-keybindings)
 (require 'init-pamparam)
-(require 'init-japanese)
+;; (require 'init-japanese)
 (require 'init-neotree)
 (require 'bolt-mode)
 
