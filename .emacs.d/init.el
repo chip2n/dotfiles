@@ -50,7 +50,6 @@
 (use-package ein
   :ensure t)
 
-
 (use-package ranger
   :ensure t)
 ;; make ranger the default file browser
