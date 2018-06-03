@@ -39,7 +39,8 @@
   (telephone-line-mode t))
 
 ;; set font
-(set-frame-font "-*-terminus-*-*-*-*-14-*-*-*-*-*-*-*" t t)
+;; (set-frame-font "-*-terminus-*-*-*-*-14-*-*-*-*-*-*-*" t t)
+(set-frame-font "Hack" nil t)
 
 ;; Change fringe icons
 (define-fringe-bitmap 'left-curly-arrow

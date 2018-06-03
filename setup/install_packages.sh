@@ -1,5 +1,6 @@
 pacman -S --needed \
-  xorg-server xorg-xinit xorg-xset xorg-xmodmap feh \
+  xorg-server xorg-xinit xorg-xset xorg-xmodmap xorg-xfontsel feh \
+  ttf-hack \
   alsa-utils \
   xmonad xmonad-contrib haskell-dbus \
   i3-gaps i3blocks \
