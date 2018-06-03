@@ -1,20 +1,22 @@
 (provide 'init-neotree)
 
 (use-package neotree
-  :ensure t)
-(setq neo-window-width 40)
-(define-key evil-normal-state-map (kbd "<backspace>") 'neotree-toggle)
-(define-key evil-normal-state-map (kbd "S-<backspace>") 'neotree-project-dir)
-(add-hook 'neotree-mode-hook
-	  (lambda ()
-	    (define-key evil-normal-state-local-map (kbd "m") 'chip-hydra-neotree/body)
-	    (define-key evil-normal-state-local-map (kbd "o") 'neotree-enter)
-	    (define-key evil-normal-state-local-map (kbd "O") 'neotree-quick-look)
-	    (define-key evil-normal-state-local-map (kbd "r") 'neotree-refresh)
-	    (define-key evil-normal-state-local-map (kbd "s") 'neotree-enter-vertical-split)
-	    (define-key evil-normal-state-local-map (kbd "i") 'neotree-enter-horizontal-split)
-	    (define-key evil-normal-state-local-map (kbd "I") 'neotree-hidden-file-toggle)
-	    (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter)))
+  :ensure t
+  :config
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+  (setq neo-window-width 40)
+  (define-key evil-normal-state-map (kbd "<backspace>") 'neotree-toggle)
+  (define-key evil-normal-state-map (kbd "S-<backspace>") 'neotree-project-dir)
+  (add-hook 'neotree-mode-hook
+	    (lambda ()
+	      (define-key evil-normal-state-local-map (kbd "m") 'chip-hydra-neotree/body)
+	      (define-key evil-normal-state-local-map (kbd "o") 'neotree-enter)
+	      (define-key evil-normal-state-local-map (kbd "O") 'neotree-quick-look)
+	      (define-key evil-normal-state-local-map (kbd "r") 'neotree-refresh)
+	      (define-key evil-normal-state-local-map (kbd "s") 'neotree-enter-vertical-split)
+	      (define-key evil-normal-state-local-map (kbd "i") 'neotree-enter-horizontal-split)
+	      (define-key evil-normal-state-local-map (kbd "I") 'neotree-hidden-file-toggle)
+	      (define-key evil-normal-state-local-map (kbd "RET") 'neotree-enter))))
 
 ;; stolen from: http://nadeemkhedr.com/emacs-tips-and-best-plugins-to-use-with-evil-mode/
 (use-package find-file-in-project
