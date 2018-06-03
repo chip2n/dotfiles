@@ -85,7 +85,7 @@
 
    ;; Magit faces
    `(magit-section-highlight ((,class (:background ,highlight))))
-   `(magit-section-heading ((,class (:foreground ,yellow-1 :weight bold))))
+   `(magit-section-heading ((,class (:foreground ,pink-2 :weight bold))))
    `(magit-hash ((,class (:foreground ,grey-4))))
    `(magit-dimmed ((,class (:foreground ,grey-4))))
    `(magit-signature-error ((,class (:foreground ,red-1))))
@@ -105,6 +105,7 @@
 					     :foreground ,green-2))))
    `(magit-branch-current ((,class (:box (:line-width 1)
 					     :foreground ,blue-2))))
+   `(magit-tag ((,class (:foreground ,yellow-1 :weight bold))))
    `(git-commit-summary ((,class (:foreground ,white-1))))
 
    ;; Slack faces
