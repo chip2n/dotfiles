@@ -70,6 +70,8 @@
    `(term-color-pink ((,class (:foreground ,pink-2))))
    `(term-color-magenta ((,class (:foreground ,magenta-2))))
 
+   `(eshell-ls-executable ((,class (:foreground ,green-2 :weight bold))))
+
    ;; Org
    `(org-ellipsis ((,class (:foreground ,grey-4))))
    `(org-todo ((,class (:foreground ,red-2 :weight bold))))
