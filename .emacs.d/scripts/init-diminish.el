@@ -16,4 +16,6 @@
   (diminish 'evil-lispy-mode)
   (diminish 'auto-revert-mode "auto-revert")
   (diminish 'eldoc-mode)
-  (diminish 'yas-minor-mode))
+  (diminish 'yas-minor-mode)
+  (diminish 'evil-org-mode)
+  (diminish 'org-indent-mode "indent"))
