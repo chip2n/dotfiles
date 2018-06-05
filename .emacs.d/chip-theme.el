@@ -84,6 +84,8 @@
    `(org-level-6 ((,class (:foreground ,blue-2 :weight bold))))
    `(org-level-7 ((,class (:foreground ,pink-2 :weight bold))))
    `(org-level-8 ((,class (:foreground ,green-2 :weight bold))))
+   `(org-link ((,class (:foreground ,blue-2 :underline t))))
+   `(org-date ((,class (:foreground ,blue-2 :underline t))))
 
    ;; Magit faces
    `(magit-section-highlight ((,class (:background ,highlight))))
