@@ -35,6 +35,7 @@
 (require 'init-jade)
 (require 'init-clojure)
 (require 'init-lispy)
+(require 'init-rust)
 ;; (require 'init-graphviz)
 (require 'init-pdf)
 (require 'init-keybindings)
