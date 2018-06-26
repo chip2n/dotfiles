@@ -72,6 +72,15 @@
 
    `(eshell-ls-executable ((,class (:foreground ,green-2 :weight bold))))
 
+   ;; Company
+   `(company-tooltip ((,class (:background ,grey-2 :foreground ,white-1))))
+   `(company-tooltip-selection ((,class (:background ,grey-3 :foreground ,white-1))))
+   `(company-tooltip-annotation ((,class (:foreground ,grey-4 :slant italic))))
+   `(company-tooltip-annotation-selection ((,class (:foreground ,white-1 :slant italic))))
+   `(company-tooltip-common ((,class (:foreground ,green-2 :weight bold))))
+   `(company-scrollbar-bg ((,class (:background ,grey-3))))
+   `(company-scrollbar-fg ((,class (:background ,green-2))))
+
    ;; Org
    `(org-ellipsis ((,class (:foreground ,grey-4))))
    `(org-todo ((,class (:foreground ,red-2 :weight bold))))
