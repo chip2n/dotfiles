@@ -123,7 +123,7 @@
    `(erc-current-nick-face ((,class (:foreground ,green-1 :weight bold))))
    `(erc-notice-face ((,class (:foreground ,grey-3))))
    `(erc-input-face ((,class (:foreground ,white-1))))
-   `(erc-timestamp-face ((,class (:foreground ,pink-2 :weight bold))))
+   `(erc-timestamp-face ((,class (:foreground ,grey-3 :weight bold))))
    `(erc-prompt-face ((,class (:foreground ,grey-3 :weight bold))))
    `(erc-nick-msg-face ((,class (:foreground ,red-1))))
    `(erc-direct-msg-face ((,class (:foreground ,red-2))))
