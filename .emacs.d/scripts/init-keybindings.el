@@ -183,7 +183,7 @@
 
 (use-package general
   :ensure t
-  :after (evil ivy hydra magit company pdf-tools)
+  :after (evil ivy hydra magit company pdf-tools anaconda-mode)
   :config
   (setq leader "<SPC>")
   (chip/setup-window-keys)
