@@ -26,7 +26,7 @@ modules-center = xmonad
 modules-right = music memory cpu wlan battery date
 tray-position = right
 tray-padding = 10
-tray-offset-y = -2
+;tray-offset-y = -2
 
 [bar/multi_main_xmonad]
 inherit = bar/base
@@ -36,7 +36,7 @@ modules-center = xmonad
 modules-right = music memory cpu wlan battery date
 tray-position = right
 tray-padding = 10
-tray-offset-y = -2
+;tray-offset-y = -2
 
 [bar/multi_support_xmonad]
 inherit = bar/base
@@ -51,7 +51,7 @@ modules-center = bspwm
 modules-right = music memory cpu wlan battery date
 tray-position = right
 tray-padding = 10
-tray-offset-y = -2
+;tray-offset-y = -2
 
 [bar/multi_main_bspwm]
 inherit = bar/base
@@ -61,7 +61,7 @@ modules-center = bspwm
 modules-right = music memory cpu wlan battery date
 tray-position = right
 tray-padding = 10
-tray-offset-y = -2
+;tray-offset-y = -2
 
 [bar/multi_support_bspwm]
 inherit = bar/base
