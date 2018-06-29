@@ -4,6 +4,7 @@ IS_INTEL_CPU=true
 
 ln -sf /usr/share/zoneinfo/Europe/Stockholm /etc/localtime
 hwclock --systohc
+echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 sed -i.old '1s;^;en_US.UTF-8 UTF-8\n\n;' /etc/locale.gen
 echo "KEYMAP=$KEYMAP" >> /etc/vconsole.conf
 echo $HOSTNAME >> /etc/hostname
