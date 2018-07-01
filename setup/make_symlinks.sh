@@ -12,3 +12,5 @@ ln -s /home/chip/dotfiles/.config /home/chip/.config
 ln -s /home/chip/dotfiles/scripts /home/chip/scripts
 ln -s /home/chip/dotfiles/.emacs.d /home/chip/.emacs.d
 ln -s /home/chip/dotfiles/.nethackrc /home/chip/.nethackrc
+
+systemctl enable --user emacsd.service
