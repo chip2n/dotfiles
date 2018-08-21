@@ -4,7 +4,7 @@
 
 (setq erc-prompt " ")
 (setq erc-fill-column 90)
-(setq erc-header-line-format nil)
+(setq erc-header-line-format (chip/create-header "%t"))
 
 ;; Keep emacs from recentering erc buffers
 (add-to-list 'erc-mode-hook (lambda ()
