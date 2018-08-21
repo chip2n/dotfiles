@@ -28,6 +28,7 @@
 (require 'init-markdown)
 (require 'init-yaml)
 (require 'init-toml)
+(require 'init-haskell)
 (require 'init-javascript)
 (require 'init-dart)
 (require 'init-python)
