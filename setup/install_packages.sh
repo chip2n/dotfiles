@@ -11,5 +11,6 @@ pacman -S --needed \
   the_silver_searcher \
   gtk2 \
   htop \
+  playerctl \
   lib32-gcc-libs lib32-glibc lib32-zlib \
   cmake python python2 wget unzip openssh zlib libpng poppler-glib \
