@@ -101,23 +101,3 @@
         (insert filename)
         (clipboard-kill-region (point-min) (point-max)))
       (message filename))))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#2e3436" "#a40000" "#4e9a06" "#c4a000" "#204a87" "#5c3566" "#67acd5" "#eeeeec"])
- '(custom-safe-themes
-   (quote
-    ("c19704688cdd4e8163e8c511aa2afdeca54634f92bd02f6b98146568a6db61e1" "21caa19a2fd655d15feca7262933665f7032f340e40eb7b99356fbd6257e6255" "d883647237bb3131eb73b526c33c267a7843d0bf2b31c2f6636bc73fa6caf298" "78dd58f09c566c10a2a9302e6bda28fbaa639cc8126e666dd1bc197892a1d572" "72e5ca520d349a5f6d8894e781f7bda3772bc5f6c0b8572dbecffb8a379830a2" "578d25e468800316d9f0b592da142f02b5f6bb21033455e0aed1ed1588cb4aba" default)))
- '(package-selected-packages
-   (quote
-    (ob-http yaml-mode xref-js2 writeroom-mode worf use-package toml-mode telephone-line stylus-mode smex slack ranger pyvenv pug-mode projectile pdf-tools ox-reveal org-bullets omnisharp neotree multi-term markdown-mode kotlin-mode json-mode js2-refactor ivy-hydra gruvbox-theme groovy-mode general find-file-in-project eyebrowse evil-surround evil-snipe evil-org evil-magit evil-lispy elogcat elfeed ein diminish counsel company-anaconda clojure-mode base16-theme all-the-icons ag)))
- '(safe-local-variable-values (quote ((org-use-tag-inheritance)))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
