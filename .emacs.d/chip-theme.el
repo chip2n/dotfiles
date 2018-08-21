@@ -4,7 +4,7 @@
 (let* ((class '((class color) (min-colors 89)))
       ;; Chip palette colors.
       (white-1 "#ffffff")
-      (grey-1 "#21242b") (grey-2 "#282c34") (grey-3 "#3d434f") (grey-4 "#494e5a")
+      (grey-1 "#21242b") (grey-2 "#282c34") (grey-3 "#494e5a") (grey-4 "#535967")
 
       (red-1 "#d98077") (red-2 "#f1988e")
       (green-1 "#89d2b0") (green-2 "#b9e59f")
