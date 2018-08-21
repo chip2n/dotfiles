@@ -2,7 +2,6 @@
 
 (use-package exwm
   :ensure t)
-(require 'exwm-config)
 
 (setq exwm-workspace-number 2)
 
