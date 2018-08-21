@@ -9,11 +9,16 @@
   ;; allow cursor to move past last character - useful in lisp for
   ;; evaluating last sexp
   ;; (setq evil-move-cursor-back t)
-  (setq evil-move-beyond-eol t)
-  )
+  (setq evil-move-beyond-eol t))
 
 (use-package evil-surround
   :ensure t
   :after (evil)
   :config
   (global-evil-surround-mode 1))
+
+(use-package evil-visualstar
+  :ensure t
+  :after (evil)
+  :config
+  (global-evil-visualstar-mode))
