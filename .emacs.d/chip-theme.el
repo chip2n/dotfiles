@@ -138,7 +138,8 @@
    `(erc-direct-msg-face ((,class (:foreground ,red-2))))
 
    ;; EIN
-   `(ein:cell-input-area ((,class (:background ,grey-3))))
+   `(ein:cell-input-area ((,class (:background ,grey-2))))
+   `(ein:cell-output-area ((,class (:foreground ,grey-4))))
 
    ;; Escape and prompt faces
    `(minibuffer-prompt ((,class (:weight bold :foreground ,grey-3))))
