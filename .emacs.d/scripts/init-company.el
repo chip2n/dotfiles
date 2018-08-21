@@ -13,7 +13,9 @@
   :ensure t
   :config
   (global-company-mode)
-  (add-hook 'company-mode-hook 'chip/setup-company-keys))
+  (add-hook 'company-mode-hook 'chip/setup-company-keys)
+  ;; prevent downcasing when autocompleting
+  (setq company-dabbrev-downcase nil))
 
 (use-package company-anaconda
   :ensure t
