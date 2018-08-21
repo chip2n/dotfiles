@@ -150,6 +150,9 @@
           (concat (chip/header-icon)
                   " %b")))
 
+(defun chip/create-header (title)
+  (concat " " (concat (chip/header-icon) " " title)))
+
 (defun chip/header-icon ()
   (all-the-icons-faicon "codepen" :height 0.8 :v-adjust 0.1))
 
