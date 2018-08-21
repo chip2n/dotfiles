@@ -29,6 +29,7 @@
 (require 'init-yaml)
 (require 'init-toml)
 (require 'init-javascript)
+(require 'init-dart)
 (require 'init-python)
 (require 'init-csharp)
 (require 'init-kotlin)
