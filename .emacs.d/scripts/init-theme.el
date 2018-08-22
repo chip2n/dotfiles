@@ -94,18 +94,19 @@
 (defmacro with-face (str &rest properties)
   `(propertize ,str 'face (list ,@properties)))
 
+;; TODO use same color as chip-theme
 (defun sl/make-header ()
   ""
   (let* ((sl/full-header (abbreviate-file-name buffer-file-name))
          (sl/header (file-name-directory sl/full-header))
-         (sl/drop-str "[...]"))
+         (sl/drop-str "[...] "))
     (if (> (length sl/full-header)
            (window-body-width))
         (if (> (length sl/header)
                (window-body-width))
             (progn
               (concat (with-face sl/drop-str
-                                 :background "blue"
+                                 :foreground "#494e5a"
                                  :weight 'bold
                                  )
                       (with-face (substring sl/header
