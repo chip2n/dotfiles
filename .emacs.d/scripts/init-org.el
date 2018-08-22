@@ -15,6 +15,13 @@
 ;; open links in same window
 ;(setq org-link-frame-setup (file . find-file))
 
+;; set org templates
+(setq org-capture-templates
+  `(("t" "Remente TODO" entry (file+olp "~/org/remente/notes.org" "Tasks" "Active")
+     "* TODO %?\nSCHEDULED: <%<%Y-%m-%d %a>>\n[%<%Y-%m-%d %a>]\n%a"
+     :prepend t)
+    ))
+
 (require 'org-drill)
 
 (use-package evil-org
