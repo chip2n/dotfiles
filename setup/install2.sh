@@ -7,6 +7,7 @@ hwclock --systohc
 echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 sed -i.old '1s;^;en_US.UTF-8 UTF-8\n\n;' /etc/locale.gen
 echo "KEYMAP=$KEYMAP" >> /etc/vconsole.conf
+locale-gen
 echo $HOSTNAME >> /etc/hostname
 echo "127.0.0.1    localhost" >> /etc/hosts
 echo "::1          localhost" >> /etc/hosts
