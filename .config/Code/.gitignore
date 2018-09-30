@@ -1,0 +1,14 @@
+Backups/
+Cache/
+CachedData
+CachedExtensions
+GPUCache
+Local Storage/
+logs/
+Cookies
+Cookies-journal
+Preferences
+languagepacks.json
+machineid
+storage.json
+User/workspaceStorage

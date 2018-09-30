@@ -1,0 +1,11 @@
+{
+    "editor.codeLens": false,
+    "editor.minimap.enabled": false,
+    "editor.renderIndentGuides": false,
+    "window.menuBarVisibility": "toggle",
+    "workbench.activityBar.visible": false,
+    "workbench.iconTheme": null,
+    "workbench.startupEditor": "newUntitledFile",
+    "workbench.statusBar.visible": true,
+    "dart.sdkPath": "/home/chip/flutter/bin/cache/dart-sdk"
+}

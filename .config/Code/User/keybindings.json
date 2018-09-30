@@ -1,0 +1,13 @@
+// Place your key bindings in this file to overwrite the defaults
+[
+    {
+        "key": "ctrl+enter",
+        "command": "editor.action.quickFix",
+        "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+[Period]",
+        "command": "-editor.action.quickFix",
+        "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
+    }
+]
