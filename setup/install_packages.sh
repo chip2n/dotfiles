@@ -1,4 +1,4 @@
-pacman -S --needed \
+pacman -Syyuu --needed \
   xorg-server xorg-xinit xorg-xset xorg-xmodmap xorg-xfontsel xorg-xrandr feh \
   ttf-hack noto-fonts-emoji \
   alsa-utils \
@@ -12,5 +12,5 @@ pacman -S --needed \
   gtk2 \
   htop \
   playerctl \
-  lib32-gcc-libs lib32-glibc lib32-zlib \
+  lib32-gcc-libs lib32-glibc lib32-zlib libxlst \
   cmake python python2 wget unzip openssh zlib libpng poppler-glib \
