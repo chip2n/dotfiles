@@ -156,6 +156,16 @@
    "es" 'eval-last-sexp
    "ee" 'eval-expression))
 
+(defun chip/setup-common-lisp-keys ()
+  "Setup keybindings for common-lisp-mode"
+  (interactive)
+  (general-define-key
+   :prefix leader
+   :states 'normal
+   :keymaps 'slime-mode-map
+   "es" 'slime-eval-last-expression
+   "ed" 'slime-eval-defun))
+
 (defun chip/setup-clojure-keys ()
   "Setup keybindings for clojure-mode"
   (interactive)
@@ -199,6 +209,7 @@
   (chip/setup-org-keys)
   (chip/setup-multi-term-keys)
   (chip/setup-elisp-keys)
+  (chip/setup-common-lisp-keys)
   (chip/setup-clojure-keys)
   (chip/setup-pdf-tools-keys)
   ;; misc
