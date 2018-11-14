@@ -91,7 +91,9 @@
 
 ;; winner-mode
 (use-package winner
-  :ensure t)
+  :ensure t
+  :config
+  (winner-mode 1))
 
 ;; copy file name of current buffer
 (defun chip/copy-file-name-of-buffer ()

@@ -87,7 +87,7 @@
   ""
   (interactive)
   ;(if (buffer-file-name)
-  (if (eq major-mode 'exwm-mode)
+  (if (or (bound-and-true-p writeroom-mode) (eq major-mode 'exwm-mode))
       (chip/hide-header)
     (chip/show-header)))
 
