@@ -1,6 +1,10 @@
 (deftheme chip
   "Face colors using the chip palette (dark background).")
 
+;; start adding vars from let* form below
+(setq chip/color-grey-4 "#6b7385")
+(setq chip/color-comment 'chip/color-grey-4)
+
 (let* ((class '((class color) (min-colors 89)))
       ;; Chip palette colors.
       (white-1 "#ffffff")

@@ -37,6 +37,7 @@
 (require 'init-groovy)
 (require 'init-jade)
 (require 'init-clojure)
+(require 'init-lisp)
 (require 'init-lispy)
 (require 'init-rust)
 ;; (require 'init-graphviz)
