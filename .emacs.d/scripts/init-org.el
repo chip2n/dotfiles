@@ -8,6 +8,7 @@
 
 ;; add org directory (allows searching for todos and scheduling items)
 (setq org-agenda-files (list "~/org/personal" "~/org/remente"))
+(setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
 
 ;; set org tag column
 (setq org-tags-column -80)
