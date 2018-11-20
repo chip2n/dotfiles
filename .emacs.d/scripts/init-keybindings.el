@@ -95,6 +95,15 @@
    "wc" 'eyebrowse-close-window-config
    "wn" 'eyebrowse-rename-window-config))
 
+(defun chip/setup-winner-keys ()
+  "Setup keybindings for winner-mode"
+  (interactive)
+  (general-define-key
+   :prefix leader
+   :keymaps '(normal visual emacs)
+   "h" 'winner-undo
+   "l" 'winner-redo))
+
 (defun chip/setup-elfeed-keys ()
   "Setup keybindings for elfeed"
   (interactive)
@@ -203,6 +212,7 @@
   (chip/setup-magit-keys)
   (chip/setup-projectile-keys)
   (chip/setup-eyebrowse-keys)
+  (chip/setup-winner-keys)
   (chip/setup-elfeed-keys)
   (chip/setup-language-keys)
   (chip/setup-applications-keys)

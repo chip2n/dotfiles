@@ -99,6 +99,7 @@
    `(org-level-8 ((,class (:foreground ,green-2 :weight bold))))
    `(org-link ((,class (:foreground ,blue-2 :underline t))))
    `(org-date ((,class (:foreground ,blue-2 :underline t))))
+   `(org-tag ((,class (:foreground ,grey-3 :slant italic))))
 
    ;; Magit faces
    `(magit-section-highlight ((,class (:background ,highlight))))

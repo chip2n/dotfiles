@@ -23,4 +23,11 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+# Fix for using SBCL in emacs properly
 unset SBCL_HOME
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/chip/google-cloud-sdk/path.bash.inc' ]; then source '/home/chip/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/chip/google-cloud-sdk/completion.bash.inc' ]; then source '/home/chip/google-cloud-sdk/completion.bash.inc'; fi

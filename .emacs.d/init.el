@@ -90,6 +90,12 @@
 (show-paren-mode 1)
 (setq show-paren-delay 0)
 
+;; winner-mode
+(use-package winner
+  :ensure t
+  :config
+  (winner-mode 1))
+
 ;; copy file name of current buffer
 (defun chip/copy-file-name-of-buffer ()
   "Put the current file name on the clipboard"
