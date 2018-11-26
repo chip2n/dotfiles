@@ -14,7 +14,7 @@
   (diminish 'evil-snipe-local-mode)
   (diminish 'lispy-mode)
   (diminish 'evil-lispy-mode)
-  (diminish 'auto-revert-mode "auto-revert")
+  (diminish 'auto-revert-mode "arev")
   (diminish 'eldoc-mode)
   (diminish 'yas-minor-mode)
   (diminish 'evil-org-mode)
