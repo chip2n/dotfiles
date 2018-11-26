@@ -82,6 +82,7 @@
   (general-define-key
    :prefix leader
    :keymaps '(normal visual emacs)
+   "ww" 'eyebrowse-switch-to-window-config
    "w0" 'eyebrowse-switch-to-window-config-0
    "w1" 'eyebrowse-switch-to-window-config-1
    "w2" 'eyebrowse-switch-to-window-config-2
