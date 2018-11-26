@@ -1,6 +1,6 @@
 # Stolen from: https://github.com/KnownAsDon/QuteBrowser-Nord-Theme
 
-nordtheme = {
+theme = {
     'base0':   '#21242b',
     'base1':   '#282c34',
     'base2':   '#494e5a',
