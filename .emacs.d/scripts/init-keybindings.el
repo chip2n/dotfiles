@@ -186,7 +186,8 @@
    "er" 'cider-eval-region
    "eb" 'cider-eval-buffer
    "ed" 'cider-eval-defun-at-point
-   "es" 'cider-eval-last-sexp))
+   "es" 'cider-eval-last-sexp
+   "i" 'cider-format-buffer))
 
 (defun chip/setup-pdf-tools-keys ()
   "Setup keybindings for pdf-view-mode"
