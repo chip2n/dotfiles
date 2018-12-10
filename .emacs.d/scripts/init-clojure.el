@@ -7,4 +7,6 @@
   :ensure t
   :config
   (evil-collection-init 'cider))
+
+(use-package inf-clojure
   :ensure t)
