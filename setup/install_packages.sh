@@ -16,3 +16,4 @@ pacman -Syyuu --needed \
   cmake python python2 wget unzip openssh zlib libpng poppler-glib \
   zathura zathura-pdf-poppler \
   isync mu \
+  scrot \
