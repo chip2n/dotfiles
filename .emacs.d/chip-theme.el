@@ -126,6 +126,10 @@
    `(magit-tag ((,class (:foreground ,yellow-1 :weight bold))))
    `(git-commit-summary ((,class (:foreground ,white-1))))
 
+   ;; CIDER
+   `(cider-test-success-face ((,class (:foreground ,green-2 :weight bold))))
+   `(cider-test-failure-face ((,class (:background ,red-2 :foreground ,white-1 :weight bold))))
+
    ;; Slack faces
    `(slack-message-output-header ((,class (:foreground ,blue-2 :weight bold))))
    `(slack-message-output-reaction ((,class (:foreground ,grey-4))))
