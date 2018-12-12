@@ -4,4 +4,7 @@
   :ensure t)
 
 (use-package cider
-  :ensure t)
+  :ensure t
+  :config
+  (setq cider-test-show-report-on-success t)
+  (add-to-list 'evil-motion-state-modes 'cider-test-report-mode))
