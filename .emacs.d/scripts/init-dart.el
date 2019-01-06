@@ -9,24 +9,7 @@
   (add-hook 'dart-mode-hook 'flycheck-mode)
   (add-hook 'dart-mode-hook 'chip/setup-dart-keys)
   (add-hook 'dart-mode-hook (lambda ()
-                              (add-hook 'after-save-hook 'chip/flutter-hot-reload nil 'make-it-local)))
-  ;; Hack to enable syntax highlighting of single quoted strings.
-  ;; https://github.com/bradyt/dart-mode/issues/47
-  ;; https://github.com/bradyt/dart-mode/pull/55#issuecomment-397411088
-  ;;
-  ;; Doing this may screw up other buffers using cc-mode I guess, but fuck it.
-  (defun c-parse-quotes-after-change (beg end &rest rest) nil)
-
-  ;; Use dart-sdk-path to find dartfmt. Pull request not merged yet.
-  ;; https://github.com/bradyt/dart-mode/pull/66
-  (defun dart-formatter-command ()
-    (or dart-formatter-command-override
-        (when dart-sdk-path
-          (concat dart-sdk-path
-                  (file-name-as-directory "bin")
-                  (if (memq system-type '(ms-dos windows-nt))
-                      "dartfmt.exe"
-                    "dartfmt"))))))
+                              (add-hook 'after-save-hook 'flutter-hot-reload nil 'make-it-local))))
 
 (defun chip/setup-dart-keys ()
   "Setup keybindings for dart mode"
@@ -36,12 +19,84 @@
    :keymaps 'dart-mode-map
    "gd" 'dart-goto))
 
-(defun chip/flutter-hot-reload ()
+(defun flutter--find-project-root ()
+  (locate-dominating-file (buffer-file-name) "pubspec.yaml"))
+
+(defun flutter-run ()
+  (interactive)
+  (let ((project-root (flutter--find-project-root)))
+    (if (not project-root)
+        (error "Not inside a flutter project (no pubspec.yaml found in any parent directory)."))
+    (pop-to-buffer (get-buffer-create (generate-new-buffer-name "*flutter*")))
+    (cd project-root)
+    (shell (current-buffer))
+    (process-send-string nil "flutter run --pid-file /tmp/flutter.pid\n")
+    (evil-normal-state)
+    (other-window -1)))
+
+(defun flutter-hot-reload ()
   "Triggers a hot reload of the running flutter application"
   (interactive)
   (shell-command "kill -SIGUSR1 $(cat /tmp/flutter.pid)"))
 
-(defun chip/flutter-hot-restart ()
+(defun flutter-hot-restart ()
   "Triggers a hot restart of the running flutter application"
   (interactive)
   (shell-command "kill -SIGUSR2 $(cat /tmp/flutter.pid)"))
+
+(defun flutter--move-beginning-of-widget ()
+  (re-search-backward (rx space))
+  (forward-char 1))
+
+(defun flutter--move-end-of-widget ()
+  (forward-list 1))
+
+(defun flutter-select-widget-at-point ()
+  (interactive)
+  (flutter--move-beginning-of-widget)
+  (set-mark-command nil)
+  (flutter--move-end-of-widget)
+  (setq deactivate-mark nil))
+
+(defun flutter-widget-wrap-padding ()
+  (interactive)
+  (flutter-select-widget-at-point)
+  (yas-expand-snippet (yas-lookup-snippet "padding")))
+
+(defun flutter-widget-wrap-center ()
+  (interactive)
+  (flutter-select-widget-at-point)
+  (yas-expand-snippet (yas-lookup-snippet "center")))
+
+(defmacro flutter--widget-execute-region (fun)
+  "Run function on region (must take beginning and end as last two arguments"
+  `(save-excursion
+     (flutter--move-beginning-of-widget)
+     (let ((beg (point)))
+       (flutter--move-end-of-widget)
+       (,fun beg (point)))))
+
+(defun flutter-widget-kill ()
+  (interactive)
+  (flutter--widget-execute-region kill-region))
+
+(defun flutter-widget-delete ()
+  (interactive)
+  (flutter--widget-execute-region delete-region))
+
+(defun flutter-widget-copy ()
+  (interactive)
+  (flutter--widget-execute-region copy-region-as-kill))
+
+(defun flutter--move-beginning-of-parent-widget ()
+  (interactive)
+  (backward-char 1)
+  (re-search-backward (rx (syntax open-parenthesis)))
+  (flutter--move-beginning-of-widget))
+
+(defun flutter-widget-lift ()
+  (interactive)
+  (flutter-widget-copy)
+  (flutter--move-beginning-of-parent-widget)
+  (flutter-widget-delete)
+  (yank))

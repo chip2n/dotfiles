@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: center
+# key: center
+# expand-env: ((yas-wrap-around-region t))
+# --
+Center(
+    child: $0
+)

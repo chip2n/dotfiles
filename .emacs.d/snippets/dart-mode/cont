@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: cont
+# key: cont
+# --
+Container(
+    child: $2
+)

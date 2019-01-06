@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: scaffold
+# key: scaffold
+# --
+Scaffold(
+    body: $1
+);
