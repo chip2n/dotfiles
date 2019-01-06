@@ -176,18 +176,31 @@
    "es" 'slime-eval-last-expression
    "ed" 'slime-eval-defun))
 
-(defun chip/setup-clojure-keys ()
-  "Setup keybindings for clojure-mode"
+(defun chip/setup-cider-keys ()
+  "Setup keybindings for cider-mode"
   (interactive)
   (general-define-key
    :prefix leader
-   :states 'normal
-   :keymaps 'clojure-mode-map
+   :states '(normal visual)
+   :keymaps 'cider-mode-map
    "er" 'cider-eval-region
    "eb" 'cider-eval-buffer
    "ed" 'cider-eval-defun-at-point
    "es" 'cider-eval-last-sexp
    "i" 'cider-format-buffer))
+
+(defun chip/setup-inf-clojure-keys ()
+  "Setup keybindings for inf-clojure-mode"
+  (interactive)
+  (general-define-key
+   :prefix leader
+   :states '(normal visual)
+   :keymaps 'inf-clojure-minor-mode-map
+   "er" 'inf-clojure-eval-region
+   "eb" 'inf-clojure-eval-buffer
+   "ed" 'inf-clojure-eval-defun
+   "es" 'inf-clojure-eval-last-sexp
+   "en" 'inf-clojure-set-ns))
 
 (defun chip/setup-pdf-tools-keys ()
   "Setup keybindings for pdf-view-mode"
@@ -222,7 +235,8 @@
   (chip/setup-multi-term-keys)
   (chip/setup-elisp-keys)
   (chip/setup-common-lisp-keys)
-  (chip/setup-clojure-keys)
+  (chip/setup-cider-keys)
+  (chip/setup-inf-clojure-keys)
   (chip/setup-pdf-tools-keys)
   ;; misc
   (general-define-key
