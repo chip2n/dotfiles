@@ -58,3 +58,9 @@
    '((emacs-lisp . t)
      (lisp . t)
      (http . t))))
+
+(use-package org-pomodoro
+  :ensure t
+  :commands (org-pomodoro)
+  :config
+    (setq alert-user-configuration (quote ((((:category . "org-pomodoro")) libnotify nil)))))
