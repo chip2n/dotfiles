@@ -86,8 +86,9 @@
 (defun chip/update-header ()
   ""
   (interactive)
-  ;(if (buffer-file-name)
-  (if (or (bound-and-true-p writeroom-mode) (eq major-mode 'exwm-mode))
+  (if (or (bound-and-true-p writeroom-mode)
+          (eq major-mode 'exwm-mode)
+          (eq major-mode 'inf-clojure-mode))
       (chip/hide-header)
     (chip/show-header)))
 
@@ -157,5 +158,4 @@
 (defun chip/header-icon ()
   (all-the-icons-faicon "codepen" :height 0.8 :v-adjust 0.1))
 
-(add-hook 'buffer-list-update-hook
-          'chip/update-header)
+(add-hook 'buffer-list-update-hook 'chip/update-header)
