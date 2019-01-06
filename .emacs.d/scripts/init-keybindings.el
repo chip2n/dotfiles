@@ -158,8 +158,8 @@
   (interactive)
   (general-define-key
    :prefix leader
-   :states 'normal
-   :keymaps 'emacs-lisp-mode-map
+   :states '(normal visual)
+   :keymaps 'lisp-mode-shared-map
    "er" 'eval-region
    "eb" 'eval-buffer
    "ed" 'eval-defun
