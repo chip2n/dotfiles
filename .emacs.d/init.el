@@ -46,6 +46,7 @@
 (require 'init-pamparam)
 ;; (require 'init-japanese)
 (require 'init-neotree)
+(require 'init-google-translate)
 (require 'bolt-mode)
 
 (use-package multi-term
