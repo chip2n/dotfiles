@@ -130,6 +130,9 @@
    `(cider-test-success-face ((,class (:foreground ,green-2 :weight bold))))
    `(cider-test-failure-face ((,class (:background ,red-2 :foreground ,white-1 :weight bold))))
 
+   ;; SLIME faces
+   `(slime-repl-inputed-output-face ((,class (:foreground ,red-1))))
+
    ;; Slack faces
    `(slack-message-output-header ((,class (:foreground ,blue-2 :weight bold))))
    `(slack-message-output-reaction ((,class (:foreground ,grey-4))))
