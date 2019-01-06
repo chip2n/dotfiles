@@ -18,7 +18,7 @@ feh --bg-scale /home/chip/dotfiles/gray.png
 unclutter &
 #xbacklight -set 100
 
-export PATH=$HOME/.cabal/bin:$HOME/scripts:$HOME/local_scripts:$PATH:$HOME/.local/bin:$HOME/android/sdk/platform-tools:$HOME/flutter/bin
+export PATH=$HOME/.cabal/bin:$HOME/scripts:$HOME/local_scripts:$PATH:$HOME/.local/bin:$HOME/android/sdk/platform-tools:$HOME/android/sdk/emulator:$HOME/flutter/bin
 
 #export CLASSPATH=/usr/lib/jvm/java-7-openjdk/lib/tools.jar
 
