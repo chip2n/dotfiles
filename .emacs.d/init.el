@@ -9,6 +9,7 @@
 (require 'init-keybindings)
 (require 'init-theme)
 (require 'init-evil)
+(require 'init-shell)
 (require 'init-eshell)
 (require 'init-company)
 (require 'init-ivy)
