@@ -202,6 +202,17 @@
    "es" 'inf-clojure-eval-last-sexp
    "en" 'inf-clojure-set-ns))
 
+(defun chip/setup-python-keys ()
+  "Setup keybindings for python-mode"
+  (interactive)
+  (general-define-key
+   :prefix leader
+   :states '(normal visual)
+   :keymaps 'python-mode-map
+   "er" 'python-shell-send-region
+   "eb" 'python-shell-send-buffer
+   "ed" 'python-shell-send-defun))
+
 (defun chip/setup-pdf-tools-keys ()
   "Setup keybindings for pdf-view-mode"
   (interactive)
@@ -236,6 +247,7 @@
   (chip/setup-elisp-keys)
   (chip/setup-common-lisp-keys)
   (chip/setup-cider-keys)
+  (chip/setup-python-keys)
   (chip/setup-inf-clojure-keys)
   (chip/setup-pdf-tools-keys)
   ;; misc
