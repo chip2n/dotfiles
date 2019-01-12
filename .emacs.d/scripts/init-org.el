@@ -23,6 +23,17 @@
      :prepend t)
     ))
 
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)))
+(defun my-org-confirm-babel-evaluate (lang body)
+  (not (member lang '("python"))))
+
+(setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+
+;; Redisplay inlined images after source block execution
+(add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
+
 (require 'org-drill)
 
 (use-package evil-org
