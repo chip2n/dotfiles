@@ -1,0 +1,4 @@
+#!/bin/bash
+
+TIMESTAMP=$(date -d "$1" +%s)
+echo $TIMESTAMP
