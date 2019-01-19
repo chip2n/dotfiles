@@ -28,9 +28,9 @@
 
 (org-babel-do-load-languages
  'org-babel-load-languages
- '((python . t)))
+ '((python . t) (shell . t)))
 (defun my-org-confirm-babel-evaluate (lang body)
-  (not (member lang '("python"))))
+  (not (member lang '("python" "bash"))))
 
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 
