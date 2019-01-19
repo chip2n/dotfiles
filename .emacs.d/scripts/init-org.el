@@ -1,5 +1,8 @@
 (provide 'init-org)
 
+;; add support for block expansions (e.g. <s)
+(require 'org-tempo)
+
 ;; add timestamp to completed todos
 (setq org-log-done 'time)
 
