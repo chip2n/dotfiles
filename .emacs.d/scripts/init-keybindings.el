@@ -140,6 +140,7 @@
    "oe" 'org-latex-export-to-pdf
    "on" 'org-narrow-to-subtree
    "os" 'org-schedule
+   "ot" 'org-set-tags-command
    "ow" 'widen)
   (general-define-key
    :states 'normal
