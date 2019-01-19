@@ -139,6 +139,7 @@
    "oo" 'org-open-at-point
    "oe" 'org-latex-export-to-pdf
    "on" 'org-narrow-to-subtree
+   "os" 'org-schedule
    "ow" 'widen)
   (general-define-key
    :states 'normal
