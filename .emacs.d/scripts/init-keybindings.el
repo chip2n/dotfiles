@@ -17,9 +17,9 @@
    :prefix leader
    :keymaps '(normal)
    "wh" 'split-window-right
-   "wl" (lambda () (split-window-right) (other-window 1))
+   "wl" (lambda () (interactive) (split-window-right) (other-window 1))
    "wk" 'split-window-below
-   "wj" (lambda () (split-window-below) (other-window 1))
+   "wj" (lambda () (interactive) (split-window-below) (other-window 1))
    "wf" 'delete-other-windows
    "wd" 'evil-delete-buffer))
 
