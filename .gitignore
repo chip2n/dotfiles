@@ -44,6 +44,9 @@
 .config/pavucontrol.ini
 .config/pulse
 .config/teamviewer
+.config/GIMP
+.config/draw.io
+.config/unity3d
 .vim/plugged
 .xmonad/.stack-work
 .xmonad/xmonad.state
