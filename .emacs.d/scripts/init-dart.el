@@ -17,7 +17,14 @@
   (general-define-key
    :states 'normal
    :keymaps 'dart-mode-map
-   "gd" 'dart-goto))
+   "gd" 'dart-goto)
+  (general-define-key
+   :prefix leader
+   :states 'normal
+   :keymaps 'dart-mode-map
+   "mww" 'flutter-widget-wrap-widget
+   "mwc" 'flutter-widget-wrap-center
+   "mf" 'dart-format))
 
 (defun flutter--find-project-root ()
   (locate-dominating-file (buffer-file-name) "pubspec.yaml"))
@@ -61,12 +68,20 @@
 (defun flutter-widget-wrap-padding ()
   (interactive)
   (flutter-select-widget-at-point)
-  (yas-expand-snippet (yas-lookup-snippet "padding")))
+  (yas-expand-snippet (yas-lookup-snippet "padding"))
+  (evil-insert 1))
 
 (defun flutter-widget-wrap-center ()
   (interactive)
   (flutter-select-widget-at-point)
-  (yas-expand-snippet (yas-lookup-snippet "center")))
+  (yas-expand-snippet (yas-lookup-snippet "center"))
+  (evil-insert 1))
+
+(defun flutter-widget-wrap-widget ()
+  (interactive)
+  (flutter-select-widget-at-point)
+  (yas-expand-snippet (yas-lookup-snippet "widget"))
+  (evil-insert 1))
 
 (defmacro flutter--widget-execute-region (fun)
   "Run function on region (must take beginning and end as last two arguments"

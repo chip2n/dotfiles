@@ -1,9 +1,8 @@
 # -*- mode: snippet -*-
-# name: padding
-# key: padding
+# name: widget
+# key: widget
 # expand-env: ((yas-wrap-around-region t))
 # --
-Padding(
-    padding: EdgeInsets.all($1),
+$1(
     child: $0,
 )
