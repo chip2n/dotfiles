@@ -1,5 +1,5 @@
 pacman -Syyuu --needed \
-  xorg-server xorg-xinit xorg-xset xorg-xmodmap xorg-xfontsel xorg-xrandr feh \
+  xorg-server xorg-xinit xorg-xset xorg-xmodmap xorg-xfontsel xorg-xrandr xorg-xwininfo xorg-xprop xclip xdotool feh \
   ttf-hack noto-fonts-emoji adobe-source-han-sans-jp-fonts \
   alsa-utils \
   xmonad xmonad-contrib haskell-dbus \
