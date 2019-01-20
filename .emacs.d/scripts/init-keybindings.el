@@ -32,8 +32,7 @@
    "zl" 'hs-hide-level
    "zo" 'hs-show-block
    "zc" 'hs-hide-block
-   "zz" 'hs-toggle-hiding)
-  )
+   "zz" 'hs-toggle-hiding))
 
 (defun chip/setup-ivy-keys ()
   "Setup keybindings for ivy"
@@ -141,10 +140,17 @@
    "on" 'org-narrow-to-subtree
    "os" 'org-schedule
    "ot" 'org-set-tags-command
+   "oci" 'org-clock-in
+   "oco" 'org-clock-out
+   "or" 'org-refile
    "ow" 'widen)
   (general-define-key
    :states 'normal
-   "RET" 'org-open-at-point))
+   "RET" 'org-open-at-point)
+  (general-define-key
+   :keymaps 'org-mode-map
+   "M-k" 'org-move-subtree-up
+   "M-j" 'org-move-subtree-down))
 
 (defun chip/setup-multi-term-keys ()
   "Setup keybindings for multi-term"

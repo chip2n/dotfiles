@@ -26,6 +26,16 @@
      :prepend t)
     ))
 
+(setq org-file-apps
+         '(("\\.png\\'" . "feh --scale-down \"%s\"")
+           ("\\.jpg\\'" . "feh --scale-down \"%s\"")
+           (auto-mode . emacs)
+           ("\\.mm\\'" . default)
+           ("\\.x?html?\\'" . default)
+           ("\\.pdf\\'" . default)))
+(setq org-ellipsis " ")
+(setq org-startup-indented t)
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python . t) (shell . t)))
@@ -39,23 +49,15 @@
 
 (require 'org-drill)
 
-(use-package evil-org
-   :ensure t
-   :after org
-   :config
-   (add-hook 'org-mode-hook 'evil-org-mode)
-   (add-hook 'evil-org-mode-hook
-             (lambda ()
-               (evil-org-set-key-theme)))
-   (setq org-file-apps
-         '(("\\.png\\'" . "feh --scale-down \"%s\"")
-           ("\\.jpg\\'" . "feh --scale-down \"%s\"")
-           (auto-mode . emacs)
-           ("\\.mm\\'" . default)
-           ("\\.x?html?\\'" . default)
-           ("\\.pdf\\'" . default)))
-   (setq org-ellipsis " ")
-   (setq org-startup-indented t))
+;; (use-package evil-org
+;;    :ensure t
+;;    :after org
+;;    :config
+;;    (add-hook 'org-mode-hook 'evil-org-mode)
+;;    (add-hook 'evil-org-mode-hook
+;;              (lambda ()
+;;                (evil-org-set-key-theme))))
+
 
 (use-package org-bullets
   :ensure t
