@@ -16,6 +16,9 @@
 ;; set org tag column
 (setq org-tags-column -80)
 
+;; resize image according to ATTR_ORG if available
+(setq org-image-actual-width nil)
+
 ;; open links in same window
 ;(setq org-link-frame-setup (file . find-file))
 
