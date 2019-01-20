@@ -54,7 +54,7 @@
            ("\\.mm\\'" . default)
            ("\\.x?html?\\'" . default)
            ("\\.pdf\\'" . default)))
-   (setq org-ellipsis "  ")
+   (setq org-ellipsis " ")
    (setq org-startup-indented t))
 
 (use-package org-bullets
