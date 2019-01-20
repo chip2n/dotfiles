@@ -12,7 +12,7 @@
 (tool-bar-mode -1)
 
 ;; show line numbers
-(global-display-line-numbers-mode t)
+;; (global-display-line-numbers-mode t)
 
 ;; hide welcome screen
 (setq inhibit-startup-screen t)
