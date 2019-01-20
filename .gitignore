@@ -47,6 +47,7 @@
 .config/GIMP
 .config/draw.io
 .config/unity3d
+.config/lutris
 .vim/plugged
 .xmonad/.stack-work
 .xmonad/xmonad.state
