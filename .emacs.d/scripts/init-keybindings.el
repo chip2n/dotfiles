@@ -139,6 +139,7 @@
    "oe" 'org-latex-export-to-pdf
    "on" 'org-narrow-to-subtree
    "os" 'org-schedule
+   "od" 'org-deadline
    "ot" 'org-set-tags-command
    "oci" 'org-clock-in
    "oco" 'org-clock-out
