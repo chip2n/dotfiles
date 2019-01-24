@@ -3,6 +3,8 @@
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (package-initialize)
 
+(setenv NODE_PATH "/usr/lib/node_modules")
+
 (add-to-list 'load-path "~/.emacs.d/scripts")
 ;; (require 'init-exwm)
 (require 'init-use-package)
