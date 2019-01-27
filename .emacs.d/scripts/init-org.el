@@ -19,6 +19,10 @@
 ;; resize image according to ATTR_ORG if available
 (setq org-image-actual-width nil)
 
+;; add automatic newlines when lines get too long
+;; using this instead of word-wrap since it doesn't affect tables
+(add-hook 'org-mode-hook (lambda () (auto-fill-mode)))
+
 ;; open links in same window
 ;(setq org-link-frame-setup (file . find-file))
 
