@@ -24,10 +24,11 @@
 
 ;; set org templates
 (setq org-capture-templates
-  `(("t" "Remente TODO" entry (file+olp "~/org/remente/notes.org" "Tasks" "Active")
-     "* TODO %?\nSCHEDULED: <%<%Y-%m-%d %a>>\n[%<%Y-%m-%d %a>]\n%a"
-     :prepend t)
-    ))
+  `(("t" "Personal TODO" entry (file+olp "~/org/personal/todos.org" "Active")
+     "* TODO %?" :prepend t)
+    ("j" "Journal" entry (file+olp+datetree "~/org/personal/journal.org") "* %?\n%T")
+    ("r" "Remente TODO" entry (file+olp "~/org/remente/notes.org" "Tasks" "Active")
+     "* TODO %?" :prepend t)))
 
 ;; set org todo keywords
 (setq org-todo-keywords
