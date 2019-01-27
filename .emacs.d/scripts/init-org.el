@@ -29,6 +29,10 @@
      :prepend t)
     ))
 
+;; set org todo keywords
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)")))
+
 (setq org-file-apps
          '(("\\.png\\'" . "feh --scale-down \"%s\"")
            ("\\.jpg\\'" . "feh --scale-down \"%s\"")
