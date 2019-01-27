@@ -151,7 +151,9 @@
   (general-define-key
    :keymaps 'org-mode-map
    "M-k" 'org-move-subtree-up
-   "M-j" 'org-move-subtree-down))
+   "M-j" 'org-move-subtree-down
+   "M-l" 'org-demote-subtree
+   "M-h" 'org-promote-subtree))
 
 (defun chip/setup-multi-term-keys ()
   "Setup keybindings for multi-term"
