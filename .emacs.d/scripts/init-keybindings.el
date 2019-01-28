@@ -136,7 +136,7 @@
    :states 'normal
    "oa" 'org-agenda
    "oo" 'org-open-at-point
-   "oe" 'org-latex-export-to-pdf
+   "oe" 'org-capture
    "on" 'org-narrow-to-subtree
    "os" 'org-schedule
    "od" 'org-deadline
