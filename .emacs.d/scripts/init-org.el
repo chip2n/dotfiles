@@ -92,3 +92,7 @@
   :commands (org-pomodoro)
   :config
   (setq alert-user-configuration (quote ((((:category . "org-pomodoro")) libnotify nil)))))
+
+;; package for writing org notes while reading pdf
+(use-package org-noter
+  :ensure t)
