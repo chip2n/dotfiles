@@ -19,6 +19,9 @@
 ;; resize image according to ATTR_ORG if available
 (setq org-image-actual-width nil)
 
+;; prevent org-agenda from destroying splits
+(setq org-agenda-window-setup 'current-window)
+
 ;; add automatic newlines when lines get too long
 ;; using this instead of word-wrap since it doesn't affect tables
 (add-hook 'org-mode-hook (lambda () (auto-fill-mode)))
