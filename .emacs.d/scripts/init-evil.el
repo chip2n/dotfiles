@@ -11,7 +11,8 @@
   ;; allow cursor to move past last character - useful in lisp for
   ;; evaluating last sexp
   ;; (setq evil-move-cursor-back t)
-  (setq evil-move-beyond-eol t))
+  (setq evil-move-beyond-eol t)
+  (add-to-list 'evil-motion-state-modes 'org-agenda-mode))
 
 (use-package evil-surround
   :ensure t
