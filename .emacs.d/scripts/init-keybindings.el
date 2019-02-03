@@ -134,7 +134,8 @@
   (general-define-key
    :prefix leader
    :states 'normal
-   "oa" 'org-agenda
+   "oa" 'org-agenda-list
+   "oA" 'org-agenda-list
    "oo" 'org-open-at-point
    "oe" 'org-capture
    "on" 'org-narrow-to-subtree
@@ -153,7 +154,11 @@
    "M-k" 'org-move-subtree-up
    "M-j" 'org-move-subtree-down
    "M-l" 'org-demote-subtree
-   "M-h" 'org-promote-subtree))
+   "M-h" 'org-promote-subtree)
+  (general-define-key
+   :keymaps 'org-agenda-mode-map
+   :states 'motion
+   "RET" 'org-agenda-switch-to))
 
 (defun chip/setup-multi-term-keys ()
   "Setup keybindings for multi-term"
