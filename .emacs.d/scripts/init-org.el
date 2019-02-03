@@ -28,10 +28,10 @@
 
 ;; set org templates
 (setq org-capture-templates
-  `(("t" "Personal TODO" entry (file+olp "~/org/personal/todos.org" "Active")
+  `(("t" "Personal TODO" entry (file+olp "~/org/personal/todos.org" "Tasks")
      "* TODO %?" :prepend t)
     ("j" "Journal" entry (file+olp+datetree "~/org/personal/journal.gpg") "* %?\n%T")
-    ("r" "Remente TODO" entry (file+olp "~/org/remente/notes.org" "Tasks" "Active")
+    ("r" "Remente TODO" entry (file+olp "~/org/remente/notes.org" "Tasks")
      "* TODO %?" :prepend t)))
 
 ;; set org todo keywords
