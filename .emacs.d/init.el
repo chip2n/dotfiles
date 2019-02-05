@@ -94,6 +94,9 @@
 (show-paren-mode 1)
 (setq show-paren-delay 0)
 
+;; set default browser to firefox
+(setq browse-url-browser-function 'browse-url-firefox)
+
 ;; winner-mode
 (use-package winner
   :ensure t
