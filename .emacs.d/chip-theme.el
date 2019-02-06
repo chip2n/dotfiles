@@ -100,6 +100,15 @@
    `(org-link ((,class (:foreground ,blue-2 :underline t))))
    `(org-date ((,class (:foreground ,blue-2 :underline t))))
    `(org-tag ((,class (:foreground ,grey-3 :slant italic))))
+   `(org-upcoming-deadline ((,class (:foreground ,grey-4))))
+   `(org-warning ((,class (:foreground ,red-2))))
+
+   ;; Org-agenda
+   `(org-agenda-structure ((,class (:foreground ,grey-3))))
+   `(org-agenda-date ((,class (:foreground ,blue-2 :weight bold))))
+   `(org-agenda-date-today ((,class (:foreground ,blue-2 :weight bold))))
+   `(org-agenda-date-weekend ((,class (:foreground ,blue-2 :weight bold))))
+   `(org-super-agenda-header ((,class (:foreground ,grey-3 :weight bold))))
 
    ;; Magit faces
    `(magit-section-highlight ((,class (:background ,highlight))))

@@ -99,3 +99,17 @@
 ;; package for writing org notes while reading pdf
 (use-package org-noter
   :ensure t)
+
+
+(use-package org-super-agenda
+  :ensure t
+  :config
+  (setq org-super-agenda-header-separator "")
+  (setq org-super-agenda-unmatched-name "Other")
+  (setq org-super-agenda-groups
+        '((:name "Schedule"
+                 :time-grid t
+                 :todo "TODAY")
+          (:name "Work"
+                 :category "remente")
+          )))
