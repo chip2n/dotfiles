@@ -15,10 +15,18 @@
   (global-company-mode)
   (add-hook 'company-mode-hook 'chip/setup-company-keys)
   ;; prevent downcasing when autocompleting
-  (setq company-dabbrev-downcase nil))
+  (setq company-dabbrev-downcase nil)
+  (setq evil-complete-next-func 'complete-complete-cycle-next)
+  (setq evil-complete-previous-func 'complete-complete-cycle-previous))
 
 (use-package company-anaconda
   :ensure t
   :after (company anaconda-mode)
   :config
   (add-to-list 'company-backends 'company-anaconda))
+
+(defun complete-complete-cycle-next (arg)
+  (company-complete-common-or-cycle))
+
+(defun complete-complete-cycle-previous (arg)
+  (company-complete-common-or-cycle -1))
