@@ -112,4 +112,5 @@
                  :todo "TODAY")
           (:name "Work"
                  :category "remente")
-          )))
+          ))
+  (org-super-agenda-mode))
