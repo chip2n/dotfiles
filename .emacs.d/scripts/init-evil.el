@@ -12,7 +12,8 @@
   ;; evaluating last sexp
   ;; (setq evil-move-cursor-back t)
   (setq evil-move-beyond-eol t)
-  (add-to-list 'evil-motion-state-modes 'org-agenda-mode))
+  ;; (add-to-list 'evil-motion-state-modes 'org-agenda-mode)
+  )
 
 (use-package evil-surround
   :ensure t

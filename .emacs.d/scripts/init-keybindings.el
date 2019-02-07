@@ -157,8 +157,9 @@
    "M-h" 'org-promote-subtree)
   (general-define-key
    :keymaps 'org-agenda-mode-map
-   :states 'motion
-   "RET" 'org-agenda-switch-to))
+   "RET" 'org-agenda-switch-to
+   "j" 'org-agenda-next-item
+   "k" 'org-agenda-previous-item))
 
 (defun chip/setup-multi-term-keys ()
   "Setup keybindings for multi-term"
