@@ -12,3 +12,16 @@
           ("http://feeds.bbci.co.uk/news/science_and_environment/rss.xml" news) ;; BBC News - Science & Environment
           ("https://www.theverge.com/rss/index.xml" news) ;; The Verge
           )))
+
+(require 'tayl)
+
+(defun chip/elfeed-send-to-tayl ()
+  (interactive)
+  (let ((url (chip/elfeed-get-url-of-current-feed)))
+    (tayl-send url)))
+
+(defun chip/elfeed-get-url-of-current-feed ()
+  (save-excursion
+    (beginning-of-buffer)
+    (re-search-forward "Link: " nil t)
+    (elfeed-get-url-at-point)))
