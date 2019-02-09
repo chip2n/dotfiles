@@ -110,7 +110,14 @@
   (general-define-key
    :states 'normal
    :keymaps '(elfeed-search-mode-map)
-   "o" 'elfeed-search-show-entry))
+   "f" 'elfeed-search-set-filter
+   "r" 'elfeed-update
+   "o" 'elfeed-search-show-entry
+   "q" 'elfeed-kill-buffer)
+  (general-define-key
+   :states 'normal
+   :keymaps '(elfeed-show-mode-map)
+   "q" 'elfeed-kill-buffer))
 
 (defun chip/setup-language-keys ()
   "Setup keybindings for languages"
