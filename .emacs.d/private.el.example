@@ -4,3 +4,5 @@
 (setq private/slack-client-id-remente ""
       private/slack-client-secret-remente ""
       private/slack-token-remente "")
+
+(setq tayl-api-token "")

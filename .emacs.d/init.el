@@ -6,6 +6,9 @@
 (setenv "NODE_PATH" "/usr/lib/node_modules")
 
 (add-to-list 'load-path "~/.emacs.d/scripts")
+
+(require 'private)
+
 ;; (require 'init-exwm)
 (require 'init-use-package)
 (require 'init-keybindings)
