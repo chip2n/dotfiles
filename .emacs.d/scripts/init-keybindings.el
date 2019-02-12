@@ -117,7 +117,9 @@
   (general-define-key
    :states 'normal
    :keymaps '(elfeed-show-mode-map)
-   "q" 'elfeed-kill-buffer))
+   "q" 'elfeed-kill-buffer
+   "n" 'elfeed-show-next
+   "p" 'elfeed-show-prev))
 
 (defun chip/setup-language-keys ()
   "Setup keybindings for languages"
