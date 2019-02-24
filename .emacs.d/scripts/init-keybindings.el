@@ -74,7 +74,8 @@
    :prefix leader
    :keymaps '(normal visual emacs)
    "p" 'projectile-find-file
-   "P" 'projectile-switch-project))
+   "P" 'projectile-switch-project
+   "t" 'projectile-toggle-between-implementation-and-test))
 
 (defun chip/setup-eyebrowse-keys ()
   "Setup keybindings for eyebrowse"
@@ -170,15 +171,6 @@
    "RET" 'org-agenda-switch-to
    "j" 'org-agenda-next-item
    "k" 'org-agenda-previous-item))
-
-(defun chip/setup-multi-term-keys ()
-  "Setup keybindings for multi-term"
-  (interactive)
-  (general-define-key
-   :prefix leader
-   :states 'normal
-   "tl" 'multi-term-next
-   "th" 'multi-term-prev))
 
 (defun chip/setup-elisp-keys ()
   "Setup keybindings for emacs-lisp-mode"
@@ -282,7 +274,6 @@
   (chip/setup-language-keys)
   (chip/setup-applications-keys)
   (chip/setup-org-keys)
-  (chip/setup-multi-term-keys)
   (chip/setup-elisp-keys)
   (chip/setup-common-lisp-keys)
   (chip/setup-cider-keys)
