@@ -13,3 +13,6 @@
 
 (use-package inf-clojure
   :ensure t)
+
+(use-package clj-refactor
+  :ensure t)
