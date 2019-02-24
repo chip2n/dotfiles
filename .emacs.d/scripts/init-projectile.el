@@ -7,6 +7,10 @@
   (add-to-list 'projectile-globally-ignored-directories "*node_modules")
   (setq projectile-enable-caching t)
   (setq projectile-completion-system 'ivy)
+  (projectile-register-project-type 'shadow-cljs '("shadow-cljs.edn")
+                                    :src-dir "src/main"
+                                    :test-dir "src/test"
+                                    :test-suffix "_test")
   (projectile-mode))
 
 ;; For projectile-ag
