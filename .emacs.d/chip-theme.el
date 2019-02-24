@@ -135,6 +135,12 @@
    `(magit-tag ((,class (:foreground ,yellow-1 :weight bold))))
    `(git-commit-summary ((,class (:foreground ,white-1))))
 
+   ;; Elfeed faces
+   `(message-header-name ((,class (:foreground ,grey-3 :weight bold))))
+   `(message-header-subject ((,class (:foreground ,blue-2 :weight bold))))
+   `(message-header-to ((,class (:foreground ,grey-4 :weight bold))))
+   `(message-header-other ((,class (:foreground ,pink-2))))
+
    ;; CIDER
    `(cider-test-success-face ((,class (:foreground ,green-2 :weight bold))))
    `(cider-test-failure-face ((,class (:background ,red-2 :foreground ,white-1 :weight bold))))
