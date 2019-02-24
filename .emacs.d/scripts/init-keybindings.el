@@ -29,6 +29,7 @@
   (general-define-key
    :prefix leader
    :keymaps '(normal visual emacs)
+   "cl" 'comment-line
    "zl" 'hs-hide-level
    "zo" 'hs-show-block
    "zc" 'hs-hide-block
@@ -298,7 +299,7 @@
    :prefix leader
    :keymaps '(normal visual emacs)
    "<SPC>" 'execute-extended-command
-   "c" 'chip/open-config-file
+   "C" 'chip/open-config-file
    "d" 'kill-this-buffer))
 
 (defun chip/open-config-file ()
