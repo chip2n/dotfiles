@@ -45,6 +45,7 @@
 (require 'init-clojure)
 (require 'init-lisp)
 (require 'init-lispy)
+(require 'init-racket)
 (require 'init-rust)
 ;; (require 'init-graphviz)
 (require 'init-pdf)

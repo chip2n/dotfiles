@@ -21,4 +21,5 @@
   (add-hook 'emacs-lisp-mode-hook #'evil-lispy-mode)
   (add-hook 'clojure-mode-hook #'evil-lispy-mode)
   (add-hook 'clojurescript-mode-hook #'evil-lispy-mode)
-  (add-hook 'slime-mode-hook #'evil-lispy-mode))
+  (add-hook 'slime-mode-hook #'evil-lispy-mode)
+  (add-hook 'racket-mode-hook #'evil-lispy-mode))
