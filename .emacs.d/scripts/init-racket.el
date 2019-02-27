@@ -5,6 +5,7 @@
 
 (use-package geiser
   :ensure t
-  (add-to-list 'auto-mode-alist (cons (rx ".rkt" eos) 'geiser-mode))))
+  :config
+  (add-to-list 'auto-mode-alist (cons (rx ".rkt" eos) 'geiser-mode)))
 
 (provide 'init-racket)
