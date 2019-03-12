@@ -2,14 +2,18 @@
 
 (use-package dart-mode
   :ensure t
+  :after (projectile)
   :config
   (add-to-list 'auto-mode-alist (cons (rx ".dart" eos) 'dart-mode))
-  (setq dart-enable-analysis-server t)
+  ;; (setq dart-enable-analysis-server t)
   (setq dart-sdk-path "/home/chip/flutter/bin/cache/dart-sdk/")
+  (add-hook 'dart-mode-hook 'lsp)
   (add-hook 'dart-mode-hook 'flycheck-mode)
   (add-hook 'dart-mode-hook 'chip/setup-dart-keys)
   (add-hook 'dart-mode-hook (lambda ()
-                              (add-hook 'after-save-hook 'flutter-hot-reload nil 'make-it-local))))
+                              (add-hook 'after-save-hook 'flutter-hot-reload nil 'make-it-local)))
+  (add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml")
+  (add-to-list 'projectile-project-root-files-bottom-up "BUILD"))
 
 (defun chip/setup-dart-keys ()
   "Setup keybindings for dart mode"
