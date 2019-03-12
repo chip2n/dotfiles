@@ -54,6 +54,7 @@
 ;; (require 'init-japanese)
 (require 'init-neotree)
 (require 'init-google-translate)
+(require 'init-quelpa)
 (require 'bolt-mode)
 
 (use-package multi-term
