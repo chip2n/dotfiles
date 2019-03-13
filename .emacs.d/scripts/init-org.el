@@ -26,6 +26,17 @@
 ;; using this instead of word-wrap since it doesn't affect tables
 (add-hook 'org-mode-hook (lambda () (auto-fill-mode)))
 
+;; auto-saving org buffers after certain actions
+(defun save-org-buffers (&rest args)
+  (org-save-all-org-buffers))
+(advice-add 'org-agenda-quit :before 'save-org-buffers)
+(advice-add 'org-deadline :after 'save-org-buffers)
+(advice-add 'org-refile :after 'save-org-buffers)
+(advice-add 'org-schedule :after 'save-org-buffers)
+(advice-add 'org-set-tags-command :after 'save-org-buffers)
+(advice-add 'org-clock-in :after 'save-org-buffers)
+(advice-add 'org-clock-out :after 'save-org-buffers)
+
 ;; open links in same window
 ;(setq org-link-frame-setup (file . find-file))
 
