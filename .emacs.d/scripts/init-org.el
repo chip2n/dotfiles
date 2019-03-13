@@ -36,6 +36,7 @@
 (advice-add 'org-set-tags-command :after 'save-org-buffers)
 (advice-add 'org-clock-in :after 'save-org-buffers)
 (advice-add 'org-clock-out :after 'save-org-buffers)
+(advice-add 'org-todo :after 'save-org-buffers)
 
 ;; open links in same window
 ;(setq org-link-frame-setup (file . find-file))
