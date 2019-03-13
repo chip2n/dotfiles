@@ -106,7 +106,7 @@
    ;; Org-agenda
    `(org-agenda-structure ((,class (:foreground ,grey-3))))
    `(org-agenda-date ((,class (:foreground ,blue-2 :weight bold :underline t ))))
-   `(org-agenda-date-today ((,class (:foreground ,blue-2 :weight bold :underline t))))
+   `(org-agenda-date-today ((,class (:foreground ,pink-2 :weight bold :underline t))))
    `(org-agenda-date-weekend ((,class (:foreground ,blue-2 :weight bold :underline t))))
    `(org-super-agenda-header ((,class (:foreground ,grey-3 :weight bold))))
 
