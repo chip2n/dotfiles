@@ -26,7 +26,7 @@
 (require 'init-slack)
 (require 'init-projectile)
 (require 'init-org)
-;; (require 'init-org-reveal) ; disabled due to incompatibility with org-mode 9.2
+(require 'init-org-reveal)
 (require 'init-eyebrowse)
 (require 'init-yasnippet)
 (require 'init-diminish)
