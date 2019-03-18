@@ -291,7 +291,8 @@
    :keymaps '(normal visual emacs)
    "<SPC>" 'execute-extended-command
    "C" 'chip/open-config-file
-   "d" 'kill-this-buffer))
+   "d" 'kill-this-buffer
+   "q" 'delete-window))
 
 (defun chip/open-config-file ()
   "Open Emacs configuration file"
