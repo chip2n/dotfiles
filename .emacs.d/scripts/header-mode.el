@@ -5,17 +5,6 @@
 (defvar header-format-filepath 'chip/format-header-filepath)
 (defvar header-format-buffer 'chip/format-header-buffer)
 
-(define-minor-mode header-mode
-  "Add fancy header showing filename / buffer name."
-  :global t
-  (if header-mode
-      (progn
-        (chip/update-header)
-        (add-hook 'buffer-list-update-hook 'chip/update-header))
-    (progn
-      (remove-hook 'buffer-list-update-hook 'chip/update-header)
-      (chip/hide-header))))
-
 (defun chip/show-header ()
   (interactive)
   (progn
@@ -89,6 +78,13 @@
 
 (defun chip/format-header-buffer (buffer)
   (concat " " header-icon buffer))
+
+(define-minor-mode header-mode
+  "Add fancy header showing filename / buffer name."
+  :global nil
+  (if header-mode
+      (chip/update-header)
+    (chip/hide-header)))
 
 (provide 'header-mode)
 
