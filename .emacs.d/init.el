@@ -51,6 +51,7 @@
 ;; (require 'init-graphviz)
 (require 'init-pdf)
 (require 'init-pamparam)
+(require 'init-pomidor)
 ;; (require 'init-japanese)
 (require 'init-neotree)
 (require 'init-google-translate)
