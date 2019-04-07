@@ -51,7 +51,7 @@
 
 ;; set org todo keywords
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)")))
+      '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c@)")))
 
 (setq org-file-apps
          '(("\\.png\\'" . "feh --scale-down \"%s\"")
