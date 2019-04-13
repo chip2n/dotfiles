@@ -116,19 +116,20 @@
   :ensure t)
 
 
-(use-package org-super-agenda
-  :ensure t
-  :config
-  (setq org-super-agenda-header-separator "")
-  (setq org-super-agenda-unmatched-name "Other")
-  (setq org-super-agenda-groups
-        '((:name "Schedule"
-                 :time-grid t
-                 :todo "TODAY")
-          (:name "Work"
-                 :category "remente")
-          ))
-  (org-super-agenda-mode))
+;; (use-package org-super-agenda
+;;   :ensure t
+;;   :config
+;;   (setq org-super-agenda-header-separator "")
+;;   (setq org-super-agenda-unmatched-name "Other")
+;;   (setq org-super-agenda-groups
+;;         '((:name "Schedule"
+;;                  :time-grid t
+;;                  :todo "TODAY")
+;;           (:name "Work"
+;;                  :category "remente")
+;;           ))
+;;   (org-super-agenda-mode))
+
 
 ;; stolen from: https://writequit.org/articles/emacs-org-mode-generate-ids.html#automating-id-creation
 (require 'org-id)
