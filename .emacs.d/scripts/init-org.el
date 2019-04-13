@@ -96,6 +96,15 @@
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
   (setq org-bullets-bullet-list '("")))
 
+(require 'private)
+(use-package org-gcal
+  :ensure t
+  :after org
+  :config
+  (setq org-gcal-client-id private/gcal-client-id
+        org-gcal-client-secret private/gcal-client-secret
+        org-gcal-file-alist `((,private/gcal-calendar-id . "~/org/personal/gcal.org"))))
+
 (use-package ob-http
   :ensure t
   :config

@@ -5,4 +5,9 @@
       private/slack-client-secret-remente ""
       private/slack-token-remente "")
 
+;; gcal
+(setq private/gcal-client-id ""
+      private/gcal-client-secret ""
+      private/gcal-calendar-id "")
+
 (setq tayl-api-token "")
