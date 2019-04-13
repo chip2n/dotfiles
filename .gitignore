@@ -48,6 +48,7 @@
 .config/draw.io
 .config/unity3d
 .config/lutris
+.config/aseprite
 .vim/plugged
 .xmonad/.stack-work
 .xmonad/xmonad.state
