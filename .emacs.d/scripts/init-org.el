@@ -22,6 +22,9 @@
 ;; prevent org-agenda from destroying splits
 (setq org-agenda-window-setup 'current-window)
 
+;; always start agenda on current day instead of mondays
+(setq org-agenda-start-on-weekday nil)
+
 ;; add automatic newlines when lines get too long
 ;; using this instead of word-wrap since it doesn't affect tables
 (add-hook 'org-mode-hook (lambda () (auto-fill-mode)))
