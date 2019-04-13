@@ -16,3 +16,8 @@ history
 ac-comphist.dat
 games
 .org-id-locations
+quelpa
+tramp
+transient
+forge-database.sqlite
+.lsp-session-v1
