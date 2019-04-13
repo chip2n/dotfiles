@@ -108,6 +108,8 @@
    `(org-agenda-date ((,class (:foreground ,blue-2 :weight bold))))
    `(org-agenda-date-today ((,class (:foreground ,pink-2 :weight bold))))
    `(org-agenda-date-weekend ((,class (:foreground ,blue-2 :weight bold))))
+   `(org-time-grid ((,class (:foreground ,grey-3))))
+   `(org-agenda-current-time ((,class (:foreground ,pink-2 :weight bold))))
    `(org-super-agenda-header ((,class (:foreground ,grey-3 :weight bold))))
 
    ;; Magit faces
