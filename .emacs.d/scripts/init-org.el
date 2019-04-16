@@ -52,6 +52,16 @@
     ("r" "Remente TODO" entry (file+olp "~/org/remente/notes.org" "Tasks")
      "* TODO %?" :prepend t)))
 
+(setq org-agenda-custom-commands
+      '(("c" "Unscheduled TODO"
+         ((agenda "")
+          (todo ""
+                ((org-agenda-overriding-header "\nUnscheduled")
+                 (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp)))))
+         nil
+         nil)))
+(setq org-agenda-block-separator ?―)
+
 ;; set org todo keywords
 (setq org-todo-keywords
       '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c@)")))

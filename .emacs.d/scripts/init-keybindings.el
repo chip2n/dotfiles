@@ -145,7 +145,7 @@
   (general-define-key
    :prefix leader
    :states 'normal
-   "oa" 'org-agenda-list
+   "oa" (lambda () (interactive) (org-agenda nil "c"))
    "oA" 'org-agenda-list
    "oo" 'org-open-at-point
    "oe" 'org-capture
