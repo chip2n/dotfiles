@@ -17,4 +17,6 @@ ln -s /home/chip/dotfiles/.sbclrc /home/chip/.sbclrc
 
 ln -s /home/chip/Dropbox/elfeed /home/chip/.elfeed
 
+ln -s /home/chip/dotfiles/xkb/layout /usr/share/X11/xkb/symbols/chip
+
 systemctl enable --user emacsd.service

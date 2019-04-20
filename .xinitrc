@@ -7,7 +7,7 @@ xset fp rehash
 xset r rate 200 25
 
 #setxkbmap se -option caps:escape
-setxkbmap se
+setxkbmap chip
 xmodmap /home/chip/.xmodmap
 xcape -e 'Control_L=Escape;'
 
