@@ -5,7 +5,7 @@ xkb_symbols "euro" {
 
     include "us(basic)"
     include "level3(ralt_switch)"
-    include "capslock(backspace)"
+    //include "capslock(backspace)"
 
     // Swedish alphabet
     //           [ Unmodified  , Shift     , AltGr      , Shift + AltGr ]

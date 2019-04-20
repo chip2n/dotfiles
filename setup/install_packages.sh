@@ -17,3 +17,4 @@ pacman -Syyuu --needed \
   zathura zathura-pdf-poppler \
   isync mu \
   scrot \
+  xcape \

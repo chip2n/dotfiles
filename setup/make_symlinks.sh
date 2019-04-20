@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ln -s /home/chip/dotfiles/.xinitrc /home/chip/.xinitrc
+ln -s /home/chip/dotfiles/.xmodmap /home/chip/.xmodmap
 ln -s /home/chip/dotfiles/.xmonad /home/chip/.xmonad
 ln -s /home/chip/dotfiles/.colors /home/chip/.colors
 ln -s /home/chip/dotfiles/.urxvt /home/chip/.urxvt
