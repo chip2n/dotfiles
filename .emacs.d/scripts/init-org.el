@@ -64,6 +64,18 @@
          nil)))
 (setq org-agenda-block-separator ?―)
 
+;; finalize agenda entries (removing icebox tasks)
+(defun chip/org-agenda-finalize-entries (string)
+  (let ((lines (split-string string "\n" t)))
+  (mapconcat 'identity
+             (remove-icebox-tasks lines)
+             "\n")))
+
+(defun remove-icebox-tasks (lines)
+  (remove-if (lambda (line) (string-match-p ":icebox:" line)) lines))
+
+(advice-add 'org-agenda-finalize-entries :filter-return #'chip/org-agenda-finalize-entries)
+
 ;; set org todo keywords
 (setq org-todo-keywords
       '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c@)")))
@@ -135,7 +147,6 @@
 ;; package for writing org notes while reading pdf
 (use-package org-noter
   :ensure t)
-
 
 ;; (use-package org-super-agenda
 ;;   :ensure t
