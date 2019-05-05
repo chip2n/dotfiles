@@ -49,6 +49,8 @@
   `(("t" "Personal TODO" entry (file+olp "~/org/personal/todos.org" "Tasks")
      "* TODO %?" :prepend t)
     ("j" "Journal" entry (file+olp+datetree "~/org/personal/journal.gpg") "* %?\n%T")
+    ("i" "Idea" entry (file+olp "~/org/personal/ideas.org" "Ideas")
+     "* %?" :prepend t)
     ("r" "Remente TODO" entry (file+olp "~/org/remente/notes.org" "Tasks")
      "* TODO %?" :prepend t)))
 
