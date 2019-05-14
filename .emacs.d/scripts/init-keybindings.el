@@ -292,7 +292,8 @@
    "<SPC>" 'execute-extended-command
    "C" 'chip/open-config-file
    "d" 'kill-this-buffer
-   "q" 'delete-window)
+   "q" 'delete-window
+   "Q" 'kill-buffer-and-window)
   (general-define-key
    :mode 'flymake-mode
    "M-n" 'flymake-goto-next-error
