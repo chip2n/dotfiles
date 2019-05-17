@@ -170,6 +170,13 @@
    `(ein:cell-input-area ((,class (:background ,grey-2))))
    `(ein:cell-output-area ((,class (:foreground ,grey-4))))
 
+   ;; Pomidor
+   `(pomidor-time-face ((,class (:foreground ,green-1 :weight bold))))
+   `(pomidor-timer-face ((,class (:foreground ,green-1 :weight bold))))
+   `(pomidor-break-face ((,class (:foreground ,blue-2 :weight bold))))
+   `(pomidor-work-face ((,class (:foreground ,green-1 :weight bold))))
+   `(pomidor-overwork-face ((,class (:foreground ,red-2 :weight bold))))
+
    ;; Escape and prompt faces
    `(minibuffer-prompt ((,class (:weight bold :foreground ,grey-3))))
    `(escape-glyph ((,class (:foreground ,red-3))))
