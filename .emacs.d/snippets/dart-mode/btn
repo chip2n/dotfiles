@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: btn
+# key: btn
+# --
+RaisedButton(
+  child: Text('$1'),
+  onPressed: () {$0},
+),

@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: group
+# key: group
+# expand-env: ((yas-wrap-around-region t))
+# --
+$1(
+  children: [
+    $0,
+  ],
+)

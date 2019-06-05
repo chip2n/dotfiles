@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: textfield
+# key: textfield
+# --
+TextField(
+  decoration: InputDecoration(
+    hintText: '$1',
+  ),
+  controller: TextEditingController(),
+),$0

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: pado
+# key: pado
+# --
+padding: EdgeInsets.only($1),
