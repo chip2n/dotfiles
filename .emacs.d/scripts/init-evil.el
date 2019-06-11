@@ -28,7 +28,8 @@
   (global-evil-visualstar-mode))
 
 (use-package evil-collection
-  :ensure t)
+  :ensure t
+  (evil-collection-init 'dired))
 
 
 (setq evil-fold-list

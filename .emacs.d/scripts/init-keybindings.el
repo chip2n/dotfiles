@@ -158,6 +158,7 @@
    "or" 'org-refile
    "ow" 'widen)
   (general-define-key
+   :keymaps 'org-mode-map
    :states 'normal
    "RET" 'org-open-at-point)
   (general-define-key
