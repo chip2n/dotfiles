@@ -29,6 +29,7 @@
 
 (use-package evil-collection
   :ensure t
+  :config
   (evil-collection-init 'dired))
 
 
