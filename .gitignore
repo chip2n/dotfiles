@@ -49,6 +49,8 @@
 .config/unity3d
 .config/lutris
 .config/aseprite
+.config/yarn
+.config/systemd
 .vim/plugged
 .xmonad/.stack-work
 .xmonad/xmonad.state
