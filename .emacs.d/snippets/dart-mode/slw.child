@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: slw.child
+# key: slw.child
+# --
+class $1 extends StatelessWidget {
+  $1({this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+      return $2;
+  }
+}

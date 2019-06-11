@@ -87,6 +87,12 @@
   (yas-expand-snippet (yas-lookup-snippet "widget"))
   (evil-insert 1))
 
+(defun flutter-widget-wrap-group ()
+  (interactive)
+  (flutter-select-widget-at-point)
+  (yas-expand-snippet (yas-lookup-snippet "group"))
+  (evil-insert 1))
+
 (defmacro flutter--widget-execute-region (fun)
   "Run function on region (must take beginning and end as last two arguments"
   `(save-excursion
