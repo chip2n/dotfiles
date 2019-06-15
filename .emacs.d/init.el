@@ -101,6 +101,9 @@
 (show-paren-mode 1)
 (setq show-paren-delay 0)
 
+;; preserve cursor position when scrolling
+(setq scroll-preserve-screen-position t)
+
 ;; set default browser to firefox
 (setq browse-url-browser-function 'browse-url-firefox)
 
