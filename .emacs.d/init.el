@@ -58,6 +58,11 @@
 (require 'init-quelpa)
 (require 'bolt-mode)
 
+;; disable C-d keybinding in comint-mode
+;; (enables scrolling in shell, repls etc)
+(with-eval-after-load 'comint
+    (define-key comint-mode-map "\C-d" nil))
+
 (use-package multi-term
   :ensure t
   :config

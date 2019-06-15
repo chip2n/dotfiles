@@ -298,7 +298,17 @@
   (general-define-key
    :mode 'flymake-mode
    "M-n" 'flymake-goto-next-error
-   "M-p" 'flymake-goto-prev-error))
+   "M-p" 'flymake-goto-prev-error)
+  (general-define-key
+   :states 'normal
+   :keymap 'comint-mode-map
+   "C-d" 'scroll-up)
+  ;; using default emacs scrolls
+  ;; evil scroll seems to have problems with cursor position
+  (general-define-key
+   :states 'normal
+   "C-d" 'scroll-up
+   "C-u" 'scroll-down))
 
 (defun chip/open-config-file ()
   "Open Emacs configuration file"
