@@ -4,7 +4,7 @@
   "Setup keybindings for window management"
   (interactive)
   (general-define-key
-   :keymaps '(normal visual motion)
+   :keymaps '(normal visual motion emacs)
    "C-h" 'windmove-left
    "C-k" 'windmove-up
    "C-l" 'windmove-right
@@ -15,7 +15,7 @@
    "C-S-j" 'evil-window-decrease-height)
   (general-define-key
    :prefix leader
-   :keymaps '(normal)
+   :keymaps '(normal emacs)
    "wh" 'split-window-right
    "wl" (lambda () (interactive) (split-window-right) (other-window 1))
    "wk" 'split-window-below
