@@ -194,6 +194,7 @@
    :states 'normal
    :keymaps 'slime-mode-map
    "es" 'slime-eval-last-expression
+   "eb" 'slime-eval-last-expression
    "ed" 'slime-eval-defun))
 
 (defun chip/setup-cider-keys ()
