@@ -195,7 +195,11 @@
    :keymaps 'slime-mode-map
    "es" 'slime-eval-last-expression
    "eb" 'slime-eval-buffer
-   "ed" 'slime-eval-defun))
+   "ed" 'slime-eval-defun)
+  (general-define-key
+   :states 'normal
+   :keymaps 'slime-mode-map
+   "gd" 'slime-edit-definition))
 
 (defun chip/setup-cider-keys ()
   "Setup keybindings for cider-mode"
