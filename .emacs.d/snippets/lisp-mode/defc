@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: defc
+# key: defc
+# --
+defconstant +$1+ $0
