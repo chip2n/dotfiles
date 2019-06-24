@@ -199,7 +199,11 @@
   (general-define-key
    :states 'normal
    :keymaps 'slime-mode-map
-   "gd" 'slime-edit-definition))
+   "gd" 'slime-edit-definition)
+  (general-define-key
+   :states 'normal
+   :keymaps 'slime-macroexpansion-minor-mode-map
+   "r" 'slime-macroexpand-again))
 
 (defun chip/setup-cider-keys ()
   "Setup keybindings for cider-mode"
