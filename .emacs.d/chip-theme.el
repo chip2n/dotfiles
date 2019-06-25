@@ -85,6 +85,10 @@
    `(company-scrollbar-bg ((,class (:background ,grey-3))))
    `(company-scrollbar-fg ((,class (:background ,green-2))))
 
+   ;; Avy
+   `(avy-lead-face ((,class (:background ,red-1 :foreground ,grey-2 :weight bold))))
+   `(avy-lead-face-0 ((,class (:background ,red-1 :foreground ,grey-2 :weight bold))))
+
    ;; Org
    `(org-ellipsis ((,class (:foreground ,grey-4))))
    `(org-todo ((,class (:foreground ,red-2 :weight bold))))
