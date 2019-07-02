@@ -321,8 +321,11 @@
   ;; evil scroll seems to have problems with cursor position
   (general-define-key
    :states 'normal
-   "C-d" 'scroll-up
-   "C-u" 'scroll-down))
+   ;; "C-d" 'scroll-up
+   ;; "C-u" 'scroll-down
+   "C-d" 'ranger-half-page-down
+   "C-u" 'ranger-half-page-up
+   ))
 
 (defun chip/open-config-file ()
   "Open Emacs configuration file"
