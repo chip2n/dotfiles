@@ -195,7 +195,10 @@
    :keymaps 'slime-mode-map
    "es" 'slime-eval-last-expression
    "eb" 'slime-eval-buffer
-   "ed" 'slime-eval-defun)
+   "ed" 'slime-eval-defun
+   "mm" 'slime-macroexpand-1
+   "mi" 'slime-inspect
+   "md" 'slime-documentation-lookup)
   (general-define-key
    :states 'normal
    :keymaps 'slime-mode-map
@@ -203,8 +206,9 @@
   (general-define-key
    :states 'normal
    :modes 'slime-macroexpansion-minor-mode
-   "r" 'slime-macroexpand-again
-   "q" 'slime-inspector-quit))
+   ;; "r" 'slime-macroexpand-again
+   ;; "q" 'slime-inspector-quit
+   ))
 
 (defun chip/setup-cider-keys ()
   "Setup keybindings for cider-mode"
