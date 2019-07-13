@@ -32,7 +32,8 @@
           (nil    . (telephone-line-minor-mode-segment))
 	  ))
   (setq telephone-line-rhs
-        '((nil    . (telephone-line-misc-info-segment))
+        '((nil    . (telephone-line-erc-modified-channels-segment))
+          (nil    . (telephone-line-misc-info-segment))
           (accent . (telephone-line-major-mode-segment))
           (evil   . (telephone-line-airline-position-segment))))
   
