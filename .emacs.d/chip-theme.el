@@ -147,6 +147,9 @@
    `(message-header-to ((,class (:foreground ,grey-4 :weight bold))))
    `(message-header-other ((,class (:foreground ,pink-2))))
 
+   ;; Lispy
+   `(lispy-face-hint ((,class (:foreground ,grey-4 :weight bold))))
+
    ;; CIDER
    `(cider-test-success-face ((,class (:foreground ,green-2 :weight bold))))
    `(cider-test-failure-face ((,class (:background ,red-2 :foreground ,white-1 :weight bold))))
