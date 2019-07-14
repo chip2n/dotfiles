@@ -62,7 +62,7 @@
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp)))))
          nil
          nil)))
-(setq org-agenda-block-separator ?―)
+(setq org-agenda-block-separator nil)
 
 ;; finalize agenda entries (removing icebox tasks)
 (defun chip/org-agenda-finalize-entries (string)
@@ -75,6 +75,14 @@
   (remove-if (lambda (line) (string-match-p ":icebox:" line)) lines))
 
 (advice-add 'org-agenda-finalize-entries :filter-return #'chip/org-agenda-finalize-entries)
+
+
+(defvar chip/org-agenda-scheduled-icon (all-the-icons-material "event" :v-adjust -0.1))
+(defvar chip/org-agenda-deadline-icon (all-the-icons-material "whatshot" :v-adjust -0.1))
+(setq org-agenda-scheduled-leaders `(,(concat chip/org-agenda-scheduled-icon "") ,(concat chip/org-agenda-scheduled-icon "x%1d")))
+(setq org-agenda-deadline-leaders `(,(concat chip/org-agenda-deadline-icon "")
+                                    ,(concat chip/org-agenda-deadline-icon "+%1d")
+                                    ,(concat chip/org-agenda-deadline-icon "-%1d")))
 
 ;; set org todo keywords
 (setq org-todo-keywords

@@ -295,6 +295,7 @@
   (chip/setup-python-keys)
   (chip/setup-inf-clojure-keys)
   (chip/setup-racket-keys)
+  (chip/setup-rust-keys)
   (chip/setup-pdf-tools-keys)
   ;; misc
   (general-define-key
