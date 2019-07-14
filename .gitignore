@@ -51,6 +51,12 @@
 .config/aseprite
 .config/yarn
 .config/systemd
+.config/Cadence
+.config/Popcorn-Time
+.config/REAPER
+.config/blender
+.config/falkTX
+.config/rncbc.org
 .vim/plugged
 .xmonad/.stack-work
 .xmonad/xmonad.state
