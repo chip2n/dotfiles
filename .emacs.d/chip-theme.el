@@ -108,13 +108,17 @@
    `(org-warning ((,class (:foreground ,red-2))))
 
    ;; Org-agenda
-   `(org-agenda-structure ((,class (:foreground ,grey-3))))
-   `(org-agenda-date ((,class (:foreground ,blue-2 :weight bold))))
-   `(org-agenda-date-today ((,class (:foreground ,pink-2 :weight bold))))
-   `(org-agenda-date-weekend ((,class (:foreground ,blue-2 :weight bold))))
+   `(org-agenda-structure ((,class (:foreground ,grey-4))))
+   `(org-agenda-date ((,class (:foreground ,green-2 :weight bold))))
+   `(org-agenda-date-today ((,class (:foreground ,green-2 :weight bold :underline t))))
+   `(org-agenda-date-weekend ((,class (:foreground ,green-2 :weight bold))))
    `(org-time-grid ((,class (:foreground ,grey-3))))
    `(org-agenda-current-time ((,class (:foreground ,pink-2 :weight bold))))
    `(org-super-agenda-header ((,class (:foreground ,grey-3 :weight bold))))
+   `(org-scheduled-previously ((,class (:foreground ,red-2))))
+   `(org-scheduled ((,class (:foreground ,white-1))))
+   `(org-scheduled-today ((,class (:foreground ,white-1))))
+   `(org-deadline ((,class (:foreground ,white-1))))
 
    ;; Magit faces
    `(magit-section-highlight ((,class (:background ,highlight))))
