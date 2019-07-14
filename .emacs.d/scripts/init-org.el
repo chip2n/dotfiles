@@ -62,7 +62,7 @@
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp)))))
          nil
          nil)))
-(setq org-agenda-block-separator ?―)
+(setq org-agenda-block-separator nil)
 
 ;; finalize agenda entries (removing icebox tasks)
 (defun chip/org-agenda-finalize-entries (string)
