@@ -8,7 +8,7 @@
   :hook (rust-mode . eglot-ensure)
   :config
   (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
-  (add-hook 'rust-mode-hook 'chip/setup-rust-keys)
+  ;; (add-hook 'rust-mode-hook 'chip/setup-rust-keys)
   (add-hook 'rust-mode-hook 'electric-pair-mode))
 
 (defun chip/setup-rust-keys ()
@@ -17,7 +17,15 @@
   (general-define-key
    :states 'normal
    :keymaps 'rust-mode-map
-   "gd" 'racer-find-definition))
+   "gd" 'racer-find-definition)
+  ;; (general-define-key
+  ;;  :prefix leader
+  ;;  :states 'normal
+  ;;  :mode 'cargo-minor-mode
+  ;;  "mr" 'cargo-process-run
+  ;;  "mc" 'cargo-process-check
+  ;;  "mt" 'cargo-process-test)
+  )
 
 ;; (use-package flymake-rust
 ;;   :ensure t
