@@ -57,6 +57,7 @@
 (require 'init-neotree)
 (require 'init-google-translate)
 (require 'init-quelpa)
+(require 'init-remente)
 (require 'bolt-mode)
 
 ;; disable C-d keybinding in comint-mode
