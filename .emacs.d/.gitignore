@@ -1,5 +1,6 @@
 elpa/
 scripts/private.el
+scripts/remente.el
 .emacs.desktop
 .emacs.desktop.lock
 bookmarks
