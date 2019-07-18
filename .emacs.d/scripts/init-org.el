@@ -101,6 +101,7 @@
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python . t) (shell . t) (js . t)))
+
 (defun my-org-confirm-babel-evaluate (lang body)
   (not (member lang '("python" "bash" "js"))))
 
