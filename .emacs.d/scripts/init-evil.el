@@ -32,6 +32,10 @@
   :config
   (evil-collection-init 'dired))
 
+;; Make sure shell starts in normal mode
+;; TODO is shell-mode
+(add-to-list 'evil-normal-state-modes 'shell-mode)
+(delete 'shell-mode evil-insert-state-modes)
 
 (setq evil-fold-list
       '(((hs-minor-mode)
