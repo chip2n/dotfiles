@@ -70,11 +70,6 @@
   :config
   (setq multi-term-program "/bin/bash"))
 
-(use-package ein
-  :ensure t
-  :config
-  (add-to-list 'evil-motion-state-modes 'ein:notebooklist-mode))
-
 (use-package ranger
   :ensure t)
 ;; make ranger the default file browser
