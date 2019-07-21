@@ -10,7 +10,8 @@
 (setq org-adapt-indentation nil)
 
 ;; add org directory (allows searching for todos and scheduling items)
-(setq org-agenda-files (list "~/org/personal/todos.org" "~/org/remente/notes.org"))
+(setq org-agenda-files (list "~/org/personal/todos.org"
+                             "~/org/remente/notes.org"))
 (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
 
 ;; set org tag column
