@@ -155,6 +155,7 @@
    ;; CIDER
    `(cider-test-success-face ((,class (:foreground ,color-success :weight bold))))
    `(cider-test-failure-face ((,class (:background ,color-error   :foreground ,white-1 :weight bold))))
+   `(cider-fringe-good-face ((,class (:foreground ,color-comment))))
 
    ;; SLIME faces
    `(slime-repl-inputed-output-face ((,class (:foreground ,red-1))))
