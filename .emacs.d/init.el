@@ -147,3 +147,14 @@
        "Window '%s' is dedicated"
      "Window '%s' is normal")
    (current-buffer)))
+
+(defun yaml-to-json (start end)
+  "Convert yaml in region to JSON"
+  (interactive "r")
+  (let* ((yaml (buffer-substring-no-properties start end))
+         (result (shell-command-to-string (concat "python /home/chip/scripts/yaml2json.py " "\"" yaml "\""))))
+    (kill-new result)
+    (with-temp-buffer
+      (insert result)
+      (clipboard-kill-region (point-min) (point-max)))
+    result))
