@@ -144,6 +144,12 @@
    `(message-header-subject ((,class (:foreground ,blue-2 :weight bold))))
    `(message-header-to ((,class (:foreground ,grey-4 :weight bold))))
    `(message-header-other ((,class (:foreground ,pink-2))))
+   `(message-header-other ((,class (:foreground ,pink-2))))
+   `(elfeed-search-date-face ((,class (:foreground ,color-headline-1 :weight bold))))
+   `(elfeed-search-tag-face ((,class (:foreground ,color-comment))))
+   `(elfeed-search-feed-face ((,class (:foreground ,color-headline-2 :weight bold))))
+   `(elfeed-search-unread-title-face ((,class (:foreground ,color-foreground))))
+   `(elfeed-search-title-face ((,class (:foreground ,color-comment))))
 
    ;; Neotree
    `(neo-dir-link-face ((,class (:foreground ,color-link :weight bold))))
