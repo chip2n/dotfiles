@@ -71,14 +71,16 @@
   (setq multi-term-program "/bin/bash"))
 
 (use-package ranger
-  :ensure t)
-;; make ranger the default file browser
-;(ranger-override-dired-mode t)
-;; disable file preview by default
-(setq ranger-preview-file nil)
-;; hide hidden files by default
-(setq ranger-show-hidden nil)
+  :ensure t
+  :config
+  ;; make ranger the default file browser
+  ;; (ranger-override-dired-mode t)
 
+  ;; disable file preview by default
+  (setq ranger-preview-file nil)
+
+  ;; hide hidden files by default
+  (setq ranger-show-hidden nil))
 
 ;; save backups in separate directory
 (setq backup-directory-alist `(("." . "~/.emacs.d/.backups")))
