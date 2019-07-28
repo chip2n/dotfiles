@@ -27,9 +27,9 @@
   :config
   (setq telephone-line-lhs
         '((evil   . (telephone-line-evil-tag-segment))
-          (accent . (telephone-line-vc-segment
-                     telephone-line-process-segment))
-          (nil    . (telephone-line-minor-mode-segment))
+          (accent . (telephone-line-vc-segment))
+          (nil    . (telephone-line-process-segment
+                     telephone-line-minor-mode-segment))
 	  ))
   (setq telephone-line-rhs
         '((nil    . (telephone-line-erc-modified-channels-segment))

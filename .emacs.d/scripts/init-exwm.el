@@ -6,14 +6,12 @@
 (setq exwm-workspace-number 2)
 
 (require 'exwm-randr)
-(setq exwm-randr-workspace-output-plist '(0 "DVI-D-0" 1 "DVI-I-0"))
+(setq exwm-randr-workspace-output-plist '(1 "DVI-D-0" 0 "DVI-I-0"))
 (add-hook 'exwm-randr-screen-change-hook
           (lambda ()
             (start-process-shell-command
              "xrandr" nil "xrandr --output DVI-D-0 --left-of DVI-I-0 --auto")))
 (exwm-randr-enable)
-
-
 
 (exwm-input-set-key (kbd "s-SPC") 'counsel-M-x)
 
@@ -31,6 +29,9 @@
 (exwm-input-set-key (kbd "s-l") 'evil-window-right)
 (exwm-input-set-key (kbd "s-j") 'evil-window-down)
 
+(push ?\s-C exwm-input-prefix-keys)
+(exwm-input-set-key (kbd "s-C") 'kill-buffer-and-window)
+
 (push ?\s-b exwm-input-prefix-keys)
 (exwm-input-set-key (kbd "s-b") 'ivy-switch-buffer)
 
@@ -43,14 +44,14 @@
 (exwm-input-set-key (kbd "s-C-k") 'split-window-below)
 (exwm-input-set-key (kbd "s-C-l") (lambda () (interactive) (split-window-right) (other-window 1)))
 
-(push ?\s-\S-h exwm-input-prefix-keys)
-(push ?\s-\S-j exwm-input-prefix-keys)
-(push ?\s-\S-k exwm-input-prefix-keys)
-(push ?\s-\S-l exwm-input-prefix-keys)
-(exwm-input-set-key (kbd "s-S-l") 'evil-window-increase-width)
-(exwm-input-set-key (kbd "s-S-h") 'evil-window-decrease-width)
-(exwm-input-set-key (kbd "s-S-k") 'evil-window-increase-height)
-(exwm-input-set-key (kbd "s-S-j") 'evil-window-decrease-height)
+(push ?\s-H exwm-input-prefix-keys)
+(push ?\s-J exwm-input-prefix-keys)
+(push ?\s-K exwm-input-prefix-keys)
+(push ?\s-L exwm-input-prefix-keys)
+(exwm-input-set-key (kbd "s-L") 'evil-window-increase-width)
+(exwm-input-set-key (kbd "s-H") 'evil-window-decrease-width)
+(exwm-input-set-key (kbd "s-K") 'evil-window-increase-height)
+(exwm-input-set-key (kbd "s-J") 'evil-window-decrease-height)
 
 (push ?\s-1 exwm-input-prefix-keys)
 (push ?\s-2 exwm-input-prefix-keys)
