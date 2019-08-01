@@ -34,7 +34,9 @@
       )
 
   (custom-theme-set-faces 'chip
-   `(default ((,class (:foreground ,color-foreground :background ,color-background))))
+   `(default ((,class (:foreground ,color-foreground :background ,color-background :family "Hack" :height 100))))
+   `(fixed-pitch ((,class (:family "Hack" :height 100))))
+   `(variable-pitch ((,class (:family "EtBembo" :height 140))))
    `(cursor ((,class (:background ,color-cursor))))
 
    ;; Highlighting faces
@@ -102,6 +104,13 @@
    `(org-upcoming-deadline ((,class (:foreground ,grey-4))))
    `(org-upcoming-distant-deadline ((,class (:foreground ,grey-4))))
    `(org-warning ((,class (:foreground ,color-error))))
+   `(org-code ((,class (:foreground ,pink-2 :weight bold :inherit fixed-pitch))))
+   `(org-verbatim ((,class (:foreground ,pink-2 :weight bold :inherit fixed-pitch))))
+   `(org-block-begin-line ((,class (:foreground ,color-comment :underline t))))
+   `(org-block ((,class (:foreground ,white-1
+                                     ;; :background "#1c1f24"
+                                     :inherit fixed-pitch))))
+   `(org-block-end-line ((,class (:foreground ,color-comment :overline t))))
 
    ;; Org-agenda
    `(org-agenda-structure ((,class (:foreground ,grey-4))))
