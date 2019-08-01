@@ -43,7 +43,7 @@
    `(fringe ((,class (:foreground ,color-comment :background ,color-background))))
    `(highlight ((,class (:background ,color-highlight-1))))
    `(region ((,class (:background ,color-highlight-2))))
-   `(secondary-selection ((,class (:background ,grey-2))))
+   `(secondary-selection ((,class (:background ,color-highlight-1))))
    `(isearch ((,class (:foreground ,white-1 :background ,blue-1))))
    `(lazy-highlight ((,class (:background ,color-highlight-2))))
    `(trailing-whitespace ((,class (:background ,color-error))))
