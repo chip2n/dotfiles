@@ -28,7 +28,10 @@
 
 ;; add automatic newlines when lines get too long
 ;; using this instead of word-wrap since it doesn't affect tables
-(add-hook 'org-mode-hook (lambda () (auto-fill-mode)))
+(add-hook 'org-mode-hook (lambda ()
+                           (auto-fill-mode)
+                           (setq fill-column 80)))
+
 
 ;; auto-saving org buffers after certain actions
 (defun save-org-buffers (&rest args)
