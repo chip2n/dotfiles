@@ -96,7 +96,7 @@
            ("\\.mm\\'" . default)
            ("\\.x?html?\\'" . default)
            ("\\.pdf\\'" . default)))
-(setq org-ellipsis " ")
+;; (setq org-ellipsis " ")
 (setq org-startup-indented t)
 
 (org-babel-do-load-languages
