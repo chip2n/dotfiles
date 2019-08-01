@@ -180,6 +180,8 @@
 (require 'org-id)
 (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
 
+(require 'ox-pandoc)
+
 (defun org-create-custom-id ()
   (interactive)
   (chip/org-custom-id-get (point) 'create))
