@@ -45,7 +45,7 @@
    "B" 'ivy-switch-buffer-other-window
    "f" 'counsel-find-file)
   (general-define-key
-   :keymaps '(ivy-minibuffer-map)
+   :keymaps '(ivy-minibuffer-map ivy-switch-buffer-map)
    "C-o" 'chip/hydra-ivy/body
    "C-j" 'ivy-next-line
    "C-k" 'ivy-previous-line)
