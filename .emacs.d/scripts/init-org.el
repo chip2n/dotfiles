@@ -9,6 +9,9 @@
 ;; prevent indentation after sections
 (setq org-adapt-indentation nil)
 
+;; prevent org source blocks from being indented
+(setq org-edit-src-content-indentation 0)
+
 ;; add org directory (allows searching for todos and scheduling items)
 (setq org-agenda-files (list "~/org/personal/todos.org"
                              "~/org/remente/notes.org"))
