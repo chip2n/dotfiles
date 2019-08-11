@@ -110,7 +110,7 @@
  '((python . t) (shell . t) (js . t)))
 
 (defun my-org-confirm-babel-evaluate (lang body)
-  (not (member lang '("python" "bash" "js"))))
+  (not (member lang '("python" "bash" "js" "lisp"))))
 
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 
