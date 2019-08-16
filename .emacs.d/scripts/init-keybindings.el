@@ -211,6 +211,10 @@
    "q" 'slime-inspector-quit)
   (general-define-key
    :states 'normal
+   :modes 'slime-repl-mode
+   "C-c i" 'slime-inspect-presentation-at-point)
+  (general-define-key
+   :states 'normal
    :modes 'slime-macroexpansion-minor-mode
    ;; "r" 'slime-macroexpand-again
    ;; "q" 'slime-inspector-quit
