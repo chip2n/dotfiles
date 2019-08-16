@@ -4,5 +4,5 @@
   :ensure t
   :config
   (setq inferior-lisp-program "/usr/bin/sbcl")
-  (setq slime-contribs '(slime-fancy slime-asdf))
+  (setq slime-contribs '(slime-fancy slime-asdf slime-cl-indent))
   (add-hook 'slime-repl-mode-hook 'header-mode))
