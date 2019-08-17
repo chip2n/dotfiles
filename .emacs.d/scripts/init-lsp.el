@@ -6,6 +6,7 @@
   (setq lsp-enable-xref nil)
   (setq lsp-enable-completion-at-point nil)
   (setq lsp-ui-sideline-enable nil)
+  (setq lsp-ui-doc-enable nil)
   (setq lsp-auto-guess-root t))
 
 (use-package company-lsp
