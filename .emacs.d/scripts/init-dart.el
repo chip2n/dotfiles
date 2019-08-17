@@ -28,6 +28,9 @@
    :keymaps 'dart-mode-map
    "mww" 'flutter-widget-wrap-widget
    "mwc" 'flutter-widget-wrap-center
+   "mwg" 'flutter-widget-wrap-group
+   "mwp" 'flutter-widget-wrap-padding
+   "ml" 'flutter-widget-lift
    "mf" 'dart-format))
 
 (defun flutter--find-project-root ()
