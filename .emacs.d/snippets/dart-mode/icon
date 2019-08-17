@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: icon
+# key: icon
+# --
+Icon(Icons.$1),$0
