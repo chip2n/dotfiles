@@ -1,0 +1,4 @@
+# key: crossalign
+# name: crossalign
+# --
+crossAxisAlignment: CrossAxisAlignment.$1,$0
