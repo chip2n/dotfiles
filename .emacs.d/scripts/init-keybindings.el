@@ -199,10 +199,20 @@
    "mm" 'slime-macroexpand-1
    "mi" 'slime-inspect
    "md" 'slime-documentation-lookup)
+   (general-define-key
+    :states 'normal
+    :keymaps 'slime-mode-map
+    "gd" 'slime-edit-definition
+    "M-." 'slime-edit-definition ;; overridden by evil?
+    )
   (general-define-key
    :states 'normal
-   :keymaps 'slime-mode-map
-   "gd" 'slime-edit-definition)
+   :modes 'slime-popup-buffer-mode
+   "q" 'slime-inspector-quit)
+  (general-define-key
+   :states 'normal
+   :modes 'slime-repl-mode
+   "C-c i" 'slime-inspect-presentation-at-point)
   (general-define-key
    :states 'normal
    :modes 'slime-macroexpansion-minor-mode
