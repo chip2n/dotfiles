@@ -207,7 +207,7 @@
     )
   (general-define-key
    :states 'normal
-   :modes 'slime-popup-buffer-mode
+   :keymaps 'slime-popup-buffer-mode-map
    "q" 'slime-inspector-quit)
   (general-define-key
    :states 'normal
