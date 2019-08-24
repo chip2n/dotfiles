@@ -67,6 +67,8 @@
           (todo ""
                 ((org-agenda-overriding-header "\nUnscheduled")
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp)))))
+         ;; ((org-agenda-category-filter-preset '("+personal")))
+         ;; ((org-agenda-category-filter-preset '("+remente")))
          nil
          nil)))
 (setq org-agenda-block-separator nil)
