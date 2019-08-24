@@ -214,11 +214,10 @@
    :modes 'slime-repl-mode
    "C-c i" 'slime-inspect-presentation-at-point)
   (general-define-key
-   :states 'normal
-   :modes 'slime-macroexpansion-minor-mode
-   ;; "r" 'slime-macroexpand-again
-   ;; "q" 'slime-inspector-quit
-   ))
+   :keymaps 'slime-macroexpansion-minor-mode-map
+   "m" 'slime-macroexpand-1-inplace
+   "u" 'slime-macroexpand-undo
+   "q" 'slime-inspector-quit))
 
 (defun chip/setup-cider-keys ()
   "Setup keybindings for cider-mode"
