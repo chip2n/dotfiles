@@ -44,7 +44,7 @@
     (pop-to-buffer (get-buffer-create (generate-new-buffer-name "*flutter*")))
     (cd project-root)
     (shell (current-buffer))
-    (process-send-string nil "flutter run --pid-file /tmp/flutter.pid\n")
+    (process-send-string nil "flutter run -d all --pid-file /tmp/flutter.pid\n")
     (evil-normal-state)
     (other-window -1)))
 
