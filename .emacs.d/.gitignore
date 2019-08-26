@@ -23,3 +23,6 @@ transient
 forge-database.sqlite
 .lsp-session-v1
 semanticdb/
+Cask
+.cask/
+emms/
