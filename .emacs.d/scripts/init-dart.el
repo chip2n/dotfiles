@@ -15,13 +15,17 @@
   (add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml")
   (add-to-list 'projectile-project-root-files-bottom-up "BUILD"))
 
+(use-package dart-server
+  :ensure t
+  :after (dart-mode))
+
 (defun chip/setup-dart-keys ()
   "Setup keybindings for dart mode"
   (interactive)
   (general-define-key
    :states 'normal
    :keymaps 'dart-mode-map
-   "gd" 'dart-goto)
+   "gd" 'dart-server-goto)
   (general-define-key
    :prefix leader
    :states 'normal
@@ -31,7 +35,7 @@
    "mwg" 'flutter-widget-wrap-group
    "mwp" 'flutter-widget-wrap-padding
    "ml" 'flutter-widget-lift
-   "mf" 'dart-format))
+   "mf" 'dart-server-format))
 
 (defun flutter--find-project-root ()
   (locate-dominating-file (buffer-file-name) "pubspec.yaml"))
