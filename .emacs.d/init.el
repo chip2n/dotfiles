@@ -48,6 +48,7 @@
 (require 'init-lispy)
 (require 'init-racket)
 (require 'init-rust)
+(require 'init-elixir)
 (require 'init-android)
 ;; (require 'init-graphviz)
 (require 'init-pdf)

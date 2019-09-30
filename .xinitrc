@@ -35,6 +35,9 @@ eval $(ssh-agent)
 
 export _JAVA_AWT_WM_NONREPARENTING=1
 
+# Stumpwm
+# exec stumpwm
+
 # XMonad
 exec xmonad
 

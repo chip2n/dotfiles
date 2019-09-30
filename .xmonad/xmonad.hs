@@ -1,6 +1,7 @@
 import XMonad
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.EwmhDesktops
 import XMonad.Util.Run
 import Config.Theme
 import Config.Keys
@@ -14,7 +15,7 @@ main = do
     spawnPipe "~/scripts/launch_polybar.sh"
     xmonad $ myConfig dbus
 
-myConfig dbus = docks $ def
+myConfig dbus = ewmh . docks $ def
     { terminal          = "urxvt"
     , workspaces        = ["1", "2", "3", "4", "5"]
     , focusFollowsMouse = False

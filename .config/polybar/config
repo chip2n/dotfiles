@@ -20,7 +20,7 @@ alert = #bd2c40
 
 [bar/single_xmonad]
 inherit = bar/base
-monitor = eDP1
+monitor = eDP-1
 modules-left = host
 modules-center = xmonad
 modules-right = music memory cpu wlan battery date
