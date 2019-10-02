@@ -16,7 +16,7 @@ alias top='htop'
 alias vim='nvim'
 alias web='qutebrowser --backend webengine'
 alias wifi='sudo wifi-menu'
-alias weather='curl wttr.in'
+alias weather='curl wttr.in/Gothenburg'
 PS1='\[\e[1;30m\]>>  \[\e[m\]'
 
 export LS_COLORS="di=1;34:"
