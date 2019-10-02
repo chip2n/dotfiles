@@ -168,13 +168,13 @@
   `(org-block-end-line ((,class (:foreground ,color-comment :overline t))))
 
   ;; Org-agenda
-  `(org-agenda-structure ((,class (:foreground ,grey-4))))
+  `(org-agenda-structure ((,class (:foreground ,grey-4 :weight bold))))
   `(org-agenda-date ((,class (:foreground ,color-headline-1 :weight bold))))
   `(org-agenda-date-today ((,class (:foreground ,color-headline-1 :weight bold :underline t))))
   `(org-agenda-date-weekend ((,class (:foreground ,color-headline-1 :weight bold))))
   `(org-time-grid ((,class (:foreground ,color-comment))))
   `(org-agenda-current-time ((,class (:foreground ,pink-2 :weight bold))))
-  `(org-super-agenda-header ((,class (:foreground ,grey-3 :weight bold))))
+  `(org-super-agenda-header ((,class (:foreground ,grey-4 :weight bold))))
   `(org-scheduled-previously ((,class (:foreground ,red-2))))
   `(org-scheduled ((,class (:foreground ,white-1))))
   `(org-scheduled-today ((,class (:foreground ,white-1))))
