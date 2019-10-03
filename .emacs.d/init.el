@@ -13,6 +13,7 @@
 (require 'init-use-package)
 (require 'init-keybindings)
 (require 'init-theme)
+(require 'init-autoremote)
 (require 'init-evil)
 (require 'init-shell)
 (require 'init-eshell)

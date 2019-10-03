@@ -156,11 +156,22 @@
      (lisp . t)
      (http . t))))
 
+(defun enable-dnd ()
+  (interactive)
+  (autoremote-send "enable-dnd"))
+
+(defun disable-dnd ()
+  (interactive)
+  (autoremote-send "disable-dnd"))
+
 (use-package org-pomodoro
   :ensure t
   :commands (org-pomodoro)
   :config
-  (setq alert-user-configuration (quote ((((:category . "org-pomodoro")) libnotify nil)))))
+  (setq alert-user-configuration (quote ((((:category . "org-pomodoro")) libnotify nil))))
+  (add-hook 'org-pomodoro-started-hook 'enable-dnd)
+  (add-hook 'org-pomodoro-break-finished-hook 'enable-dnd)
+  (add-hook 'org-pomodoro-killed-hook 'disable-dnd))
 
 ;; package for writing org notes while reading pdf
 (use-package org-noter
