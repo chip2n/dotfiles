@@ -10,6 +10,8 @@
       private/gcal-client-secret ""
       private/gcal-calendar-id "")
 
+;; tayl
 (setq tayl-api-token "")
 
+;; autoremote
 (setq autoremote-key "")
