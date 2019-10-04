@@ -11,3 +11,5 @@
       private/gcal-calendar-id "")
 
 (setq tayl-api-token "")
+
+(setq autoremote-key "")

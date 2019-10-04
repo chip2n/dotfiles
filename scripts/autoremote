@@ -1,0 +1,3 @@
+#!/bin/bash
+
+curl "https://autoremotejoaomgcd.appspot.com/sendmessage?key=$AUTOREMOTE_API_KEY&type=linux&message=$1"
