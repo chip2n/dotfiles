@@ -14,4 +14,4 @@
 (setq tayl-api-token "")
 
 ;; autoremote
-(setq autoremote-key "")
+(setq autoremote-api-key "")
