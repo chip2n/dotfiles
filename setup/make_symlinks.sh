@@ -15,6 +15,7 @@ ln -s /home/chip/dotfiles/.emacs.d /home/chip/.emacs.d
 ln -s /home/chip/dotfiles/.nethackrc /home/chip/.nethackrc
 ln -s /home/chip/dotfiles/.mbsyncrc /home/chip/.mbsyncrc
 ln -s /home/chip/dotfiles/.sbclrc /home/chip/.sbclrc
+ln -s /home/chip/dotfiles/audio /home/chip/audio
 
 ln -s /home/chip/Dropbox/elfeed /home/chip/.elfeed
 
