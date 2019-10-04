@@ -1,4 +1,4 @@
 #!/bin/bash
 
-TIMESTAMP=$(date -d "$1" +%s)
-echo $TIMESTAMP
+TIMESTAMP=$(TZ=":UTC" date -d $1 +%s)
+echo "${TIMESTAMP}000"
