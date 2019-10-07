@@ -51,6 +51,12 @@
 ;; open links in same window
 ;(setq org-link-frame-setup (file . find-file))
 
+(defun get-presentation-path ()
+  "Prompt for presentation name via minibuffer and return path."
+  (let ((name (read-from-minibuffer "Presentation name: "))
+        (date (shell-command-to-string "echo -n $(date +%Y%m%d)")))
+    (format "~/org/remente/presentations/%s-%s/presentation.org" date name)))
+
 ;; set org templates
 (setq org-capture-templates
   `(("t" "Personal TODO" entry (file+olp "~/org/personal/todos.org" "Tasks")
@@ -59,7 +65,18 @@
     ("i" "Idea" entry (file+olp "~/org/personal/ideas.org" "Ideas")
      "* %?" :prepend t)
     ("r" "Remente TODO" entry (file+olp "~/org/remente/notes.org" "Tasks")
-     "* TODO %?" :prepend t)))
+     "* TODO %?" :prepend t)
+    ("p" "Remente presentation" entry (function ,(lambda () (find-file (get-presentation-path))))
+     "
+#+OPTIONS: num:nil
+#+OPTIONS: toc:nil
+#+OPTIONS: reveal_title_slide:nil
+#+REVEAL_EXTRA_CSS: /home/chip/.emacs.d/presentation.css
+#+REVEAL_TRANS: linear
+#+REVEAL_THEME: solarized
+#+REVEAL_HLEVEL: 2
+
+* %?")))
 
 (setq org-agenda-custom-commands
       '(("c" "Unscheduled TODO"
