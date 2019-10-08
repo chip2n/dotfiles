@@ -187,8 +187,13 @@
   :config
   (setq alert-user-configuration (quote ((((:category . "org-pomodoro")) libnotify nil))))
   (add-hook 'org-pomodoro-started-hook 'enable-dnd)
-  (add-hook 'org-pomodoro-break-finished-hook 'enable-dnd)
-  (add-hook 'org-pomodoro-killed-hook 'disable-dnd))
+  (add-hook 'org-pomodoro-finished-hook 'disable-dnd)
+  (add-hook 'org-pomodoro-killed-hook 'disable-dnd)
+  (setq org-pomodoro-short-break-sound "~/audio/waterdrop.wav")
+  (setq org-pomodoro-long-break-sound "~/audio/waterdrop.wav")
+  (setq org-pomodoro-finished-sound "~/audio/waterdrop.wav")
+  (setq org-pomodoro-killed-sound "~/audio/waterdrop.wav")
+  (setq org-pomodoro-overtime-sound "~/audio/waterdrop.wav"))
 
 ;; package for writing org notes while reading pdf
 (use-package org-noter
