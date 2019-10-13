@@ -8,6 +8,7 @@
 (add-to-list 'load-path "~/.emacs.d/scripts")
 
 (require 'private)
+(require 'init-pass)
 
 ;; (require 'init-exwm)
 (require 'init-use-package)
