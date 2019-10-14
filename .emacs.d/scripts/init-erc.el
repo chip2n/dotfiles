@@ -13,6 +13,11 @@
                                 "324" "329" "332" "333" "353" "477"))
 (setq erc-track-exclude-server-buffer t)
 
+;; Hide join/part/quit messages from users who have been idle for over an hour
+(setq erc-lurker-hide-list '("JOIN" "PART" "QUIT"))
+(setq erc-lurker-threshold-time 3600)
+
+
 ;; Keep emacs from recentering erc buffers
 (add-to-list 'erc-mode-hook (lambda ()
                               (display-line-numbers-mode -1)
