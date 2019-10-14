@@ -245,13 +245,13 @@
    "es" 'inf-clojure-eval-last-sexp
    "en" 'inf-clojure-set-ns))
 
-(defun chip/setup-racket-keys ()
-  "Setup keybindings for racket-mode"
+(defun chip/setup-geiser-keys ()
+  "Setup keybindings for geiser-mode"
   (interactive)
   (general-define-key
    :prefix leader
    :states '(normal visual)
-   :keymaps 'racket-mode-map
+   :keymaps 'geiser-mode-map
    "er" 'geiser-eval-region
    "eb" 'geiser-eval-buffer
    "ed" 'geiser-eval-definition
@@ -303,7 +303,7 @@
   (chip/setup-cider-keys)
   (chip/setup-python-keys)
   (chip/setup-inf-clojure-keys)
-  (chip/setup-racket-keys)
+  (chip/setup-geiser-keys)
   (chip/setup-rust-keys)
   (chip/setup-pdf-tools-keys)
   ;; misc

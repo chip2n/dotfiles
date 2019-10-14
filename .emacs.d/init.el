@@ -48,7 +48,7 @@
 (require 'init-clojure)
 (require 'init-lisp)
 (require 'init-lispy)
-(require 'init-racket)
+(require 'init-scheme)
 (require 'init-rust)
 (require 'init-elixir)
 (require 'init-android)
