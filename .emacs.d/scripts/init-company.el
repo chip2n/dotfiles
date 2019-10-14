@@ -6,7 +6,7 @@
   (general-define-key
    :states 'insert
    :keymaps 'company-mode-map
-   "C-j" 'company-select-next
+   "C-j" 'company-complete-common-or-cycle
    "C-k" 'company-select-previous))
 
 (use-package company
@@ -14,6 +14,7 @@
   :config
   (global-company-mode)
   (add-hook 'company-mode-hook 'chip/setup-company-keys)
+  (setq company-idle-delay nil)
   ;; prevent downcasing when autocompleting
   (setq company-dabbrev-downcase nil)
   (setq evil-complete-next-func 'complete-complete-cycle-next)
