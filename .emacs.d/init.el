@@ -163,3 +163,10 @@
       (insert result)
       (clipboard-kill-region (point-min) (point-max)))
     result))
+
+;; TODO input via org calendar
+(defun insert-unix-timestamp (d)
+  (interactive "nDate: ")
+  (if (region-active-p) (delete-region (region-beginning) (region-end)))
+  (insert
+   (car (split-string (shell-command-to-string (format "timestamp %s" d)) "\n"))))
