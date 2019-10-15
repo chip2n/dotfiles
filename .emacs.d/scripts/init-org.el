@@ -131,6 +131,11 @@
  'org-babel-load-languages
  '((python . t) (shell . t) (js . t)))
 
+;; Enable noweb expansion in all languages
+(setq org-babel-default-header-args
+      (cons '(:noweb . "yes")
+            (assq-delete-all :noweb org-babel-default-header-args)))
+
 (defun my-org-confirm-babel-evaluate (lang body)
   (not (member lang '("python" "bash" "js" "lisp"))))
 
