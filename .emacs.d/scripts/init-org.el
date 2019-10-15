@@ -54,6 +54,33 @@
 ;; open links in same window
 ;(setq org-link-frame-setup (file . find-file))
 
+
+;;; clock report ----------------------------------------------------------------
+
+;; set default clock report parameters
+(setq org-clock-clocktable-default-properties
+      '(:scope agenda :maxlevel 2 :block today :fileskip0 t :compact t))
+
+(defun org-clock-report-today ()
+  "Insert clock report for today's date."
+  (let* ((today (shell-command-to-string "echo -n $(date +%Y-%m-%d)"))
+         (org-clock-clocktable-default-properties
+          `(:scope agenda :maxlevel 2 :block ,(make-symbol today) :fileskip0 t :compact t)))
+    (org-clock-report)))
+
+;; change look of indentation in clocktables
+(defun my-org-clocktable-indent-string (level)
+  (if (= level 1)
+      ""
+    (let ((str "╰"))
+      (while (> level 2)
+        (setq level (1- level)
+              str (concat str "──")))
+      (concat str "─> "))))
+(advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)
+
+;;; -----------------------------------------------------------------------------
+
 (defun get-presentation-path ()
   "Prompt for presentation name via minibuffer and return path."
   (let ((name (read-from-minibuffer "Presentation name: "))
@@ -126,17 +153,6 @@
            ("\\.pdf\\'" . default)))
 ;; (setq org-ellipsis " ")
 (setq org-startup-indented t)
-
-;; change look of indentation in clocktables
-(defun my-org-clocktable-indent-string (level)
-  (if (= level 1)
-      ""
-    (let ((str "╰"))
-      (while (> level 2)
-        (setq level (1- level)
-              str (concat str "──")))
-      (concat str "─> "))))
-(advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)
 
 ;; Cleanup intermediate files after org export
 (setq org-latex-logfiles-extensions '("tex" "spl"))
