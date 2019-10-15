@@ -124,6 +124,9 @@
 ;; (setq org-ellipsis " ")
 (setq org-startup-indented t)
 
+;; Cleanup intermediate files after org export
+(setq org-latex-logfiles-extensions '("tex" "spl"))
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python . t) (shell . t) (js . t)))
