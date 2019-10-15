@@ -13,11 +13,11 @@
 (setq org-edit-src-content-indentation 0)
 
 ;; add org directory (allows searching for todos and scheduling items)
-(setq org-agenda-files (list "~/org/personal/todos.org"
+(setq org-agenda-files (list "~/org/personal/personal.org"
                              "~/org/personal/lisp.org"
                              "~/org/personal/guitar/guitar.org"
                              "~/org/personal/harmonica.org"
-                             "~/org/remente/notes.org"))
+                             "~/org/remente/remente.org"))
 (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
 
 ;; set org tag column
@@ -62,12 +62,12 @@
 
 ;; set org templates
 (setq org-capture-templates
-  `(("t" "Personal TODO" entry (file+olp "~/org/personal/todos.org" "Tasks")
+  `(("t" "Personal TODO" entry (file+olp "~/org/personal/personal.org" "Tasks")
      "* TODO %?" :prepend t)
     ("j" "Journal" entry (file+olp+datetree "~/org/personal/journal.gpg") "* %?\n%T")
     ("i" "Idea" entry (file+olp "~/org/personal/ideas.org" "Ideas")
      "* %?" :prepend t)
-    ("r" "Remente TODO" entry (file+olp "~/org/remente/notes.org" "Tasks")
+    ("r" "Remente TODO" entry (file+olp "~/org/remente/remente.org" "Tasks")
      "* TODO %?" :prepend t)
     ("p" "Remente presentation" entry (function ,(lambda () (find-file (get-presentation-path))))
      "
