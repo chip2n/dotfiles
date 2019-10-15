@@ -14,6 +14,9 @@
 
 ;; add org directory (allows searching for todos and scheduling items)
 (setq org-agenda-files (list "~/org/personal/todos.org"
+                             "~/org/personal/lisp.org"
+                             "~/org/personal/guitar/guitar.org"
+                             "~/org/personal/harmonica.org"
                              "~/org/remente/notes.org"))
 (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
 
