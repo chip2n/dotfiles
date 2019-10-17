@@ -25,7 +25,3 @@
 (use-package swiper
   :ensure t
   :after (ivy))
-
-(use-package ivy-hydra
-  :ensure t
-  :after (ivy hydra))
