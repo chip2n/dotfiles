@@ -19,3 +19,6 @@
 ;; znc
 (setq private/znc-server "")
 (setq private/znc-port 1234)
+
+;; västtrafik
+(setq vasttrafik-api-key "")

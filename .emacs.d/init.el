@@ -62,6 +62,7 @@
 (require 'init-quelpa)
 (require 'init-remente)
 (require 'bolt-mode)
+(require 'vasttrafik)
 
 ;; disable C-d keybinding in comint-mode
 ;; (enables scrolling in shell, repls etc)
