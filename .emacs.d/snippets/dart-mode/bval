@@ -2,19 +2,15 @@
 # name: bval
 # --
 abstract class $1 implements Built<$1, $1Builder> {
-String get title;
-String get subtitle;
-BuiltList<FreeTextQuestion> get questions;
+  $1._();
+  factory $1([updates($1Builder b)]) = _\$$1;
+  static Serializer<$1> get serializer => _\$$1Serializer;
 
-$1._();
-factory $1([updates($1Builder b)]) = _\$$1;
-static Serializer<$1> get serializer => _\$$1Serializer;
+  String toJson() {
+    return json.encode(serializers.serializeWith($1.serializer, this));
+  }
 
-String toJson() {
-return json.encode(serializers.serializeWith($1.serializer, this));
-}
-
-static $1 fromJson(String j) {
-return serializers.deserializeWith($1.serializer, json.decode(j));
-}
+  static $1 fromJson(String j) {
+    return serializers.deserializeWith($1.serializer, json.decode(j));
+  }
 }
