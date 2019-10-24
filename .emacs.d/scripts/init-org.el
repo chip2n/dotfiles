@@ -262,7 +262,10 @@
 (require 'org-id)
 (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
 
+
+
 (require 'ox-pandoc)
+(setq org-pandoc-options-for-latex-pdf '((pdf-engine . "xelatex")))
 
 (defun org-create-custom-id ()
   (interactive)
