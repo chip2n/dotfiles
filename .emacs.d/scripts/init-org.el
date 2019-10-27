@@ -165,7 +165,10 @@
 
 (org-babel-do-load-languages
  'org-babel-load-languages
- '((python . t) (shell . t) (js . t)))
+ '((python . t)
+   (shell . t)
+   (js . t)
+   (lilypond t)))
 
 ;; Enable noweb expansion in all languages
 (setq org-babel-default-header-args
@@ -173,7 +176,7 @@
             (assq-delete-all :noweb org-babel-default-header-args)))
 
 (defun my-org-confirm-babel-evaluate (lang body)
-  (not (member lang '("python" "bash" "js" "lisp"))))
+  (not (member lang '("python" "bash" "js" "lisp" "lilypond"))))
 
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 
