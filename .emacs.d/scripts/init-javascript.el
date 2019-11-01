@@ -2,7 +2,8 @@
 
 (use-package nvm
   :ensure t)
-(nvm-use "v10.5.0")
+(nvm-use "v12.10.0")
+;; (nvm-use "v10.5.0")
 ;; (nvm-use "v8.11.3")
 
 (use-package js2-mode

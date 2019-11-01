@@ -56,6 +56,7 @@
 (require 'init-pdf)
 (require 'init-pamparam)
 (require 'init-pomidor)
+(require 'init-lilypond)
 ;; (require 'init-japanese)
 (require 'init-neotree)
 (require 'init-google-translate)
