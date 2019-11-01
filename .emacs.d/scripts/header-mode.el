@@ -74,10 +74,10 @@
   (funcall header-format-buffer " %b"))
 
 (defun chip/format-header-filepath (header)
-  (concat " " header-icon " " header))
+  (concat "" header-icon " " header))
 
 (defun chip/format-header-buffer (buffer)
-  (concat " " header-icon buffer))
+  (concat "" header-icon buffer))
 
 (define-minor-mode header-mode
   "Add fancy header showing filename / buffer name."
