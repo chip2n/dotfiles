@@ -109,7 +109,7 @@
   `(line-number ((,class (:foreground ,color-comment))))
 
   ;; Paren match
-  `(show-paren-match ((,class (:background ,color-cursor))))
+  `(show-paren-match ((,class (:background ,color-highlight-2))))
 
   ;; Header faces
   `(header-line ((,class (:box () :background ,color-background :foreground ,color-foreground))))
