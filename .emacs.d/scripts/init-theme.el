@@ -121,5 +121,7 @@
   :ensure t)
 
 (require 'header-mode)
-(setq header-icon (all-the-icons-faicon "codepen" :height 0.8 :v-adjust 0.0))
+;; (setq header-icon (all-the-icons-faicon "codepen" :height 0.8 :v-adjust 0.0))
+(setq header-icon "λ")
+
 (add-hook 'find-file-hook 'header-mode)
