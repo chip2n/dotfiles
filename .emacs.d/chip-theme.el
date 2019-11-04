@@ -93,6 +93,7 @@
   `(fixed-pitch ((,class (:family "Hack" :height 100))))
   `(variable-pitch ((,class (:family "Hack" :height 100))))
   `(cursor ((,class (:background ,color-cursor))))
+  `(parenthesis ((,class (:foreground ,color-comment))))
 
   ;; Highlighting faces
   `(fringe ((,class (:foreground ,color-comment :background ,color-background))))

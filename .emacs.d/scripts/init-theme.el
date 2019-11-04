@@ -20,6 +20,12 @@
 ;; highlight the current line
 (global-hl-line-mode +1)
 
+;; make face for parentheses so we can dim them
+(use-package paren-face
+  :ensure t
+  :config
+  (global-paren-face-mode))
+
 ;; setup modeline
 (use-package telephone-line
   :ensure t
