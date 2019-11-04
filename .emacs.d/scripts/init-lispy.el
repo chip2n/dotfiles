@@ -18,6 +18,10 @@
   :ensure t
   :after lispy
   :config
+
+  (if (not (member 'lispy evil-highlight-closing-paren-at-point-states))
+      (push 'lispy evil-highlight-closing-paren-at-point-states))
+
   (add-hook 'emacs-lisp-mode-hook #'evil-lispy-mode)
   (add-hook 'clojure-mode-hook #'evil-lispy-mode)
   (add-hook 'cider-repl-mode-hook #'evil-lispy-mode)
