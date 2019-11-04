@@ -23,6 +23,7 @@
 (require 'init-avy)
 (require 'init-hydra)
 (require 'init-magit)
+(require 'init-dired)
 (require 'init-erc)
 (require 'init-elfeed)
 (require 'init-slack)
