@@ -4,7 +4,7 @@
   "Setup keybindings for company mode"
   (interactive)
   (general-define-key
-   :states 'insert
+   :states '(insert lispy)
    :keymaps 'company-mode-map
    "C-j" 'company-complete-common-or-cycle
    "C-k" 'company-select-previous))
