@@ -34,6 +34,7 @@
 (require 'init-yasnippet)
 (require 'init-diminish)
 (require 'init-snipe)
+(require 'init-bash)
 (require 'init-markdown)
 (require 'init-yaml)
 (require 'init-toml)
