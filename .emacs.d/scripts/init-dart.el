@@ -45,7 +45,7 @@
   (let ((project-root (flutter--find-project-root)))
     (if (not project-root)
         (error "Not inside a flutter project (no pubspec.yaml found in any parent directory)."))
-    (pop-to-buffer (get-buffer-create (generate-new-buffer-name "*flutter*")))
+    (pop-to-buffer (get-buffer-create "*flutter*"))
     (cd project-root)
     (shell (current-buffer))
     (process-send-string nil "flutter run -d all --pid-file /tmp/flutter.pid\n")
