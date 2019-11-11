@@ -286,6 +286,7 @@
    "C-c u" 'winner-undo
    "C-c r" 'winner-redo
    "C-c p" 'projectile-find-file
+   "C-c P" 'projectile-switch-project
    "C-c c" 'chip/open-config-file
    "C-x +" 'zoom
    "C-x =" 'balance-windows
@@ -346,8 +347,8 @@
    :states 'normal
    ;; "C-d" 'scroll-up
    ;; "C-u" 'scroll-down
-   "C-d" 'ranger-half-page-down
-   "C-u" 'ranger-half-page-up
+   ;; "C-d" 'ranger-half-page-down
+   ;; "C-u" 'ranger-half-page-up
    ))
 
 (defun chip/open-config-file ()
