@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# key: mainalign
+# name: mainalign
+# --
+mainAxisAlignment: MainAxisAlignment.$1,$0
