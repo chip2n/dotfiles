@@ -8,8 +8,7 @@
   :config
   (setq cider-test-show-report-on-success t)
   (eldoc-mode t)
-  (add-to-list 'evil-motion-state-modes 'cider-test-report-mode)
-  (evil-collection-init 'cider))
+  (add-to-list 'evil-motion-state-modes 'cider-test-report-mode))
 
 (use-package inf-clojure
   :ensure t)

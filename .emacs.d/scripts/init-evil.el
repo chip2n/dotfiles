@@ -6,6 +6,7 @@
   :ensure t
   :init
   (setq evil-want-C-u-scroll t)
+  (setq evil-disable-insert-state-bindings t)
   :config
   (evil-mode 1)
   ;; allow cursor to move past last character - useful in lisp for
@@ -30,7 +31,8 @@
 (use-package evil-collection
   :ensure t
   :config
-  (evil-collection-init 'dired))
+  (evil-collection-init 'dired)
+  (evil-collection-init 'cider))
 
 ;; Make sure shell starts in normal mode
 ;; TODO is shell-mode

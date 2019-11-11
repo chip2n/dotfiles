@@ -5,10 +5,6 @@
   (interactive)
   (general-define-key
    :keymaps '(normal visual motion emacs)
-   "C-h" 'windmove-left
-   "C-k" 'windmove-up
-   "C-l" 'windmove-right
-   "C-j" 'windmove-down
    "C-S-l" 'evil-window-increase-width
    "C-S-h" 'evil-window-decrease-width
    "C-S-k" 'evil-window-increase-height
@@ -285,6 +281,23 @@
   :ensure t
   :after (evil ivy hydra magit company pdf-tools anaconda-mode)
   :config
+
+  (general-define-key
+   "C-c u" 'winner-undo
+   "C-c r" 'winner-redo
+   "C-c p" 'projectile-find-file
+   "C-c c" 'chip/open-config-file
+   "C-x +" 'zoom
+   "C-x =" 'balance-windows
+   "C-c s" 'avy-goto-char-2
+   "C-c a" 'org-agenda-list
+   "C-c g" 'magit)
+
+  (general-define-key
+   :states 'normal
+   "C-v" 'ranger-half-page-down
+   "M-v" 'ranger-half-page-up)
+
   (setq leader "<SPC>")
   (chip/setup-window-keys)
   (chip/setup-code-keys)

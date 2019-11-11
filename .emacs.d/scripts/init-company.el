@@ -3,18 +3,19 @@
 (defun chip/setup-company-keys ()
   "Setup keybindings for company mode"
   (interactive)
-  (general-define-key
-   :states '(insert lispy)
-   :keymaps 'company-mode-map
-   "C-j" 'company-complete-common-or-cycle
-   "C-k" 'company-select-previous))
+  ;; (general-define-key
+  ;;  :states '(insert lispy)
+  ;;  :keymaps 'company-mode-map
+  ;;  "C-j" 'company-complete-common-or-cycle
+  ;;  "C-k" 'company-select-previous)
+  )
 
 (use-package company
   :ensure t
   :config
   (global-company-mode)
   (add-hook 'company-mode-hook 'chip/setup-company-keys)
-  (setq company-idle-delay nil)
+  ;; (setq company-idle-delay nil)
   ;; prevent downcasing when autocompleting
   (setq company-dabbrev-downcase nil)
   (setq evil-complete-next-func 'complete-complete-cycle-next)

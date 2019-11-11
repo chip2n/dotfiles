@@ -70,7 +70,7 @@
 ;; disable C-d keybinding in comint-mode
 ;; (enables scrolling in shell, repls etc)
 (with-eval-after-load 'comint
-    (define-key comint-mode-map "\C-d" nil))
+  (define-key comint-mode-map "\C-d" nil))
 
 (use-package multi-term
   :ensure t
@@ -174,3 +174,35 @@
   (if (region-active-p) (delete-region (region-beginning) (region-end)))
   (insert
    (car (split-string (shell-command-to-string (format "timestamp %s" d)) "\n"))))
+
+(use-package zoom
+  :ensure t
+  :config
+  (setq zoom-size '(0.618 . 0.618)))
+
+(use-package hyperbole
+  :ensure t
+  :config
+  (setq hycontrol-help-flag nil)
+  (setq hycontrol-invert-mode-line-flag nil))
+
+(use-package golden-ratio-scroll-screen
+  :ensure t
+  :config
+  (setq golden-ratio-scroll-highlight-flag nil))
+
+(defhydra hydra-window ()
+  ("h" windmove-left)
+  ("j" windmove-down)
+  ("k" windmove-up)
+  ("l" windmove-right)
+  ("s" shrink-window)
+  ("g" enlarge-window)
+  ("n" shrink-window-horizontally)
+  ("w" enlarge-window-horizontally)
+  ("d" delete-window)
+  ("u" winner-undo)
+  ("r" winner-redo)
+  ;; ("s" split-window-below)
+  ;; ("S" split-window-right)
+  ("o" other-window))
