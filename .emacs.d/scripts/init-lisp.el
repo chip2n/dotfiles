@@ -11,3 +11,7 @@
 (use-package slime-company
   :ensure t
   :after (slime company))
+
+(defun slime-enable-concurrent-hints ()
+  (interactive)
+  (setf slime-inhibit-pipelining nil))
