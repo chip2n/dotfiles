@@ -339,10 +339,10 @@
    :mode 'flymake-mode
    "M-n" 'flymake-goto-next-error
    "M-p" 'flymake-goto-prev-error)
-  (general-define-key
-   :states 'normal
-   :keymap 'comint-mode-map
-   "C-d" 'scroll-up)
+  ;; (general-define-key
+  ;;  :states 'normal
+  ;;  :keymap 'comint-mode-map
+  ;;  "C-d" 'scroll-up)
   ;; using default emacs scrolls
   ;; evil scroll seems to have problems with cursor position
   (general-define-key
