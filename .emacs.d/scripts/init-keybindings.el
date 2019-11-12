@@ -292,7 +292,8 @@
    "C-x =" 'balance-windows
    "C-c s" 'avy-goto-char-2
    "C-c a" 'org-agenda-list
-   "C-c g" 'magit)
+   "C-c g" 'magit
+   "C-s" 'swiper-isearch)
 
   (general-define-key
    :states 'normal
