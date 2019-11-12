@@ -191,6 +191,8 @@
   :config
   (setq golden-ratio-scroll-highlight-flag nil))
 
+(setq select-enable-clipboard t)
+
 (defhydra hydra-window ()
   ("h" windmove-left)
   ("j" windmove-down)
