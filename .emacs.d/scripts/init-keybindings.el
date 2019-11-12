@@ -283,25 +283,25 @@
   :config
 
   (general-define-key
-   "C-c u" 'winner-undo
-   "C-c r" 'winner-redo
+   "C-c [" 'winner-undo
+   "C-c ]" 'winner-redo
    "C-c p" 'projectile-find-file
    "C-c P" 'projectile-switch-project
    "C-c c" 'chip/open-config-file
-   "C-x +" 'zoom
-   "C-x =" 'balance-windows
    "C-c s" 'avy-goto-char-2
    "C-c a" 'org-agenda-list
+   "C-c e" 'org-capture
    "C-c g" 'magit
-   "C-s" 'swiper-isearch)
+   "C-x +" 'zoom
+   "C-x =" 'balance-windows
+   "C-s" 'avy-goto-char-2)
 
   (general-define-key
-   :states 'normal
-   "C-v" 'ranger-half-page-down
-   "M-v" 'ranger-half-page-up)
+   "C-u" 'ranger-half-page-up
+   "C-d" 'ranger-half-page-down)
 
   ;; (setq leader "<SPC>")
-  (setq leader "C-c [")
+  (setq leader "C-c '")
   (chip/setup-window-keys)
   (chip/setup-code-keys)
   (chip/setup-ivy-keys)
@@ -322,36 +322,16 @@
   (chip/setup-geiser-keys)
   (chip/setup-rust-keys)
   (chip/setup-pdf-tools-keys)
-  ;; misc
+
   (general-define-key
-   :keymaps '(Info-mode-map)
-   "<SPC>" nil)
-  (define-key Info-mode-map (kbd "<SPC>") nil)
-  (general-define-key
-   :prefix leader
-   :keymaps '(normal visual emacs)
-   "<SPC>" 'execute-extended-command
-   "C" 'chip/open-config-file
-   "d" 'kill-this-buffer
-   "q" 'delete-window
-   "Q" 'kill-buffer-and-window)
-  (general-define-key
-   :mode 'flymake-mode
+   :keymaps '(flymake-mode-map)
    "M-n" 'flymake-goto-next-error
    "M-p" 'flymake-goto-prev-error)
-  ;; (general-define-key
-  ;;  :states 'normal
-  ;;  :keymap 'comint-mode-map
-  ;;  "C-d" 'scroll-up)
-  ;; using default emacs scrolls
-  ;; evil scroll seems to have problems with cursor position
+
   (general-define-key
-   :states 'normal
-   ;; "C-d" 'scroll-up
-   ;; "C-u" 'scroll-down
-   ;; "C-d" 'ranger-half-page-down
-   ;; "C-u" 'ranger-half-page-up
-   ))
+   :keymaps '(flycheck-mode-map)
+   "M-n" 'flycheck-next-error
+   "M-p" 'flycheck-previous-error))
 
 (defun chip/open-config-file ()
   "Open Emacs configuration file"
