@@ -300,7 +300,8 @@
    "C-v" 'ranger-half-page-down
    "M-v" 'ranger-half-page-up)
 
-  (setq leader "<SPC>")
+  ;; (setq leader "<SPC>")
+  (setq leader "C-c [")
   (chip/setup-window-keys)
   (chip/setup-code-keys)
   (chip/setup-ivy-keys)
