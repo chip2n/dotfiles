@@ -87,6 +87,8 @@
         (date (shell-command-to-string "echo -n $(date +%Y%m%d)")))
     (format "~/org/remente/presentations/%s-%s/presentation.org" date name)))
 
+(add-hook 'org-capture-mode-hook 'evil-insert-state)
+
 ;; set org templates
 (setq org-capture-templates
   `(("t" "Personal TODO" entry (file+olp "~/org/personal/personal.org" "Tasks")
