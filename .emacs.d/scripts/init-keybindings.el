@@ -61,7 +61,12 @@
   (general-define-key
    :prefix leader
    :keymaps '(normal visual emacs)
-   "g" 'magit-status))
+   "g" 'magit-status)
+  (general-define-key
+   :states '(normal)
+   :keymaps '(magit-blame-mode-map)
+   "RET" 'magit-show-commit
+   "q" 'magit-blame-quit))
 
 (defun chip/setup-projectile-keys ()
   "Setup keybindings for projectile"
