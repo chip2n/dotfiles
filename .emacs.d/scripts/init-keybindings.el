@@ -285,13 +285,14 @@
   (general-define-key
    "C-c [" 'winner-undo
    "C-c ]" 'winner-redo
-   "C-c p" 'projectile-find-file
-   "C-c P" 'projectile-switch-project
    "C-c c" 'chip/open-config-file
    "C-c s" 'avy-goto-char-2
    "C-c a" 'org-agenda-list
    "C-c e" 'org-capture
    "C-c g" 'magit
+
+   "C-x p" 'projectile-find-file
+   "C-x P" 'projectile-switch-project
    "C-x +" 'zoom
    "C-x =" 'balance-windows
    "C-s" 'avy-goto-char-2)
