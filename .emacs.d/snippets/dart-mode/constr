@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: constr
+# key: constr
+# --
+$1({Key key, $0}): super(key: key);
