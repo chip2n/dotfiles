@@ -17,6 +17,10 @@
                                     :test-suffix "_test")
   (projectile-mode))
 
+(use-package counsel-projectile
+  :ensure t
+  :after (counsel projectile))
+
 ;; For projectile-ag
 (use-package ag
   :ensure t

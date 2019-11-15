@@ -63,16 +63,6 @@
    :keymaps '(normal visual emacs)
    "g" 'magit-status))
 
-(defun chip/setup-projectile-keys ()
-  "Setup keybindings for projectile"
-  (interactive)
-  (general-define-key
-   :prefix leader
-   :keymaps '(normal visual emacs)
-   "p" 'projectile-find-file
-   "P" 'projectile-switch-project
-   "t" 'projectile-toggle-between-implementation-and-test))
-
 (defun chip/setup-eyebrowse-keys ()
   "Setup keybindings for eyebrowse"
   (interactive)
@@ -291,8 +281,8 @@
    "C-c e" 'org-capture
    "C-c g" 'magit
 
-   "C-x p" 'projectile-find-file
-   "C-x P" 'projectile-switch-project
+   "C-x p" 'counsel-projectile-find-file
+   "C-x P" 'counsel-projectile-switch-project
    "C-x +" 'zoom
    "C-x =" 'balance-windows
    "C-s" 'avy-goto-char-2)
@@ -308,7 +298,6 @@
   (chip/setup-ivy-keys)
   (chip/setup-avy-keys)
   (chip/setup-magit-keys)
-  (chip/setup-projectile-keys)
   (chip/setup-eyebrowse-keys)
   (chip/setup-winner-keys)
   (chip/setup-elfeed-keys)
