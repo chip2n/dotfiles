@@ -35,10 +35,6 @@
   (evil-collection-init 'dired)
   (evil-collection-init 'cider))
 
-;; Make sure shell starts in normal mode
-;; TODO is shell-mode
-(add-to-list 'evil-normal-state-modes 'shell-mode)
-(delete 'shell-mode evil-insert-state-modes)
 (add-to-list 'evil-emacs-state-modes 'image-mode)
 
 (setq evil-fold-list
