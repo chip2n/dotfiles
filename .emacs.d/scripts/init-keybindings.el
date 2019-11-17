@@ -288,6 +288,8 @@
    "C-c s" 'avy-goto-char-2
    "C-c a" 'org-agenda-list
    "C-c e" 'org-capture
+   "C-c o i" 'org-clock-in
+   "C-c o o" 'org-clock-out
    "C-c g" 'magit
 
    "C-x p" 'counsel-projectile-find-file
