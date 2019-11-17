@@ -291,6 +291,7 @@
    "C-c o i" 'org-clock-in
    "C-c o o" 'org-clock-out
    "C-c g" 'magit
+   "C-c u" 'universal-argument
 
    "C-x p" 'counsel-projectile-find-file
    "C-x P" 'counsel-projectile-switch-project
