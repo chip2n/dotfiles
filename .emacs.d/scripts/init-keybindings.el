@@ -262,15 +262,19 @@
 (defun chip/setup-pdf-tools-keys ()
   "Setup keybindings for pdf-view-mode"
   (interactive)
+  ;; (general-define-key
+  ;;  :states 'normal
+  ;;  :keymaps 'pdf-view-mode-map
+  ;;  "j" 'pdf-view-next-line-or-next-page
+  ;;  "k" 'pdf-view-previous-line-or-previous-page
+  ;;  "gg" 'pdf-view-first-page
+  ;;  "G" 'pdf-view-last-page
+  ;;  "C-u" 'pdf-view-scroll-down-or-previous-page
+  ;;  "C-d" 'pdf-view-scroll-up-or-next-page)
   (general-define-key
-   :states 'normal
-   :keymaps 'pdf-view-mode-map
-   "j" 'pdf-view-next-line-or-next-page
-   "k" 'pdf-view-previous-line-or-previous-page
-   "gg" 'pdf-view-first-page
-   "G" 'pdf-view-last-page
-   "C-u" 'pdf-view-scroll-down-or-previous-page
-   "C-d" 'pdf-view-scroll-up-or-next-page))
+   :keymaps '(pdf-view-mode-map)
+   "j" (lambda () (interactive) (pdf-view-next-line-or-next-page 8))
+   "k" (lambda () (interactive) (pdf-view-previous-line-or-previous-page 8))))
 
 (use-package general
   :ensure t
