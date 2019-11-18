@@ -193,6 +193,8 @@
 
 (setq select-enable-clipboard t)
 
+(add-hook 'image-mode-hook 'auto-revert-mode)
+
 (defhydra hydra-window ()
   ("h" windmove-left)
   ("j" windmove-down)
