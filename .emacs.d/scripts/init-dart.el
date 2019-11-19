@@ -9,7 +9,6 @@
   (setq dart-sdk-path "/home/chip/flutter/bin/cache/dart-sdk/")
   (add-hook 'dart-mode-hook 'lsp)
   (add-hook 'dart-mode-hook 'flycheck-mode)
-  (add-hook 'dart-mode-hook 'chip/setup-dart-keys)
   (add-hook 'dart-mode-hook (lambda ()
                               (add-hook 'after-save-hook 'flutter-hot-reload nil 'make-it-local)))
   (add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml")
@@ -18,24 +17,6 @@
 (use-package dart-server
   :ensure t
   :after (dart-mode))
-
-(defun chip/setup-dart-keys ()
-  "Setup keybindings for dart mode"
-  (interactive)
-  (general-define-key
-   :states 'normal
-   :keymaps 'dart-mode-map
-   "gd" 'dart-server-goto)
-  (general-define-key
-   :prefix leader
-   :states 'normal
-   :keymaps 'dart-mode-map
-   "mww" 'flutter-widget-wrap-widget
-   "mwc" 'flutter-widget-wrap-center
-   "mwg" 'flutter-widget-wrap-group
-   "mwp" 'flutter-widget-wrap-padding
-   "ml" 'flutter-widget-lift
-   "mf" 'dart-server-format))
 
 (defun flutter--find-project-root ()
   (locate-dominating-file (buffer-file-name) "pubspec.yaml"))

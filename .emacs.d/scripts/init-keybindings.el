@@ -210,6 +210,22 @@
    "u" 'slime-macroexpand-undo
    "q" 'slime-inspector-quit))
 
+(defun chip/setup-flutter-keys ()
+  "Setup keybindings for flutter"
+  (interactive)
+  (general-define-key
+   :states 'normal
+   :keymaps 'dart-mode-map
+   "gd" 'dart-server-goto)
+  (general-define-key
+   :prefix "C-c"
+   :states 'normal
+   :keymaps 'dart-mode-map
+   "ww" 'flutter-widget-wrap-widget
+   "wg" 'flutter-widget-wrap-group
+   "wr" 'flutter-widget-lift
+   "f" 'dart-server-format))
+
 (defun chip/setup-cider-keys ()
   "Setup keybindings for cider-mode"
   (interactive)
@@ -292,7 +308,6 @@
    "C-c o o" 'org-clock-out
    "C-c g" 'magit
    "C-c u" 'universal-argument
-
    "C-x p" 'counsel-projectile-find-file
    "C-x P" 'counsel-projectile-switch-project
    "C-x +" 'zoom
@@ -319,6 +334,7 @@
   (chip/setup-org-keys)
   (chip/setup-elisp-keys)
   (chip/setup-common-lisp-keys)
+  (chip/setup-flutter-keys)
   (chip/setup-cider-keys)
   (chip/setup-python-keys)
   (chip/setup-inf-clojure-keys)
