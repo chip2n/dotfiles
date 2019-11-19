@@ -300,6 +300,7 @@
    "C-s" 'avy-goto-char-2)
 
   (general-define-key
+   :states '(normal insert visual emacs)
    "C-u" 'ranger-half-page-up
    "C-d" 'ranger-half-page-down)
 
