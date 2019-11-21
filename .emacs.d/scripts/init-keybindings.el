@@ -318,7 +318,7 @@
    "C-d" 'ranger-half-page-down)
 
   ;; (setq leader "<SPC>")
-  (setq leader "C-c '")
+  (setq leader "C-c ,")
   (chip/setup-window-keys)
   (chip/setup-code-keys)
   (chip/setup-ivy-keys)
