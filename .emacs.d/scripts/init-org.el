@@ -17,8 +17,18 @@
                              "~/org/personal/lisp.org"
                              "~/org/personal/guitar/guitar.org"
                              "~/org/personal/harmonica.org"
-                             "~/org/remente/remente.org"))
-(setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+                             "~/org/remente/remente.org"
+                             ))
+
+(setq org-refile-targets '((nil :maxlevel . 3)
+                           (org-agenda-files :maxlevel . 3)))
+(setq org-refile-use-outline-path 'file)
+(setq org-outline-path-complete-in-steps nil)
+
+(defun bh/verify-refile-target ()
+  "Exclude todo keywords with a done state from refile targets"
+  (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+(setq org-refile-target-verify-function 'bh/verify-refile-target)
 
 ;; set org tag column
 (setq org-tags-column -80)
@@ -114,11 +124,17 @@
 #+REVEAL_THEME: solarized
 #+REVEAL_HLEVEL: 2
 
-* %?")))
+* %?")
+    ("m" "Meeting" entry (file "~/org/refile.org")
+     "* MEET with %? :meeting:\n%U" :clock-in t :clock-resume t)))
 
+(setq org-agenda-span 'day)
 (setq org-agenda-custom-commands
       '(("c" "Unscheduled TODO"
          ((agenda "")
+          (tags "REFILE"
+                ((org-agenda-overriding-header "Tasks to Refile")
+                 (org-tags-match-list-sublevels nil)))
           (todo ""
                 ((org-agenda-overriding-header "\nUnscheduled")
                  (org-agenda-skip-function '(org-agenda-skip-entry-if 'timestamp)))))
@@ -150,7 +166,7 @@
 
 ;; set org todo keywords
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c@)")))
+      '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d)" "KILL(c@)")))
 
 (setq org-file-apps
          '(("\\.png\\'" . "feh --scale-down \"%s\"")
