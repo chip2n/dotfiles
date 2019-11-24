@@ -59,9 +59,8 @@
   "Setup keybindings for magit"
   (interactive)
   (general-define-key
-   :prefix leader
-   :keymaps '(normal visual emacs)
-   "g" 'magit-status)
+   :keymaps '(shell-mode-map)
+   "C-x g" 'magit-status)
   (general-define-key
    :states '(normal)
    :keymaps '(magit-blame-mode-map)
@@ -306,7 +305,6 @@
    "C-c e" 'org-capture
    "C-c o i" 'org-clock-in
    "C-c o o" 'org-clock-out
-   "C-c g" 'magit
    "C-c u" 'universal-argument
    "C-x p" 'counsel-projectile-find-file
    "C-x P" 'counsel-projectile-switch-project
@@ -320,7 +318,7 @@
    "C-d" 'ranger-half-page-down)
 
   ;; (setq leader "<SPC>")
-  (setq leader "C-c '")
+  (setq leader "C-c ,")
   (chip/setup-window-keys)
   (chip/setup-code-keys)
   (chip/setup-ivy-keys)
