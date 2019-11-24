@@ -285,7 +285,8 @@
 
 
 
-(require 'ox-pandoc)
+(use-package ox-pandoc
+  :ensure t)
 (setq org-pandoc-options-for-latex-pdf '((pdf-engine . "xelatex")))
 
 (defun org-create-custom-id ()
