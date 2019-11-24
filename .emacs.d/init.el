@@ -2,16 +2,16 @@
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (package-initialize)
+(add-to-list 'load-path "~/.emacs.d/scripts")
+(require 'init-use-package)
 
 (setenv "NODE_PATH" "/usr/lib/node_modules")
-
-(add-to-list 'load-path "~/.emacs.d/scripts")
 
 (require 'private)
 (require 'init-pass)
 
 ;; (require 'init-exwm)
-(require 'init-use-package)
+
 (require 'init-keybindings)
 (require 'init-theme)
 (require 'init-autoremote)
