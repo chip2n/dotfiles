@@ -124,7 +124,7 @@
 
 * %?")
     ("m" "Meeting" entry (file "~/org/personal/refile.org")
-     "* MEET with %? :meeting:\n%U" :clock-in t :clock-resume t)))
+     "* DONE Meeting with %? :meeting:\n%U" :clock-in t :clock-resume t)))
 
 (setq org-agenda-span 'day)
 (setq org-agenda-custom-commands
