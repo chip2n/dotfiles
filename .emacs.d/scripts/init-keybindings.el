@@ -133,21 +133,6 @@
   "Setup keybindings for org mode"
   (interactive)
   (general-define-key
-   :prefix leader
-   :states 'normal
-   "oa" (lambda () (interactive) (org-agenda nil "c"))
-   "oA" 'org-agenda-list
-   "oo" 'org-open-at-point
-   "oe" 'org-capture
-   "on" 'org-narrow-to-subtree
-   "os" 'org-schedule
-   "od" 'org-deadline
-   "ot" 'org-set-tags-command
-   "oci" 'org-clock-in
-   "oco" 'org-clock-out
-   "or" 'org-refile
-   "ow" 'widen)
-  (general-define-key
    :keymaps 'org-mode-map
    :states 'normal
    "RET" 'org-open-at-point)
