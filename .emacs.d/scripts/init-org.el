@@ -17,6 +17,7 @@
                              "~/org/personal/lisp.org"
                              "~/org/personal/guitar/guitar.org"
                              "~/org/personal/harmonica.org"
+                             "~/org/personal/refile.org"
                              "~/org/remente/remente.org"
                              ))
 
@@ -101,8 +102,8 @@
 
 ;; set org templates
 (setq org-capture-templates
-  `(("t" "Personal TODO" entry (file+olp "~/org/personal/personal.org" "Tasks")
-     "* TODO %?" :prepend t)
+  `(("t" "TODO" entry (file "~/org/personal/refile.org")
+     "* TODO %?")
     ("j" "Journal")
     ("je" "Entry" entry (file+olp+datetree "~/org/personal/journal.gpg")
      "* %?\n%T")
@@ -112,8 +113,6 @@
      "* Supplements :supplements:\n%T\n| %? |  |")
     ("i" "Idea" entry (file+olp "~/org/personal/ideas.org" "Ideas")
      "* %?" :prepend t)
-    ("r" "Remente TODO" entry (file+olp "~/org/remente/remente.org" "Tasks")
-     "* TODO %?" :prepend t)
     ("p" "Remente presentation" entry (function ,(lambda () (find-file (get-presentation-path))))
      "
 #+OPTIONS: num:nil
@@ -125,7 +124,7 @@
 #+REVEAL_HLEVEL: 2
 
 * %?")
-    ("m" "Meeting" entry (file "~/org/refile.org")
+    ("m" "Meeting" entry (file "~/org/personal/refile.org")
      "* MEET with %? :meeting:\n%U" :clock-in t :clock-resume t)))
 
 (setq org-agenda-span 'day)
