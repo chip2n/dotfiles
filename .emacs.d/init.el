@@ -210,3 +210,5 @@
   ;; ("s" split-window-below)
   ;; ("S" split-window-right)
   ("o" other-window))
+
+(setq inhibit-startup-echo-area-message "chip")
