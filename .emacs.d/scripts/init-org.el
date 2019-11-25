@@ -20,6 +20,7 @@
                              "~/org/personal/refile.org"
                              "~/org/remente/remente.org"
                              ))
+(setq org-agenda-persistent-filter t)
 
 (setq org-refile-targets '((nil :maxlevel . 3)
                            (org-agenda-files :maxlevel . 3)))
