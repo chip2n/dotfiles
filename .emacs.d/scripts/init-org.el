@@ -133,7 +133,7 @@
 (setq org-agenda-custom-commands
       '(("c" "Unscheduled TODO"
          ((agenda "")
-          (tags "REFILE"
+          (tags "refile"
                 ((org-agenda-overriding-header "Tasks to Refile")
                  (org-tags-match-list-sublevels nil)))
           (todo ""
