@@ -65,6 +65,7 @@
 ;; open links in same window
 ;(setq org-link-frame-setup (file . find-file))
 
+(setq org-clock-out-remove-zero-time-clocks t)
 
 ;;; clock report ----------------------------------------------------------------
 
