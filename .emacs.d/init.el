@@ -179,12 +179,6 @@
   :config
   (setq zoom-size '(0.618 . 0.618)))
 
-(use-package hyperbole
-  :ensure t
-  :config
-  (setq hycontrol-help-flag nil)
-  (setq hycontrol-invert-mode-line-flag nil))
-
 (use-package golden-ratio-scroll-screen
   :ensure t
   :config
