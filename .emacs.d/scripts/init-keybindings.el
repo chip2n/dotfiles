@@ -140,8 +140,10 @@
    :keymaps 'org-mode-map
    "M-k" 'org-move-subtree-up
    "M-j" 'org-move-subtree-down
-   "M-l" 'org-demote-subtree
-   "M-h" 'org-promote-subtree)
+   "M-l" 'org-metaright
+   "M-h" 'org-metaleft
+   "M-L" 'org-demote-subtree
+   "M-H" 'org-promote-subtree)
   (general-define-key
    :keymaps 'org-agenda-mode-map
    "RET" 'org-agenda-switch-to
