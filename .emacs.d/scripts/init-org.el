@@ -13,7 +13,6 @@
 ;; prevent org source blocks from being indented
 (setq org-edit-src-content-indentation 0)
 
-;; set org tag column
 (setq org-tags-column -80)
 
 ;; resize image according to ATTR_ORG if available
@@ -127,6 +126,8 @@
                              "~/org/personal/refile.org"
                              "~/org/remente/remente.org"
                              ))
+
+(setq org-agenda-tags-column -80)
 
 ;; keep agenda filters after closing agenda buffer
 (setq org-agenda-persistent-filter t)
