@@ -1,5 +1,9 @@
 (provide 'init-org)
 
+;; set org todo keywords
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "NEXT(n)" "WAIT(w@/!)" "|" "DONE(d)" "KILL(c@)")))
+
 ;; add timestamp to completed todos
 (setq org-log-done 'time)
 
@@ -9,44 +13,17 @@
 ;; prevent org source blocks from being indented
 (setq org-edit-src-content-indentation 0)
 
-;; add org directory (allows searching for todos and scheduling items)
-(setq org-agenda-files (list "~/org/personal/personal.org"
-                             "~/org/personal/lisp.org"
-                             "~/org/personal/guitar/guitar.org"
-                             "~/org/personal/harmonica.org"
-                             "~/org/personal/refile.org"
-                             "~/org/remente/remente.org"
-                             ))
-(setq org-agenda-persistent-filter t)
-
-(setq org-refile-targets '((nil :maxlevel . 3)
-                           (org-agenda-files :maxlevel . 3)))
-(setq org-refile-use-outline-path 'file)
-(setq org-outline-path-complete-in-steps nil)
-
-(defun bh/verify-refile-target ()
-  "Exclude todo keywords with a done state from refile targets"
-  (not (member (nth 2 (org-heading-components)) org-done-keywords)))
-(setq org-refile-target-verify-function 'bh/verify-refile-target)
-
 ;; set org tag column
 (setq org-tags-column -80)
 
 ;; resize image according to ATTR_ORG if available
 (setq org-image-actual-width nil)
 
-;; prevent org-agenda from destroying splits
-(setq org-agenda-window-setup 'current-window)
-
-;; always start agenda on current day instead of mondays
-(setq org-agenda-start-on-weekday nil)
-
 ;; add automatic newlines when lines get too long
 ;; using this instead of word-wrap since it doesn't affect tables
 (add-hook 'org-mode-hook (lambda ()
                            (auto-fill-mode)
                            (setq fill-column 80)))
-
 
 ;; auto-saving org buffers after certain actions
 (defun save-org-buffers (&rest args)
@@ -60,10 +37,23 @@
 (advice-add 'org-clock-out :after 'save-org-buffers)
 (advice-add 'org-todo :after 'save-org-buffers)
 
-;; open links in same window
-;(setq org-link-frame-setup (file . find-file))
-
+;; remove clock entry if total time span is less than one minute
 (setq org-clock-out-remove-zero-time-clocks t)
+
+;;; configure refile ------------------------------------------------------------
+
+(setq org-refile-targets '((nil :maxlevel . 3)
+                           (org-agenda-files :maxlevel . 3)))
+(setq org-refile-use-outline-path 'file)
+(setq org-outline-path-complete-in-steps nil)
+
+(defun chip/verify-refile-target ()
+  "Exclude todo keywords with a done state from refile targets"
+  (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+
+(setq org-refile-target-verify-function 'chip/verify-refile-target)
+
+;;; -----------------------------------------------------------------------------
 
 ;;; clock report ----------------------------------------------------------------
 
@@ -126,10 +116,29 @@
     ("m" "Meeting" entry (file "~/org/personal/refile.org")
      "* DONE Meeting with %? :meeting:\n%U" :clock-in t :clock-resume t)))
 
+
+
+
+;; add org directory (allows searching for todos and scheduling items)
+(setq org-agenda-files (list "~/org/personal/personal.org"
+                             "~/org/personal/lisp.org"
+                             "~/org/personal/guitar/guitar.org"
+                             "~/org/personal/harmonica.org"
+                             "~/org/personal/refile.org"
+                             "~/org/remente/remente.org"
+                             ))
+
+;; keep agenda filters after closing agenda buffer
+(setq org-agenda-persistent-filter t)
+
+;; prevent org-agenda from destroying splits
+(setq org-agenda-window-setup 'current-window)
+
+;; always start agenda on current day instead of mondays
+(setq org-agenda-start-on-weekday nil)
+
+;; show only today as default
 (setq org-agenda-span 'day)
-
-
-
 
 (defun bh/is-project-p ()
   "Any task with a todo keyword subtask"
@@ -306,13 +315,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
          nil
          nil)))
 
-
-
-
-
-
-
-
+;; hide separators between agenda blocks
 (setq org-agenda-block-separator nil)
 
 ;; finalize agenda entries (removing icebox tasks)
@@ -335,10 +338,6 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                                     ,(concat chip/org-agenda-deadline-icon "+%1d")
                                     ,(concat chip/org-agenda-deadline-icon "-%1d")))
 
-;; set org todo keywords
-(setq org-todo-keywords
-      '((sequence "TODO(t)" "NEXT(n)" "WAIT(w@/!)" "|" "DONE(d)" "KILL(c@)")))
-
 (setq org-file-apps
          '(("\\.png\\'" . "feh --scale-down \"%s\"")
            ("\\.jpg\\'" . "feh --scale-down \"%s\"")
@@ -346,7 +345,6 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
            ("\\.mm\\'" . default)
            ("\\.x?html?\\'" . default)
            ("\\.pdf\\'" . default)))
-;; (setq org-ellipsis " ")
 (setq org-startup-indented t)
 
 ;; Cleanup intermediate files after org export
