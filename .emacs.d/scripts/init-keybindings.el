@@ -147,8 +147,8 @@
   (general-define-key
    :keymaps 'org-agenda-mode-map
    "RET" 'org-agenda-switch-to
-   "j" 'next-line
-   "k" 'previous-line))
+   "j" 'org-agenda-next-line
+   "k" 'org-agenda-previous-line))
 
 (defun chip/setup-elisp-keys ()
   "Setup keybindings for emacs-lisp-mode"
