@@ -150,19 +150,6 @@
    "j" 'org-agenda-next-line
    "k" 'org-agenda-previous-line))
 
-(defun chip/setup-elisp-keys ()
-  "Setup keybindings for emacs-lisp-mode"
-  (interactive)
-  (general-define-key
-   :prefix leader
-   :states '(normal visual)
-   :keymaps 'lisp-mode-shared-map
-   "er" 'eval-region
-   "eb" 'eval-buffer
-   "ed" 'eval-defun
-   "es" 'eval-last-sexp
-   "ee" 'eval-expression))
-
 (defun chip/setup-common-lisp-keys ()
   "Setup keybindings for common-lisp-mode"
   (interactive)
@@ -317,7 +304,6 @@
   (chip/setup-language-keys)
   (chip/setup-applications-keys)
   (chip/setup-org-keys)
-  (chip/setup-elisp-keys)
   (chip/setup-common-lisp-keys)
   (chip/setup-flutter-keys)
   (chip/setup-cider-keys)
