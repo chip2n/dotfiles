@@ -121,9 +121,6 @@
 
 ;; add org directory (allows searching for todos and scheduling items)
 (setq org-agenda-files (list "~/org/personal/personal.org"
-                             "~/org/personal/lisp.org"
-                             "~/org/personal/guitar/guitar.org"
-                             "~/org/personal/harmonica.org"
                              "~/org/personal/refile.org"
                              "~/org/remente/remente.org"
                              ))
