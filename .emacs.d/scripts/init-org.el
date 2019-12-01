@@ -164,7 +164,7 @@
 
 ;; set org todo keywords
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d)" "KILL(c@)")))
+      '((sequence "TODO(t)" "NEXT(n)" "WAIT(w@/!)" "|" "DONE(d)" "KILL(c@)")))
 
 (setq org-file-apps
          '(("\\.png\\'" . "feh --scale-down \"%s\"")
