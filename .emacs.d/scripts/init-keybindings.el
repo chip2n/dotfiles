@@ -145,6 +145,13 @@
    "M-L" 'org-demote-subtree
    "M-H" 'org-promote-subtree)
   (general-define-key
+   :prefix "C-c"
+   "a" (lambda () (interactive) (org-agenda nil "c"))
+   "e" 'org-capture
+   "o i" 'org-clock-in
+   "o o" 'org-clock-out
+   "o g" 'org-clock-goto)
+  (general-define-key
    :keymaps 'org-agenda-mode-map
    "RET" 'org-agenda-switch-to
    "j" 'org-agenda-next-line
@@ -275,10 +282,6 @@
    "C-c ]" 'winner-redo
    "C-c c" 'chip/open-config-file
    "C-c s" 'avy-goto-char-2
-   "C-c a" (lambda () (interactive) (org-agenda nil "c"))
-   "C-c e" 'org-capture
-   "C-c o i" 'org-clock-in
-   "C-c o o" 'org-clock-out
    "C-c u" 'universal-argument
    "C-x p" 'counsel-projectile-find-file
    "C-x P" 'counsel-projectile-switch-project
