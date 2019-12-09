@@ -160,16 +160,6 @@
 (defun chip/setup-common-lisp-keys ()
   "Setup keybindings for common-lisp-mode"
   (interactive)
-  (general-define-key
-   :prefix leader
-   :states 'normal
-   :keymaps 'slime-mode-map
-   "es" 'slime-eval-last-expression
-   "eb" 'slime-eval-buffer
-   "ed" 'slime-eval-defun
-   "mm" 'slime-macroexpand-1
-   "mi" 'slime-inspect
-   "md" 'slime-documentation-lookup)
    (general-define-key
     :states 'normal
     :keymaps 'slime-mode-map
