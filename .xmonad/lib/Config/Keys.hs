@@ -19,7 +19,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask, xK_p), spawn $ "dmenu_run -h " ++ show barHeight ++" -nb '" ++ colorBarBg ++ "'"  )
     ]
     ++
-    layoutKeys conf
+    workspaceBindings conf
+    ++
+    layoutBindings conf
     ++
     [ ((modMask .|. shiftMask, xK_c), kill)
     , ((modMask, xK_comma), sendMessage (IncMasterN 1))
@@ -33,22 +35,22 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. shiftMask, xK_q), io (exitWith ExitSuccess))
     ]
     ++
-    -- workspace switch
-    zipWith (\w k -> ((modMask, k), windows (W.greedyView w))) (XMonad.workspaces conf) [xK_1 .. xK_9]
-    ++
-    -- workspace switch (multihead swapping)
-    --zipWith (\w k -> ((modMask .|. shiftMask .|. controlMask, k), windows (W.greedyView w))) (XMonad.workspaces conf) [xK_1 .. xK_9]
-    -- ++
-    -- workspace window move
-    zipWith (\w k -> ((modMask .|. shiftMask, k), windows (W.shift w))) (XMonad.workspaces conf) [xK_1 .. xK_9]
-    ++
     -- mod-{w,e,r} %! Switch to physical/Xinerama screens 1, 2, or 3
     -- mod-shift-{w,e,r} %! Move client to screen 1, 2, or 3
     [((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
        | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
        , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
-layoutKeys conf@(XConfig {XMonad.modMask = modMask}) =
+workspaceBindings conf@(XConfig {XMonad.modMask = modMask,
+                                 XMonad.workspaces = workspaces}) =
+    let windowSwitchKeys = map (\k -> (modMask, k)) [xK_1 .. xK_9]
+        windowMoveKeys   = map (\k -> ((modMask .|. shiftMask), k)) [xK_1 .. xK_9]
+        buildWorkspaceBindings keys f = zipWith (\k w -> (k, f w)) keys workspaces
+    in (buildWorkspaceBindings windowSwitchKeys $ windows . W.greedyView)
+       ++
+       (buildWorkspaceBindings windowMoveKeys $ windows . W.shift)
+
+layoutBindings conf@(XConfig {XMonad.modMask = modMask}) =
     [ ((modMask, xK_space), sendMessage NextLayout)
     , ((modMask .|. shiftMask, xK_space), setLayout $ XMonad.layoutHook conf)
     , ((modMask, xK_f), sendMessage $ JumpToLayout "Full")
