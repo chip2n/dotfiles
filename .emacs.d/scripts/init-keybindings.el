@@ -280,6 +280,9 @@
    "C-s" 'avy-goto-char-2)
 
   (general-define-key
+   "S-<down>" 'evil-join)
+
+  (general-define-key
    :states '(normal insert emacs)
    "C-u" 'ranger-half-page-up
    "C-d" 'ranger-half-page-down)
