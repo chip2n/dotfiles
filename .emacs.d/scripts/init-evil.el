@@ -17,12 +17,6 @@
   ;; (add-to-list 'evil-motion-state-modes 'org-agenda-mode)
   )
 
-(use-package evil-surround
-  :ensure t
-  :after (evil)
-  :config
-  (global-evil-surround-mode 1))
-
 (use-package evil-visualstar
   :ensure t
   :after (evil)
