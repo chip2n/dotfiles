@@ -30,14 +30,14 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. shiftMask .|. controlMask, xK_j), shiftNextScreen)
 
     -- quit or restart
-    , ((modMask, xK_q), spawn "killall conky dzen2 && xmonad --recompile && xmonad --restart")
-    , ((modMask .|. shiftMask, xK_q), io (exitWith ExitSuccess))
+    , ((modMask .|. shiftMask, xK_q), spawn "xmonad --recompile && xmonad --restart")
+    , ((modMask .|. shiftMask .|. controlMask, xK_q), io (exitWith ExitSuccess))
     ]
     ++
-    -- mod-{w,e,r} %! Switch to physical/Xinerama screens 1, 2, or 3
-    -- mod-shift-{w,e,r} %! Move client to screen 1, 2, or 3
+    -- mod-{q,w,f}        Switch to physical/Xinerama screens 1, 2, or 3
+    -- mod-shift-{q,w,f}  Move client to screen 1, 2, or 3
     [((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
-       | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
+       | (key, sc) <- zip [xK_q, xK_w, xK_f] [0..]
        , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 workspaceBindings conf@(XConfig {XMonad.modMask = modMask,
@@ -52,7 +52,7 @@ workspaceBindings conf@(XConfig {XMonad.modMask = modMask,
 layoutBindings conf@(XConfig {XMonad.modMask = modMask}) =
     [ ((modMask, xK_space), sendMessage NextLayout)
     , ((modMask .|. shiftMask, xK_space), setLayout $ XMonad.layoutHook conf)
-    , ((modMask, xK_f), sendMessage $ JumpToLayout "Full")
+    --, ((modMask, xK_f), sendMessage $ JumpToLayout "Full")
     , ((modMask, xK_h), sendMessage Shrink)
     , ((modMask, xK_l), sendMessage Expand)
     , ((modMask .|. controlMask, xK_j), sendMessage MirrorShrink)
@@ -61,4 +61,12 @@ layoutBindings conf@(XConfig {XMonad.modMask = modMask}) =
     , ((modMask, xK_k), windows W.focusUp)
     , ((modMask .|. shiftMask, xK_j), windows W.swapDown)
     , ((modMask .|. shiftMask, xK_k), windows W.swapUp)
+
+    , ((modMask, xK_i), sendMessage Expand)
+    , ((modMask .|. controlMask, xK_n), sendMessage MirrorShrink)
+    , ((modMask .|. controlMask, xK_e), sendMessage MirrorExpand)
+    , ((modMask, xK_n), windows W.focusDown)
+    , ((modMask, xK_e), windows W.focusUp)
+    , ((modMask .|. shiftMask, xK_n), windows W.swapDown)
+    , ((modMask .|. shiftMask, xK_e), windows W.swapUp)
     ]
