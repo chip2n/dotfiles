@@ -277,10 +277,9 @@
    "C-x P" 'counsel-projectile-switch-project
    "C-x +" 'zoom
    "C-x =" 'balance-windows
-   "C-s" 'avy-goto-char-2)
-
-  (general-define-key
-   "S-<down>" 'evil-join)
+   "C-s" 'avy-goto-char-2
+   "S-<down>" 'evil-join
+   "M-o" 'other-window)
 
   (general-define-key
    :states '(normal insert emacs)
