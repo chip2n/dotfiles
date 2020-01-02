@@ -127,6 +127,14 @@
   `(term-color-pink ((,class (:foreground ,pink-2))))
   `(term-color-magenta ((,class (:foreground ,magenta-2))))
 
+  ;; Ivy
+  `(ivy-virtual ((,class (:foreground ,white-1))))
+
+  ;; Posframe
+  `(ivy-posframe ((,class (:background ,grey-2 :foreground ,white-1))))
+  `(ivy-posframe-border ((,class (:background ,grey-2))))
+
+  ;;  Eshell
   `(eshell-ls-executable ((,class (:foreground ,green-2 :weight bold))))
 
   ;; Company
