@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cryptsetup open /dev/sdc1 samsung
+mount /dev/mapper/samsung /mnt/samsung
