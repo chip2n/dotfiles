@@ -279,7 +279,7 @@
    "C-x =" 'balance-windows
    "C-s" 'avy-goto-char-2
    "S-<down>" 'evil-join
-   "M-o" 'other-window)
+   "M-o" 'ace-window)
 
   (general-define-key
    :states '(normal insert emacs)
