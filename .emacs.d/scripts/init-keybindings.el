@@ -271,7 +271,7 @@
 
   (general-define-key
    :states '(normal insert emacs)
-   "C-u" 'ranger-half-page-up
+   "C-b" 'ranger-half-page-up
    "C-d" 'ranger-half-page-down)
 
   ;; (setq leader "<SPC>")

@@ -5,7 +5,7 @@
 (use-package evil
   :ensure t
   :init
-  (setq evil-want-C-u-scroll t)
+  (setq evil-want-C-u-scroll nil)
   (setq evil-want-C-d-scroll t)
   (setq evil-disable-insert-state-bindings t)
   :config
