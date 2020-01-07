@@ -19,18 +19,6 @@
    "wf" 'delete-other-windows
    "wd" 'evil-delete-buffer))
 
-(defun chip/setup-code-keys ()
-  "Setup keybindings for code editing"
-  (interactive)
-  (general-define-key
-   :prefix leader
-   :keymaps '(normal visual emacs)
-   "cl" 'comment-line
-   "zl" 'hs-hide-level
-   "zo" 'hs-show-block
-   "zc" 'hs-hide-block
-   "zz" 'hs-toggle-hiding))
-
 (defun chip/setup-ivy-keys ()
   "Setup keybindings for ivy"
   (interactive)
@@ -289,7 +277,6 @@
   ;; (setq leader "<SPC>")
   (setq leader "C-c ,")
   (chip/setup-window-keys)
-  (chip/setup-code-keys)
   (chip/setup-ivy-keys)
   (chip/setup-avy-keys)
   (chip/setup-magit-keys)
