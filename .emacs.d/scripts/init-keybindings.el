@@ -250,6 +250,11 @@
    "j" (lambda () (interactive) (pdf-view-next-line-or-next-page 8))
    "k" (lambda () (interactive) (pdf-view-previous-line-or-previous-page 8))))
 
+(defun chip/setup-compilation-keys ()
+  (general-define-key
+   :keymaps '(compilation-mode-map)
+   "k" 'kill-this-buffer-and-process))
+
 (use-package general
   :ensure t
   :after (evil ivy hydra magit company pdf-tools anaconda-mode)
@@ -294,6 +299,7 @@
   (chip/setup-geiser-keys)
   (chip/setup-rust-keys)
   (chip/setup-pdf-tools-keys)
+  (chip/setup-compilation-keys)
 
   (general-define-key
    :keymaps '(flymake-mode-map)

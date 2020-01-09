@@ -58,6 +58,7 @@
 (require 'init-pamparam)
 (require 'init-pomidor)
 (require 'init-lilypond)
+(require 'init-compilation)
 ;; (require 'init-japanese)
 (require 'init-neotree)
 (require 'init-google-translate)
@@ -194,6 +195,16 @@ buffer in current window."
        "%s: Can't touch this!"
      "%s is up for grabs.")
    (current-buffer)))
+
+(defun kill-this-buffer-and-process ()
+  "Kill current buffer and associated buffer without prompt."
+  (interactive)
+  (let ((proc (get-buffer-process (current-buffer))))
+    (when (processp proc)
+      (message "hey")
+      (set-process-query-on-exit-flag proc nil)))
+  (set-buffer-modified-p nil)
+  (quit-window t))
 
 (setq select-enable-clipboard t)
 
