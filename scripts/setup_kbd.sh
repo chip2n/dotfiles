@@ -1,7 +1,7 @@
 #!/bin/bash
 
 setxkbmap chip
-#xmodmap /home/chip/.xmodmap
+xmodmap /home/chip/.xmodmap
 #xcape -e 'Control_L=Escape;'
 
 xset -b
