@@ -3,13 +3,23 @@ partial alphanumeric_keys
 xkb_symbols "euro" {
     name[Group1]= "USA - Swedish";
 
-    include "us(colemak)"
+    include "us(basic)"
     include "level3(ralt_switch)"
+    //include "capslock(backspace)"
 
     // Swedish alphabet
     //           [ Unmodified  , Shift     , AltGr      , Shift + AltGr ]
-    key <AC08> { [ e           , E         , adiaeresis , Adiaeresis    ] };
     key <AC01> { [ a           , A         , aring      , Aring         ] };
-    key <AC10> { [ o           , O         , odiaeresis , Odiaeresis    ] };
-};
+    key <AD03> { [ e           , E         , adiaeresis , Adiaeresis    ] };
+    key <AD09> { [ o           , O         , odiaeresis , Odiaeresis    ] };
+    // key <AC11> { [ apostrophe  , quotedbl  , adiaeresis , Adiaeresis    ] };
+    // key <AC10> { [ semicolon   , colon     , odiaeresis , Odiaeresis    ] };
+    // key <AD11> { [ bracketleft , braceleft , aring      , Aring         ] };
 
+    // Home row symbols
+    //           [ Unmodified  , Shift     , AltGr      , Shift + AltGr ]
+    key <AC04> { [ f           , F         , parenleft ] };
+    key <AC07> { [ j           , J         , parenright] };
+    key <AC03> { [ d           , D         , ampersand ] };
+    key <AC08> { [ k           , K         , asterisk  ] };
+};
