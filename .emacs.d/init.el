@@ -208,6 +208,8 @@ buffer in current window."
 
 (setq select-enable-clipboard t)
 
+(setq scroll-error-top-bottom t)
+
 (add-hook 'image-mode-hook 'auto-revert-mode)
 
 (defhydra hydra-window ()
