@@ -19,7 +19,15 @@
   ;; prevent downcasing when autocompleting
   (setq company-dabbrev-downcase nil)
   (setq evil-complete-next-func 'complete-complete-cycle-next)
-  (setq evil-complete-previous-func 'complete-complete-cycle-previous))
+  (setq evil-complete-previous-func 'complete-complete-cycle-previous)
+
+  ;; no delay in showing suggestions.
+  (setq company-idle-delay 0)
+
+  ;; show suggestions after entering one character.
+  (setq company-minimum-prefix-length 1)
+
+  (setq company-selection-wrap-around t))
 
 (use-package company-anaconda
   :ensure t
