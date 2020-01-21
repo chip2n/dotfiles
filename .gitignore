@@ -57,6 +57,11 @@
 .config/blender
 .config/falkTX
 .config/rncbc.org
+.config/BraveSoftware
+.config/Log
+.config/jack
+.config/spotify-tui
+.config/virtscreen
 .vim/plugged
 .xmonad/.stack-work
 .xmonad/xmonad.state

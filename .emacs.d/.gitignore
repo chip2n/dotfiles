@@ -1,6 +1,8 @@
 elpa/
 scripts/private.el
 scripts/remente.el
+.mc-lists.el
+speed-type
 .emacs.desktop
 .emacs.desktop.lock
 bookmarks
