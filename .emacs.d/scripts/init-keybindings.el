@@ -269,6 +269,12 @@
    "C-x p" 'counsel-projectile-find-file
    "C-x P" 'counsel-projectile-switch-project
    "C-x +" 'zoom
+   "C-x -" (lambda ()
+             (interactive)
+             (other-window 1)
+             (unwind-protect
+                 (zoom)
+               (other-window 1)))
    "C-x =" 'balance-windows
    "C-s" 'avy-goto-char-2
    "S-<down>" 'evil-join
