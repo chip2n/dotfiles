@@ -12,7 +12,7 @@ unclutter &
 
 export PATH=$HOME/.cabal/bin:$HOME/scripts:$HOME/local_scripts:$PATH:$HOME/.local/bin:$HOME/android/sdk/platform-tools:$HOME/android/sdk/emulator:$HOME/flutter/bin:$HOME/flutter/bin/cache/dart-sdk/bin:$HOME/.pub-cache/bin:$HOME/.cask/bin:$HOME/.gem/ruby/2.6.0/bin
 
-/home/chip/scripts/setup_kbd.sh
+switch-keyboard-builtin
 
 # Lenovo trackpoint acceleration and sensitivity
 xinput --set-prop 12 'libinput Accel Speed' 1.0

@@ -1,0 +1,14 @@
+default
+partial alphanumeric_keys
+xkb_symbols "euro" {
+    name[Group1]= "USA - Swedish";
+
+    include "level3(ralt_switch)"
+    include "us(basic)"
+
+    // Swedish alphabet
+    //           [ Unmodified  , Shift     , AltGr      , Shift + AltGr ]
+    key <AD01> { [ q           , Q         , aring      , Aring         ] };
+    key <AD02> { [ w           , W         , adiaeresis , Adiaeresis    ] };
+    key <AC04> { [ f           , F         , odiaeresis , Odiaeresis    ] };
+};

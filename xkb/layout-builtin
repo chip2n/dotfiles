@@ -1,0 +1,24 @@
+default
+partial alphanumeric_keys
+xkb_symbols "euro" {
+    name[Group1]= "USA - Swedish";
+
+    include "us(colemak)"
+    include "level3(ralt_switch)"
+
+    // Swedish alphabet
+    //           [ Unmodified  , Shift     , AltGr      , Shift + AltGr ]
+    key <AD01> { [ q           , Q         , aring      , Aring      ] };
+    key <AD02> { [ w           , W         , adiaeresis , Adiaeresis ] };
+    key <AD03> { [ f           , F         , odiaeresis , Odiaeresis ] };
+
+    key <AC01> { [ a           , A         , less ] };
+    key <AC02> { [ r           , R         , braceleft ] };
+    key <AC03> { [ s           , S         , bracketleft] };
+    key <AC04> { [ t           , T         , parenleft ] };
+
+    key <AC07> { [ n           , N         , parenright ] };
+    key <AC08> { [ e           , E         , bracketright ] };
+    key <AC09> { [ i           , I         , braceright ] };
+    key <AC10> { [ o           , O         , greater ] };
+};

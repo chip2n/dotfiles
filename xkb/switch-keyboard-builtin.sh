@@ -4,7 +4,7 @@
 # a bit before activating it
 sleep 1
 
-setxkbmap chip-planck
+setxkbmap chip-builtin
 xmodmap /home/chip/.xmodmap
 
 xset -b

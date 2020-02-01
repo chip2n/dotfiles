@@ -19,7 +19,8 @@ ln -s /home/chip/dotfiles/.mbsyncrc /home/chip/.mbsyncrc
 ln -s /home/chip/dotfiles/.sbclrc /home/chip/.sbclrc
 ln -s /home/chip/dotfiles/audio /home/chip/audio
 ln -s /home/chip/Dropbox/elfeed /home/chip/.elfeed
-ln -s /home/chip/dotfiles/xkb/layout /usr/share/X11/xkb/symbols/chip
+ln -s /home/chip/dotfiles/xkb/layout-planck /usr/share/X11/xkb/symbols/chip-planck
+ln -s /home/chip/dotfiles/xkb/layout-builtin /usr/share/X11/xkb/symbols/chip-builtin
 
 systemctl enable --user emacsd.service
 
