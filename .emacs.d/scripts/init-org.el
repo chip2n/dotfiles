@@ -2,7 +2,7 @@
 
 ;; set org todo keywords
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "NEXT(n)" "WAIT(w@/!)" "|" "DONE(d)" "KILL(c@)")))
+      '((sequence "TODO(t)" "NEXT(n)" "WAIT(w@/!)" "HOLD(h@/!)" "|" "DONE(d)" "KILL(c@)")))
 
 ;; add timestamp to completed todos
 (setq org-log-done 'time)
@@ -309,21 +309,30 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
             (or subtree-end (point-max)))
         next-headline))))
 
+(setq org-todo-state-tags-triggers
+      (quote (("KILL" ("KILL" . t))
+              ("WAIT" ("WAIT" . t))
+              ("HOLD" ("WAIT") ("HOLD" . t))
+              (done ("WAIT") ("HOLD"))
+              ("TODO" ("WAIT") ("KILL") ("HOLD"))
+              ("NEXT" ("WAIT") ("KILL") ("HOLD"))
+              ("DONE" ("WAIT") ("KILL") ("HOLD")))))
+
 (setq org-agenda-custom-commands
       '(("c" "Unscheduled TODO"
          ((agenda "")
           (tags "refile"
                 ((org-agenda-overriding-header "\nRefileable Tasks")
                  (org-tags-match-list-sublevels nil)))
-          (tags-todo "-KILL/!"
+          (tags-todo "-KILL-HOLD/!"
                      ((org-agenda-overriding-header "Stuck Projects")
                       (org-agenda-skip-function 'bh/skip-non-stuck-projects)
                       (org-agenda-sorting-strategy '(category-keep))))
-          (tags-todo "-WAIT-KILL/!"
+          (tags-todo "-HOLD-WAIT-KILL/!"
                      ((org-agenda-overriding-header "Active Projects")
                       (org-agenda-skip-function 'bh/skip-non-projects)
                       (org-agenda-sorting-strategy '(category-keep))))
-          (tags-todo "-KILL/!NEXT"
+          (tags-todo "-HOLD-KILL/!NEXT"
                      ((org-agenda-overriding-header "Next Tasks")
                       (org-agenda-skip-function 'bh/skip-projects-and-habits-and-single-tasks)
                       (org-tags-match-list-sublevels t)
@@ -331,7 +340,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                       (org-agenda-todo-ignore-deadlines t)
                       (org-agenda-todo-ignore-with-date t)
                       (org-agenda-sorting-strategy '(todo-state-down effort-up category-keep))))
-          (tags-todo "-refile-KILL-WAIT/!"
+          (tags-todo "-refile-KILL-WAIT-HOLD/!"
                      ((org-agenda-overriding-header "Project Subtasks")
                       (org-agenda-skip-function 'bh/skip-non-project-tasks)
                       (org-agenda-todo-ignore-scheduled t)
