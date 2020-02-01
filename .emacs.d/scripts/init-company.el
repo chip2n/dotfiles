@@ -13,7 +13,6 @@
 (use-package company
   :ensure t
   :config
-  (global-company-mode)
   (add-hook 'company-mode-hook 'chip/setup-company-keys)
   ;; (setq company-idle-delay nil)
   ;; prevent downcasing when autocompleting
