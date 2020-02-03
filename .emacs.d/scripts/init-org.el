@@ -103,7 +103,7 @@
     ("ju" "Supplements" entry (file+olp+datetree "~/org/personal/journal.gpg")
      "* Supplements :supplements:\n%T\n| %? |  |")
     ("w" "Workout")
-    ("wb" "Workout B" entry (file+olp+datetree "~/org/personal/journal.gpg")
+    ("wa" "Workout A" entry (file+olp+datetree "~/org/personal/journal.gpg")
      "
 * Workout :workout:
 %T
@@ -111,6 +111,15 @@
 | Bench Press              | 3x10 |   |
 | Straight-Legged Deadlift | 3x10 |   |
 | Plank                    | 3x10 | - |
+" :clock-in t :clock-resume t)
+    ("wb" "Workout B" entry (file+olp+datetree "~/org/personal/journal.gpg")
+     "
+* Workout :workout:
+%T
+| Bulgarian Split Squat | 3x10 | %?  |
+| Seated Shoulder Press | 3x10 |   |
+| Bent Over Row         | 3x10 |   |
+| Plank                 | 3x10 | - |
 " :clock-in t :clock-resume t)
     ("i" "Idea" entry (file+olp "~/org/personal/ideas.org" "Ideas")
      "* %?" :prepend t)
