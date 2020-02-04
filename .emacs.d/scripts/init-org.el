@@ -374,6 +374,10 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 ;; hide separators between agenda blocks
 (setq org-agenda-block-separator nil)
 
+;; create automatic bookmarks for org captures
+(setq org-bookmark-names-plist
+      '(:last-capture "org:last-capture"))
+
 ;; finalize agenda entries (removing icebox tasks)
 (defun chip/org-agenda-finalize-entries (string)
   (let ((lines (split-string string "\n" t)))
