@@ -7,6 +7,7 @@
 
 (setenv "NODE_PATH" "/usr/lib/node_modules")
 
+(require 'utils)
 (require 'private)
 (require 'init-pass)
 

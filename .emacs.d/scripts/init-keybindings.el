@@ -281,9 +281,11 @@
    "M-o" 'ace-window)
 
   (general-define-key
-   :states '(normal insert emacs)
+   :states '(normal insert visual emacs)
    "C-b" 'ranger-half-page-up
-   "C-d" 'ranger-half-page-down)
+   "C-d" 'ranger-half-page-down
+   "C-e" 'move-end-of-line
+   "C-a" 'smarter-move-beginning-of-line)
 
   ;; (setq leader "<SPC>")
   (setq leader "C-c ,")
