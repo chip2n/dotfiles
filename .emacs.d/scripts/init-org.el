@@ -545,3 +545,6 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
         (org-entry-put pom "CUSTOM_ID" id)
         (org-id-add-location id (buffer-file-name (buffer-base-buffer)))
         id)))))
+
+;; span emphasis (bold, underline etc) across multiple (<=10) lines
+(setcar (nthcdr 4 org-emphasis-regexp-components) 10)
