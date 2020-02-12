@@ -12,7 +12,7 @@ Change this to turn sound off.
 
 The sound volume runs from 0 (off) to 255 (full).  You can set the volume from the ESC options menu as well.
 
-[VOLUME:255]
+[VOLUME:0]
 
 Change this to skip the wonderful intro movies.
 
