@@ -30,6 +30,7 @@
 (require 'init-slack)
 (require 'init-projectile)
 (require 'init-org)
+(require 'init-roam)
 (require 'init-org-reveal)
 (require 'init-yasnippet)
 (require 'init-diminish)
