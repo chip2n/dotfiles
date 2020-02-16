@@ -54,6 +54,7 @@
 (require 'init-rust)
 (require 'init-elixir)
 (require 'init-android)
+(require 'init-glsl)
 ;; (require 'init-graphviz)
 (require 'init-pdf)
 (require 'init-pamparam)
