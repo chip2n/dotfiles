@@ -47,6 +47,7 @@
 (require 'init-kotlin)
 (require 'init-groovy)
 (require 'init-jade)
+(require 'init-elisp)
 (require 'init-lisp)
 (require 'init-lispy)
 (require 'init-clojure)
