@@ -7,8 +7,7 @@
   :config
   (setq org-roam-directory "/home/chip/org/personal/roam")
   (setq org-roam-buffer-width 0.4)
-  (setq org-roam-encrypt-files t)
-  (setq org-roam-encrypt-to "andreas.arvidson@gmail.com")
+  (setq org-roam-encrypt-files nil)
   :bind
   ("C-c n l" . org-roam)
   ("C-c n t" . org-roam-today)
