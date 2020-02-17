@@ -1,0 +1,3 @@
+#!/bin/bash
+
+cryfs /home/chip/Dropbox/org /home/chip/org/personal

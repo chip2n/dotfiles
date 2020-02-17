@@ -5,7 +5,7 @@
   ((org-mode . org-roam-mode)
    (after-init . org-roam--build-cache-async))
   :config
-  (setq org-roam-directory "/home/chip/Dropbox/org/roam")
+  (setq org-roam-directory "/home/chip/org/personal/roam")
   (setq org-roam-buffer-width 0.4)
   (setq org-roam-encrypt-files t)
   (setq org-roam-encrypt-to "andreas.arvidson@gmail.com")
@@ -24,7 +24,7 @@
   (setq deft-recursive t)
   (setq deft-use-filter-string-for-filename t)
   (setq deft-default-extension "org")
-  (setq deft-directory "/home/chip/Dropbox/org/roam")
+  (setq deft-directory "/home/chip/org/personal/roam")
   (setq deft-use-filename-as-title nil)
   (setq deft-extensions '("txt" "text" "md" "markdown" "org" "gpg"))
   (add-to-list 'evil-emacs-state-modes 'deft-mode)
