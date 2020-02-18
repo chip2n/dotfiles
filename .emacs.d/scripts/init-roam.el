@@ -8,6 +8,7 @@
   (setq org-roam-directory "/home/chip/org/personal/roam")
   (setq org-roam-buffer-width 0.4)
   (setq org-roam-encrypt-files nil)
+  (add-to-list 'evil-emacs-state-modes 'org-roam-backlinks-mode)
   :bind
   ("C-c n l" . org-roam)
   ("C-c n t" . org-roam-today)
