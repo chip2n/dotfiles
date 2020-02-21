@@ -5,6 +5,11 @@
 (add-to-list 'load-path "~/.emacs.d/scripts")
 (require 'init-use-package)
 
+;; communication with language servers generate a lot of garbage
+(setq gc-cons-threshold 100000000)
+;; language servers often generate large responses
+(setq read-process-output-max (* 1024 1024))
+
 (setenv "NODE_PATH" "/usr/lib/node_modules")
 
 (require 'utils)
