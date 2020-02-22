@@ -2,18 +2,18 @@
   :after org
   :load-path "elisp/org-roam"
   :hook
-  ((org-mode . org-roam-mode)
-   (after-init . org-roam--build-cache-async))
+  (after-init . org-roam-mode)
   :config
   (setq org-roam-directory "/home/chip/org/personal/roam")
   (setq org-roam-buffer-width 0.4)
   (setq org-roam-encrypt-files nil)
   (add-to-list 'evil-emacs-state-modes 'org-roam-backlinks-mode)
-  :bind
-  ("C-c n l" . org-roam)
-  ("C-c n t" . org-roam-today)
-  ("C-c n f" . org-roam-find-file)
-  ("C-c n i" . org-roam-insert))
+  :bind (:map org-roam-mode-map
+              (("C-c n l" . org-roam)
+               ("C-c n t" . org-roam-today)
+               ("C-c n f" . org-roam-find-file))
+              :map org-mode-map
+              (("C-c n i" . org-roam-insert))))
 
 (use-package deft
   :ensure t
