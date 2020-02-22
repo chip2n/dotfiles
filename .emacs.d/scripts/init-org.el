@@ -91,40 +91,43 @@
 
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
 
-;; set org templates
+(defun chip/roam-journal-path-today ()
+  (interactive)
+  (org-roam--new-file-named (format-time-string "%Y-%m-%d" (current-time))))
+
 (setq org-capture-templates
-  `(("t" "TODO" entry (file "~/org/personal/refile.org")
-     "* TODO %?")
-    ("j" "Journal")
-    ("je" "Entry" entry (file+olp+datetree "~/org/personal/journal.gpg")
-     "* %?\n%T")
-    ("js" "Day summary" entry (file+olp+datetree "~/org/personal/journal.gpg")
-     "* Day summary :summary:\n%T\n%?\n\n%(org-clock-report-today)")
-    ("ju" "Supplements" entry (file+olp+datetree "~/org/personal/journal.gpg")
-     "* Supplements :supplements:\n%T\n| %? |  |")
-    ("w" "Workout")
-    ("wa" "Workout A" entry (file+olp+datetree "~/org/personal/journal.gpg")
-     "
-* Workout :workout:
+      `(("t" "TODO" entry (file "~/org/personal/refile.org")
+         "* TODO %?")
+        ("j" "Journal")
+        ("je" "Entry" entry #'chip/roam-journal-path-today
+         "* %?\n%T")
+        ("js" "Day summary" entry #'chip/roam-journal-path-today
+         "* Day summary\n%T\n%?\n\n%(org-clock-report-today)")
+        ("ju" "Supplements" entry #'chip/roam-journal-path-today
+         "* Supplements\n%T\n| %? |  |")
+        ("w" "Workout")
+        ("wa" "Workout A" entry #'chip/roam-journal-path-today
+         "
+* Workout
 %T
 | Bulgarian Split Squat    | 3x10 | %?  |
 | Bench Press              | 3x10 |   |
 | Straight-Legged Deadlift | 3x10 |   |
 | Plank                    | 3x10 | - |
 " :clock-in t :clock-resume t)
-    ("wb" "Workout B" entry (file+olp+datetree "~/org/personal/journal.gpg")
-     "
-* Workout :workout:
+        ("wb" "Workout B" entry #'chip/roam-journal-path-today
+         "
+* Workout
 %T
 | Bulgarian Split Squat | 3x10 | %?  |
 | Seated Shoulder Press | 3x10 |   |
 | Bent Over Row         | 3x10 |   |
 | Plank                 | 3x10 | - |
 " :clock-in t :clock-resume t)
-    ("i" "Idea" entry (file+olp "~/org/personal/ideas.org" "Ideas")
-     "* %?" :prepend t)
-    ("p" "Remente presentation" entry (function ,(lambda () (find-file (get-presentation-path))))
-     "
+        ("i" "Idea" entry (file+olp "~/org/personal/ideas.org" "Ideas")
+         "* %?" :prepend t)
+        ("p" "Remente presentation" entry #',(lambda () (find-file (get-presentation-path)))
+         "
 #+OPTIONS: num:nil
 #+OPTIONS: toc:nil
 #+OPTIONS: reveal_title_slide:nil
@@ -134,8 +137,8 @@
 #+REVEAL_HLEVEL: 2
 
 * %?")
-    ("m" "Meeting" entry (file "~/org/personal/refile.org")
-     "* DONE Meeting with %? :meeting:\n%U" :clock-in t :clock-resume t)))
+        ("m" "Meeting" entry (file "~/org/personal/refile.org")
+         "* DONE Meeting with %? :meeting:\n%U" :clock-in t :clock-resume t)))
 
 
 
