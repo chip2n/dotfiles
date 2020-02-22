@@ -18,4 +18,5 @@
   (diminish 'eldoc-mode)
   (diminish 'yas-minor-mode)
   (diminish 'evil-org-mode)
-  (diminish 'org-indent-mode "indent"))
+  (diminish 'org-indent-mode "indent")
+  (diminish 'org-roam-mode))
