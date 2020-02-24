@@ -278,7 +278,9 @@
    "C-x =" 'balance-windows
    "C-s" 'avy-goto-char-2
    "S-<down>" 'evil-join
-   "M-o" 'ace-window)
+   "M-o" 'ace-window
+   "S-<next>" 'scroll-other-window
+   "S-<prior>" 'scroll-other-window-down)
 
   (general-define-key
    :states '(normal insert visual emacs)
