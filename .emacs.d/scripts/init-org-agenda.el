@@ -20,16 +20,6 @@
 ;; hide separators between agenda blocks
 (setq org-agenda-block-separator nil)
 
-;; finalize agenda entries (removing icebox tasks)
-(defun remove-icebox-tasks (lines)
-  (remove-if (lambda (line) (string-match-p ":icebox:" line)) lines))
-(defun chip/org-agenda-finalize-entries (string)
-  (let ((lines (split-string string "\n" t)))
-  (mapconcat 'identity
-             (remove-icebox-tasks lines)
-             "\n")))
-(advice-add 'org-agenda-finalize-entries :filter-return #'chip/org-agenda-finalize-entries)
-
 ;; set agenda icons
 (defvar chip/org-agenda-scheduled-icon (all-the-icons-material "event" :v-adjust -0.1))
 (defvar chip/org-agenda-deadline-icon (all-the-icons-material "whatshot" :v-adjust -0.1))
@@ -38,28 +28,23 @@
                                     ,(concat chip/org-agenda-deadline-icon "+%1d")
                                     ,(concat chip/org-agenda-deadline-icon "-%1d")))
 
-(use-package org-super-agenda
-  :ensure t
-  :config
-  (setq org-super-agenda-header-separator "")
-  (setq org-super-agenda-unmatched-name "")
-  (setq org-super-agenda-groups
-        '((:name ""
-                 :time-grid t
-                 :todo "TODAY")
-          (:name ""
-                 :category "remente")
-          ))
-  (org-super-agenda-mode))
-
 (setq org-todo-state-tags-triggers
-      (quote (("KILL" ("KILL" . t))
-              ("WAIT" ("WAIT" . t))
-              ("HOLD" ("WAIT") ("HOLD" . t))
-              (done ("WAIT") ("HOLD"))
-              ("TODO" ("WAIT") ("KILL") ("HOLD"))
-              ("NEXT" ("WAIT") ("KILL") ("HOLD"))
-              ("DONE" ("WAIT") ("KILL") ("HOLD")))))
+      (quote (("TODO" ("WAIT" . nil)
+                      ("KILL" . nil)
+                      ("HOLD" . nil))
+              ("NEXT" ("WAIT" . nil)
+                      ("KILL" . nil)
+                      ("HOLD" . nil))
+              ("WAIT" ("HOLD" . nil)
+                      ("WAIT" . t))
+              ("HOLD" ("WAIT" . nil)
+                      ("HOLD" . t))
+              ("KILL" ("KILL" . t))
+              ("DONE" ("WAIT" . nil)
+                      ("KILL" . nil)
+                      ("HOLD" . nil))
+              (done   ("WAIT" . nil)
+                      ("HOLD" . nil)))))
 
 (defun bh/is-project-p ()
   "Any task with a todo keyword subtask"
@@ -222,15 +207,8 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 (setq org-agenda-custom-commands
       '(("c" "Unscheduled TODO"
          ((agenda "")
-          (tags "refile"
-                ((org-agenda-overriding-header "\nRefileable Tasks")
-                 (org-tags-match-list-sublevels nil)))
-          (tags-todo "-KILL-HOLD/!"
-                     ((org-agenda-overriding-header "Stuck Projects")
-                      (org-agenda-skip-function 'bh/skip-non-stuck-projects)
-                      (org-agenda-sorting-strategy '(category-keep))))
           (tags-todo "-HOLD-WAIT-KILL/!"
-                     ((org-agenda-overriding-header "Active Projects")
+                     ((org-agenda-overriding-header "\nActive Projects")
                       (org-agenda-skip-function 'bh/skip-non-projects)
                       (org-agenda-sorting-strategy '(category-keep))))
           (tags-todo "-HOLD-KILL/!NEXT"
@@ -242,24 +220,30 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                       (org-agenda-todo-ignore-with-date t)
                       (org-agenda-sorting-strategy '(todo-state-down effort-up category-keep))))
           (tags-todo "-refile-KILL-WAIT-HOLD/!"
-                     ((org-agenda-overriding-header "Project Subtasks")
+                     ((org-agenda-overriding-header "Project Tasks")
                       (org-agenda-skip-function 'bh/skip-non-project-tasks)
                       (org-agenda-todo-ignore-scheduled t)
                       (org-agenda-todo-ignore-deadlines t)
                       (org-agenda-todo-ignore-with-date t)
                       (org-agenda-sorting-strategy '(category-keep))))
+          (tags-todo "-KILL-HOLD/!"
+                     ((org-agenda-overriding-header "Inactive Projects")
+                      (org-agenda-skip-function 'bh/skip-non-stuck-projects)
+                      (org-agenda-sorting-strategy '(category-keep))))
+          (tags "refile"
+                ((org-agenda-overriding-header "\nRefileable Tasks")
+                 (org-tags-match-list-sublevels nil)))
           (tags "-refile/"
-                ((org-agenda-overriding-header "Tasks to Archive")
+                ((org-agenda-overriding-header "Archivable Tasks")
                  (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
                  (org-tags-match-list-sublevels nil)))
-          (tags-todo "-refile"
+          (tags-todo "-refile-HOLD"
                 ((org-agenda-overriding-header "\nUnscheduled")
                  (org-agenda-skip-function 'bh/skip-project-tasks)
                  (org-agenda-tags-todo-honor-ignore-options t)
                  (org-agenda-todo-ignore-scheduled t)
                  (org-agenda-todo-ignore-deadlines t)
-                 (org-agenda-todo-ignore-with-date t)
-                 )))
+                 (org-agenda-todo-ignore-with-date t))))
          nil
          nil)))
 
