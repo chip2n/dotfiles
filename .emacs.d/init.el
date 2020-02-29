@@ -35,6 +35,7 @@
 (require 'init-slack)
 (require 'init-projectile)
 (require 'init-org)
+(require 'init-org-agenda)
 (require 'init-roam)
 (require 'init-org-reveal)
 (require 'init-yasnippet)
