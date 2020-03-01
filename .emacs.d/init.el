@@ -125,6 +125,14 @@
 ;; preserve cursor position when scrolling
 (setq scroll-preserve-screen-position t)
 
+;; scroll line-by-line
+(setq-default scroll-up-aggressively 0.0)
+(setq-default scroll-down-aggressively 0.0)
+
+(setq scroll-error-top-bottom t)
+
+(setq next-screen-context-lines 4)
+
 ;; set default browser to firefox
 (setq browse-url-browser-function 'browse-url-firefox)
 
@@ -217,8 +225,6 @@ buffer in current window."
   (quit-window t))
 
 (setq select-enable-clipboard t)
-
-(setq scroll-error-top-bottom t)
 
 (add-hook 'image-mode-hook 'auto-revert-mode)
 
