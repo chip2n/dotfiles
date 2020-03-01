@@ -164,7 +164,7 @@
   `(org-level-8 ((,class (:foreground ,color-headline-4 :weight bold))))
   `(org-link ((,class (:foreground ,color-link :underline t))))
   `(org-date ((,class (:foreground ,blue-2 :underline t))))
-  `(org-tag ((,class (:foreground ,grey-3 :slant italic))))
+  `(org-tag ((,class (:foreground ,color-comment))))
   `(org-upcoming-deadline ((,class (:foreground ,grey-4))))
   `(org-upcoming-distant-deadline ((,class (:foreground ,grey-4))))
   `(org-warning ((,class (:foreground ,color-error))))
@@ -178,9 +178,9 @@
 
   ;; Org-agenda
   `(org-agenda-structure ((,class (:foreground ,grey-4 :weight bold))))
-  `(org-agenda-date ((,class (:foreground ,color-headline-1 :weight bold))))
-  `(org-agenda-date-today ((,class (:foreground ,color-headline-1 :weight bold :underline t))))
-  `(org-agenda-date-weekend ((,class (:foreground ,color-headline-1 :weight bold))))
+  `(org-agenda-date ((,class (:foreground ,color-comment :weight bold))))
+  `(org-agenda-date-today ((,class (:foreground ,color-comment :weight bold))))
+  `(org-agenda-date-weekend ((,class (:foreground ,color-comment :weight bold))))
   `(org-time-grid ((,class (:foreground ,color-comment))))
   `(org-agenda-current-time ((,class (:foreground ,pink-2 :weight bold))))
   `(org-super-agenda-header ((,class (:foreground ,grey-4 :weight bold))))
@@ -188,6 +188,7 @@
   `(org-scheduled ((,class (:foreground ,white-1))))
   `(org-scheduled-today ((,class (:foreground ,white-1))))
   `(org-deadline ((,class (:foreground ,white-1))))
+  `(org-agenda-dimmed-todo-face ((,class (:foreground ,color-comment))))
 
   ;; Magit faces
   `(magit-section-highlight ((,class (:background ,color-highlight-1))))
