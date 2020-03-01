@@ -20,13 +20,60 @@
 ;; hide separators between agenda blocks
 (setq org-agenda-block-separator nil)
 
+;; remove agenda indentation
+(setq org-agenda-prefix-format
+      '((agenda . "%i%-12:c%?-12t% s")
+        (todo . "%i%-12:c")
+        (tags . "%i%-12:c")
+        (search . "%i%-12:c")))
+
+;; make time grid as wide as the tag column
+(setq org-agenda-time-grid
+      '((daily today require-timed)
+        (800 1000 1200 1400 1600 1800 2000)
+        "......" "--------------------------------------------------------"))
+(setq org-agenda-current-time-string
+      "--------------------------------------------------------")
+
+;; force child TODOs to be done before parent can be done
+(setq org-enforce-todo-dependencies t)
+
+;; remove header
+(setq org-agenda-overriding-header "")
+
+;; format dates in a nicer way
+(setq org-agenda-format-date 'chip/org-agenda-format-date-aligned)
+
+(defun chip/org-agenda-format-date-aligned (date)
+  "Format a DATE string for display in the daily/weekly agenda.
+This function makes sure that dates are aligned for easy reading."
+  (require 'cal-iso)
+  (let* ((dayname (downcase (calendar-day-name date)))
+	 (day (cadr date))
+	 (day-of-week (calendar-day-of-week date))
+	 (month (car date))
+	 (monthname (downcase (calendar-month-name month)))
+	 (year (nth 2 date))
+	 (iso-week (org-days-to-iso-week
+		    (calendar-absolute-from-gregorian date)))
+	 (weekyear (cond ((and (= month 1) (>= iso-week 52))
+			  (1- year))
+			 ((and (= month 12) (<= iso-week 1))
+			  (1+ year))
+			 (t year)))
+	 (weekstring (if (= day-of-week 1)
+			 (format " w%02d" iso-week)
+		       "")))
+    (let* ((lhs dayname)
+           (rhs (format "%2d %s %4d" day monthname year))
+           (padding (- 80 (length lhs) (length rhs) 2))
+           (pad-str (make-string padding ?—))
+           (pattern (format "%%s%%%ds" padding)))
+      (format "%s %s %s" lhs pad-str rhs))))
+
 ;; set agenda icons
-(defvar chip/org-agenda-scheduled-icon (all-the-icons-material "event" :v-adjust -0.1))
-(defvar chip/org-agenda-deadline-icon (all-the-icons-material "whatshot" :v-adjust -0.1))
-(setq org-agenda-scheduled-leaders `(,(concat chip/org-agenda-scheduled-icon "") ,(concat chip/org-agenda-scheduled-icon "x%1d")))
-(setq org-agenda-deadline-leaders `(,(concat chip/org-agenda-deadline-icon "")
-                                    ,(concat chip/org-agenda-deadline-icon "+%1d")
-                                    ,(concat chip/org-agenda-deadline-icon "-%1d")))
+(setq org-agenda-scheduled-leaders `("" "(+%1d)"))
+(setq org-agenda-deadline-leaders `("(!!)" "(-%1d)" "(+%1d)"))
 
 (setq org-todo-state-tags-triggers
       (quote (("TODO" ("WAIT" . nil)
@@ -69,7 +116,7 @@
     (let ((next-headline (save-excursion (or (outline-next-heading) (point-max)))))
       (if (bh/is-project-p)
           (let* ((subtree-end (save-excursion (org-end-of-subtree t)))
-                 (has-next ))
+                 (has-next nil))
             (save-excursion
               (forward-line 1)
               (while (and (not has-next) (< (point) subtree-end) (re-search-forward "^\\*+ NEXT " subtree-end t))
@@ -134,8 +181,8 @@ Callers of this function already widen the buffer view."
             subtree-end))))
     (save-excursion (org-end-of-subtree t))))
 
-(defun bh/skip-projects-and-habits-and-single-tasks ()
-  "Skip trees that are projects, tasks that are habits, single non-project tasks"
+(defun bh/skip-projects-and-subtasks ()
+  "Skip trees that are projects or project subtasks"
   (save-restriction
     (widen)
     (let ((next-headline (save-excursion (or (outline-next-heading) (point-max)))))
@@ -143,8 +190,6 @@ Callers of this function already widen the buffer view."
        ((member "WAIT" (org-get-tags-at))
         next-headline)
        ((bh/is-project-p)
-        next-headline)
-       ((and (bh/is-task-p) (not (bh/is-project-subtree-p)))
         next-headline)
        (t
         nil)))))
@@ -163,9 +208,8 @@ Skip project and sub-project tasks, habits, and project related tasks."
        (t
         nil)))))
 
-(defun bh/skip-non-project-tasks ()
-  "Show project tasks.
-Skip project and sub-project tasks, habits, and loose non-project tasks."
+(defun bh/skip-projects ()
+  "Show tasks and project subtasks."
   (save-restriction
     (widen)
     (let* ((subtree-end (save-excursion (org-end-of-subtree t)))
@@ -173,10 +217,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
       (cond
        ((bh/is-project-p)
         next-headline)
-       ((and (bh/is-project-subtree-p)
-             (member (org-get-todo-state) (list "NEXT")))
-        subtree-end)
-       ((not (bh/is-project-subtree-p))
+       ((member (org-get-todo-state) (list "NEXT"))
         subtree-end)
        (t
         nil)))))
@@ -207,43 +248,38 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 (setq org-agenda-custom-commands
       '(("c" "Unscheduled TODO"
          ((agenda "")
-          (tags-todo "-HOLD-WAIT-KILL/!"
-                     ((org-agenda-overriding-header "\nActive Projects")
-                      (org-agenda-skip-function 'bh/skip-non-projects)
-                      (org-agenda-sorting-strategy '(category-keep))))
           (tags-todo "-HOLD-KILL/!NEXT"
-                     ((org-agenda-overriding-header "Next Tasks")
-                      (org-agenda-skip-function 'bh/skip-projects-and-habits-and-single-tasks)
+                     ((org-agenda-overriding-header "\nnext ———————————————————————————————————————————————————————————————————————————")
+                      ;;; TODO don's skip single tasks
+                      (org-agenda-skip-function 'bh/skip-projects-and-subtasks)
                       (org-tags-match-list-sublevels t)
                       (org-agenda-todo-ignore-scheduled t)
                       (org-agenda-todo-ignore-deadlines t)
                       (org-agenda-todo-ignore-with-date t)
                       (org-agenda-sorting-strategy '(todo-state-down effort-up category-keep))))
+          (tags-todo "-HOLD-WAIT-KILL/!"
+                     ((org-agenda-overriding-header "projects ———————————————————————————————————————————————————————————————————————")
+                      (org-agenda-skip-function 'bh/skip-non-projects)
+                      (org-agenda-sorting-strategy '(category-keep))))
+          (tags-todo "-KILL-HOLD/!"
+                     ((org-agenda-overriding-header "inactive ———————————————————————————————————————————————————————————————————————")
+                      (org-agenda-skip-function 'bh/skip-non-stuck-projects)
+                      (org-agenda-sorting-strategy '(category-keep))))
           (tags-todo "-refile-KILL-WAIT-HOLD/!"
-                     ((org-agenda-overriding-header "Project Tasks")
-                      (org-agenda-skip-function 'bh/skip-non-project-tasks)
+                     ((org-agenda-overriding-header "tasks ——————————————————————————————————————————————————————————————————————————")
+                      (org-agenda-skip-function 'bh/skip-projects)
+                      (org-agenda-tags-todo-honor-ignore-options t)
                       (org-agenda-todo-ignore-scheduled t)
                       (org-agenda-todo-ignore-deadlines t)
                       (org-agenda-todo-ignore-with-date t)
                       (org-agenda-sorting-strategy '(category-keep))))
-          (tags-todo "-KILL-HOLD/!"
-                     ((org-agenda-overriding-header "Inactive Projects")
-                      (org-agenda-skip-function 'bh/skip-non-stuck-projects)
-                      (org-agenda-sorting-strategy '(category-keep))))
           (tags "refile"
-                ((org-agenda-overriding-header "\nRefileable Tasks")
+                ((org-agenda-overriding-header "\nrefile —————————————————————————————————————————————————————————————————————————")
                  (org-tags-match-list-sublevels nil)))
           (tags "-refile/"
-                ((org-agenda-overriding-header "Archivable Tasks")
+                ((org-agenda-overriding-header "archive ————————————————————————————————————————————————————————————————————————")
                  (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
-                 (org-tags-match-list-sublevels nil)))
-          (tags-todo "-refile-HOLD"
-                ((org-agenda-overriding-header "\nUnscheduled")
-                 (org-agenda-skip-function 'bh/skip-project-tasks)
-                 (org-agenda-tags-todo-honor-ignore-options t)
-                 (org-agenda-todo-ignore-scheduled t)
-                 (org-agenda-todo-ignore-deadlines t)
-                 (org-agenda-todo-ignore-with-date t))))
+                 (org-tags-match-list-sublevels nil))))
          nil
          nil)))
 
