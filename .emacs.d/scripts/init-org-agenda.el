@@ -216,7 +216,10 @@ Skip project and sub-project tasks, habits, and project related tasks."
            (next-headline (save-excursion (or (outline-next-heading) (point-max)))))
       (cond
        ((bh/is-project-p)
-        next-headline)
+        ;; don't show subtasks if project is WAIT
+        (if (member (org-get-todo-state) (list "WAIT"))
+            subtree-end
+            next-headline))
        ((member (org-get-todo-state) (list "NEXT"))
         subtree-end)
        (t
@@ -265,7 +268,7 @@ Skip project and sub-project tasks, habits, and project related tasks."
                      ((org-agenda-overriding-header "inactive ———————————————————————————————————————————————————————————————————————")
                       (org-agenda-skip-function 'bh/skip-non-stuck-projects)
                       (org-agenda-sorting-strategy '(category-keep))))
-          (tags-todo "-refile-KILL-WAIT-HOLD/!"
+          (tags-todo "-refile-KILL-HOLD/!"
                      ((org-agenda-overriding-header "tasks ——————————————————————————————————————————————————————————————————————————")
                       (org-agenda-skip-function 'bh/skip-projects)
                       (org-agenda-tags-todo-honor-ignore-options t)
