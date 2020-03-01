@@ -35,6 +35,7 @@
     (color-link         . blue-2)
     (color-link-visited . blue-1)
     (color-error        . red-2)
+    (color-warning      . red-2)
     (color-success      . green-2)
     (color-diff-added   . "#556f55")))
 
@@ -73,6 +74,7 @@
     (color-link         . blue-2)
     (color-link-visited . blue-1)
     (color-error        . red-2)
+    (color-warning      . red-2)
     (color-success      . green-2)
     (color-diff-added   . "#556f55")))
 
@@ -145,6 +147,9 @@
   `(company-tooltip-common ((,class (:foreground ,green-2 :weight bold))))
   `(company-scrollbar-bg ((,class (:background ,grey-3))))
   `(company-scrollbar-fg ((,class (:background ,green-2))))
+
+  ;; LSP
+  `(lsp-lsp-flycheck-warning-unnecessary-face ((,class (:underline (:color ,color-warning :style wave)))))
 
   ;; Avy
   `(avy-lead-face ((,class (:background ,red-1 :foreground ,grey-2 :weight bold))))
