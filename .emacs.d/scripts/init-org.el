@@ -274,3 +274,7 @@
         (org-entry-put pom "CUSTOM_ID" id)
         (org-id-add-location id (buffer-file-name (buffer-base-buffer)))
         id)))))
+
+;; enable blocker properties for unnested dependencies
+(require 'org-depend)
+(setq org-depend-tag-blocked nil)
