@@ -27,6 +27,12 @@
         (tags . "%i%-12:c")
         (search . "%i%-12:c")))
 
+(setq org-agenda-sorting-strategy
+      '((agenda habit-down time-up todo-state-up priority-down category-keep)
+       (todo priority-down category-keep)
+       (tags priority-down category-keep)
+       (search category-keep)))
+
 ;; make time grid as wide as the tag column
 (setq org-agenda-time-grid
       '((daily today require-timed)
