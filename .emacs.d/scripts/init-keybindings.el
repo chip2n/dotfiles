@@ -122,10 +122,6 @@
   (interactive)
   (general-define-key
    :keymaps 'org-mode-map
-   :states 'normal
-   "RET" 'org-open-at-point)
-  (general-define-key
-   :keymaps 'org-mode-map
    "M-k" 'org-move-subtree-up
    "M-j" 'org-move-subtree-down
    "M-l" 'org-metaright
