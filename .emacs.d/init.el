@@ -134,7 +134,8 @@
 (setq next-screen-context-lines 4)
 
 ;; set default browser to firefox
-(setq browse-url-browser-function 'browse-url-firefox)
+(setq browse-url-generic-program "brave")
+(setq browse-url-browser-function 'browse-url-generic)
 
 ;; winner-mode
 (use-package winner
