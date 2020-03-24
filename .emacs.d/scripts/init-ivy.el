@@ -54,13 +54,6 @@
   :config
   (counsel-mode))
 
-;; more intelligent order when using counsel-M-x
-(use-package smex
-  :ensure t
-  :config
-  :after (counsel)
-  (smex-initialize))
-
 (use-package swiper
   :ensure t
   :after (ivy))

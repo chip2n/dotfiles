@@ -26,6 +26,7 @@
 (require 'init-eshell)
 (require 'init-company)
 (require 'init-ivy)
+(require 'init-prescient)
 (require 'init-avy)
 (require 'init-hydra)
 (require 'init-magit)
