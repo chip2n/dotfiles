@@ -1,12 +1,12 @@
 (use-package org-roam
-  :after org
-  :load-path "elisp/org-roam"
+  :ensure t
   :hook
   (after-init . org-roam-mode)
   :config
   (setq org-roam-directory "/home/chip/org/personal/roam")
   (setq org-roam-buffer-width 0.4)
   (setq org-roam-encrypt-files nil)
+  (setq org-roam-db-location "/home/chip/.org-roam.db")
   (add-to-list 'evil-emacs-state-modes 'org-roam-backlinks-mode)
   :bind (:map org-roam-mode-map
               (("C-c n l" . org-roam)
