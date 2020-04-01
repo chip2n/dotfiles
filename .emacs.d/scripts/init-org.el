@@ -91,22 +91,18 @@
 
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
 
-(defun chip/roam-journal-path-today ()
-  (interactive)
-  (org-roam--new-file-named (format-time-string "%Y-%m-%d" (current-time))))
-
 (setq org-capture-templates
       `(("t" "TODO" entry (file "~/org/personal/refile.org")
          "* TODO %?")
         ("j" "Journal")
-        ("je" "Entry" entry #'chip/roam-journal-path-today
+        ("je" "Entry" entry #'org-roam-today
          "* %?\n%T")
-        ("js" "Day summary" entry #'chip/roam-journal-path-today
+        ("js" "Day summary" entry #'org-roam-today
          "* Day summary\n%T\n%?\n\n%(org-clock-report-today)")
-        ("ju" "Supplements" entry #'chip/roam-journal-path-today
+        ("ju" "Supplements" entry #'org-roam-today
          "* Supplements\n%T\n| %? |  |")
         ("w" "Workout")
-        ("wa" "Workout A" entry #'chip/roam-journal-path-today
+        ("wa" "Workout A" entry #'org-roam-today
          "
 * Workout
 %T
