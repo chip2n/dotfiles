@@ -21,6 +21,9 @@
 ;; make sure to not alter TODO state when archiving
 (setq org-archive-mark-done nil)
 
+;; enable easy templates
+(require 'org-tempo)
+
 ;; add automatic newlines when lines get too long
 ;; using this instead of word-wrap since it doesn't affect tables
 (add-hook 'org-mode-hook (lambda ()
