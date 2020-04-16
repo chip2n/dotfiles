@@ -4,6 +4,10 @@
 *.swo
 
 # Random application configs
+.config/SunVox
+.config/milkytracker
+.config/VCMI Team
+.config/vcmi
 .config/Android Open Source Project
 .config/QtProject.conf
 .config/UDP Software
