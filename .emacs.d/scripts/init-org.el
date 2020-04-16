@@ -114,7 +114,7 @@
 | Straight-Legged Deadlift | 3x10 |   |
 | Plank                    | 3x10 | - |
 " :clock-in t :clock-resume t)
-        ("wb" "Workout B" entry #'chip/roam-journal-path-today
+        ("wb" "Workout B" entry #'org-roam-today
          "
 * Workout
 %T
