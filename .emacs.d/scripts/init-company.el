@@ -3,6 +3,10 @@
 (defun chip/setup-company-keys ()
   "Setup keybindings for company mode"
   (interactive)
+  ;; We don't want return to auto complete since company-mode is automatically invoked.
+  (define-key company-active-map (kbd "<return>") nil)
+  (define-key company-active-map (kbd "RET") nil)
+  (define-key company-active-map (kbd "<tab>") #'company-complete-selection)
   ;; (general-define-key
   ;;  :states '(insert lispy)
   ;;  :keymaps 'company-mode-map
