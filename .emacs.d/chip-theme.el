@@ -114,7 +114,7 @@
   `(show-paren-match ((,class (:background ,color-highlight-2))))
 
   ;; Header faces
-  `(header-line ((,class (:box () :background ,color-background :foreground ,color-foreground))))
+  `(header-line ((,class (:box () :background ,grey-2 :foreground ,color-foreground))))
 
   ;; Mode line faces
   `(mode-line ((,class (:box () :background ,grey-2 :foreground ,white-1))))
