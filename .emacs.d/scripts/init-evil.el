@@ -48,9 +48,3 @@
          :open-rec show-subtree :close hide-subtree :close-level hide-leaves)
         )
       )
-
-(use-package evil-surround
-  :ensure t
-  :after (evil)
-  :config
-  (global-evil-surround-mode 1))
