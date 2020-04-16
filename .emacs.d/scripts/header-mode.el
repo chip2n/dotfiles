@@ -9,8 +9,9 @@
   (interactive)
   (progn
     (sl/display-header)
-    (set-face-attribute 'header-line nil :box '(:line-width 8 :color "#21242b"))
-    (set-face-background 'header-line "#21242b")))
+    ;; (set-face-attribute 'header-line nil :box '(:line-width 8 :color "#21242b"))
+    ;; (set-face-background 'header-line "#21242b")
+    ))
 
 (defun chip/hide-header ()
   (interactive)
