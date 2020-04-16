@@ -285,7 +285,7 @@
    "C-f" 'counsel-find-file
    "C-p" 'counsel-projectile-find-file
    "C-S-P" 'counsel-projectile-switch-project
-   "C-b" 'ivy-switch-buffer
+   "C-b" 'counsel-switch-buffer
    "C-e" 'move-end-of-line
    "C-a" 'smarter-move-beginning-of-line)
 
