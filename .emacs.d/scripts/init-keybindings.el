@@ -262,6 +262,7 @@
    "C-c c" 'chip/open-config-file
    "C-c s" 'avy-goto-char-2
    "C-c u" 'universal-argument
+   "C-x b" 'counsel-switch-buffer
    "C-x p" 'counsel-projectile-find-file
    "C-x P" 'counsel-projectile-switch-project
    "C-x +" 'zoom
@@ -273,6 +274,7 @@
                (other-window 1)))
    "C-x =" 'balance-windows
    "C-s" 'avy-goto-char-2
+   "M-s" 'swiper
    "S-<down>" 'evil-join
    "M-o" 'ace-window
    "S-<next>" 'scroll-other-window
@@ -280,8 +282,10 @@
 
   (general-define-key
    :states '(normal insert visual emacs)
-   "C-b" 'ranger-half-page-up
-   "C-d" 'ranger-half-page-down
+   "C-f" 'counsel-find-file
+   "C-p" 'counsel-projectile-find-file
+   "C-S-P" 'counsel-projectile-switch-project
+   "C-b" 'ivy-switch-buffer
    "C-e" 'move-end-of-line
    "C-a" 'smarter-move-beginning-of-line)
 
