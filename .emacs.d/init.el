@@ -246,4 +246,9 @@ buffer in current window."
   ;; ("S" split-window-right)
   ("o" other-window))
 
+;; highlight TODOs in comments
+(use-package hl-todo
+  :ensure t
+  :hook ((prog-mode . hl-todo-mode)))
+
 (setq inhibit-startup-echo-area-message "chip")
