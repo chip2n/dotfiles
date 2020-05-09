@@ -69,12 +69,7 @@
 (push ?\s-\S-c exwm-input-prefix-keys)
 (exwm-input-set-key (kbd "s-S-c") 'kill-buffer)
 
-
-
 (push ?\: exwm-input-prefix-keys)
-
-
-
 
 (defvar exwm-app-launcher--prompt "$ "
   "Prompt for the EXWM application launcher")
@@ -92,6 +87,5 @@
 ;; Add these hooks in a suitable place (e.g., as done in exwm-config-default)
 (add-hook 'exwm-update-class-hook 'exwm-rename-buffer)
 (add-hook 'exwm-update-title-hook 'exwm-rename-buffer)
-
 
 (exwm-enable)
