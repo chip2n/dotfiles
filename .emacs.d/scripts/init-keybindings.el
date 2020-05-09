@@ -307,7 +307,6 @@
   (chip/setup-python-keys)
   (chip/setup-inf-clojure-keys)
   (chip/setup-geiser-keys)
-  (chip/setup-rust-keys)
   (chip/setup-pdf-tools-keys)
   (chip/setup-compilation-keys)
 
