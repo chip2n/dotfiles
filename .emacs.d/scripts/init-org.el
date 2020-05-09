@@ -94,18 +94,22 @@
 
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
 
+(defun get-journal-path ()
+  (let ((date (shell-command-to-string "echo -n $(date +%Y-%m-%d)")))
+    (find-file (format "~/org/personal/roam/%s.org" date))))
+
 (setq org-capture-templates
       `(("t" "TODO" entry (file "~/org/personal/refile.org")
          "* TODO %?")
         ("j" "Journal")
-        ("je" "Entry" entry #'org-roam-today
+        ("je" "Entry" entry #'get-journal-path
          "* %?\n%T")
-        ("js" "Day summary" entry #'org-roam-today
+        ("js" "Day summary" entry #'get-journal-path
          "* Day summary\n%T\n%?\n\n%(org-clock-report-today)")
-        ("ju" "Supplements" entry #'org-roam-today
+        ("ju" "Supplements" entry #'get-journal-path
          "* Supplements\n%T\n| %? |  |")
         ("w" "Workout")
-        ("wa" "Workout A" entry #'org-roam-today
+        ("wa" "Workout A" entry #'get-journal-path
          "
 * Workout
 %T
@@ -114,7 +118,7 @@
 | Straight-Legged Deadlift | 3x10 |   |
 | Plank                    | 3x10 | - |
 " :clock-in t :clock-resume t)
-        ("wb" "Workout B" entry #'org-roam-today
+        ("wb" "Workout B" entry #'get-journal-path
          "
 * Workout
 %T
