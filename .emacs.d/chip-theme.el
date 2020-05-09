@@ -175,11 +175,9 @@
   `(org-warning ((,class (:foreground ,color-error))))
   `(org-code ((,class (:foreground ,pink-2 :weight bold :inherit fixed-pitch))))
   `(org-verbatim ((,class (:foreground ,pink-2 :weight bold :inherit fixed-pitch))))
-  `(org-block-begin-line ((,class (:foreground ,color-comment :underline t))))
-  `(org-block ((,class (:foreground ,white-1
-                                    ;; :background "#1c1f24"
-                                    :inherit fixed-pitch))))
-  `(org-block-end-line ((,class (:foreground ,color-comment :overline t))))
+  `(org-block-begin-line ((,class (:foreground ,color-comment))))
+  `(org-block ((,class (:foreground ,white-1 :inherit fixed-pitch))))
+  `(org-block-end-line ((,class (:foreground ,color-comment))))
 
   ;; Org-agenda
   `(org-agenda-structure ((,class (:foreground ,grey-4 :weight bold))))
