@@ -193,6 +193,16 @@
   `(org-deadline ((,class (:foreground ,white-1))))
   `(org-agenda-dimmed-todo-face ((,class (:foreground ,color-comment))))
 
+  ;; outshine
+  `(outshine-level-1 ((,class (:foreground ,color-headline-1 :weight bold))))
+  `(outshine-level-2 ((,class (:foreground ,color-headline-2 :weight bold))))
+  `(outshine-level-3 ((,class (:foreground ,color-headline-3 :weight bold))))
+  `(outshine-level-4 ((,class (:foreground ,color-headline-4 :weight bold))))
+  `(outshine-level-5 ((,class (:foreground ,color-headline-1 :weight bold))))
+  `(outshine-level-6 ((,class (:foreground ,color-headline-2 :weight bold))))
+  `(outshine-level-7 ((,class (:foreground ,color-headline-3 :weight bold))))
+  `(outshine-level-8 ((,class (:foreground ,color-headline-4 :weight bold))))
+
   ;; Magit faces
   `(magit-section-highlight ((,class (:background ,color-highlight-1))))
   `(magit-section-heading ((,class (:foreground ,pink-2 :weight bold))))
