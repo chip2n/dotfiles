@@ -21,6 +21,7 @@ ln -s /home/chip/dotfiles/audio /home/chip/audio
 ln -s /home/chip/Dropbox/elfeed /home/chip/.elfeed
 ln -s /home/chip/dotfiles/xkb/layout-planck /usr/share/X11/xkb/symbols/chip-planck
 ln -s /home/chip/dotfiles/xkb/layout-builtin /usr/share/X11/xkb/symbols/chip-builtin
+ln -s /home/chip/dotfiles/.ideavimrc /home/chip/.ideavimrc
 
 systemctl enable --user emacsd.service
 
