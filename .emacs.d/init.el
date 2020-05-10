@@ -1667,8 +1667,12 @@ all elements."
 
 ;;; apps
 ;;;; magit
+(defun chip/magit-status-root-dir (dir)
+  (magit-status (vc-find-root dir ".git")))
+
 (use-package magit
   :ensure t
+  :after (ivy counsel projectile)
   :config
   (add-hook 'magit-mode-hook (lambda () (display-line-numbers-mode -1)))
   (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
@@ -1684,7 +1688,15 @@ all elements."
    :states '(normal)
    :keymaps '(magit-blame-mode-map)
    "RET" 'magit-show-commit
-   "q" 'magit-blame-quit))
+   "q" 'magit-blame-quit)
+
+  (ivy-add-actions
+   'counsel-projectile-find-file
+   '(("v" chip/magit-status-root-dir "magit")))
+
+  (ivy-add-actions
+   'counsel-projectile
+   '(("v" chip/magit-status-root-dir "magit"))))
 
 (use-package forge
   :ensure t
