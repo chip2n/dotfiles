@@ -473,6 +473,9 @@ point reaches the beginning or end of the buffer, stop there."
    '(("a" ace-window "ace-window")))
   (ivy-add-actions
    'counsel-find-file
+   '(("a" ace-window "ace-window")))
+  (ivy-add-actions
+   'counsel-projectile-find-file
    '(("a" ace-window "ace-window"))))
 
 ;;;; zoom
