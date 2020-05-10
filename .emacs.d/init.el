@@ -829,17 +829,11 @@ point reaches the beginning or end of the buffer, stop there."
 
     (general-define-key
      :prefix "C-c"
-     "a" (lambda () (interactive) (org-agenda nil "c"))
+     "a" 'chip/org-agenda
      "e" 'org-capture
      "o i" 'org-clock-in
      "o o" 'org-clock-out
-     "o g" 'org-clock-goto)
-
-    (general-define-key
-     :keymaps 'org-agenda-mode-map
-     "RET" 'org-agenda-switch-to
-     "j" 'org-agenda-next-line
-     "k" 'org-agenda-previous-line)))
+     "o g" 'org-clock-goto)))
 ;;;; babel
 ;; enable easy templates
 (require 'org-tempo)
@@ -1003,6 +997,10 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;;;; org-agenda
 ;;;;; general
+(defun chip/org-agenda ()
+  (interactive)
+  (org-agenda nil "c"))
+
 (require 'org-habit)
 
 (setq org-agenda-files
@@ -1338,6 +1336,12 @@ This function makes sure that dates are aligned for easy reading."
                nil))))
 
 ;;;;; keybindings
+(general-define-key
+ :keymaps 'org-agenda-mode-map
+ "RET" 'org-agenda-switch-to
+ "j" 'org-agenda-next-line
+ "k" 'org-agenda-previous-line)
+
 (general-define-key
  "C-c o n" 'bh/org-todo
  "C-c o w" 'bh/widen)
