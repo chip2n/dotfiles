@@ -201,6 +201,9 @@
 (setq auto-save-file-name-transforms
       `((".*" "~/.emacs.d/.auto-saves" t)))
 
+;; save custom variables to separate file (not loaded)
+(setq custom-file (concat user-emacs-directory "/custom.el"))
+
 ;; follow symlinks
 (setq vc-follow-symlinks t)
 
@@ -2347,30 +2350,5 @@ buffer in current window."
       (insert result)
       (clipboard-kill-region (point-min) (point-max)))
     result))
-
-;;; custom vars
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(dired+ outshine vterm inf-elixir exunit emms hl-todo vdiff olivetti noccur wgrep org-roam writeroom-mode company-prescient ivy-prescient which-key zoom yaml-mode xref-js2 worf vasttrafik use-package toml-mode tide telephone-line tayl stylus-mode ssh-agency speed-type smex slack rustic ranger racket-mode quelpa pyvenv pug-mode pomidor pdf-tools pass paren-face ox-pandoc org-re-reveal org-ql org-pomodoro org-plus-contrib org-noter org-gcal org-bullets omnisharp ob-restclient ob-http nvm neotree multi-term lsp-haskell kotlin-mode json-mode js2-refactor ivy-rich ivy-posframe ivy-pass inf-clojure hyperbole helm-org-rifle groovy-mode google-translate golden-ratio-scroll-screen glsl-mode general geiser forge flycheck-rust find-file-in-project eyebrowse evil-visualstar evil-snipe evil-mc evil-lispy evil-collection elixir-mode elfeed eglot doom-themes diminish deft dart-server dart-mode dad-joke counsel-projectile company-lsp company-anaconda cider cargo all-the-icons ag))
- '(safe-local-variable-values
-   '((eval if
-           (not
-            (featurep 'flux))
-           (load "/home/chip/git/cl-game-engine/flux.el"))
-     (eval load "/home/chip/git/cl-game-engine/flux.el")
-     (projectile-project-run-cmd function slime-run-project))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
-
-
 
 ;;; init.el ends here
