@@ -741,8 +741,6 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package ob-restclient
   :ensure t)
 
-(require 'org-drill)
-
 (use-package org-gcal
   :ensure t
   :after org
