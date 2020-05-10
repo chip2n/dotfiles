@@ -2313,13 +2313,23 @@ all elements."
       (error "No number at point"))
   (replace-match (number-to-string (1+ (string-to-number (match-string 0))))))
 
-;; TODO input via org calendar
-(defun insert-unix-timestamp ()
+(defun date->unix ()
   (interactive)
   (let ((d (org-read-date)))
     (if (region-active-p) (delete-region (region-beginning) (region-end)))
     (insert
-     (car (split-string (shell-command-to-string (format "timestamp %s" d)) "\n")))))
+     (string-trim-right
+      (shell-command-to-string (format "timestamp %s" d))))))
+
+(defun unix->date ()
+  (interactive)
+  (shell-command-to-string
+   (let ((timestamp (if (region-active-p)
+                        (buffer-substring (region-beginning) (region-end))
+                      (read-string "Timestamp:"))))
+     (message
+      (string-trim-right
+       (shell-command-to-string (format "unix-to-date %s" timestamp)))))))
 
 (defun toggle-window-dedicated ()
   "Control whether or not Emacs is allowed to display another
