@@ -2025,8 +2025,13 @@ all elements."
 
 (use-package geiser
   :ensure t
+  :after (evil)
   :config
-  (setq geiser-chicken-binary "chicken-csi"))
+  (setq geiser-chicken-binary "chicken-csi")
+  (setq geiser-active-implementations '(chicken racket))
+  (setq geiser-default-implementation 'chicken)
+  (add-hook 'geiser-repl-mode-hook 'evil-lispy-mode)
+  (add-to-list 'evil-emacs-state-modes 'geiser-debug-mode))
 
 (use-package racket-mode
   :ensure t
