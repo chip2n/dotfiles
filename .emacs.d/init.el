@@ -302,8 +302,7 @@ If in normal or visual evil state, move one character before end of line
 in order to be more consistent with the e command."
   (interactive)
   (move-end-of-line 1)
-  (cond ((eq evil-state 'visual) (backward-char 1))
-        ((eq evil-state 'normal) (backward-char 1))))
+  (cond ((eq evil-state 'normal) (backward-char 1))))
 
 (defun chip/move-beginning-of-line (arg)
   "Move point back to indentation of beginning of line.
