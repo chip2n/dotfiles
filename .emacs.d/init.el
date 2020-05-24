@@ -485,6 +485,10 @@ point reaches the beginning or end of the buffer, stop there."
   :config
   (winner-mode 1))
 
+;;;; transpose-frame
+;; Allows you to transpose frames (mainly via ace-window)
+(require 'transpose-frame)
+
 ;;;; avy
 
 (use-package avy
