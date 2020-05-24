@@ -21,6 +21,7 @@
 ;; see <http://www.gnu.org/licenses/>.
 
 ;;; package initialization
+
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
@@ -33,7 +34,9 @@
 (require 'use-package)
 
 ;;; theme
+
 ;;;; general
+
 ;; load main emacs theme
 (load-theme 'chip t)
 
@@ -49,6 +52,7 @@
 (global-hl-line-mode +1)
 
 ;;;; pkg: paren-face
+
 ;; make face for parentheses so we can dim them
 (use-package paren-face
   :ensure t
@@ -56,10 +60,12 @@
   (global-paren-face-mode))
 
 ;;;; pkg: all-the-icons
+
 (use-package all-the-icons
   :ensure t)
 
 ;;;; fringe
+
 ;; Change fringe icons
 (define-fringe-bitmap 'left-curly-arrow
   [#b00000000
@@ -139,6 +145,7 @@
    ])
 
 ;;;; header
+
 (require 'header-mode)
 (setq header-icon " λ")
 (add-hook 'find-file-hook 'header-mode)
@@ -163,7 +170,9 @@
           (evil   . (telephone-line-airline-position-segment))))
   
   (telephone-line-mode t))
+
 ;;;;; pkg: diminish
+
 (use-package diminish
   :ensure t
   :after (ivy projectile evil-snipe evil-lispy org-roam)
@@ -188,6 +197,7 @@
   (diminish 'which-key-mode)
   (diminish 'outline-minor-mode))
 ;;; general
+
 ;; load private variables
 (require 'private)
 
@@ -296,6 +306,7 @@ point reaches the beginning or end of the buffer, stop there."
    "M-p" 'flycheck-previous-error))
 
 ;;;; evil-snipe
+
 (use-package evil-snipe
   :ensure t
   :after (evil)
@@ -307,7 +318,9 @@ point reaches the beginning or end of the buffer, stop there."
   (add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode))
 
 ;;; file navigation
+
 ;;;; keybinding
+
 (defun chip/open-config-file ()
   "Open Emacs configuration file"
   (interactive)
@@ -327,6 +340,7 @@ point reaches the beginning or end of the buffer, stop there."
    "C-b"   'counsel-switch-buffer))
 
 ;;;; projectile
+
 (use-package projectile
   :ensure t
   :after (ivy)
@@ -354,6 +368,7 @@ point reaches the beginning or end of the buffer, stop there."
   :after (projectile))
 
 ;;;; neotree
+
 (use-package neotree
   :ensure t
   :after (evil)
@@ -390,7 +405,9 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;; open neotree at current working directory
 (setq neo-smart-open t)
+
 ;;;; dired
+
 (add-hook 'dired-mode-hook 'auto-revert-mode)
 
 ;; load dired-x immediately to make keybindings available
@@ -403,13 +420,18 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;; show directories before files
 (setq dired-listing-switches "-aBhl  --group-directories-first")
+
 ;;; buffers
+
 ;;;; golden-ratio-scroll-screen
+
 (use-package golden-ratio-scroll-screen
   :ensure t
   :config
   (setq golden-ratio-scroll-highlight-flag nil))
+
 ;;;; hl-todo
+
 ;; highlight TODOs in comments
 (use-package hl-todo
   :ensure t
@@ -418,6 +440,7 @@ point reaches the beginning or end of the buffer, stop there."
 (setq inhibit-startup-echo-area-message "chip")
 
 ;;;; outshine
+
 (use-package outshine
   :ensure t
   :config
@@ -430,7 +453,9 @@ point reaches the beginning or end of the buffer, stop there."
   (add-hook 'emacs-lisp-mode-hook 'outshine-mode))
 
 ;;; windows
+
 ;;;; keybindings
+
 (defun chip/window-zoom ()
   (interactive)
   (zoom))
@@ -454,12 +479,14 @@ point reaches the beginning or end of the buffer, stop there."
    "S-<prior>" 'scroll-other-window-down))
 
 ;;;; winner
+
 (use-package winner
   :ensure t
   :config
   (winner-mode 1))
 
 ;;;; avy
+
 (use-package avy
   :ensure t)
 
@@ -479,12 +506,16 @@ point reaches the beginning or end of the buffer, stop there."
    '(("a" ace-window "ace-window"))))
 
 ;;;; zoom
+
 (use-package zoom
   :ensure t
   :config
   (setq zoom-size '(0.618 . 0.618)))
+
 ;;; minibuffer
+
 ;;;; ivy
+
 (use-package ivy
   :ensure t
   :config
@@ -544,7 +575,9 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package swiper
   :ensure t
   :after (ivy))
+
 ;;;; prescient
+
 ;; Prescient allows you to filter and automatically sort ivy and company results
 ;; by frequency. It also enables searching by initialism (e.g. stbow ->
 ;; switch-to-buffer-other-window).
@@ -567,13 +600,16 @@ point reaches the beginning or end of the buffer, stop there."
   (company-prescient-mode))
 
 ;;;; which-key
+
 (use-package which-key
   :ensure t
   :config
   (which-key-mode))
 
 ;;; code
+
 ;;;; lispy
+
 (use-package lispy
   :ensure t
   :config
@@ -601,19 +637,24 @@ point reaches the beginning or end of the buffer, stop there."
   (add-hook 'scheme-mode-hook #'evil-lispy-mode))
 
 ;;;; yasnippet
+
 (use-package yasnippet
   :ensure t
   :init
   :config
   (yas-global-mode 1)
   (add-to-list 'yas-snippet-dirs (locate-user-emacs-file "snippets")))
+
 ;;;; compilation
+
 (setq compilation-scroll-output t)
 (with-eval-after-load "general"
   (general-define-key
    :keymaps '(compilation-mode-map)
    "k" 'kill-this-buffer-and-process))
+
 ;;;; company
+
 (defun chip/company-setup-keys ()
   "Setup keybindings for company mode"
   (interactive)
@@ -645,6 +686,7 @@ point reaches the beginning or end of the buffer, stop there."
 (defun complete-complete-cycle-previous (arg)
   (company-complete-common-or-cycle -1))
 ;;;; lsp
+
 ;; communication with language servers generate a lot of garbage
 (setq gc-cons-threshold 100000000)
 
@@ -668,7 +710,9 @@ point reaches the beginning or end of the buffer, stop there."
   :config
   (setq company-lsp-cache-candidates t
         company-lsp-filter-candidates t))
+
 ;;; evil
+
 (use-package evil
   :ensure t
   :init
@@ -717,7 +761,9 @@ point reaches the beginning or end of the buffer, stop there."
          :open-rec show-subtree :close hide-subtree :close-level hide-leaves)))
 
 ;;; org-mode
+
 ;;;; general
+
 ;; set org todo keywords
 (setq org-todo-keywords
       '((sequence "TODO(t)" "NEXT(n)" "WAIT(w@/!)" "HOLD(h@/!)" "|" "DONE(d)" "KILL(c@)")))
@@ -822,6 +868,7 @@ point reaches the beginning or end of the buffer, stop there."
 (setq org-depend-tag-blocked nil)
 
 ;;;; keybindings
+
 (with-eval-after-load "org"
   (with-eval-after-load "general"
     (general-define-key
@@ -840,7 +887,9 @@ point reaches the beginning or end of the buffer, stop there."
      "o i" 'org-clock-in
      "o o" 'org-clock-out
      "o g" 'org-clock-goto)))
+
 ;;;; babel
+
 ;; enable easy templates
 (require 'org-tempo)
 
@@ -893,6 +942,7 @@ point reaches the beginning or end of the buffer, stop there."
 
 
 ;;;; capture
+
 (defun get-presentation-path ()
   "Prompt for presentation name via minibuffer and return path."
   (let ((name (read-from-minibuffer "Presentation name: "))
@@ -949,7 +999,9 @@ point reaches the beginning or end of the buffer, stop there."
 * %?")
         ("m" "Meeting" entry (file "~/org/personal/refile.org")
          "* DONE Meeting with %? :meeting:\n%U" :clock-in t :clock-resume t)))
+
 ;;;; auto save
+
 ;; auto-saving org buffers after certain actions
 (defun save-org-buffers (&rest args)
   (org-save-all-org-buffers))
@@ -964,6 +1016,7 @@ point reaches the beginning or end of the buffer, stop there."
 (advice-add 'org-todo :after 'save-org-buffers)
 
 ;;;; refiling
+
 (setq org-refile-targets '((nil :maxlevel . 3)
                            (org-agenda-files :maxlevel . 3)))
 (setq org-refile-use-outline-path 'file)
@@ -976,6 +1029,7 @@ point reaches the beginning or end of the buffer, stop there."
 (setq org-refile-target-verify-function 'chip/verify-refile-target)
 
 ;;;; clocking
+
 ;; remove clock entry if total time span is less than one minute
 (setq org-clock-out-remove-zero-time-clocks t)
 
@@ -1002,7 +1056,9 @@ point reaches the beginning or end of the buffer, stop there."
 (advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)
 
 ;;;; org-agenda
+
 ;;;;; general
+
 (defun chip/org-agenda ()
   (interactive)
   (org-agenda nil "c"))
@@ -1038,6 +1094,7 @@ point reaches the beginning or end of the buffer, stop there."
 (setq org-stuck-projects (quote ("" nil nil "")))
 
 ;;;;; formatting
+
 (setq org-agenda-tags-column -80)
 
 ;; hide separators between agenda blocks
@@ -1091,6 +1148,7 @@ This function makes sure that dates are aligned for easy reading."
 (setq org-agenda-deadline-leaders `("(!!)" "(-%1d)" "(+%1d)"))
 
 ;;;;; time grid
+
 ;; make time grid as wide as the tag column
 (setq org-agenda-time-grid
       '((daily today require-timed)
@@ -1100,6 +1158,7 @@ This function makes sure that dates are aligned for easy reading."
       "--------------------------------------------------------")
 
 ;;;;; utility functions
+
 (defun bh/find-project-task ()
   "Move point to the parent (project) task if any"
   (save-restriction
@@ -1292,6 +1351,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
         next-headline))))
 
 ;;;;; custom commands
+
 (setq org-agenda-custom-commands
       (quote (("N" "Notes" tags "NOTE"
                ((org-agenda-overriding-header "Notes")
@@ -1353,6 +1413,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                nil))))
 
 ;;;;; keybindings
+
 (general-define-key
  :keymaps 'org-agenda-mode-map
  "RET" 'org-agenda-switch-to
@@ -1364,6 +1425,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
  "C-c o w" 'bh/widen)
 
 ;;;;; state triggers
+
 (setq org-todo-state-tags-triggers
       (quote (("KILL" ("KILL" . t))
               ("WAIT" ("WAIT" . t))
@@ -1375,6 +1437,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 
 
 ;;;;; auto exclude
+
 (defun chip/org-auto-exclude-function (tag)
   "Automatic task exclusion in the agenda with / RET"
   (and (cond
@@ -1385,8 +1448,11 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 (setq org-agenda-auto-exclude-function 'chip/org-auto-exclude-function)
 
 ;;;;; productivity tools
+
 ;;;;;; focus on current work
+
 ;;;;;;; narrowing to a subtree
+
 ;; - T (tasks) for C-c / t on the current buffer
 ;; - N (narrow) narrows to this task subtree
 ;; - U (up) narrows to the immediate parent task subtree without moving
@@ -1553,6 +1619,7 @@ so change the default 'F' binding in the agenda to allow both"
 (setq org-show-entry-below (quote ((default))))
 
 ;;;;;;; limiting the agenda to a subtree
+
 ;; =C-c C-x <= turns on the agenda restriction lock for the current
 ;; subtree.  This keeps your agenda focused on only this subtree.  Alarms
 ;; and notifications are still active outside the agenda restriction.
@@ -1589,6 +1656,7 @@ so change the default 'F' binding in the agenda to allow both"
 (setq org-agenda-restriction-lock-highlight-subtree nil)
 
 ;;;;; reminders
+
 (defun chip/org-agenda-to-appt ()
   (interactive)
   (setq appt-time-msg-list nil)
@@ -1607,6 +1675,7 @@ so change the default 'F' binding in the agenda to allow both"
 (run-at-time "24:01" nil 'chip/org-agenda-to-appt)
 
 ;;;; org-reveal
+
 (use-package org-re-reveal
   :ensure t
   :config
@@ -1614,6 +1683,7 @@ so change the default 'F' binding in the agenda to allow both"
   (setq org-re-reveal-title-slide nil))
 
 ;;;; org-roam
+
 (use-package org-roam
   :ensure t
   :hook
@@ -1669,7 +1739,9 @@ all elements."
             file)))))
 
 ;;; apps
+
 ;;;; magit
+
 (defun chip/magit-status-root-dir (dir)
   (magit-status (vc-find-root dir ".git")))
 
@@ -1711,6 +1783,7 @@ all elements."
   (setq ssh-agency-keys '("~/.ssh/github")))
 
 ;;;; elfeed
+
 (use-package elfeed
   :ensure t
   :config
@@ -1743,6 +1816,7 @@ all elements."
    "p" 'elfeed-show-prev))
 
 ;;;; emms
+
 (use-package emms
   :ensure t
   :config
@@ -1750,6 +1824,7 @@ all elements."
   (emms-default-players))
 
 ;;;; slack
+
 (use-package slack
   :commands (slack-start)
   :init
@@ -1769,7 +1844,9 @@ all elements."
   :commands (alert)
   :config
   (setq alert-default-style 'libnotify))
+
 ;;;; erc
+
 (require 'erc)
 
 (setq erc-prompt " ")
@@ -1801,12 +1878,15 @@ all elements."
          :password (format "chip2n:%s" pwd))))
 
 ;;;; pdf-tools
+
 (use-package pdf-tools
   :ensure t
   :config
   (pdf-tools-install)
   (add-hook 'pdf-view-mode-hook (lambda () (blink-cursor-mode -1))))
+
 ;;;; pomidor
+
 (use-package pomidor
   :ensure t
   :config
@@ -1815,8 +1895,11 @@ all elements."
         ;; pomidor-sound-overwork (expand-file-name (concat pomidor-dir "overwork.wav"))
 	;; pomidor-sound-break-over (expand-file-name (concat (getenv "HOME") "/Music/overwork.wav"))
         ))
+
 ;;; languages
+
 ;;;; elisp
+
 (general-define-key
  :map 'emacs-lisp-mode-map
  "C-c C-c" 'eval-defun)
@@ -1825,6 +1908,7 @@ all elements."
   (add-hook 'emacs-lisp-mode-hook 'company-mode))
 
 ;;;; common lisp
+
 (use-package slime
   :ensure t
   :config
@@ -1882,6 +1966,7 @@ all elements."
 ;;    "C-c C-z" #'sly-mrepl-other-window))
 
 ;;;; scheme
+
 (use-package geiser
   :ensure t
   :config
@@ -1891,7 +1976,9 @@ all elements."
   :ensure t
   :config
   (add-to-list 'auto-mode-alist (cons (rx ".rkt" eos) 'racket-mode)))
+
 ;;;; clojure
+
 (use-package clojure-mode
   :ensure t)
 
@@ -1906,6 +1993,7 @@ all elements."
   :ensure t)
 
 ;;;; python
+
 (use-package anaconda-mode
   :ensure t
   :config
@@ -1921,6 +2009,7 @@ all elements."
   (add-to-list 'company-backends 'company-anaconda))
 
 ;;;; dart
+
 (use-package dart-mode
   :ensure t
   :after (projectile)
@@ -2050,6 +2139,7 @@ all elements."
   (yank))
 
 ;;;; haskell
+
 (use-package lsp-haskell
   :ensure t
   :after (lsp-mode lsp-ui)
@@ -2057,7 +2147,9 @@ all elements."
   (setq lsp-haskell-process-path-hie "hie-wrapper")
   (add-hook 'haskell-mode-hook 'lsp-haskell-enable)
   (add-hook 'haskell-mode-hook 'flycheck-mode))
+
 ;;;; javascript 
+
 (use-package nvm
   :ensure t)
 (nvm-use "v12.10.0")
@@ -2123,7 +2215,9 @@ all elements."
    :states 'normal
    :keymaps 'typescript-mode-map
    "gd" 'tide-jump-to-definition))
+
 ;;;; c#
+
 (use-package omnisharp
   :ensure t
   :after (company)
@@ -2131,17 +2225,21 @@ all elements."
   (add-to-list 'company-backends 'company-omnisharp)
   (add-hook 'csharp-mode-hook #'company-mode)
   (add-hook 'csharp-mode-hook 'omnisharp-mode))
+
 ;;;; kotlin
+
 (use-package kotlin-mode
   :ensure t
   :config
   (setq kotlin-tab-width 4))
 
 ;;;; groovy
+
 (use-package groovy-mode
   :ensure t)
 
 ;;;; rust
+
 (use-package rustic
   :ensure t
   :config
@@ -2178,7 +2276,9 @@ all elements."
 ;;   :after rust-mode
 ;;   :config
 ;;   (add-hook 'rust-mode-hook 'cargo-minor-mode))
+
 ;;;; elixir
+
 (defvar lsp-elixir--config-options (make-hash-table))
 
 (use-package elixir-mode
@@ -2200,7 +2300,9 @@ all elements."
     ("C-c C-l i l" . 'inf-elixir-send-line)
     ("C-c C-l i r" . 'inf-elixir-send-region)
     ("C-c C-l i b" . 'inf-elixir-send-buffer)))
+
 ;;;; yaml
+
 (use-package yaml-mode
   :ensure t)
 
@@ -2215,15 +2317,21 @@ all elements."
        (if selective-display nil (or col 1))))))
 
 ;;;; toml
+
 (use-package toml-mode
   :ensure t)
 
 ;;;; markdown
+
 (use-package markdown-mode
   :ensure t)
+
 ;;;; lilypond
+
 (require 'ob-lilypond)
+
 ;;;; pug
+
 (use-package pug-mode
   :ensure t
   :config
@@ -2234,21 +2342,26 @@ all elements."
   :ensure t
   :config
   (add-to-list 'auto-mode-alist (cons (rx ".styl" eos) 'pug-mode)))
+
 ;;;; glsl
 (use-package glsl-mode
   :ensure t)
 
 ;;;; bolt
+
 (require 'bolt-mode)
 
 ;;; autoremote
+
 (defun autoremote-send (message)
   (if (boundp 'autoremote-api-key)
       (call-process-shell-command
        (format "AUTOREMOTE_API_KEY=\"%s\" autoremote %s" autoremote-api-key message))
     (message (format "No autoremote key set - unable to send message \"%s\"" message))))
+
 ;;; prose
 ;;;; google-translate
+
 (use-package google-translate
   :ensure t
   :config
@@ -2260,7 +2373,9 @@ all elements."
 
   ;; insert translations in current buffer
   (setq google-translate-output-destination 'current-buffer))
+
 ;;; pass
+
 (use-package ivy-pass
   :ensure t
   :after (ivy))
@@ -2271,17 +2386,22 @@ all elements."
         (key (cadr args)))
     `(let ((,name (password-store-get ,key)))
        ,@body)))
+
 ;;; shell
+
 (add-hook 'shell-mode-hook (lambda () (display-line-numbers-mode -1)))
 (add-hook 'eshell-mode-hook (lambda () (display-line-numbers-mode -1)))
 (setq sh-basic-offset 2)
+
 ;;;; pkg: multi-term
+
 (use-package multi-term
   :ensure t
   :config
   (setq multi-term-program "/bin/bash"))
 
 ;;; android
+
 (defun android-screenshot (path)
   "Take a screenshot of the currently connected Android device."
   (interactive "FPath: ")
@@ -2298,14 +2418,18 @@ all elements."
   (interactive "FPath: ")
   (android-screenshot-shrinked path)
   (org-insert-link nil (format "file:%s" path) nil))
+
 ;;; quelpa
+
 (use-package quelpa
   :ensure t
   :config
   (setq quelpa-checkout-melpa-p nil)    ; we're not using it for MELPA packages
   (quelpa '(tayl :repo "chip2n/tayl.el" :fetcher github))
   (quelpa '(vasttrafik :repo "chip2n/vasttrafik.el" :fetcher github)))
+
 ;;; utils
+
 (defun increment-number-at-point ()
   (interactive)
   (skip-chars-backward "0-9")
