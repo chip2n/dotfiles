@@ -847,13 +847,7 @@ point reaches the beginning or end of the buffer, stop there."
         org-gcal-file-alist `((,private/gcal-calendar-id . "~/org/personal/gcal.org"))))
 
 (use-package ob-http
-  :ensure t
-  :config
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((emacs-lisp . t)
-     (lisp . t)
-     (http . t))))
+  :ensure t)
 
 (defun enable-dnd ()
   (interactive)
@@ -947,7 +941,11 @@ point reaches the beginning or end of the buffer, stop there."
    (js . t)
    (lilypond . t)
    (ditaa . t)
-   (restclient . t)))
+   (restclient . t)
+   (scheme . t)
+   (emacs-lisp . t)
+   (lisp . t)
+   (http . t)))
 
 ;; Enable noweb expansion in all languages
 (setq org-babel-default-header-args
@@ -955,7 +953,7 @@ point reaches the beginning or end of the buffer, stop there."
             (assq-delete-all :noweb org-babel-default-header-args)))
 
 (defun my-org-confirm-babel-evaluate (lang body)
-  (not (member lang '("python" "bash" "js" "lisp" "lilypond" "ditaa" "restclient"))))
+  (not (member lang '("python" "bash" "js" "lisp" "lilypond" "ditaa" "restclient" "scheme" "elisp" "emacs-lisp"))))
 
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 
