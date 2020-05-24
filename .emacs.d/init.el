@@ -491,7 +491,7 @@ point reaches the beginning or end of the buffer, stop there."
    :states '(normal)
    "TAB" 'outshine-cycle
    "<backtab>" 'outshine-cycle-buffer)
-  (setq outshine-startup-folded-p t)
+  (setq outshine-startup-folded-p nil)
   (add-hook 'emacs-lisp-mode-hook 'outshine-mode))
 
 ;;; windows
