@@ -37,6 +37,9 @@
 
 ;;;; general
 
+;; display underline further away from the text
+(setq x-underline-at-descent-line t)
+
 ;; load main emacs theme
 (load-theme 'chip t)
 
@@ -151,25 +154,55 @@
 (add-hook 'find-file-hook 'header-mode)
 
 ;;;; modeline
-;;;;; pkg: telephone-line
-;; setup modeline
-(use-package telephone-line
-  :ensure t
-  :after (evil)
-  :config
-  (setq telephone-line-lhs
-        '((evil   . (telephone-line-evil-tag-segment))
-          (accent . (telephone-line-vc-segment))
-          (nil    . (telephone-line-process-segment
-                     telephone-line-minor-mode-segment))
-	  ))
-  (setq telephone-line-rhs
-        '((nil    . (telephone-line-erc-modified-channels-segment))
-          (nil    . (telephone-line-misc-info-segment))
-          (accent . (telephone-line-major-mode-segment))
-          (evil   . (telephone-line-airline-position-segment))))
-  
-  (telephone-line-mode t))
+
+(require 'mode-line+)
+(mode-line-mode+)
+
+;; taken from: https://www.masteringemacs.org/article/hiding-replacing-modeline-strings
+(defvar mode-line-cleaner-alist
+  `((lisp-interaction-mode . "lisp-interaction")
+    (emacs-lisp-mode . "elisp")
+    (magit-status-mode . "magit")
+    (org-mode . "org")
+    (messages-buffer-mode . "messages"))
+  "Alist for `clean-mode-line'.
+
+When you add a new element to the alist, keep in mind that you
+must pass the correct minor/major mode symbol and a string you
+want to use in the modeline *in lieu of* the original.")
+
+(defun clean-mode-line ()
+  (interactive)
+  (loop for cleaner in mode-line-cleaner-alist
+        do (let* ((mode (car cleaner))
+                  (mode-str (cdr cleaner))
+                  (old-mode-str (cdr (assq mode minor-mode-alist))))
+             (when old-mode-str
+               (setcar old-mode-str mode-str))
+             ;; major mode
+             (when (eq mode major-mode)
+               (setq mode-name mode-str)))))
+
+(add-hook 'after-change-major-mode-hook 'clean-mode-line)
+
+;;;;; pkg: telephone-line (disabled)
+
+;; (use-package telephone-line
+;;   :ensure t
+;;   :after (evil)
+;;   :config
+;;   (setq telephone-line-lhs
+;;         '((evil   . (telephone-line-evil-tag-segment))
+;;           (accent . (telephone-line-vc-segment))
+;;           (nil    . (telephone-line-process-segment
+;;                      telephone-line-minor-mode-segment))
+;; 	  ))
+;;   (setq telephone-line-rhs
+;;         '((nil    . (telephone-line-erc-modified-channels-segment))
+;;           (nil    . (telephone-line-misc-info-segment))
+;;           (nil . (telephone-line-major-mode-segment))
+;;           (evil   . (telephone-line-airline-position-segment))))
+;;   (telephone-line-mode t))
 
 ;;;;; pkg: diminish
 
@@ -188,14 +221,18 @@
   (diminish 'lispy-mode)
   (diminish 'evil-lispy-mode)
   (diminish 'auto-revert-mode "arev")
+  (diminish 'emacs-lisp-mode "elisp")
   (diminish 'eldoc-mode)
   (diminish 'yas-minor-mode)
   (diminish 'evil-org-mode)
-  (diminish 'org-indent-mode "indent")
+  (diminish 'org-indent-mode)
   (diminish 'org-roam-mode)
   (diminish 'outshine-mode)
   (diminish 'which-key-mode)
-  (diminish 'outline-minor-mode))
+  (diminish 'outline-minor-mode)
+  (diminish 'slime-autodoc-mode)
+  (diminish 'slime-mode "slime"))
+
 ;;; general
 
 ;; load private variables
