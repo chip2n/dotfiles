@@ -831,7 +831,6 @@ point reaches the beginning or end of the buffer, stop there."
            ("\\.mm\\'" . default)
            ("\\.x?html?\\'" . default)
            ("\\.pdf\\'" . default)))
-(setq org-startup-indented t)
 
 ;; Cleanup intermediate files after org export
 (setq org-latex-logfiles-extensions '("tex" "spl"))
@@ -924,7 +923,9 @@ point reaches the beginning or end of the buffer, stop there."
      "M-l" 'org-metaright
      "M-h" 'org-metaleft
      "M-L" 'org-demote-subtree
-     "M-H" 'org-promote-subtree)
+     "M-H" 'org-promote-subtree
+     "C-M-<return>" 'org-insert-subheading
+     "<RET>" 'org-return-indent)
 
     (general-define-key
      :prefix "C-c"
@@ -962,11 +963,17 @@ point reaches the beginning or end of the buffer, stop there."
 (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
 
 ;;;; formatting
-;; prevent indentation after sections
-(setq org-adapt-indentation nil)
+
+(setq org-startup-indented nil)
+(setq org-adapt-indentation t)
+
+;; Hide emphasis markers for a more readable document
+(setq org-hide-emphasis-markers t)
 
 ;; prevent org source blocks from being indented
 (setq org-edit-src-content-indentation 0)
+(setq org-src-preserve-indentation nil)
+(setq org-src-tab-acts-natively nil)
 
 (setq org-tags-column -80)
 
@@ -979,13 +986,28 @@ point reaches the beginning or end of the buffer, stop there."
                            (auto-fill-mode)
                            (setq fill-column 80)))
 
-(use-package org-bullets
+(use-package org-superstar
   :ensure t
   :after org
   :config
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-  (setq org-bullets-bullet-list '("")))
+  (setq org-superstar-leading-bullet "ʃ")
+  (setq org-superstar-headline-bullets-list '("ʃ"))
+  (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1))))
 
+(defface org-bullet
+  '((t (:inherit (default))))
+  "Face used for org-bullets."
+  :group 'org-bullets)
+
+;; (use-package org-bullets
+;;   :ensure t
+;;   :after org
+;;   :config
+;;   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+;;   (setq org-bullets-bullet-list '("ʃ"
+;;                                   ;; ""
+;;                                   ))
+;;   (setq org-bullets-face-name 'org-bullet))
 
 ;;;; capture
 
@@ -1006,7 +1028,7 @@ point reaches the beginning or end of the buffer, stop there."
          "* TODO %?")
         ("j" "Journal")
         ("je" "Entry" entry #'get-journal-path
-         "* %?\n%T")
+         "* %?\n  %T")
         ("js" "Day summary" entry #'get-journal-path
          "* Day summary\n%T\n%?\n\n%(org-clock-report-today)")
         ("ju" "Supplements" entry #'get-journal-path
@@ -1415,7 +1437,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                       ((org-agenda-overriding-header "archive ————————————————————————————————————————————————————————————————————————")
                        (org-agenda-skip-function 'chip/org-agenda-skip-non-archivable-tasks)
                        (org-tags-match-list-sublevels nil)))
-                (tags-todo "-REFILE-KILL-WAIT-HOLD/!"
+                (tags-todo "-REFILE-KILL/!"
                            ((org-agenda-overriding-header
                              (if bh/hide-scheduled-and-waiting-next-tasks
                                  "\ntasks ——————————————————————————————————————————————————————————————————————————"
@@ -1434,7 +1456,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                             (org-tags-match-list-sublevels 'indented)
                             (org-agenda-sorting-strategy
                              '(category-keep))))
-                (tags-todo "-REFILE-KILL-WAIT-HOLD/!"
+                (tags-todo "-REFILE-KILL/!"
                            ((org-agenda-overriding-header
                              (if bh/hide-scheduled-and-waiting-next-tasks
                                  "subtasks ———————————————————————————————————————————————————————————————————————"
@@ -1445,17 +1467,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                             (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
                             (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
                             (org-agenda-sorting-strategy
-                             '(category-keep))))
-                (tags-todo "-KILL+WAIT|HOLD/!"
-                           ((org-agenda-overriding-header
-                             (if bh/hide-scheduled-and-waiting-next-tasks
-                                 "\nwait ———————————————————————————————————————————————————————————————————————————"
-                               "\nwait (+wait +sched)—————————————————————————————————————————————————————————————"))
-                            (org-agenda-skip-function 'bh/skip-non-tasks)
-                            (org-tags-match-list-sublevels nil)
-                            (org-agenda-tags-todo-honor-ignore-options t)
-                            (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
-                            (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks))))
+                             '(category-keep)))))
                nil))))
 
 ;;;;; keybindings
