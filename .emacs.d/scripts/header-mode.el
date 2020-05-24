@@ -7,11 +7,7 @@
 
 (defun chip/show-header ()
   (interactive)
-  (progn
-    (sl/display-header)
-    ;; (set-face-attribute 'header-line nil :box '(:line-width 8 :color "#21242b"))
-    ;; (set-face-background 'header-line "#21242b")
-    ))
+  (sl/display-header))
 
 (defun chip/hide-header ()
   (interactive)
@@ -54,11 +50,9 @@
                              :weight 'bold
                              )))
       (concat (with-face sl/header
-                         :weight 'bold
-                         :foreground "#b9e59f"
+                         :foreground "#6b7385"
                          )
               (with-face (file-name-nondirectory buffer-file-name)
-                         :weight 'bold
                          )))))
 
 (defun sl/display-header ()
