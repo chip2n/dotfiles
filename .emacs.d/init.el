@@ -2407,6 +2407,43 @@ all elements."
     (message (format "No autoremote key set - unable to send message \"%s\"" message))))
 
 ;;; prose
+
+(defun prose--finish ()
+  (interactive)
+  (clipboard-kill-ring-save (point-min) (point-max))
+  (message "Prose saved to kill ring.")
+  (bury-buffer))
+
+(defun prose--clear ()
+  (interactive)
+  (kill-region (point-min) (point-max))
+  (message "Prose cleared."))
+
+;; (defvar prose-mode-map
+;;   (let ((map (make-sparse-keymap)))
+;;     ;; (set-keymap-parent map olivetti-mode-map)
+;;     (define-key map "\C-c\C-c" 'prose--finish)))
+
+(define-minor-mode prose-mode
+  "Mode for writing prose."
+  :global nil
+  :keymap `(;; (,(kbd "C-c C-c") . prose--finish)
+            ("\C-c\C-c" . prose--finish)
+            ("\C-c\C-k" . prose--clear)))
+
+(defun prose ()
+  (interactive)
+  (switch-to-buffer
+   (get-buffer-create "*prose*"))
+  ;; (setq left-margin-width 16)
+  ;; (setq right-margin-width 16)
+  ;; (set-window-margins (get-buffer-window) 16 16)
+  (setq header-line-format (with-face " " :height 8.0))
+  (olivetti-mode)
+  (prose-mode)
+  (set (make-local-variable 'header-line)
+       'prose-header-line))
+
 ;;;; google-translate
 
 (use-package google-translate
