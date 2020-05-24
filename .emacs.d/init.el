@@ -2477,6 +2477,15 @@ all elements."
 (add-hook 'eshell-mode-hook (lambda () (display-line-numbers-mode -1)))
 (setq sh-basic-offset 2)
 
+(defun chip/header-shell ()
+  (interactive)
+  (setq header-line-format
+        '("" ;; invocation-name
+          (:eval
+           (funcall header-format-filepath
+                    (abbreviate-file-name default-directory))))))
+(add-hook 'shell-mode-hook (lambda () (chip/header-shell)))
+
 ;;;; pkg: multi-term
 
 (use-package multi-term
