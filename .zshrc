@@ -18,7 +18,12 @@ bindkey '^h' backward-delete-char
 autoload -U colors
 colors
 autoload -U promptinit
-PROMPT="%{%F{8}%}»  %{%F{15}%}"
+
+if [[ $TERM == dumb ]]; then
+  PROMPT="> "
+else
+  PROMPT="%{%F{8}%}»  %{%F{15}%}"
+fi
 
 alias ls='ls --color=auto -h --group-directories-first'
 alias ll='ls -l'
