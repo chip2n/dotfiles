@@ -287,8 +287,14 @@ want to use in the modeline *in lieu of* the original.")
 
 (add-hook 'image-mode-hook 'auto-revert-mode)
 
+;; skip confirmation when killing processes
+(setq kill-buffer-query-functions
+      (delq 'process-kill-buffer-query-function kill-buffer-query-functions))
+
 ;;; text navigation
+
 ;;;; keybindings
+
 (defun chip/move-end-of-line ()
   "Move point to end of line.
 
