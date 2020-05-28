@@ -1742,6 +1742,10 @@ so change the default 'F' binding in the agenda to allow both"
   (setq org-re-reveal-root "file:///home/chip/reveal.js")
   (setq org-re-reveal-title-slide nil))
 
+;;;; org-protocol
+(server-start)
+(require 'org-protocol)
+
 ;;;; org-roam
 
 (use-package org-roam
@@ -1754,12 +1758,16 @@ so change the default 'F' binding in the agenda to allow both"
   (setq org-roam-encrypt-files nil)
   (setq org-roam-db-location "/home/chip/.org-roam.db")
   (add-to-list 'evil-emacs-state-modes 'org-roam-backlinks-mode)
+  (require 'org-roam-protocol)
   :bind (:map org-roam-mode-map
               (("C-c n l" . org-roam)
                ("C-c n t" . org-roam-today)
                ("C-c n f" . org-roam-find-file))
               :map org-mode-map
               (("C-c n i" . org-roam-insert))))
+
+(use-package org-roam-server
+  :ensure t)
 
 (use-package deft
   :ensure t
