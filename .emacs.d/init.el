@@ -660,6 +660,10 @@ point reaches the beginning or end of the buffer, stop there."
   :ensure t
   :config
   (setq lispy-close-quotes-at-end-p t)
+  (general-unbind
+    :keymaps '(lispy-mode-map)
+    "M-o" ;; used for ace-window
+    )
   (general-define-key
    :keymaps '(lispy-mode-map)
    "S" 'lispy-splice))
