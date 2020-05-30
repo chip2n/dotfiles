@@ -155,8 +155,8 @@
 
 ;;;; modeline
 
-(require 'mode-line+)
-(mode-line-mode+)
+;; (require 'mode-line+)
+;; (mode-line-mode+)
 
 ;; taken from: https://www.masteringemacs.org/article/hiding-replacing-modeline-strings
 (defvar mode-line-cleaner-alist
@@ -187,22 +187,22 @@ want to use in the modeline *in lieu of* the original.")
 
 ;;;;; pkg: telephone-line (disabled)
 
-;; (use-package telephone-line
-;;   :ensure t
-;;   :after (evil)
-;;   :config
-;;   (setq telephone-line-lhs
-;;         '((evil   . (telephone-line-evil-tag-segment))
-;;           (accent . (telephone-line-vc-segment))
-;;           (nil    . (telephone-line-process-segment
-;;                      telephone-line-minor-mode-segment))
-;; 	  ))
-;;   (setq telephone-line-rhs
-;;         '((nil    . (telephone-line-erc-modified-channels-segment))
-;;           (nil    . (telephone-line-misc-info-segment))
-;;           (nil . (telephone-line-major-mode-segment))
-;;           (evil   . (telephone-line-airline-position-segment))))
-;;   (telephone-line-mode t))
+(use-package telephone-line
+  :ensure t
+  :after (evil)
+  :config
+  (setq telephone-line-lhs
+        '((evil   . (telephone-line-evil-tag-segment))
+          (accent . (telephone-line-vc-segment))
+          (nil    . (telephone-line-process-segment
+                     telephone-line-minor-mode-segment))
+	  ))
+  (setq telephone-line-rhs
+        '((nil    . (telephone-line-erc-modified-channels-segment))
+          (nil    . (telephone-line-misc-info-segment))
+          (nil . (telephone-line-major-mode-segment))
+          (evil   . (telephone-line-airline-position-segment))))
+  (telephone-line-mode t))
 
 ;;;;; pkg: diminish
 
