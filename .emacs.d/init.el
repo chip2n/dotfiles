@@ -839,6 +839,9 @@ point reaches the beginning or end of the buffer, stop there."
 ;; Cleanup intermediate files after org export
 (setq org-latex-logfiles-extensions '("tex" "spl"))
 
+;; Log state changes into the LOGBOOK drawer
+(setq org-log-into-drawer t)
+
 (use-package ob-restclient
   :ensure t)
 
