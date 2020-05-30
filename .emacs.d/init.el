@@ -388,7 +388,7 @@ point reaches the beginning or end of the buffer, stop there."
   :after (ivy)
   :config
   (add-to-list 'projectile-globally-ignored-directories "*node_modules")
-  (setq projectile-enable-caching t)
+  (setq projectile-enable-caching nil)
   ;; we remove -o flag so that untracked files are not included
   ;; this is mainly so that they don't always appear as the first search
   (setq projectile-git-command "git ls-files -zc --exclude-standard")
