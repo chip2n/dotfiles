@@ -106,9 +106,9 @@
                                          ,blue-2 ,magenta-2 ,blue-1 ,grey-4]))))
 
 (with-theme 'chip
-  `(default ((,class (:foreground ,color-foreground :background ,color-background :family "Hack" :height 100))))
-  `(fixed-pitch ((,class (:family "Hack" :height 100))))
-  `(variable-pitch ((,class (:family "Hack" :height 100))))
+  `(default ((,class (:foreground ,color-foreground :background ,color-background :family "Iosevka" :height 100))))
+  `(fixed-pitch ((,class (:family "Iosevka" :height 100))))
+  `(variable-pitch ((,class (:family "Iosevka" :height 100))))
   `(cursor ((,class (:background ,color-cursor))))
   `(parenthesis ((,class (:foreground ,color-comment))))
 

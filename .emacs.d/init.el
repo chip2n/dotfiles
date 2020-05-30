@@ -1213,7 +1213,7 @@ This function makes sure that dates are aligned for easy reading."
     (let* ((lhs dayname)
            (rhs (format "%2d %s %4d" day monthname year))
            (padding (- 80 (length lhs) (length rhs) 2))
-           (pad-str (make-string padding ?—))
+           (pad-str (make-string padding ?-))
            (pattern (format "%%s%%%ds" padding)))
       (format "%s %s %s" lhs pad-str rhs))))
 
@@ -1437,17 +1437,17 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
               ("c" "Agenda"
                ((agenda "" nil)
                 (tags "refile"
-                      ((org-agenda-overriding-header "\nrefile —————————————————————————————————————————————————————————————————————————")
+                      ((org-agenda-overriding-header "\nrefile -------------------------------------------------------------------------")
                        (org-tags-match-list-sublevels nil)))
                 (tags "-REFILE/"
-                      ((org-agenda-overriding-header "archive ————————————————————————————————————————————————————————————————————————")
+                      ((org-agenda-overriding-header "archive ------------------------------------------------------------------------")
                        (org-agenda-skip-function 'chip/org-agenda-skip-non-archivable-tasks)
                        (org-tags-match-list-sublevels nil)))
                 (tags-todo "-REFILE-KILL/!"
                            ((org-agenda-overriding-header
                              (if bh/hide-scheduled-and-waiting-next-tasks
-                                 "\ntasks ——————————————————————————————————————————————————————————————————————————"
-                               "\ntasks (+wait +sched)————————————————————————————————————————————————————————————"))
+                                 "\ntasks --------------------------------------------------------------------------"
+                               "\ntasks (+wait +sched) -----------------------------------------------------------"))
                             (org-agenda-skip-function 'bh/skip-project-tasks)
                             (org-agenda-tags-todo-honor-ignore-options t)
                             (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
@@ -1457,7 +1457,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                              '(category-keep))))
                 (tags-todo
                  "-KILL/!"
-                           ((org-agenda-overriding-header "\nprojects ———————————————————————————————————————————————————————————————————————")
+                           ((org-agenda-overriding-header "\nprojects -----------------------------------------------------------------------")
                             (org-agenda-skip-function 'bh/skip-non-projects)
                             (org-tags-match-list-sublevels 'indented)
                             (org-agenda-sorting-strategy
@@ -1465,8 +1465,8 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                 (tags-todo "-REFILE-KILL/!"
                            ((org-agenda-overriding-header
                              (if bh/hide-scheduled-and-waiting-next-tasks
-                                 "subtasks ———————————————————————————————————————————————————————————————————————"
-                               "subtasks (+wait +sched)—————————————————————————————————————————————————————————"))
+                                 "subtasks -----------------------------------------------------------------------"
+                               "subtasks (+wait +sched) --------------------------------------------------------"))
                             (org-agenda-skip-function 'bh/skip-non-project-tasks)
                             (org-agenda-tags-todo-honor-ignore-options t)
                             (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
