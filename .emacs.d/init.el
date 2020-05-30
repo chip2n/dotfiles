@@ -970,7 +970,8 @@ point reaches the beginning or end of the buffer, stop there."
 ;;;; formatting
 
 (setq org-startup-indented nil)
-(setq org-adapt-indentation t)
+(setq org-adapt-indentation nil)
+(setq org-indent-indentation-per-level 0)
 
 ;; Hide emphasis markers for a more readable document
 (setq org-hide-emphasis-markers t)
@@ -1033,7 +1034,7 @@ point reaches the beginning or end of the buffer, stop there."
          "* TODO %?")
         ("j" "Journal")
         ("je" "Entry" entry #'get-journal-path
-         "* %?\n  %T")
+         "* %?\n%T")
         ("js" "Day summary" entry #'get-journal-path
          "* Day summary\n%T\n%?\n\n%(org-clock-report-today)")
         ("ju" "Supplements" entry #'get-journal-path
