@@ -10,3 +10,8 @@ function vterm_printf;
         printf "\e]%s\e\\" "$argv"
     end
 end
+
+function fish_user_key_bindings
+    bind \ep history-search-backward
+    bind \en history-search-forward
+end
