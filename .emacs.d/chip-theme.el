@@ -103,7 +103,9 @@
      (custom-theme-set-variables
       ,name
       `(ansi-color-names-vector [,grey-3 ,red-2 ,green-2 ,yellow-1
-                                         ,blue-2 ,magenta-2 ,blue-1 ,grey-4]))))
+                                         ,blue-2 ,magenta-2 ,blue-1 ,grey-4])
+      `(rustic-ansi-faces [,grey-3 ,red-2 ,green-2 ,yellow-1
+                                   ,blue-2 ,magenta-2 ,blue-1 ,grey-4]))))
 
 (with-theme 'chip
   `(default ((,class (:foreground ,color-foreground :background ,color-background :family "Iosevka" :height 100))))
@@ -288,6 +290,18 @@
   ;; Neotree
   `(neo-dir-link-face ((,class (:foreground ,color-link :weight bold))))
   `(neo-root-dir-face ((,class (:foreground ,color-headline-1 :weight bold))))
+
+  ;; Treemacs
+  `(treemacs-root-face ((,class (:foreground ,color-foreground :weight bold))))
+  `(treemacs-file-face ((,class (:foreground ,color-foreground))))
+  `(treemacs-git-ignored-face ((,class (:foreground ,color-foreground))))
+  `(treemacs-git-modified-face ((,class (:foreground ,color-foreground))))
+  `(treemacs-git-added-face ((,class (:foreground ,color-foreground))))
+  `(treemacs-git-untracked-face ((,class (:foreground ,color-foreground))))
+  `(treemacs-directory-face ((,class (:foreground ,color-foreground))))
+
+  `(chip-theme-treemacs-root-face ((,class (:foreground ,blue-2))))
+  `(chip-theme-treemacs-file-face ((,class (:foreground ,blue-2))))
 
   ;; Lispy
   `(lispy-face-hint ((,class (:foreground ,grey-4 :weight bold))))
