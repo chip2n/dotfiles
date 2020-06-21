@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: pfn
+# key: pfn
+# --
+pub fn $1($2) $3{
+  $0
+}
