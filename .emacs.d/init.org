@@ -1,3 +1,36 @@
+# Copyright (C) 2020  Andreas Arvidsson
+#
+# Author: Andreas Arvidsson <andreas@arvidsson.io>
+# Keywords: config
+#
+# This file is not part of GNU Emacs
+#
+# This file is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# For a full copy of the GNU General Public License
+# see <http://www.gnu.org/licenses/>.
+
+* Emacs configuration
+:PROPERTIES:
+:ID:       3e9e23bc-241f-4bcc-a12a-2edaff71f3e2
+:EXPORT_FILE_NAME: emacs-config
+:NAVI_COMPONENT: wiki-article
+:NAVI_PARENT: wiki
+:HEADER-ARGS: :tangle yes
+:END:
+
+** Package initialization 
+I use =use-package= to install packages from Melpa.
+
+#+begin_src elisp
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
@@ -8,12 +41,24 @@
   (package-refresh-contents)
   (package-install 'use-package))
 (require 'use-package)
+#+end_src
 
+** Theme
+*** General
+I use my own theme (called =chip=). Some basic options are available in the
+~chip-theme~ group.
+
+#+begin_src elisp
 (defgroup chip-theme nil
   "Options for my personal theme")
 
 (load-theme 'chip t)
+#+end_src
 
+I disable all GUI fluff since I navigate solely via keybinding and the =M-x=
+command.
+
+#+begin_src elisp
 ;; disable gui fluff
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
@@ -27,17 +72,26 @@
 
 ;; highlight the current line
 (global-hl-line-mode +1)
+#+end_src
 
+*** pkg: paren-face
+#+begin_src elisp
 ;; make face for parentheses so we can dim them
 (use-package paren-face
   :ensure t
   :config
   (global-paren-face-mode)
   (setq paren-face-regexp "[][(){}]"))
+#+end_src
 
+*** pkg: all-the-icons
+#+begin_src elisp
 (use-package all-the-icons
   :ensure t)
+#+end_src
 
+*** fringe
+#+begin_src elisp
 ;; Change fringe icons
 (define-fringe-bitmap 'left-curly-arrow
   [#b00000000
@@ -115,11 +169,17 @@
    #b00000000
    #b00000000
    ])
+#+end_src
 
+*** header
+#+begin_src elisp
 (require 'header-mode)
 (setq header-icon " λ")
 (add-hook 'find-file-hook 'header-mode)
+#+end_src
 
+*** modeline
+#+begin_src elisp
 ;; (require 'mode-line+)
 ;; (mode-line-mode+)
 
@@ -150,7 +210,10 @@ want to use in the modeline *in lieu of* the original.")
                (setq mode-name mode-str)))))
 
 (add-hook 'after-change-major-mode-hook 'clean-mode-line)
+#+end_src
 
+**** pkg: telephone-line
+#+begin_src elisp
 (use-package telephone-line
   :ensure t
   :after (evil)
@@ -167,7 +230,10 @@ want to use in the modeline *in lieu of* the original.")
           (nil . (telephone-line-major-mode-segment))
           (evil   . (telephone-line-airline-position-segment))))
   (telephone-line-mode t))
+#+end_src
 
+**** pkg: diminish
+#+begin_src elisp
 (use-package diminish
   :ensure t
   :after (ivy projectile evil-snipe evil-lispy org-roam)
@@ -194,7 +260,10 @@ want to use in the modeline *in lieu of* the original.")
   (diminish 'outline-minor-mode)
   (diminish 'slime-autodoc-mode)
   (diminish 'slime-mode "slime"))
+#+end_src
 
+** General
+#+begin_src elisp
 ;; load private variables
 (require 'private)
 
@@ -256,7 +325,12 @@ want to use in the modeline *in lieu of* the original.")
 ;; skip confirmation when killing processes
 (setq kill-buffer-query-functions
       (delq 'process-kill-buffer-query-function kill-buffer-query-functions))
+#+end_src
 
+** Text navigation
+
+*** Keybindings
+#+begin_src elisp
 (defun chip/move-end-of-line ()
   "Move point to end of line.
 
@@ -308,7 +382,10 @@ point reaches the beginning or end of the buffer, stop there."
    :keymaps '(flycheck-mode-map)
    "M-n" 'flycheck-next-error
    "M-p" 'flycheck-previous-error))
+#+end_src
 
+*** Package: evil-snipe
+#+begin_src elisp
 (use-package evil-snipe
   :ensure t
   :after (evil)
@@ -318,7 +395,12 @@ point reaches the beginning or end of the buffer, stop there."
   (evil-snipe-override-mode +1)
   ;; turn off evil-snipe in magit
   (add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode))
+#+end_src
 
+** File navigation
+
+*** Keybinding
+#+begin_src elisp
 (defun chip/open-config-file ()
   "Open Emacs configuration file"
   (interactive)
@@ -336,7 +418,10 @@ point reaches the beginning or end of the buffer, stop there."
    "C-S-P" 'counsel-projectile-switch-project
    "C-x P" 'counsel-projectile-switch-project
    "C-b"   'counsel-switch-buffer))
+#+end_src
 
+*** Projectile
+#+begin_src elisp
 (use-package projectile
   :ensure t
   :after (ivy)
@@ -362,7 +447,51 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package ag
   :ensure t
   :after (projectile))
+#+end_src
 
+*** Neotree                                                           :noexport:
+:PROPERTIES:
+:HEADER-ARGS: :tangle no
+:END:
+
+#+begin_src elisp
+(use-package neotree
+  :ensure t
+  :after (evil)
+  :config
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+  (setq neo-window-width 40)
+  ;; open neotree at current working directory
+  (setq neo-smart-open t)
+  (add-to-list 'evil-emacs-state-modes 'neotree-mode)
+  (define-key evil-normal-state-map (kbd "<backspace>") 'neotree-toggle)
+  (define-key evil-normal-state-map (kbd "S-<backspace>") 'neotree-project-dir))
+#+end_src
+
+The ~neotree-project-dir~ command starts =Neotree= in the root of the closest git
+repository. Stolen from [[http://nadeemkhedr.com/emacs-tips-and-best-plugins-to-use-with-evil-mode/][this site]].
+
+#+begin_src elisp
+(use-package find-file-in-project
+  :ensure t)
+
+(defun neotree-project-dir ()
+  "Open NeoTree using the git root."
+  (interactive)
+  (let ((project-dir (ffip-project-root))
+        (file-name (buffer-file-name)))
+    (if project-dir
+        (progn
+        (neotree-dir project-dir)
+        (neotree-find file-name))
+    (message "Could not find git project root."))))
+#+end_src
+
+*** Treemacs
+
+I use =treemacs= to get a quick overview over the files of my most common projects.
+
+#+begin_src elisp
 (use-package treemacs
   :ensure t
   :after (evil)
@@ -374,7 +503,9 @@ point reaches the beginning or end of the buffer, stop there."
             (lambda () (setq tab-width 1)))
   (chip/treemacs-setup-theme)
   (chip/treemacs-setup-keys))
+#+end_src
 
+#+begin_src elisp
 (defun chip/treemacs-setup-keys ()
   (general-define-key
    :states '(normal)
@@ -386,11 +517,21 @@ point reaches the beginning or end of the buffer, stop there."
    :keymaps '(treemacs-mode-map)
    "<backspace>" 'treemacs
    "S-<backspace>" 'treemacs-select-window))
+#+end_src
 
+I also use =treemacs-evil=, because without it the cursor inside the =treemacs=
+buffer is still visible despite setting ~treemacs-show-cursor~ to ~nil~.
+
+#+begin_src elisp
 (use-package treemacs-evil
   :ensure t
   :after (evil))
+#+end_src
 
+The theme is based on the [[https://github.com/hlissner/emacs-doom-themes][Doom Treemacs theme]] but customized to fit the rest of
+my configuration.
+
+#+begin_src elisp
 (defgroup chip-theme-treemacs nil
   "Options for my treemacs theme"
   :group 'chip-theme)
@@ -505,7 +646,10 @@ point reaches the beginning or end of the buffer, stop there."
              :icon (format "  %s\t" text-icon)
              :extensions (fallback)))))))
   (treemacs-load-theme "chip"))
+#+end_src
 
+*** Dired
+#+begin_src elisp
 (add-hook 'dired-mode-hook 'auto-revert-mode)
 
 ;; load dired-x immediately to make keybindings available
@@ -518,19 +662,30 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;; show directories before files
 (setq dired-listing-switches "-aBhl  --group-directories-first")
+#+end_src
 
+** Buffers
+
+*** golden-ratio-scroll-screen
+#+begin_src elisp
 (use-package golden-ratio-scroll-screen
   :ensure t
   :config
   (setq golden-ratio-scroll-highlight-flag nil))
+#+end_src
 
+*** hl-todo
+#+begin_src elisp
 ;; highlight TODOs in comments
 (use-package hl-todo
   :ensure t
   :hook ((prog-mode . hl-todo-mode)))
 
 (setq inhibit-startup-echo-area-message "chip")
+#+end_src
 
+*** outshine
+#+begin_src elisp
 (use-package outshine
   :ensure t
   :config
@@ -541,7 +696,12 @@ point reaches the beginning or end of the buffer, stop there."
    "<backtab>" 'outshine-cycle-buffer)
   (setq outshine-startup-folded-p nil)
   (add-hook 'emacs-lisp-mode-hook 'outshine-mode))
+#+end_src
 
+** Windows
+
+*** Keybindings
+#+begin_src elisp
 (defun chip/window-zoom ()
   (interactive)
   (zoom))
@@ -563,15 +723,24 @@ point reaches the beginning or end of the buffer, stop there."
    "M-o"       'ace-window
    "S-<next>"  'scroll-other-window
    "S-<prior>" 'scroll-other-window-down))
+#+end_src
 
+*** winner
+#+begin_src elisp
 (use-package winner
   :ensure t
   :config
   (winner-mode 1))
+#+end_src
 
+*** transpose-frame
+#+begin_src elisp
 ;; Allows you to transpose frames (mainly via ace-window)
 (require 'transpose-frame)
+#+end_src
 
+*** avy
+#+begin_src elisp
 (use-package avy
   :ensure t)
 
@@ -589,12 +758,20 @@ point reaches the beginning or end of the buffer, stop there."
   (ivy-add-actions
    'counsel-projectile-find-file
    '(("a" ace-window "ace-window"))))
+#+end_src
 
+*** zoom
+#+begin_src elisp
 (use-package zoom
   :ensure t
   :config
   (setq zoom-size '(0.618 . 0.618)))
+#+end_src
 
+** Minibuffer
+
+*** ivy
+#+begin_src elisp
 (use-package ivy
   :ensure t
   :config
@@ -654,7 +831,10 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package swiper
   :ensure t
   :after (ivy))
+#+end_src
 
+*** prescient
+#+begin_src elisp
 ;; Prescient allows you to filter and automatically sort ivy and company results
 ;; by frequency. It also enables searching by initialism (e.g. stbow ->
 ;; switch-to-buffer-other-window).
@@ -675,15 +855,31 @@ point reaches the beginning or end of the buffer, stop there."
   :after (counsel)
   :config
   (company-prescient-mode))
+#+end_src
 
+*** which-key
+#+begin_src elisp
 (use-package which-key
   :ensure t
   :config
   (which-key-mode))
+#+end_src
 
+** Remote work
+
+I use the =sudo-edit= package to allow me to enter sudo while viewing a
+(read-only) file. This is way more convenient than the standard method of =C-x
+C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
+
+#+begin_src elisp
 (use-package sudo-edit
   :ensure t)
+#+end_src
 
+** Code
+
+*** lispy
+#+begin_src elisp
 (use-package lispy
   :ensure t
   :config
@@ -713,20 +909,29 @@ point reaches the beginning or end of the buffer, stop there."
   (add-hook 'sly-mrepl-mode-hook #'evil-lispy-mode)
   (add-hook 'racket-mode-hook #'evil-lispy-mode)
   (add-hook 'scheme-mode-hook #'evil-lispy-mode))
+#+end_src
 
+*** yasnippet
+#+begin_src elisp
 (use-package yasnippet
   :ensure t
   :init
   :config
   (yas-global-mode 1)
   (add-to-list 'yas-snippet-dirs (locate-user-emacs-file "snippets")))
+#+end_src
 
+*** compilation
+#+begin_src elisp
 (setq compilation-scroll-output t)
 (with-eval-after-load "general"
   (general-define-key
    :keymaps '(compilation-mode-map)
    "k" 'kill-this-buffer-and-process))
+#+end_src
 
+*** company
+#+begin_src elisp
 (defun chip/company-setup-keys ()
   "Setup keybindings for company mode"
   (interactive)
@@ -757,7 +962,10 @@ point reaches the beginning or end of the buffer, stop there."
 
 (defun complete-complete-cycle-previous (arg)
   (company-complete-common-or-cycle -1))
+#+end_src
 
+*** lsp
+#+begin_src elisp
 ;; communication with language servers generate a lot of garbage
 (setq gc-cons-threshold 100000000)
 
@@ -781,7 +989,13 @@ point reaches the beginning or end of the buffer, stop there."
   :config
   (setq company-lsp-cache-candidates t
         company-lsp-filter-candidates t))
+#+end_src
 
+#+RESULTS:
+: t
+
+** evil
+#+begin_src elisp
 (use-package evil
   :ensure t
   :init
@@ -828,7 +1042,12 @@ point reaches the beginning or end of the buffer, stop there."
                [show-entry show-children]
                1]
          :open-rec show-subtree :close hide-subtree :close-level hide-leaves)))
+#+end_src
 
+** org-mode
+
+*** General
+#+begin_src elisp
 ;; set org todo keywords
 (setq org-todo-keywords
       '((sequence "TODO(t)" "NEXT(n)" "WAIT(w@/!)" "HOLD(h@/!)" "|" "DONE(d)" "KILL(c@)")))
@@ -927,7 +1146,10 @@ point reaches the beginning or end of the buffer, stop there."
 ;; enable blocker properties for unnested dependencies
 (require 'org-depend)
 (setq org-depend-tag-blocked nil)
+#+end_src
 
+*** Keybindings
+#+begin_src elisp
 (with-eval-after-load "org"
   (with-eval-after-load "general"
     (general-define-key
@@ -948,7 +1170,10 @@ point reaches the beginning or end of the buffer, stop there."
      "o i" 'org-clock-in
      "o o" 'org-clock-out
      "o g" 'org-clock-goto)))
+#+end_src
 
+*** org-babel
+#+begin_src elisp
 ;; enable easy templates
 (require 'org-tempo)
 
@@ -977,7 +1202,10 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;; Redisplay inlined images after source block execution
 (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
+#+end_src
 
+*** Formatting
+#+begin_src elisp
 (setq org-startup-indented t)
 (setq org-adapt-indentation nil)
 (setq org-indent-indentation-per-level 2)
@@ -1023,7 +1251,10 @@ point reaches the beginning or end of the buffer, stop there."
 ;;                                   ;; ""
 ;;                                   ))
 ;;   (setq org-bullets-face-name 'org-bullet))
+#+end_src
 
+*** org-capture
+#+begin_src elisp
 (defun get-presentation-path ()
   "Prompt for presentation name via minibuffer and return path."
   (let ((name (read-from-minibuffer "Presentation name: "))
@@ -1049,7 +1280,7 @@ point reaches the beginning or end of the buffer, stop there."
         ("w" "Workout")
         ("wa" "Workout A" entry #'get-journal-path
          "
-* Workout
+,* Workout
 %T
 | Bulgarian Split Squat    | 3x10 | %?  |
 | Bench Press              | 3x10 |   |
@@ -1058,7 +1289,7 @@ point reaches the beginning or end of the buffer, stop there."
 " :clock-in t :clock-resume t)
         ("wb" "Workout B" entry #'get-journal-path
          "
-* Workout
+,* Workout
 %T
 | Bulgarian Split Squat | 3x10 | %?  |
 | Seated Shoulder Press | 3x10 |   |
@@ -1069,18 +1300,22 @@ point reaches the beginning or end of the buffer, stop there."
          "* %?" :prepend t)
         ("p" "Remente presentation" entry #',(lambda () (find-file (get-presentation-path)))
          "
-#+OPTIONS: num:nil
-#+OPTIONS: toc:nil
-#+OPTIONS: reveal_title_slide:nil
-#+REVEAL_EXTRA_CSS: /home/chip/.emacs.d/presentation.css
-#+REVEAL_TRANS: linear
-#+REVEAL_THEME: solarized
-#+REVEAL_HLEVEL: 2
+,#+OPTIONS: num:nil
+,#+OPTIONS: toc:nil
+,#+OPTIONS: reveal_title_slide:nil
+,#+REVEAL_EXTRA_CSS: /home/chip/.emacs.d/presentation.css
+,#+REVEAL_TRANS: linear
+,#+REVEAL_THEME: solarized
+,#+REVEAL_HLEVEL: 2
 
-* %?")
+,* %?")
         ("m" "Meeting" entry (file "~/org/personal/refile.org")
          "* DONE Meeting with %? :meeting:\n%U" :clock-in t :clock-resume t)))
 
+#+end_src
+
+*** Auto saving
+#+begin_src elisp
 ;; auto-saving org buffers after certain actions
 (defun save-org-buffers (&rest args)
   (org-save-all-org-buffers))
@@ -1093,7 +1328,10 @@ point reaches the beginning or end of the buffer, stop there."
 (advice-add 'org-clock-in :after 'save-org-buffers)
 (advice-add 'org-clock-out :after 'save-org-buffers)
 (advice-add 'org-todo :after 'save-org-buffers)
+#+end_src
 
+*** Refiling
+#+begin_src elisp
 (setq org-refile-targets '((nil :maxlevel . 3)
                            (org-agenda-files :maxlevel . 3)))
 (setq org-refile-use-outline-path 'file)
@@ -1104,7 +1342,10 @@ point reaches the beginning or end of the buffer, stop there."
   (not (member (nth 2 (org-heading-components)) org-done-keywords)))
 
 (setq org-refile-target-verify-function 'chip/verify-refile-target)
+#+end_src
 
+*** Clocking
+#+begin_src elisp
 ;; remove clock entry if total time span is less than one minute
 (setq org-clock-out-remove-zero-time-clocks t)
 
@@ -1129,7 +1370,12 @@ point reaches the beginning or end of the buffer, stop there."
               str (concat str "──")))
       (concat str "─> "))))
 (advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)
+#+end_src
 
+*** org-agenda
+
+**** General
+#+begin_src elisp
 (defun chip/org-agenda ()
   (interactive)
   (org-agenda nil "c"))
@@ -1173,7 +1419,10 @@ point reaches the beginning or end of the buffer, stop there."
 (setq org-enforce-todo-dependencies t)
 
 (setq org-stuck-projects (quote ("" nil nil "")))
+#+end_src
 
+**** Formatting
+#+begin_src elisp
 (setq org-agenda-tags-column -80)
 
 ;; hide separators between agenda blocks
@@ -1225,7 +1474,10 @@ This function makes sure that dates are aligned for easy reading."
 ;; set agenda icons
 (setq org-agenda-scheduled-leaders `("" "(+%1d)"))
 (setq org-agenda-deadline-leaders `("(!!)" "(-%1d)" "(+%1d)"))
+#+end_src
 
+**** Time grid
+#+begin_src elisp
 ;; make time grid as wide as the tag column
 (setq org-agenda-time-grid
       '((daily today require-timed)
@@ -1233,7 +1485,10 @@ This function makes sure that dates are aligned for easy reading."
         "......" "--------------------------------------------------------"))
 (setq org-agenda-current-time-string
       "--------------------------------------------------------")
+#+end_src
 
+**** Utility functions
+#+begin_src elisp
 (defun bh/find-project-task ()
   "Move point to the parent (project) task if any"
   (save-restriction
@@ -1424,7 +1679,10 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                   nil))  ; available to archive
             (or subtree-end (point-max)))
         next-headline))))
+#+end_src
 
+**** Custom commands
+#+begin_src elisp
 (setq org-agenda-custom-commands
       (quote (("N" "Notes" tags "NOTE"
                ((org-agenda-overriding-header "Notes")
@@ -1474,7 +1732,10 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                             (org-agenda-sorting-strategy
                              '(category-keep)))))
                nil))))
+#+end_src
 
+**** Keybindings
+#+begin_src elisp
 (general-define-key
  :keymaps 'org-agenda-mode-map
  "RET" 'org-agenda-switch-to
@@ -1484,7 +1745,10 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
 (general-define-key
  "C-c o n" 'bh/org-todo
  "C-c o w" 'bh/widen)
+#+end_src
 
+**** State triggers
+#+begin_src elisp
 (setq org-todo-state-tags-triggers
       (quote (("KILL" ("KILL" . t))
               ("WAIT" ("WAIT" . t))
@@ -1493,7 +1757,10 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
               ("TODO" ("WAIT") ("KILL") ("hold"))
               ("NEXT" ("WAIT") ("KILL") ("hold"))
               ("DONE" ("WAIT") ("KILL") ("hold")))))
+#+end_src
 
+**** Auto exclude
+#+begin_src elisp
 (defun chip/org-auto-exclude-function (tag)
   "Automatic task exclusion in the agenda with / RET"
   (and (cond
@@ -1502,7 +1769,14 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
        (concat "-" tag)))
 
 (setq org-agenda-auto-exclude-function 'chip/org-auto-exclude-function)
+#+end_src
 
+**** Productivity tools
+
+***** Focus on current work
+
+****** Narrowing to a subtree
+#+begin_src elisp
 ;; - T (tasks) for C-c / t on the current buffer
 ;; - N (narrow) narrows to this task subtree
 ;; - U (up) narrows to the immediate parent task subtree without moving
@@ -1667,7 +1941,10 @@ so change the default 'F' binding in the agenda to allow both"
 ;; This prevents too many headlines from being folded together when I'm
 ;; working with collapsed trees.
 (setq org-show-entry-below (quote ((default))))
+#+end_src
 
+****** Limit the agenda to a subtree
+#+begin_src elisp
 ;; =C-c C-x <= turns on the agenda restriction lock for the current
 ;; subtree.  This keeps your agenda focused on only this subtree.  Alarms
 ;; and notifications are still active outside the agenda restriction.
@@ -1702,7 +1979,10 @@ so change the default 'F' binding in the agenda to allow both"
 
 ;; Limit restriction lock highlighting to the headline only
 (setq org-agenda-restriction-lock-highlight-subtree nil)
+#+end_src
 
+**** Reminders
+#+begin_src elisp
 (defun chip/org-agenda-to-appt ()
   (interactive)
   (setq appt-time-msg-list nil)
@@ -1719,16 +1999,25 @@ so change the default 'F' binding in the agenda to allow both"
 
 ;; if we leave Emacs running overnight - reset the appointments one minute after midnight
 (run-at-time "24:01" nil 'chip/org-agenda-to-appt)
+#+end_src
 
+*** org-reveal
+#+begin_src elisp
 (use-package org-re-reveal
   :ensure t
   :config
   (setq org-re-reveal-root "file:///home/chip/reveal.js")
   (setq org-re-reveal-title-slide nil))
+#+end_src
 
+*** org-protocol
+#+begin_src elisp
 (server-start)
 (require 'org-protocol)
+#+end_src
 
+*** org-roam
+#+begin_src elisp
 (use-package org-roam
   :ensure t
   :hook
@@ -1787,7 +2076,12 @@ all elements."
         (goto-char (point-min))
         (if (deft-search-forward (car deft-filter-regexp))
             file)))))
+#+end_src
 
+** Apps
+
+*** Magit
+#+begin_src elisp
 (defun chip/magit-status-root-dir (dir)
   (magit-status (vc-find-root dir ".git")))
 
@@ -1827,7 +2121,10 @@ all elements."
   :ensure t
   :config
   (setq ssh-agency-keys '("~/.ssh/github")))
+#+end_src
 
+*** Elfeed
+#+begin_src elisp
 (use-package elfeed
   :ensure t
   :config
@@ -1858,13 +2155,19 @@ all elements."
    "q" 'elfeed-kill-buffer
    "n" 'elfeed-show-next
    "p" 'elfeed-show-prev))
+#+end_src
 
+*** EMMS
+#+begin_src elisp
 (use-package emms
   :ensure t
   :config
   (emms-all)
   (emms-default-players))
+#+end_src
 
+*** Slack
+#+begin_src elisp
 (use-package slack
   :commands (slack-start)
   :init
@@ -1884,7 +2187,10 @@ all elements."
   :commands (alert)
   :config
   (setq alert-default-style 'libnotify))
+#+end_src
 
+*** ERC
+#+begin_src elisp
 (require 'erc)
 
 (setq erc-prompt " ")
@@ -1914,13 +2220,19 @@ all elements."
     (erc :server private/znc-server
          :port private/znc-port
          :password (format "chip2n:%s" pwd))))
+#+end_src
 
+*** PDF-tools
+#+begin_src elisp
 (use-package pdf-tools
   :ensure t
   :config
   (pdf-tools-install)
   (add-hook 'pdf-view-mode-hook (lambda () (blink-cursor-mode -1))))
+#+end_src
 
+*** pomidor
+#+begin_src elisp
 (use-package pomidor
   :ensure t
   :config
@@ -1929,14 +2241,22 @@ all elements."
         ;; pomidor-sound-overwork (expand-file-name (concat pomidor-dir "overwork.wav"))
 	;; pomidor-sound-break-over (expand-file-name (concat (getenv "HOME") "/Music/overwork.wav"))
         ))
+#+end_src
 
+** Languages
+
+*** Emacs Lisp
+#+begin_src elisp
 (general-define-key
  :map 'emacs-lisp-mode-map
  "C-c C-c" 'eval-defun)
 
 (with-eval-after-load "company"
   (add-hook 'emacs-lisp-mode-hook 'company-mode))
+#+end_src
 
+*** Common Lisp
+#+begin_src elisp
 (use-package slime
   :ensure t
   :config
@@ -1994,7 +2314,10 @@ all elements."
 ;;   (general-define-key
 ;;    :keymaps 'sly-mode-map
 ;;    "C-c C-z" #'sly-mrepl-other-window))
+#+end_src
 
+*** Scheme
+#+begin_src elisp
 (use-package geiser
   :ensure t
   :after (evil)
@@ -2009,7 +2332,10 @@ all elements."
   :ensure t
   :config
   (add-to-list 'auto-mode-alist (cons (rx ".rkt" eos) 'racket-mode)))
+#+end_src
 
+*** Clojure
+#+begin_src elisp
 (use-package clojure-mode
   :ensure t)
 
@@ -2022,7 +2348,10 @@ all elements."
 
 (use-package inf-clojure
   :ensure t)
+#+end_src
 
+*** Python
+#+begin_src elisp
 (use-package anaconda-mode
   :ensure t
   :config
@@ -2036,7 +2365,10 @@ all elements."
   :after (company anaconda-mode)
   :config
   (add-to-list 'company-backends 'company-anaconda))
+#+end_src
 
+*** Dart
+#+begin_src elisp
 (use-package dart-mode
   :ensure t
   :after (projectile)
@@ -2164,7 +2496,10 @@ all elements."
   (flutter--move-beginning-of-parent-widget)
   (flutter-widget-delete)
   (yank))
+#+end_src
 
+*** Haskell
+#+begin_src elisp
 (use-package lsp-haskell
   :ensure t
   :after (lsp-mode lsp-ui)
@@ -2172,7 +2507,10 @@ all elements."
   (setq lsp-haskell-process-path-hie "hie-wrapper")
   (add-hook 'haskell-mode-hook 'lsp-haskell-enable)
   (add-hook 'haskell-mode-hook 'flycheck-mode))
+#+end_src
 
+*** Javascript
+#+begin_src elisp
 (use-package nvm
   :ensure t)
 (nvm-use "v12.10.0")
@@ -2238,7 +2576,10 @@ all elements."
    :states 'normal
    :keymaps 'typescript-mode-map
    "gd" 'tide-jump-to-definition))
+#+end_src
 
+*** C#
+#+begin_src elisp
 (use-package omnisharp
   :ensure t
   :after (company)
@@ -2246,15 +2587,24 @@ all elements."
   (add-to-list 'company-backends 'company-omnisharp)
   (add-hook 'csharp-mode-hook #'company-mode)
   (add-hook 'csharp-mode-hook 'omnisharp-mode))
+#+end_src
 
+*** Kotlin
+#+begin_src elisp
 (use-package kotlin-mode
   :ensure t
   :config
   (setq kotlin-tab-width 4))
+#+end_src
 
+*** Groovy
+#+begin_src elisp
 (use-package groovy-mode
   :ensure t)
+#+end_src
 
+*** Rust
+#+begin_src elisp
 (use-package rustic
   :ensure t
   :config
@@ -2292,7 +2642,10 @@ all elements."
 ;;   :after rust-mode
 ;;   :config
 ;;   (add-hook 'rust-mode-hook 'cargo-minor-mode))
+#+end_src
 
+*** Elixir
+#+begin_src elisp
 (defvar lsp-elixir--config-options (make-hash-table))
 
 (use-package elixir-mode
@@ -2314,7 +2667,10 @@ all elements."
     ("C-c C-l i l" . 'inf-elixir-send-line)
     ("C-c C-l i r" . 'inf-elixir-send-region)
     ("C-c C-l i b" . 'inf-elixir-send-buffer)))
+#+end_src
 
+*** YAML
+#+begin_src elisp
 (use-package yaml-mode
   :ensure t)
 
@@ -2327,15 +2683,27 @@ all elements."
       (setq col (+ 1 (current-column)))
       (set-selective-display
        (if selective-display nil (or col 1))))))
+#+end_src
 
+*** TOML
+#+begin_src elisp
 (use-package toml-mode
   :ensure t)
+#+end_src
 
+*** Markdown
+#+begin_src elisp
 (use-package markdown-mode
   :ensure t)
+#+end_src
 
+*** Lilypond
+#+begin_src elisp
 (require 'ob-lilypond)
+#+end_src
 
+*** PUG
+#+begin_src elisp
 (use-package pug-mode
   :ensure t
   :config
@@ -2346,18 +2714,30 @@ all elements."
   :ensure t
   :config
   (add-to-list 'auto-mode-alist (cons (rx ".styl" eos) 'pug-mode)))
+#+end_src
 
+*** GLSL
+#+begin_src elisp
 (use-package glsl-mode
   :ensure t)
+#+end_src
 
+*** Bolt
+#+begin_src elisp
 (require 'bolt-mode)
+#+end_src
 
+** Autoremote
+#+begin_src elisp
 (defun autoremote-send (message)
   (if (boundp 'autoremote-api-key)
       (call-process-shell-command
        (format "AUTOREMOTE_API_KEY=\"%s\" autoremote %s" autoremote-api-key message))
     (message (format "No autoremote key set - unable to send message \"%s\"" message))))
+#+end_src
 
+** Prose
+#+begin_src elisp
 (defun prose--finish ()
   (interactive)
   (clipboard-kill-ring-save (point-min) (point-max))
@@ -2393,7 +2773,10 @@ all elements."
   (prose-mode)
   (set (make-local-variable 'header-line)
        'prose-header-line))
+#+end_src
 
+** pass
+#+begin_src elisp
 (use-package ivy-pass
   :ensure t
   :after (ivy))
@@ -2404,7 +2787,10 @@ all elements."
         (key (cadr args)))
     `(let ((,name (password-store-get ,key)))
        ,@body)))
+#+end_src
 
+** shell
+#+begin_src elisp
 (add-hook 'shell-mode-hook (lambda () (display-line-numbers-mode -1)))
 (add-hook 'eshell-mode-hook (lambda () (display-line-numbers-mode -1)))
 (setq sh-basic-offset 2)
@@ -2417,12 +2803,18 @@ all elements."
            (funcall header-format-filepath
                     (abbreviate-file-name default-directory))))))
 (add-hook 'shell-mode-hook (lambda () (chip/header-shell)))
+#+end_src
 
+*** pkg: multi-term
+#+begin_src elisp
 (use-package multi-term
   :ensure t
   :config
   (setq multi-term-program "/bin/bash"))
+#+end_src
 
+** Android
+#+begin_src elisp
 (defun android-screenshot (path)
   "Take a screenshot of the currently connected Android device."
   (interactive "FPath: ")
@@ -2439,14 +2831,20 @@ all elements."
   (interactive "FPath: ")
   (android-screenshot-shrinked path)
   (org-insert-link nil (format "file:%s" path) nil))
+#+end_src
 
+** Quelpa
+#+begin_src elisp
 (use-package quelpa
   :ensure t
   :config
   (setq quelpa-checkout-melpa-p nil)    ; we're not using it for MELPA packages
   (quelpa '(tayl :repo "chip2n/tayl.el" :fetcher github))
   (quelpa '(vasttrafik :repo "chip2n/vasttrafik.el" :fetcher github)))
+#+end_src
 
+** Utils
+#+begin_src elisp
 (defun increment-number-at-point ()
   (interactive)
   (skip-chars-backward "0-9")
@@ -2520,3 +2918,9 @@ buffer in current window."
       (insert result)
       (clipboard-kill-region (point-min) (point-max)))
     result))
+#+end_src
+* File local variables                                                :noexport:
+# Local variables:
+# after-save-hook: (lambda () 
+#                    (org-babel-tangle))
+# End:
