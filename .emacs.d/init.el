@@ -684,6 +684,10 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package sudo-edit
   :ensure t)
 
+(general-define-key
+ :keymap 'prog-mode-map
+ "C-;" 'comment-line)
+
 (use-package lispy
   :ensure t
   :config
@@ -773,7 +777,10 @@ point reaches the beginning or end of the buffer, stop there."
   (setq lsp-enable-completion-at-point nil)
   (setq lsp-ui-sideline-enable nil)
   (setq lsp-ui-doc-enable nil)
-  (setq lsp-auto-guess-root t))
+  (setq lsp-auto-guess-root t)
+  (general-define-key
+   :keymaps 'lsp-mode-map
+   "C-c C-a" 'lsp-execute-code-action))
 
 (use-package company-lsp
   :ensure t
@@ -2417,6 +2424,23 @@ all elements."
            (funcall header-format-filepath
                     (abbreviate-file-name default-directory))))))
 (add-hook 'shell-mode-hook (lambda () (chip/header-shell)))
+
+(use-package vterm
+  :ensure t
+  :config
+  (setq vterm-shell "fish")
+  (general-define-key
+   :keymaps 'vterm-mode-map
+   "<prior>" 'scroll-down-command
+   "<next>" 'scroll-up-command)
+  ;; line highlight flickers in vterm, so disable it
+  (add-hook 'vterm-mode-hook (lambda () (setq-local global-hl-line-mode nil))))
+
+(use-package vterm-toggle
+  :ensure t
+  :config
+  (general-define-key
+   "C-c t" 'vterm-toggle))
 
 (use-package multi-term
   :ensure t
