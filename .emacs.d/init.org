@@ -2840,11 +2840,20 @@ all elements."
   ;; line highlight flickers in vterm, so disable it
   (add-hook 'vterm-mode-hook (lambda () (setq-local global-hl-line-mode nil))))
 
+(defun chip/vterm-toggle-cd ()
+  "Toggles vterm buffer with current working directory."
+  (interactive)
+  (let ((dir default-directory))
+    (vterm-toggle-cd)
+    (vterm-toggle-insert-cd)
+    (cd dir)))
+
 (use-package vterm-toggle
   :ensure t
   :config
   (general-define-key
-   "C-c t" 'vterm-toggle))
+   "C-c t" 'vterm-toggle
+   "C-c T" 'chip/vterm-toggle-cd))
 #+end_src
 
 *** pkg: multi-term
