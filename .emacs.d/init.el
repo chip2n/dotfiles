@@ -778,9 +778,15 @@ point reaches the beginning or end of the buffer, stop there."
   (setq lsp-ui-sideline-enable nil)
   (setq lsp-ui-doc-enable nil)
   (setq lsp-auto-guess-root t)
+  ;; prevent docs in minibuffer
+  (setq lsp-signature-auto-activate nil)
   (general-define-key
    :keymaps 'lsp-mode-map
-   "C-c C-a" 'lsp-execute-code-action))
+   "C-c C-a" 'lsp-execute-code-action)
+  (general-define-key
+   :keymaps 'lsp-mode-map
+   :states '(normal)
+   "gd" 'lsp-find-definition))
 
 (use-package company-lsp
   :ensure t
@@ -1178,6 +1184,12 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;; force child TODOs to be done before parent can be done
 (setq org-enforce-todo-dependencies t)
+
+;; force checkboxes to be completed before parent can be done
+(setq org-enforce-todo-checkbox-dependencies t)
+
+;; enable use of the RESET_CHECK_BOXES property
+(require 'org-checklist)
 
 (setq org-stuck-projects (quote ("" nil nil "")))
 
@@ -2436,11 +2448,20 @@ all elements."
   ;; line highlight flickers in vterm, so disable it
   (add-hook 'vterm-mode-hook (lambda () (setq-local global-hl-line-mode nil))))
 
+(defun chip/vterm-toggle-cd ()
+  "Toggles vterm buffer with current working directory."
+  (interactive)
+  (let ((dir default-directory))
+    (vterm-toggle-cd)
+    (vterm-toggle-insert-cd)
+    (cd dir)))
+
 (use-package vterm-toggle
   :ensure t
   :config
   (general-define-key
-   "C-c t" 'vterm-toggle))
+   "C-c t" 'vterm-toggle
+   "C-c T" 'chip/vterm-toggle-cd))
 
 (use-package multi-term
   :ensure t
