@@ -1434,6 +1434,12 @@ C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
 ;; force child TODOs to be done before parent can be done
 (setq org-enforce-todo-dependencies t)
 
+;; force checkboxes to be completed before parent can be done
+(setq org-enforce-todo-checkbox-dependencies t)
+
+;; enable use of the RESET_CHECK_BOXES property
+(require 'org-checklist)
+
 (setq org-stuck-projects (quote ("" nil nil "")))
 #+end_src
 
