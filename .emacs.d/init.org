@@ -989,9 +989,15 @@ C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
   (setq lsp-ui-sideline-enable nil)
   (setq lsp-ui-doc-enable nil)
   (setq lsp-auto-guess-root t)
+  ;; prevent docs in minibuffer
+  (setq lsp-signature-auto-activate nil)
   (general-define-key
    :keymaps 'lsp-mode-map
-   "C-c C-a" 'lsp-execute-code-action))
+   "C-c C-a" 'lsp-execute-code-action)
+  (general-define-key
+   :keymaps 'lsp-mode-map
+   :states '(normal)
+   "gd" 'lsp-find-definition))
 
 (use-package company-lsp
   :ensure t
