@@ -1,3 +1,4 @@
+.cache
 custom.el
 packages/
 var/
