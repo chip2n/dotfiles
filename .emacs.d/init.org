@@ -1246,6 +1246,7 @@ C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
    (scheme . t)
    (emacs-lisp . t)
    (lisp . t)
+   (forth . t)
    (http . t)))
 
 ;; Enable noweb expansion in all languages
@@ -1254,7 +1255,7 @@ C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
             (assq-delete-all :noweb org-babel-default-header-args)))
 
 (defun my-org-confirm-babel-evaluate (lang body)
-  (not (member lang '("python" "bash" "js" "lisp" "lilypond" "ditaa" "restclient" "scheme" "elisp" "emacs-lisp"))))
+  (not (member lang '("python" "bash" "js" "lisp" "lilypond" "ditaa" "restclient" "scheme" "elisp" "emacs-lisp" "forth"))))
 
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 
@@ -2403,6 +2404,15 @@ all elements."
   :ensure t
   :config
   (add-to-list 'auto-mode-alist (cons (rx ".rkt" eos) 'racket-mode)))
+#+end_src
+
+*** Forth
+In order to make Forth play nicely with org-babel, you need the gforth compiler
+as well as ~forth-mode~ distributed in with gforth in =gforth.el=. I've copied this
+file from the 0.7.3 because I'm a lazy boy, so I'll just ~require~ it.
+
+#+begin_src elisp
+(require 'forth-mode)
 #+end_src
 
 *** Clojure
