@@ -45,6 +45,7 @@ I use =use-package= to install packages from Melpa.
 
 ** Theme
 *** General
+
 I use my own theme (called =chip=). Some basic options are available in the
 ~chip-theme~ group.
 
@@ -59,7 +60,6 @@ I disable all GUI fluff since I navigate solely via keybinding and the =M-x=
 command.
 
 #+begin_src elisp
-;; disable gui fluff
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -75,8 +75,11 @@ command.
 #+end_src
 
 *** pkg: paren-face
+
+I'm using this package to make individual faces for each parentheses. This
+allows us to dim them in the theme. Makes lispy code way more readable, yay!
+
 #+begin_src elisp
-;; make face for parentheses so we can dim them
 (use-package paren-face
   :ensure t
   :config
@@ -85,14 +88,20 @@ command.
 #+end_src
 
 *** pkg: all-the-icons
+
+Using fancy icons in some places (e.g. ~treemacs~) to spice things up. This
+package includes icons from a bunch of different sources.
+
 #+begin_src elisp
 (use-package all-the-icons
   :ensure t)
 #+end_src
 
-*** fringe
+*** Fringes
+
+I use small arrows in the fringes to indicate wrapping text.
+
 #+begin_src elisp
-;; Change fringe icons
 (define-fringe-bitmap 'left-curly-arrow
   [#b00000000
    #b00000000
@@ -171,14 +180,20 @@ command.
    ])
 #+end_src
 
-*** header
+*** Header
+
+I use my own custom header in all file buffers that displays the path of the
+file. I don't want to put the path in the modeline, since that space is already
+a bit cramped when editing source code in some cases (e.g. when using ~lsp-mode~).
+
 #+begin_src elisp
 (require 'header-mode)
 (setq header-icon " λ")
 (add-hook 'find-file-hook 'header-mode)
 #+end_src
 
-*** modeline
+*** Modeline
+
 #+begin_src elisp
 ;; (require 'mode-line+)
 ;; (mode-line-mode+)
@@ -213,6 +228,10 @@ want to use in the modeline *in lieu of* the original.")
 #+end_src
 
 **** pkg: telephone-line
+
+My modeline of choice is currently ~telephone-line~. Nothing fancy, but was easy
+enough to set up.
+
 #+begin_src elisp
 (use-package telephone-line
   :ensure t
@@ -233,11 +252,16 @@ want to use in the modeline *in lieu of* the original.")
 #+end_src
 
 **** pkg: diminish
+
+I try to diminish most minor modes to keep the modeline free. Most are removed
+entirely, and some are shortened.
+
 #+begin_src elisp
 (use-package diminish
   :ensure t
   :after (ivy projectile evil-snipe evil-lispy org-roam)
   :config
+  (diminish 'auto-fill-function)
   (diminish 'undo-tree-mode)
   (diminish 'company-mode)
   (diminish 'counsel-mode)
@@ -263,11 +287,11 @@ want to use in the modeline *in lieu of* the original.")
 #+end_src
 
 ** General
+
 #+begin_src elisp
 ;; load private variables
 (require 'private)
 
-;; use CL package
 (require 'cl)
 
 (setenv "NODE_PATH" "/usr/lib/node_modules")
@@ -286,7 +310,7 @@ want to use in the modeline *in lieu of* the original.")
 ;; save custom variables to separate file (not loaded)
 (setq custom-file (concat user-emacs-directory "/custom.el"))
 
-;; follow symlinks
+;; always follow symlinks without asking
 (setq vc-follow-symlinks t)
 
 ;; disable lock files
@@ -385,6 +409,7 @@ point reaches the beginning or end of the buffer, stop there."
 #+end_src
 
 *** Package: evil-snipe
+
 #+begin_src elisp
 (use-package evil-snipe
   :ensure t
@@ -400,6 +425,7 @@ point reaches the beginning or end of the buffer, stop there."
 ** File navigation
 
 *** Keybinding
+
 #+begin_src elisp
 (defun chip/open-config-file ()
   "Open Emacs configuration file"
@@ -421,6 +447,7 @@ point reaches the beginning or end of the buffer, stop there."
 #+end_src
 
 *** Projectile
+
 #+begin_src elisp
 (use-package projectile
   :ensure t
@@ -879,6 +906,7 @@ C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
 ** Code
 
 *** Keybindings
+
 #+begin_src elisp
 (general-define-key
  :keymap 'prog-mode-map
@@ -886,6 +914,7 @@ C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
 #+end_src
 
 *** lispy
+
 #+begin_src elisp
 (use-package lispy
   :ensure t
@@ -919,6 +948,7 @@ C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
 #+end_src
 
 *** yasnippet
+
 #+begin_src elisp
 (use-package yasnippet
   :ensure t
@@ -929,6 +959,7 @@ C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
 #+end_src
 
 *** compilation
+
 #+begin_src elisp
 (setq compilation-scroll-output t)
 (with-eval-after-load "general"
@@ -938,6 +969,7 @@ C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
 #+end_src
 
 *** company
+
 #+begin_src elisp
 (defun chip/company-setup-keys ()
   "Setup keybindings for company mode"
@@ -972,6 +1004,7 @@ C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
 #+end_src
 
 *** lsp
+
 #+begin_src elisp
 ;; communication with language servers generate a lot of garbage
 (setq gc-cons-threshold 100000000)
@@ -1006,9 +1039,6 @@ C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
   (setq company-lsp-cache-candidates t
         company-lsp-filter-candidates t))
 #+end_src
-
-#+RESULTS:
-: t
 
 ** evil
 #+begin_src elisp
@@ -1063,6 +1093,7 @@ C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
 ** org-mode
 
 *** General
+
 #+begin_src elisp
 ;; set org todo keywords
 (setq org-todo-keywords
@@ -1189,6 +1220,7 @@ C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
 #+end_src
 
 *** org-babel
+
 #+begin_src elisp
 ;; enable easy templates
 (require 'org-tempo)
@@ -1221,6 +1253,7 @@ C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
 #+end_src
 
 *** Formatting
+
 #+begin_src elisp
 (setq org-startup-indented t)
 (setq org-adapt-indentation nil)
@@ -1270,6 +1303,7 @@ C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
 #+end_src
 
 *** org-capture
+
 #+begin_src elisp
 (defun get-presentation-path ()
   "Prompt for presentation name via minibuffer and return path."
@@ -1331,6 +1365,7 @@ C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
 #+end_src
 
 *** Auto saving
+
 #+begin_src elisp
 ;; auto-saving org buffers after certain actions
 (defun save-org-buffers (&rest args)
@@ -1347,6 +1382,7 @@ C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
 #+end_src
 
 *** Refiling
+
 #+begin_src elisp
 (setq org-refile-targets '((nil :maxlevel . 3)
                            (org-agenda-files :maxlevel . 3)))
@@ -2103,6 +2139,7 @@ all elements."
 ** Apps
 
 *** Magit
+
 #+begin_src elisp
 (defun chip/magit-status-root-dir (dir)
   (magit-status (vc-find-root dir ".git")))
@@ -2146,6 +2183,7 @@ all elements."
 #+end_src
 
 *** Elfeed
+
 #+begin_src elisp
 (use-package elfeed
   :ensure t
@@ -2180,6 +2218,7 @@ all elements."
 #+end_src
 
 *** EMMS
+
 #+begin_src elisp
 (use-package emms
   :ensure t
@@ -2895,6 +2934,9 @@ all elements."
 #+end_src
 
 ** Utils
+
+These are some useful utility functions that I'm using for various purposes.
+
 #+begin_src elisp
 (defun increment-number-at-point ()
   (interactive)
@@ -2970,6 +3012,7 @@ buffer in current window."
       (clipboard-kill-region (point-min) (point-max)))
     result))
 #+end_src
+
 * File local variables                                                :noexport:
 # Local variables:
 # after-save-hook: (lambda () 
