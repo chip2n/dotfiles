@@ -1030,7 +1030,8 @@ C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
   (setq lsp-signature-auto-activate nil)
   (general-define-key
    :keymaps 'lsp-mode-map
-   "C-c C-a" 'lsp-execute-code-action)
+   "C-c C-a" 'lsp-execute-code-action
+   "C-c C-c C-f" 'lsp-format-buffer)
   (general-define-key
    :keymaps 'lsp-mode-map
    :states '(normal)
