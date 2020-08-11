@@ -712,6 +712,10 @@ my configuration.
 #+end_src
 
 *** outshine
+:PROPERTIES:
+:HEADER-ARGS: :tangle no
+:END:
+
 #+begin_src elisp
 (use-package outshine
   :ensure t
