@@ -1295,8 +1295,8 @@ C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
   :ensure t
   :after org
   :config
-  (setq org-superstar-leading-bullet "ʃ")
-  (setq org-superstar-headline-bullets-list '("ʃ"))
+  (setq org-superstar-leading-bullet "#")
+  (setq org-superstar-headline-bullets-list '("#"))
   (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1))))
 
 (defface org-bullet
