@@ -693,6 +693,14 @@ my configuration.
 
 ** Buffers
 
+*** Keybindings
+#+begin_src elisp
+(general-define-key
+ :states '(normal)
+ "+" 'text-scale-increase
+ "-" 'text-scale-decrease)
+#+end_src
+
 *** golden-ratio-scroll-screen
 #+begin_src elisp
 (use-package golden-ratio-scroll-screen
