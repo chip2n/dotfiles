@@ -1211,6 +1211,8 @@ C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
   (with-eval-after-load "general"
     (general-define-key
      :keymaps 'org-mode-map
+     "M-p" 'org-previous-visible-heading
+     "M-n" 'org-next-visible-heading
      "M-k" 'org-move-subtree-up
      "M-j" 'org-move-subtree-down
      "M-l" 'org-metaright
