@@ -14,7 +14,6 @@
 
 (load-theme 'chip t)
 
-;; disable gui fluff
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -28,7 +27,6 @@
 ;; highlight the current line
 (global-hl-line-mode +1)
 
-;; make face for parentheses so we can dim them
 (use-package paren-face
   :ensure t
   :config
@@ -38,7 +36,6 @@
 (use-package all-the-icons
   :ensure t)
 
-;; Change fringe icons
 (define-fringe-bitmap 'left-curly-arrow
   [#b00000000
    #b00000000
@@ -172,6 +169,7 @@ want to use in the modeline *in lieu of* the original.")
   :ensure t
   :after (ivy projectile evil-snipe evil-lispy org-roam)
   :config
+  (diminish 'auto-fill-function)
   (diminish 'undo-tree-mode)
   (diminish 'company-mode)
   (diminish 'counsel-mode)
@@ -198,7 +196,6 @@ want to use in the modeline *in lieu of* the original.")
 ;; load private variables
 (require 'private)
 
-;; use CL package
 (require 'cl)
 
 (setenv "NODE_PATH" "/usr/lib/node_modules")
@@ -217,7 +214,7 @@ want to use in the modeline *in lieu of* the original.")
 ;; save custom variables to separate file (not loaded)
 (setq custom-file (concat user-emacs-directory "/custom.el"))
 
-;; follow symlinks
+;; always follow symlinks without asking
 (setq vc-follow-symlinks t)
 
 ;; disable lock files
@@ -519,6 +516,11 @@ point reaches the beginning or end of the buffer, stop there."
 ;; show directories before files
 (setq dired-listing-switches "-aBhl  --group-directories-first")
 
+(general-define-key
+ :states '(normal)
+ "+" 'text-scale-increase
+ "-" 'text-scale-decrease)
+
 (use-package golden-ratio-scroll-screen
   :ensure t
   :config
@@ -530,17 +532,6 @@ point reaches the beginning or end of the buffer, stop there."
   :hook ((prog-mode . hl-todo-mode)))
 
 (setq inhibit-startup-echo-area-message "chip")
-
-(use-package outshine
-  :ensure t
-  :config
-  (general-define-key
-   :keymaps '(outshine-mode-map)
-   :states '(normal)                    ;
-   "TAB" 'outshine-cycle
-   "<backtab>" 'outshine-cycle-buffer)
-  (setq outshine-startup-folded-p nil)
-  (add-hook 'emacs-lisp-mode-hook 'outshine-mode))
 
 (defun chip/window-zoom ()
   (interactive)
@@ -782,7 +773,8 @@ point reaches the beginning or end of the buffer, stop there."
   (setq lsp-signature-auto-activate nil)
   (general-define-key
    :keymaps 'lsp-mode-map
-   "C-c C-a" 'lsp-execute-code-action)
+   "C-c C-a" 'lsp-execute-code-action
+   "C-c C-c C-f" 'lsp-format-buffer)
   (general-define-key
    :keymaps 'lsp-mode-map
    :states '(normal)
@@ -808,8 +800,7 @@ point reaches the beginning or end of the buffer, stop there."
   ;; evaluating last sexp
   ;; (setq evil-move-cursor-back t)
   (setq evil-move-beyond-eol t)
-  ;; (add-to-list 'evil-motion-state-modes 'org-agenda-mode)
-  )
+  (add-to-list 'evil-emacs-state-modes 'image-mode))
 
 (use-package evil-visualstar
   :ensure t
@@ -823,8 +814,6 @@ point reaches the beginning or end of the buffer, stop there."
   :config
   (evil-collection-init 'dired)
   (evil-collection-init 'cider))
-
-(add-to-list 'evil-emacs-state-modes 'image-mode)
 
 (setq evil-fold-list
       '(((hs-minor-mode)
@@ -945,6 +934,8 @@ point reaches the beginning or end of the buffer, stop there."
   (with-eval-after-load "general"
     (general-define-key
      :keymaps 'org-mode-map
+     "M-p" 'org-previous-visible-heading
+     "M-n" 'org-next-visible-heading
      "M-k" 'org-move-subtree-up
      "M-j" 'org-move-subtree-down
      "M-l" 'org-metaright
@@ -976,6 +967,7 @@ point reaches the beginning or end of the buffer, stop there."
    (scheme . t)
    (emacs-lisp . t)
    (lisp . t)
+   (forth . t)
    (http . t)))
 
 ;; Enable noweb expansion in all languages
@@ -984,7 +976,7 @@ point reaches the beginning or end of the buffer, stop there."
             (assq-delete-all :noweb org-babel-default-header-args)))
 
 (defun my-org-confirm-babel-evaluate (lang body)
-  (not (member lang '("python" "bash" "js" "lisp" "lilypond" "ditaa" "restclient" "scheme" "elisp" "emacs-lisp"))))
+  (not (member lang '("python" "bash" "js" "lisp" "lilypond" "ditaa" "restclient" "scheme" "elisp" "emacs-lisp" "forth"))))
 
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 
@@ -1018,8 +1010,8 @@ point reaches the beginning or end of the buffer, stop there."
   :ensure t
   :after org
   :config
-  (setq org-superstar-leading-bullet "ʃ")
-  (setq org-superstar-headline-bullets-list '("ʃ"))
+  (setq org-superstar-leading-bullet "#")
+  (setq org-superstar-headline-bullets-list '("#"))
   (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1))))
 
 (defface org-bullet
@@ -2029,6 +2021,8 @@ all elements."
   :config
   (add-to-list 'auto-mode-alist (cons (rx ".rkt" eos) 'racket-mode)))
 
+(require 'forth-mode)
+
 (use-package clojure-mode
   :ensure t)
 
@@ -2277,40 +2271,8 @@ all elements."
 (use-package rustic
   :ensure t
   :config
-  (setq rustic-lsp-server 'rust-analyzer))
-
-;; (use-package eglot
-;;   :ensure t)
-
-;; (use-package rust-mode
-;;   :ensure t
-;;   :after company
-;;   :hook (rust-mode . eglot-ensure)
-;;   :config
-;;   (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
-;;   (setq lsp-rust-server 'rust-analyzer)
-;;   ;; (add-hook 'rust-mode-hook 'electric-pair-mode)
-;;   ;; (add-hook 'rust-mode-hook 'company-mode)
-;;   )
-
-;; (defun chip/setup-rust-keys ()
-;;   "Setup keybindings for rust hacking"
-;;   (interactive)
-;;   (general-define-key
-;;    :states 'normal
-;;    :keymaps 'rust-mode-map
-;;    "gd" 'racer-find-definition))
-
-;; (use-package flycheck-rust
-;;   :ensure t
-;;   :after rust-mode
-;;   :config (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
-
-;; (use-package cargo
-;;   :ensure t
-;;   :after rust-mode
-;;   :config
-;;   (add-hook 'rust-mode-hook 'cargo-minor-mode))
+  (setq rustic-lsp-server 'rust-analyzer)
+  (setq rustic-compile-backtrace 1))
 
 (defvar lsp-elixir--config-options (make-hash-table))
 
