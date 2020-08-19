@@ -68,6 +68,7 @@
 .config/jack
 .config/spotify-tui
 .config/virtscreen
+.config/Tresorit
 .vim/plugged
 .xmonad/.stack-work
 .xmonad/xmonad.state

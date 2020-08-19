@@ -16,7 +16,7 @@ xset +fp /usr/share/fonts/artwiz-fonts
 xset +fp /home/chip/.fonts
 xset fp rehash
 
-dropbox &
+tresorit --hidden &
 compton &
 feh --bg-scale /home/chip/dotfiles/gray.png
 #skype -style GTK &
