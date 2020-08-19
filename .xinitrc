@@ -1,3 +1,16 @@
+export PATH=$HOME/.cargo/bin:$PATH
+export PATH=$HOME/.cabal/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.pub-cache/bin:$PATH
+export PATH=$HOME/.cask/bin:$PATH
+export PATH=$HOME/.gem/ruby/2.6.0/bin:$PATH
+export PATH=$HOME/android/sdk/platform-tools:$PATH
+export PATH=$HOME/android/sdk/emulator:$PATH
+export PATH=$HOME/flutter/bin:$PATH
+export PATH=$HOME/flutter/bin/cache/dart-sdk/bin:$PATH
+export PATH=$HOME/scripts:$PATH
+export PATH=$HOME/local_scripts:$PATH
+
 xset +fp /usr/share/fonts/local
 xset +fp /usr/share/fonts/artwiz-fonts
 xset +fp /home/chip/.fonts
@@ -9,8 +22,6 @@ feh --bg-scale /home/chip/dotfiles/gray.png
 #skype -style GTK &
 unclutter &
 #xbacklight -set 100
-
-export PATH=$HOME/.cargo/bin:$HOME/.cabal/bin:$HOME/scripts:$HOME/local_scripts:$PATH:$HOME/.local/bin:$HOME/android/sdk/platform-tools:$HOME/android/sdk/emulator:$HOME/flutter/bin:$HOME/flutter/bin/cache/dart-sdk/bin:$HOME/.pub-cache/bin:$HOME/.cask/bin:$HOME/.gem/ruby/2.6.0/bin
 
 switch-keyboard-builtin
 
