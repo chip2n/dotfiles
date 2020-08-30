@@ -1137,7 +1137,8 @@ point reaches the beginning or end of the buffer, stop there."
 
 (defun chip/org-agenda ()
   (interactive)
-  (org-agenda nil "c"))
+  (org-agenda nil "c")
+  (org-agenda-redo-all))
 
 (defun chip/dashboard ()
   (interactive)
@@ -1167,6 +1168,9 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;; show only today as default
 (setq org-agenda-span 'day)
+
+;; bury agenda buffer instead of killing it on quit
+(setq org-agenda-sticky t)
 
 (setq org-agenda-sorting-strategy
       '((agenda habit-down time-up todo-state-up priority-down category-keep)
