@@ -1,6 +1,5 @@
 .cache
 custom.el
-packages/
 var/
 elpa/
 scripts/private.el
