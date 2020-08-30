@@ -765,10 +765,10 @@ point reaches the beginning or end of the buffer, stop there."
   (setq lsp-prefer-flymake nil)
   (setq lsp-eldoc-enable-hover nil)
   (setq lsp-enable-xref nil)
-  (setq lsp-enable-completion-at-point nil)
   (setq lsp-ui-sideline-enable nil)
   (setq lsp-ui-doc-enable nil)
   (setq lsp-auto-guess-root t)
+
   ;; prevent docs in minibuffer
   (setq lsp-signature-auto-activate nil)
   (general-define-key
@@ -779,13 +779,6 @@ point reaches the beginning or end of the buffer, stop there."
    :keymaps 'lsp-mode-map
    :states '(normal)
    "gd" 'lsp-find-definition))
-
-(use-package company-lsp
-  :ensure t
-  :after (company)
-  :config
-  (setq company-lsp-cache-candidates t
-        company-lsp-filter-candidates t))
 
 (use-package evil
   :ensure t
@@ -2276,7 +2269,9 @@ all elements."
   :ensure t
   :config
   (setq rustic-lsp-server 'rust-analyzer)
-  (setq rustic-compile-backtrace 1))
+  (setq rustic-compile-backtrace 1)
+  (add-hook 'rustic-mode-hook
+            (lambda () (setq company-backends '(company-capf)))))
 
 (defvar lsp-elixir--config-options (make-hash-table))
 
