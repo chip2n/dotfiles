@@ -16,7 +16,7 @@ main = do
     xmonad $ myConfig dbus
 
 myConfig dbus = ewmh . docks $ def
-    { terminal          = "urxvt"
+    { terminal          = "st"
     , workspaces        = ["1", "2", "3", "4", "5"]
     , focusFollowsMouse = False
 
