@@ -1556,8 +1556,8 @@ so change the default 'F' binding in the agenda to allow both"
           'append)
 
 (defun bh/narrow-to-org-subtree ()
-  (widen)
-  (org-narrow-to-subtree)
+  ;; (widen)
+  ;; (org-narrow-to-subtree)
   (save-restriction
     (org-agenda-set-restriction-lock)))
 
