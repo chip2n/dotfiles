@@ -11,6 +11,9 @@ export PATH=$HOME/flutter/bin/cache/dart-sdk/bin:$PATH
 export PATH=$HOME/scripts:$PATH
 export PATH=$HOME/local_scripts:$PATH
 
+# build rust crates in a single shared directory
+export CARGO_TARGET_DIR="$HOME/.cargo/shared"
+
 xset +fp /usr/share/fonts/local
 xset +fp /usr/share/fonts/artwiz-fonts
 xset +fp /home/chip/.fonts
