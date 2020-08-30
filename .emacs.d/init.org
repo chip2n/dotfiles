@@ -1006,10 +1006,7 @@ C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
   ;; show suggestions after entering one character.
   (setq company-minimum-prefix-length 1)
 
-  (setq company-selection-wrap-around t)
-
-  ;; (add-to-list 'company-backends 'company-capf)
-  )
+  (setq company-selection-wrap-around t))
 
 (defun complete-complete-cycle-next (arg)
   (company-complete-common-or-cycle))
@@ -1767,11 +1764,11 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                 (tags "refile"
                       ((org-agenda-overriding-header "\nrefile -------------------------------------------------------------------------")
                        (org-tags-match-list-sublevels nil)))
-                (tags "-REFILE/"
+                (tags "-refile/"
                       ((org-agenda-overriding-header "archive ------------------------------------------------------------------------")
                        (org-agenda-skip-function 'chip/org-agenda-skip-non-archivable-tasks)
                        (org-tags-match-list-sublevels nil)))
-                (tags-todo "-REFILE-KILL/!"
+                (tags-todo "-refile-KILL/!"
                            ((org-agenda-overriding-header
                              (if bh/hide-scheduled-and-waiting-next-tasks
                                  "\ntasks --------------------------------------------------------------------------"
@@ -1790,7 +1787,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                             (org-tags-match-list-sublevels 'indented)
                             (org-agenda-sorting-strategy
                              '(category-keep))))
-                (tags-todo "-REFILE-KILL/!"
+                (tags-todo "-refile-KILL/!"
                            ((org-agenda-overriding-header
                              (if bh/hide-scheduled-and-waiting-next-tasks
                                  "subtasks -----------------------------------------------------------------------"

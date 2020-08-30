@@ -1446,11 +1446,11 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                 (tags "refile"
                       ((org-agenda-overriding-header "\nrefile -------------------------------------------------------------------------")
                        (org-tags-match-list-sublevels nil)))
-                (tags "-REFILE/"
+                (tags "-refile/"
                       ((org-agenda-overriding-header "archive ------------------------------------------------------------------------")
                        (org-agenda-skip-function 'chip/org-agenda-skip-non-archivable-tasks)
                        (org-tags-match-list-sublevels nil)))
-                (tags-todo "-REFILE-KILL/!"
+                (tags-todo "-refile-KILL/!"
                            ((org-agenda-overriding-header
                              (if bh/hide-scheduled-and-waiting-next-tasks
                                  "\ntasks --------------------------------------------------------------------------"
@@ -1469,7 +1469,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                             (org-tags-match-list-sublevels 'indented)
                             (org-agenda-sorting-strategy
                              '(category-keep))))
-                (tags-todo "-REFILE-KILL/!"
+                (tags-todo "-refile-KILL/!"
                            ((org-agenda-overriding-header
                              (if bh/hide-scheduled-and-waiting-next-tasks
                                  "subtasks -----------------------------------------------------------------------"
