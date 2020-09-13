@@ -699,6 +699,14 @@ my configuration.
 (setq dired-listing-switches "-aBhl  --group-directories-first")
 #+end_src
 
+*** Deadgrep
+#+begin_src elisp
+(use-package deadgrep
+  :ensure t
+  :config
+  (add-to-list 'evil-emacs-state-modes 'deadgrep-mode))
+#+end_src
+
 ** Buffers
 
 *** Keybindings

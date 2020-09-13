@@ -522,6 +522,11 @@ point reaches the beginning or end of the buffer, stop there."
 ;; show directories before files
 (setq dired-listing-switches "-aBhl  --group-directories-first")
 
+(use-package deadgrep
+  :ensure t
+  :config
+  (add-to-list 'evil-emacs-state-modes 'deadgrep-mode))
+
 (general-define-key
  :states '(normal)
  "+" 'text-scale-increase
