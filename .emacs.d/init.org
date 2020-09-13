@@ -41,6 +41,14 @@ I use =use-package= to install packages from Melpa.
   (package-refresh-contents)
   (package-install 'use-package))
 (require 'use-package)
+
+(setq comp-deferred-compilation nil)
+#+end_src
+
+#+begin_src elisp
+(defun chip/native-compile ()
+  (interactive)
+  (native-compile-async "~/.emacs.d" 'recursively))
 #+end_src
 
 ** Theme

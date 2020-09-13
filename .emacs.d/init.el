@@ -9,6 +9,12 @@
   (package-install 'use-package))
 (require 'use-package)
 
+(setq comp-deferred-compilation nil)
+
+(defun chip/native-compile ()
+  (interactive)
+  (native-compile-async "~/.emacs.d" 'recursively))
+
 (defgroup chip-theme nil
   "Options for my personal theme")
 
