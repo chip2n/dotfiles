@@ -41,6 +41,14 @@ I use =use-package= to install packages from Melpa.
   (package-refresh-contents)
   (package-install 'use-package))
 (require 'use-package)
+
+(setq comp-deferred-compilation nil)
+#+end_src
+
+#+begin_src elisp
+(defun chip/native-compile ()
+  (interactive)
+  (native-compile-async "~/.emacs.d" 'recursively))
 #+end_src
 
 ** Theme
@@ -691,6 +699,14 @@ my configuration.
 (setq dired-listing-switches "-aBhl  --group-directories-first")
 #+end_src
 
+*** Deadgrep
+#+begin_src elisp
+(use-package deadgrep
+  :ensure t
+  :config
+  (add-to-list 'evil-emacs-state-modes 'deadgrep-mode))
+#+end_src
+
 ** Buffers
 
 *** Keybindings
@@ -1225,7 +1241,6 @@ C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
 #+end_src
 
 *** org-babel
-
 #+begin_src elisp
 ;; enable easy templates
 (require 'org-tempo)
@@ -1256,6 +1271,41 @@ C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
 
 ;; Redisplay inlined images after source block execution
 (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
+#+end_src
+
+I often want to execute a bash source block in a separate shell buffer in order
+to monitor the output and interact with it (e.g. inputting passwords). This
+piece of code enables this behavior when the ~:buffer~ parameter is set in the
+sourch block header.
+
+#+begin_src elisp
+(defun ob-shell-buffer-org-babel-execute-src-block (&optional orig-fun arg info params)
+  (interactive "P")
+  (cond
+   ;; If this function is not called as advice, do nothing
+   ((not orig-fun)
+    (warn "This function should not be called interactively")
+    nil)
+   ;; If there is no :buffer parameter, call the original function
+   ((not (assoc :buffer (nth 2 (or info (org-babel-get-src-block-info)))))
+    (funcall orig-fun arg info params))
+   ;; If not a bash src block, call original function
+   ((not (member (nth 0 (or info (org-babel-get-src-block-info))) '("bash" "sh")))
+    (funcall orig-fun arg info params))
+   ;; Otherwise, send contents to shell process
+   (t
+    (let ((contents (cadr (org-babel-get-src-block-info)))
+          (path (make-temp-file "org-bash-execute")))
+      (with-temp-file path
+        (insert (format "#!/bin/bash\nset -e\n%s" contents)))
+      (chmod path (string-to-number "777" 8))
+      ;; (start-process-shell-command "test" buffer (format "bash %s" path))
+      (comint-send-string
+       (get-buffer-process (shell))
+       (format "bash %s\n" path))
+      ))))
+
+(advice-add 'org-babel-execute-src-block :around 'ob-shell-buffer-org-babel-execute-src-block)
 #+end_src
 
 *** Formatting

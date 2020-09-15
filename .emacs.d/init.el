@@ -9,6 +9,12 @@
   (package-install 'use-package))
 (require 'use-package)
 
+(setq comp-deferred-compilation nil)
+
+(defun chip/native-compile ()
+  (interactive)
+  (native-compile-async "~/.emacs.d" 'recursively))
+
 (defgroup chip-theme nil
   "Options for my personal theme")
 
@@ -516,6 +522,11 @@ point reaches the beginning or end of the buffer, stop there."
 ;; show directories before files
 (setq dired-listing-switches "-aBhl  --group-directories-first")
 
+(use-package deadgrep
+  :ensure t
+  :config
+  (add-to-list 'evil-emacs-state-modes 'deadgrep-mode))
+
 (general-define-key
  :states '(normal)
  "+" 'text-scale-increase
@@ -975,6 +986,34 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;; Redisplay inlined images after source block execution
 (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
+
+(defun ob-shell-buffer-org-babel-execute-src-block (&optional orig-fun arg info params)
+  (interactive "P")
+  (cond
+   ;; If this function is not called as advice, do nothing
+   ((not orig-fun)
+    (warn "This function should not be called interactively")
+    nil)
+   ;; If there is no :buffer parameter, call the original function
+   ((not (assoc :buffer (nth 2 (or info (org-babel-get-src-block-info)))))
+    (funcall orig-fun arg info params))
+   ;; If not a bash src block, call original function
+   ((not (member (nth 0 (or info (org-babel-get-src-block-info))) '("bash" "sh")))
+    (funcall orig-fun arg info params))
+   ;; Otherwise, send contents to shell process
+   (t
+    (let ((contents (cadr (org-babel-get-src-block-info)))
+          (path (make-temp-file "org-bash-execute")))
+      (with-temp-file path
+        (insert (format "#!/bin/bash\nset -e\n%s" contents)))
+      (chmod path (string-to-number "777" 8))
+      ;; (start-process-shell-command "test" buffer (format "bash %s" path))
+      (comint-send-string
+       (get-buffer-process (shell))
+       (format "bash %s\n" path))
+      ))))
+
+(advice-add 'org-babel-execute-src-block :around 'ob-shell-buffer-org-babel-execute-src-block)
 
 (setq org-startup-indented t)
 (setq org-adapt-indentation nil)

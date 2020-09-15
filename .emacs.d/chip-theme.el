@@ -220,9 +220,9 @@
   `(org-warning ((,class (:foreground ,color-error))))
   `(org-code ((,class (:foreground ,pink-2 :weight bold :inherit fixed-pitch))))
   `(org-verbatim ((,class (:foreground ,pink-2 :weight bold :inherit fixed-pitch))))
-  `(org-block-begin-line ((,class (:foreground ,color-comment :underline t :slant italic :inherit fixed-pitch))))
-  `(org-block ((,class (:foreground ,color-foreground :inherit fixed-pitch :extend t))))
-  `(org-block-end-line ((,class (:foreground ,color-comment :overline t :slant italic :inherit fixed-pitch))))
+  `(org-block-begin-line ((,class (:foreground ,color-comment :background ,color-highlight-1 :slant italic :inherit fixed-pitch :extend t))))
+  `(org-block ((,class (:background ,grey-0 :inherit fixed-pitch :extend t))))
+  `(org-block-end-line ((,class (:foreground ,color-comment :background ,color-highlight-1 :slant italic :inherit fixed-pitch :extend t))))
 
   ;; Org bullets
   `(org-bullet ((,class (:foreground ,color-comment))))

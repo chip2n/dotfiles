@@ -1,0 +1,5 @@
+# key: pod
+# name: pod
+# --
+unsafe impl bytemuck::Zeroable for $1 {}
+unsafe impl bytemuck::Pod for $1 {}$0
