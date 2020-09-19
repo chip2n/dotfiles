@@ -703,6 +703,7 @@ my configuration.
 #+begin_src elisp
 (use-package deadgrep
   :ensure t
+  :after (evil)
   :config
   (add-to-list 'evil-emacs-state-modes 'deadgrep-mode))
 #+end_src

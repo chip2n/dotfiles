@@ -524,6 +524,7 @@ point reaches the beginning or end of the buffer, stop there."
 
 (use-package deadgrep
   :ensure t
+  :after (evil)
   :config
   (add-to-list 'evil-emacs-state-modes 'deadgrep-mode))
 
