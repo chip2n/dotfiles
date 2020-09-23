@@ -1038,6 +1038,9 @@ C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
 ;; communication with language servers generate a lot of garbage
 (setq gc-cons-threshold 100000000)
 
+;; show message when garbage collection happens
+(setq-default garbage-collection-messages t)
+
 ;; language servers often generate large responses
 (setq read-process-output-max (* 1024 1024))
 

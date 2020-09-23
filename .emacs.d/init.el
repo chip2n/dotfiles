@@ -768,6 +768,9 @@ point reaches the beginning or end of the buffer, stop there."
 ;; communication with language servers generate a lot of garbage
 (setq gc-cons-threshold 100000000)
 
+;; show message when garbage collection happens
+(setq-default garbage-collection-messages t)
+
 ;; language servers often generate large responses
 (setq read-process-output-max (* 1024 1024))
 
