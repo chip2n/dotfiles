@@ -249,7 +249,7 @@ want to use in the modeline *in lieu of* the original.")
 (setq next-screen-context-lines 4)
 
 ;; set default browser to firefox
-(setq browse-url-generic-program "brave")
+(setq browse-url-generic-program "firefox")
 (setq browse-url-browser-function 'browse-url-generic)
 
 (setq select-enable-clipboard t)
