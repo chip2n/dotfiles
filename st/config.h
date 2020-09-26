@@ -203,6 +203,9 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
+
+        /* custom keybindings */
+	{ ControlMask,          XK_y,           clippaste,      {.i =  0} },
 };
 
 /*
