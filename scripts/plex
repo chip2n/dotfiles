@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+docker run \
+       -d \
+       --name plex \
+       --network=host \
+       -e TZ="Europe/Stockholm" \
+       -v /home/chip/.plex:/config \
+       -v /mnt/samsung/media:/data \
+       plexinc/pms-docker
+
+# Add claim token argument when creating new containers
+# You can get a claim token here: https://www.plex.tv/claim/
+       #-e PLEX_CLAIM="<CLAIM_TOKEN>" \
