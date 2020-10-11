@@ -20,7 +20,7 @@ xset +fp /home/chip/.fonts
 xset fp rehash
 
 tresorit --hidden &
-compton &
+#compton &
 feh --bg-scale /home/chip/dotfiles/gray.png
 #skype -style GTK &
 unclutter &
