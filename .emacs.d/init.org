@@ -27,6 +27,10 @@
 :HEADER-ARGS: :tangle yes
 :END:
 
+#+BEGIN_SRC emacs-lisp
+;; -*- lexical-binding: t -*-
+#+END_SRC
+
 ** Package initialization 
 I use =use-package= to install packages from Melpa.
 
