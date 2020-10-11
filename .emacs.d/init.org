@@ -2411,12 +2411,14 @@ all elements."
   (general-define-key
    :states 'normal
    :modes 'slime-repl-mode
+   "gd" 'slime-edit-definition
    "C-c i" 'slime-inspect-presentation-at-point)
 
   (general-define-key
    :keymaps 'slime-macroexpansion-minor-mode-map
    "m" 'slime-macroexpand-1-inplace
    "u" 'slime-macroexpand-undo
+   "g" 'slime-macroexpand-again
    "q" 'slime-inspector-quit))
 
 (use-package slime-company
