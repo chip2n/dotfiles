@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
@@ -1506,13 +1508,13 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                             (org-agenda-sorting-strategy
                              '(category-keep))))
                 (tags-todo
-                 "-KILL/!"
+                 "-hold-KILL/!"
                            ((org-agenda-overriding-header "\nprojects -----------------------------------------------------------------------")
                             (org-agenda-skip-function 'bh/skip-non-projects)
                             (org-tags-match-list-sublevels 'indented)
                             (org-agenda-sorting-strategy
                              '(category-keep))))
-                (tags-todo "-refile-KILL/!"
+                (tags-todo "-hold-refile-KILL/!"
                            ((org-agenda-overriding-header
                              (if bh/hide-scheduled-and-waiting-next-tasks
                                  "subtasks -----------------------------------------------------------------------"
@@ -2013,12 +2015,14 @@ all elements."
   (general-define-key
    :states 'normal
    :modes 'slime-repl-mode
+   "gd" 'slime-edit-definition
    "C-c i" 'slime-inspect-presentation-at-point)
 
   (general-define-key
    :keymaps 'slime-macroexpansion-minor-mode-map
    "m" 'slime-macroexpand-1-inplace
    "u" 'slime-macroexpand-undo
+   "g" 'slime-macroexpand-again
    "q" 'slime-inspector-quit))
 
 (use-package slime-company

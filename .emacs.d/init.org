@@ -1839,13 +1839,13 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                             (org-agenda-sorting-strategy
                              '(category-keep))))
                 (tags-todo
-                 "-KILL/!"
+                 "-hold-KILL/!"
                            ((org-agenda-overriding-header "\nprojects -----------------------------------------------------------------------")
                             (org-agenda-skip-function 'bh/skip-non-projects)
                             (org-tags-match-list-sublevels 'indented)
                             (org-agenda-sorting-strategy
                              '(category-keep))))
-                (tags-todo "-refile-KILL/!"
+                (tags-todo "-hold-refile-KILL/!"
                            ((org-agenda-overriding-header
                              (if bh/hide-scheduled-and-waiting-next-tasks
                                  "subtasks -----------------------------------------------------------------------"
