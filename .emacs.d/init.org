@@ -701,6 +701,10 @@ my configuration.
 
 ;; show directories before files
 (setq dired-listing-switches "-aBhl  --group-directories-first")
+
+;; start dired in emacs mode
+(with-eval-after-load "evil"
+  (add-to-list 'evil-emacs-state-modes 'dired-mode))
 #+end_src
 
 *** Deadgrep
@@ -946,6 +950,52 @@ C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
  "C-;" 'comment-line)
 #+end_src
 
+*** Refactoring
+
+#+begin_src elisp
+(defun chip/lambda->fun ()
+  (interactive)
+  (save-excursion
+    (if (looking-at "(lambda")
+        (message "done")
+      (cl-loop
+       until (looking-at "(lambda")
+       do (backward-up-list 1 t t))
+      (let* ((sexp (sexp-at-point))
+             (args (cadr sexp))
+             (body (caddr sexp))
+             (name (read-from-minibuffer "Name: ")))
+        (save-excursion
+          (down-list)
+          (forward-sexp 2)
+          (mark-sexp)
+          (kill-region (region-beginning) (region-end))
+
+          (end-of-defun)
+          (insert (format "\n\n(defun %s %s" name args))
+          (yank)
+          (insert ")\n")
+          (beginning-of-defun)
+          (chip/indent-defun))
+        (kill-sexp)
+        (insert (format "#'%s" name))))))
+
+(defun chip/indent-defun ()
+  "Indent the current defun."
+  (interactive)
+  (save-excursion
+    (mark-defun)
+    (indent-region (region-beginning) (region-end))))
+#+end_src
+
+*** Editing
+
+Toggle between CamelCase, snake_case etc:
+#+begin_src elisp
+(use-package string-inflection
+  :ensure t)
+#+end_src
+
 *** lispy
 
 #+begin_src elisp
@@ -978,6 +1028,13 @@ C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
   (add-hook 'sly-mrepl-mode-hook #'evil-lispy-mode)
   (add-hook 'racket-mode-hook #'evil-lispy-mode)
   (add-hook 'scheme-mode-hook #'evil-lispy-mode))
+#+end_src
+
+*** aggressive-indent
+
+#+begin_src elisp
+(use-package aggressive-indent
+  :ensure t)
 #+end_src
 
 *** yasnippet
@@ -1014,15 +1071,17 @@ C-f= with a =sudo:= prefix. Now I just need a quick =M-x sudo-edit=.
 (use-package company
   :ensure t
   :config
+  (general-define-key
+   :keymap 'prog-mode-map
+   "M-/" 'counsel-company)
   (add-hook 'company-mode-hook 'chip/company-setup-keys)
-  ;; (setq company-idle-delay nil)
   ;; prevent downcasing when autocompleting
   (setq company-dabbrev-downcase nil)
   (setq evil-complete-next-func 'complete-complete-cycle-next)
   (setq evil-complete-previous-func 'complete-complete-cycle-previous)
 
-  ;; no delay in showing suggestions.
-  (setq company-idle-delay 0)
+  ;; never automatically invoke company
+  (setq company-idle-delay nil)
 
   ;; show suggestions after entering one character.
   (setq company-minimum-prefix-length 1)
@@ -2380,6 +2439,13 @@ all elements."
  :map 'emacs-lisp-mode-map
  "C-c C-c" 'eval-defun)
 
+;; Toggle evil emacs state when entering edebug mode
+(add-hook 'edebug-mode-hook
+          (lambda ()
+            (if (bound-and-true-p edebug-mode)
+                (evil-emacs-state)
+              (evil-normal-state))))
+
 (with-eval-after-load "company"
   (add-hook 'emacs-lisp-mode-hook 'company-mode))
 #+end_src
@@ -2410,7 +2476,7 @@ all elements."
 
   (general-define-key
    :states 'normal
-   :modes 'slime-repl-mode
+   :keymaps 'slime-repl-mode-map
    "gd" 'slime-edit-definition
    "C-c i" 'slime-inspect-presentation-at-point)
 

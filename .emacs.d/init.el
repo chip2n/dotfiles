@@ -524,6 +524,10 @@ point reaches the beginning or end of the buffer, stop there."
 ;; show directories before files
 (setq dired-listing-switches "-aBhl  --group-directories-first")
 
+;; start dired in emacs mode
+(with-eval-after-load "evil"
+  (add-to-list 'evil-emacs-state-modes 'dired-mode))
+
 (use-package deadgrep
   :ensure t
   :after (evil)
@@ -693,6 +697,43 @@ point reaches the beginning or end of the buffer, stop there."
  :keymap 'prog-mode-map
  "C-;" 'comment-line)
 
+(defun chip/lambda->fun ()
+  (interactive)
+  (save-excursion
+    (if (looking-at "(lambda")
+        (message "done")
+      (cl-loop
+       until (looking-at "(lambda")
+       do (backward-up-list 1 t t))
+      (let* ((sexp (sexp-at-point))
+             (args (cadr sexp))
+             (body (caddr sexp))
+             (name (read-from-minibuffer "Name: ")))
+        (save-excursion
+          (down-list)
+          (forward-sexp 2)
+          (mark-sexp)
+          (kill-region (region-beginning) (region-end))
+
+          (end-of-defun)
+          (insert (format "\n\n(defun %s %s" name args))
+          (yank)
+          (insert ")\n")
+          (beginning-of-defun)
+          (chip/indent-defun))
+        (kill-sexp)
+        (insert (format "#'%s" name))))))
+
+(defun chip/indent-defun ()
+  "Indent the current defun."
+  (interactive)
+  (save-excursion
+    (mark-defun)
+    (indent-region (region-beginning) (region-end))))
+
+(use-package string-inflection
+  :ensure t)
+
 (use-package lispy
   :ensure t
   :config
@@ -723,6 +764,9 @@ point reaches the beginning or end of the buffer, stop there."
   (add-hook 'racket-mode-hook #'evil-lispy-mode)
   (add-hook 'scheme-mode-hook #'evil-lispy-mode))
 
+(use-package aggressive-indent
+  :ensure t)
+
 (use-package yasnippet
   :ensure t
   :init
@@ -746,15 +790,17 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package company
   :ensure t
   :config
+  (general-define-key
+   :keymap 'prog-mode-map
+   "M-/" 'counsel-company)
   (add-hook 'company-mode-hook 'chip/company-setup-keys)
-  ;; (setq company-idle-delay nil)
   ;; prevent downcasing when autocompleting
   (setq company-dabbrev-downcase nil)
   (setq evil-complete-next-func 'complete-complete-cycle-next)
   (setq evil-complete-previous-func 'complete-complete-cycle-previous)
 
-  ;; no delay in showing suggestions.
-  (setq company-idle-delay 0)
+  ;; never automatically invoke company
+  (setq company-idle-delay nil)
 
   ;; show suggestions after entering one character.
   (setq company-minimum-prefix-length 1)
@@ -1987,6 +2033,13 @@ all elements."
  :map 'emacs-lisp-mode-map
  "C-c C-c" 'eval-defun)
 
+;; Toggle evil emacs state when entering edebug mode
+(add-hook 'edebug-mode-hook
+          (lambda ()
+            (if (bound-and-true-p edebug-mode)
+                (evil-emacs-state)
+              (evil-normal-state))))
+
 (with-eval-after-load "company"
   (add-hook 'emacs-lisp-mode-hook 'company-mode))
 
@@ -2014,7 +2067,7 @@ all elements."
 
   (general-define-key
    :states 'normal
-   :modes 'slime-repl-mode
+   :keymaps 'slime-repl-mode-map
    "gd" 'slime-edit-definition
    "C-c i" 'slime-inspect-presentation-at-point)
 
