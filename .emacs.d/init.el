@@ -521,8 +521,8 @@ point reaches the beginning or end of the buffer, stop there."
 ;;   :init
 ;;   (setq diredp-hide-details-initially-flag nil))
 
-;; show directories before files
-(setq dired-listing-switches "-aBhl  --group-directories-first")
+;; show directories before files, and dotfiles first
+(setq dired-listing-switches "-aBhlv --group-directories-first")
 
 ;; start dired in emacs mode
 (with-eval-after-load "evil"
