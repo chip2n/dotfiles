@@ -12,9 +12,12 @@ pacman -Syyuu --needed \
   gtk2 \
   htop \
   playerctl \
-  lib32-gcc-libs lib32-glibc lib32-zlib libxlst libnotify \
+  lib32-gcc-libs lib32-glibc libnotify \
   cmake python python2 wget unzip openssh zlib libpng poppler-glib \
   zathura zathura-pdf-poppler \
-  isync mu \
   scrot \
   xcape \
+  vim \
+  vi \
+  ncdu \
+  pandoc
