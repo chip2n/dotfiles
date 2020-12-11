@@ -1,8 +1,10 @@
--- This file has been generated from package.yaml by hpack version 0.28.2.
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.2.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 6fec086cf3d6724fe2f322e5cf4e3cb8c8d55b6a9a370281f765e4776ee56672
+-- hash: dcac2935dd1c27bbef6440f4374d4a475dd6793b1d5c5f3f399f8a01310b5729
 
 name:           xmonad-info-dbus
 version:        0.1.0.0
@@ -13,12 +15,7 @@ author:         Author name here
 maintainer:     example@example.com
 copyright:      2018 Author name here
 license:        BSD3
-license-file:   LICENSE
 build-type:     Simple
-cabal-version:  >= 1.10
-extra-source-files:
-    ChangeLog.md
-    README.md
 
 source-repository head
   type: git
@@ -44,22 +41,6 @@ executable xmonad-info-dbus-exe
       Paths_xmonad_info_dbus
   hs-source-dirs:
       app
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N
-  build-depends:
-      base >=4.7 && <5
-    , dbus ==0.10.14
-    , transformers ==0.5.2.0
-    , unix ==2.7.2.2
-    , xmonad-info-dbus
-  default-language: Haskell2010
-
-test-suite xmonad-info-dbus-test
-  type: exitcode-stdio-1.0
-  main-is: Spec.hs
-  other-modules:
-      Paths_xmonad_info_dbus
-  hs-source-dirs:
-      test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
