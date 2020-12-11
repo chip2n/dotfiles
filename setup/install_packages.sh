@@ -20,4 +20,5 @@ pacman -Syyuu --needed \
   vim \
   vi \
   ncdu \
-  pandoc
+  pandoc \
+  fuse
