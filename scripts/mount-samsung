@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cryptsetup open /dev/sdc1 samsung
+cryptsetup open /dev/disk/by-uuid/423e692b-9ee0-44e0-a48e-c2dc87c07178 samsung
 mount /dev/mapper/samsung /mnt/samsung
