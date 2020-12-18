@@ -337,7 +337,7 @@ point reaches the beginning or end of the buffer, stop there."
    "C-f"   'counsel-find-file
    "C-p"   'counsel-projectile-find-file
    "C-x p" 'counsel-projectile-find-file
-   "C-x a" 'counsel-projectile-ag
+   "C-c r" 'counsel-rg
    "C-S-P" 'counsel-projectile-switch-project
    "C-x P" 'counsel-projectile-switch-project
    "C-b"   'counsel-switch-buffer))
@@ -799,8 +799,8 @@ point reaches the beginning or end of the buffer, stop there."
   (setq evil-complete-next-func 'complete-complete-cycle-next)
   (setq evil-complete-previous-func 'complete-complete-cycle-previous)
 
-  ;; never automatically invoke company
-  (setq company-idle-delay nil)
+  ;; show company completion with delay
+  (setq company-idle-delay 0.3)
 
   ;; show suggestions after entering one character.
   (setq company-minimum-prefix-length 1)
@@ -2128,7 +2128,9 @@ all elements."
   :config
   (setq cider-test-show-report-on-success t)
   (eldoc-mode t)
-  (add-to-list 'evil-motion-state-modes 'cider-test-report-mode))
+  (add-to-list 'evil-motion-state-modes 'cider-test-report-mode)
+  (add-hook 'cider-mode-hook 'company-mode)
+  (add-hook 'cider-repl-mode-hook 'company-mode))
 
 (use-package inf-clojure
   :ensure t)
@@ -2437,6 +2439,9 @@ all elements."
       (call-process-shell-command
        (format "AUTOREMOTE_API_KEY=\"%s\" autoremote %s" autoremote-api-key message))
     (message (format "No autoremote key set - unable to send message \"%s\"" message))))
+
+(use-package olivetti
+  :ensure t)
 
 (defun prose--finish ()
   (interactive)
