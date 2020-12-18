@@ -35,3 +35,5 @@ fi
 if $INSTALL_BOOT_LOADER; then
   bootctl --path=/boot install
 fi
+
+echo "Don't forget to install the processor's microcodes!"
