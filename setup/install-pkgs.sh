@@ -5,10 +5,11 @@ pacman -Syyuu --needed \
   xmonad xmonad-contrib haskell-dbus \
   i3-gaps i3blocks \
   terminus-font \
-  rxvt-unicode firefox vim neovim emacs \
+  rxvt-unicode firefox \
+  vi vim neovim emacs \
   stack cabal-install \
   pass gnupg qt5-base \
-  the_silver_searcher \
+  the_silver_searcher ripgrep \
   gtk2 \
   htop \
   playerctl \
@@ -17,8 +18,8 @@ pacman -Syyuu --needed \
   zathura zathura-pdf-poppler \
   scrot \
   xcape \
-  vim \
-  vi \
   ncdu \
   pandoc \
-  fuse
+  fuse \
+  fish \
+  inetutils
