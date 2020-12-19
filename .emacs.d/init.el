@@ -2126,7 +2126,8 @@ all elements."
 (use-package cider
   :ensure t
   :config
-  (setq cider-test-show-report-on-success t)
+  (setq cider-test-show-report-on-success nil)
+  (setq cider-auto-select-test-report-buffer nil)
   (eldoc-mode t)
   (add-to-list 'evil-motion-state-modes 'cider-test-report-mode)
   (add-hook 'cider-mode-hook 'company-mode)
