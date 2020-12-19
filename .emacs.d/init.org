@@ -2557,6 +2557,9 @@ file from the 0.7.3 because I'm a lazy boy, so I'll just ~require~ it.
 
 (use-package inf-clojure
   :ensure t)
+
+(use-package clj-refactor
+  :ensure t)
 #+end_src
 
 *** Python

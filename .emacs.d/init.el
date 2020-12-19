@@ -2136,6 +2136,9 @@ all elements."
 (use-package inf-clojure
   :ensure t)
 
+(use-package clj-refactor
+  :ensure t)
+
 (use-package anaconda-mode
   :ensure t
   :config
