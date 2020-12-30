@@ -22,4 +22,8 @@ pacman -Syyuu --needed \
   pandoc \
   fuse \
   fish \
-  inetutils
+  inetutils\
+  ldd \
+  clang \
+  thunar \
+  vlc
