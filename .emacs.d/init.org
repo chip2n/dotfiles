@@ -1116,6 +1116,7 @@ Toggle between CamelCase, snake_case etc:
   (setq lsp-ui-sideline-enable nil)
   (setq lsp-ui-doc-enable nil)
   (setq lsp-auto-guess-root t)
+  (setq lsp-headerline-breadcrumb-enable nil)
 
   ;; prevent docs in minibuffer
   (setq lsp-signature-auto-activate nil)

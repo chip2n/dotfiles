@@ -831,6 +831,7 @@ point reaches the beginning or end of the buffer, stop there."
   (setq lsp-ui-sideline-enable nil)
   (setq lsp-ui-doc-enable nil)
   (setq lsp-auto-guess-root t)
+  (setq lsp-headerline-breadcrumb-enable nil)
 
   ;; prevent docs in minibuffer
   (setq lsp-signature-auto-activate nil)
