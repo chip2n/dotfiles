@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cryptsetup open /dev/disk/by-uuid/cb334815-6c1b-4133-a338-c81961783f06 seagate
+mount /dev/mapper/seagate /mnt/seagate
