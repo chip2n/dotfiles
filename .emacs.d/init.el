@@ -2438,6 +2438,44 @@ all elements."
 
 (require 'bolt-mode)
 
+(use-package zig-mode
+  :ensure t
+  :after (lsp-mode)
+  :bind (:map zig-mode-map
+              ("C-c C-r" . chip/zig-compile-run)
+              ("C-c C-b" . chip/zig-compile)
+              ("C-c C-t" . chip/zig-test)
+              ("C-c C-f" . lsp-format-buffer))
+  :config
+  ;; formatting on save breaks lsp-mode
+  ;; see https://github.com/ziglang/zig-mode/issues/49
+  (setq zig-format-on-save nil)
+  (add-to-list 'lsp-language-id-configuration '(zig-mode . "zig"))
+  (add-hook 'zig-mode-hook 'lsp)
+  (lsp-register-client
+   (make-lsp-client
+    :new-connection (lsp-stdio-connection "/home/chip/Downloads/x86_64-linux/zls")
+    :major-modes '(zig-mode)
+    :server-id 'zls)))
+
+(defun chip/zig-compile ()
+  "Compile using `zig build`."
+  (interactive)
+  (let ((default-directory (projectile-project-root)))
+    (zig--run-cmd "build")))
+
+(defun chip/zig-compile-run ()
+  "Compile and run using `zig build run`."
+  (interactive)
+  (let ((default-directory (projectile-project-root)))
+    (zig--run-cmd "build run")))
+
+(defun chip/zig-test ()
+  "Test using `zig build test`."
+  (interactive)
+  (let ((default-directory (projectile-project-root)))
+    (zig--run-cmd "build test")))
+
 (defun autoremote-send (message)
   (if (boundp 'autoremote-api-key)
       (call-process-shell-command
