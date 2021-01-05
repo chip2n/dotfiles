@@ -194,6 +194,11 @@
   `(avy-lead-face ((,class (:background ,red-1 :foreground ,grey-2 :weight bold))))
   `(avy-lead-face-0 ((,class (:background ,red-1 :foreground ,grey-2 :weight bold))))
 
+  ;; Swiper
+  `(swiper-line-face ((,class (:background ,color-highlight-1 :extend t))))
+  `(swiper-match-face-1 ((,class (:background ,white-1 :foreground ,grey-2 :weight bold))))
+  `(swiper-background-match-face-1 ((,class (:background ,color-highlight-2 :foreground ,white-1 :weight bold))))
+
   ;; Org
   `(org-ellipsis ((,class (:foreground ,grey-4))))
   `(org-todo ((,class (:foreground ,red-2))))
