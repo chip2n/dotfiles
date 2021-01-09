@@ -194,6 +194,10 @@
   `(avy-lead-face ((,class (:background ,red-1 :foreground ,grey-2 :weight bold))))
   `(avy-lead-face-0 ((,class (:background ,red-1 :foreground ,grey-2 :weight bold))))
 
+  ;; ace-window
+  `(aw-background-face ((,class (:foreground ,grey-3))))
+  `(aw-leading-char-face ((,class (:foreground ,color-foreground))))
+
   ;; Swiper
   `(swiper-line-face ((,class (:background ,color-highlight-1 :extend t))))
   `(swiper-match-face-1 ((,class (:background ,white-1 :foreground ,grey-2 :weight bold))))
