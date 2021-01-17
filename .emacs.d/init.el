@@ -1133,8 +1133,8 @@ point reaches the beginning or end of the buffer, stop there."
   :ensure t
   :after org
   :config
-  (setq org-superstar-leading-bullet "#")
-  (setq org-superstar-headline-bullets-list '("#"))
+  (setq org-superstar-leading-bullet "λ")
+  (setq org-superstar-headline-bullets-list '("λ"))
   (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1))))
 
 (defface org-bullet
