@@ -3046,6 +3046,11 @@ file from the 0.7.3 because I'm a lazy boy, so I'll just ~require~ it.
 
 ** pass
 #+begin_src elisp
+(use-package pass
+  :ensure t)
+#+end_src
+
+#+begin_src elisp
 (use-package ivy-pass
   :ensure t
   :after (ivy))

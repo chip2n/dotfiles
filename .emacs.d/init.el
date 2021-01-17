@@ -2563,6 +2563,9 @@ all elements."
   (set (make-local-variable 'header-line)
        'prose-header-line))
 
+(use-package pass
+  :ensure t)
+
 (use-package ivy-pass
   :ensure t
   :after (ivy))
