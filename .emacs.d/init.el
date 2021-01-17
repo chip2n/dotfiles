@@ -2518,6 +2518,24 @@ all elements."
   (let ((default-directory (projectile-project-root)))
     (zig--run-cmd "build test")))
 
+(use-package gdscript-mode
+  :ensure t
+  :config
+  ;; suppress unknown notification errors.
+  (add-hook 'gdscript-mode-hook 'lsp)
+  (advice-add #'lsp--get-message-type :around #'lsp--gdscript-ignore-errors))
+
+(defun lsp--gdscript-ignore-errors (original-function &rest args)
+  "Ignore the error message resulting from Godot not replying to the `JSONRPC' request."
+  (if (string-equal major-mode "gdscript-mode")
+      (let ((json-data (nth 0 args)))
+        (if (and (string= (gethash "jsonrpc" json-data "") "2.0")
+                 (not (gethash "id" json-data nil))
+                 (not (gethash "method" json-data nil)))
+            nil ; (message "Method not found")
+          (apply original-function args)))
+    (apply original-function args)))
+
 (defun autoremote-send (message)
   (if (boundp 'autoremote-api-key)
       (call-process-shell-command
