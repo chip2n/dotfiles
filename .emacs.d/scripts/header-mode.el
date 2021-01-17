@@ -60,7 +60,7 @@
         '("" ;; invocation-name
           (:eval (if (buffer-file-name)
                      (chip/create-header-filepath)
-                     (chip/create-header-buffer))))))
+                   (chip/create-header-buffer))))))
 
 (defun chip/create-header-filepath ()
   (funcall header-format-filepath (sl/make-header)))
