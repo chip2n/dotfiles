@@ -2348,7 +2348,10 @@ all elements."
   (setq js2-strict-inconsistent-return-warning nil))
 
 (use-package json-mode
-  :ensure t)
+  :ensure t
+  :config
+  ;; add simple validation through flycheck (for missing commas etc)
+  (add-hook 'json-mode-hook #'flycheck-mode))
 
 (use-package js2-refactor
   :ensure t
