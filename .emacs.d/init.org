@@ -375,6 +375,19 @@ entirely, and some are shortened.
       (delq 'process-kill-buffer-query-function kill-buffer-query-functions))
 #+end_src
 
+#+begin_src elisp
+(use-package embark
+  :ensure t
+  :bind ("C-," . embark-act)
+  :config
+  ;; show command help via which-key
+  (setq embark-action-indicator
+        (lambda (map)
+          (which-key--show-keymap "Embark" map nil nil 'no-paging)
+          #'which-key--hide-popup-ignore-command)
+        embark-become-indicator embark-action-indicator))
+#+end_src
+
 ** Text navigation
 
 *** Keybindings

@@ -274,6 +274,17 @@ want to use in the modeline *in lieu of* the original.")
 (setq kill-buffer-query-functions
       (delq 'process-kill-buffer-query-function kill-buffer-query-functions))
 
+(use-package embark
+  :ensure t
+  :bind ("C-," . embark-act)
+  :config
+  ;; show command help via which-key
+  (setq embark-action-indicator
+        (lambda (map)
+          (which-key--show-keymap "Embark" map nil nil 'no-paging)
+          #'which-key--hide-popup-ignore-command)
+        embark-become-indicator embark-action-indicator))
+
 (defun chip/move-end-of-line ()
   "Move point to end of line.
 
