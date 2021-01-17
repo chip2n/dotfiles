@@ -184,7 +184,7 @@ want to use in the modeline *in lieu of* the original.")
 
 (use-package diminish
   :ensure t
-  :after (ivy projectile evil-snipe evil-lispy org-roam)
+  :after (ivy projectile evil-snipe evil-lispy org-roam company-box)
   :config
   (diminish 'auto-fill-function)
   (diminish 'undo-tree-mode)
@@ -197,20 +197,23 @@ want to use in the modeline *in lieu of* the original.")
   (diminish 'evil-snipe-local-mode)
   (diminish 'lispy-mode)
   (diminish 'evil-lispy-mode)
-  (diminish 'auto-revert-mode "arev")
+  (diminish 'auto-revert-mode "rev")
   (diminish 'emacs-lisp-mode "elisp")
   (diminish 'eldoc-mode)
   (diminish 'yas-minor-mode)
   (diminish 'evil-org-mode)
   (diminish 'org-indent-mode)
   (diminish 'org-roam-mode)
+  (diminish 'org-src-mode)
   (diminish 'outshine-mode)
   (diminish 'which-key-mode)
   (diminish 'outline-minor-mode)
   (diminish 'slime-autodoc-mode)
-  (diminish 'slime-mode "slime"))
+  (diminish 'slime-mode "slime")
+  (diminish 'company-box-mode)
+  (diminish 'flycheck-mode)
+  (diminish 'ace-window-mode))
 
-;; load private variables
 (require 'private)
 
 (require 'cl)
@@ -821,6 +824,11 @@ point reaches the beginning or end of the buffer, stop there."
 
 (defun complete-complete-cycle-previous (arg)
   (company-complete-common-or-cycle -1))
+
+(use-package company-box
+  :ensure t
+  :after (company)
+  :hook (company-mode . company-box-mode))
 
 ;; communication with language servers generate a lot of garbage
 (setq gc-cons-threshold 100000000)
