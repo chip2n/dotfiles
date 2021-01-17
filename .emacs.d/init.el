@@ -35,6 +35,9 @@
 ;; highlight the current line
 (global-hl-line-mode +1)
 
+;; show line numbers where appropriate
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
+
 (use-package paren-face
   :ensure t
   :config
