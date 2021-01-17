@@ -725,10 +725,6 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package sudo-edit
   :ensure t)
 
-(general-define-key
- :keymap 'prog-mode-map
- "C-;" 'comment-line)
-
 (defun chip/lambda->fun ()
   (interactive)
   (save-excursion
@@ -880,6 +876,11 @@ point reaches the beginning or end of the buffer, stop there."
    :keymaps 'lsp-mode-map
    :states '(normal)
    "gd" 'lsp-find-definition))
+
+(use-package evil-nerd-commenter
+  :ensure t
+  :bind (:map prog-mode-map
+              (("C-;" . evilnc-comment-or-uncomment-lines))))
 
 (use-package evil
   :ensure t
