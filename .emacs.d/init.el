@@ -47,6 +47,12 @@
 (use-package all-the-icons
   :ensure t)
 
+(use-package all-the-icons-dired
+  :ensure t
+  :after (all-the-icons)
+  :config
+  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
+
 (define-fringe-bitmap 'left-curly-arrow
   [#b00000000
    #b00000000

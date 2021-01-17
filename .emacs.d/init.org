@@ -110,6 +110,12 @@ package includes icons from a bunch of different sources.
 #+begin_src elisp
 (use-package all-the-icons
   :ensure t)
+
+(use-package all-the-icons-dired
+  :ensure t
+  :after (all-the-icons)
+  :config
+  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
 #+end_src
 
 *** Fringes
