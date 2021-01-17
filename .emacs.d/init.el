@@ -322,6 +322,7 @@ point reaches the beginning or end of the buffer, stop there."
    :states '(normal insert visual emacs)
    "C-e"   'chip/move-end-of-line
    "C-a"   'chip/move-beginning-of-line
+   "C-c i"   'imenu
    "C-s"   'avy-goto-char-2
    "C-c s" 'avy-goto-char-2
    "M-s"   'swiper))
@@ -363,7 +364,8 @@ point reaches the beginning or end of the buffer, stop there."
    "C-c r" 'counsel-rg
    "C-S-P" 'counsel-projectile-switch-project
    "C-x P" 'counsel-projectile-switch-project
-   "C-b"   'counsel-switch-buffer))
+   "C-b"   'counsel-switch-buffer
+   "C-S-B"   'counsel-switch-buffer-other-window))
 
 (use-package projectile
   :ensure t
