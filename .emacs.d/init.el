@@ -572,7 +572,14 @@ point reaches the beginning or end of the buffer, stop there."
 ;; highlight TODOs in comments
 (use-package hl-todo
   :ensure t
-  :hook ((prog-mode . hl-todo-mode)))
+  :hook ((prog-mode . hl-todo-mode))
+  :config
+  (setq hl-todo-keyword-faces
+        '(("TODO" . "#ffa398")
+          ("FIXME" . "#ffa398")
+          ("NOTE" . "#fbf2bf")
+          ("OPTIMIZE" . "#fbf2bf")
+          ("HACK" . "#fbf2bf"))))
 
 (setq inhibit-startup-echo-area-message "chip")
 
