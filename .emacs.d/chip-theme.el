@@ -32,10 +32,10 @@
     (color-highlight-1       . grey-2)
     (color-highlight-2       . grey-3)
     (color-border            . grey-2)
-    (color-headline-1        . grey-5)
-    (color-headline-2        . grey-5)
-    (color-headline-3        . grey-5)
-    (color-headline-4        . grey-5)
+    (color-headline-1        . white-1)
+    (color-headline-2        . white-1)
+    (color-headline-3        . white-1)
+    (color-headline-4        . white-1)
     (color-link              . blue-2)
     (color-link-visited      . blue-1)
     (color-error             . red-2)
@@ -126,13 +126,15 @@
   `(vertical-border ((,class (:foreground ,color-border))))
   `(link ((,class (:foreground ,blue-2 :underline t))))
   `(link-visited ((,class (:foreground ,blue-1 :underline t))))
-  `(line-number ((,class (:foreground ,color-comment))))
+  `(line-number ((,class (:foreground ,grey-3))))
+  `(line-number-current-line ((,class (:foreground ,color-foreground :background ,color-highlight-1 :bold t))))
 
   ;; Paren match
   `(show-paren-match ((,class (:background ,color-highlight-2))))
 
   ;; Header faces
-  `(header-line ((,class (:box (:line-width 4 :color ,color-background :style nil) :background ,color-background :foreground ,color-foreground))))
+  `(header-line ((,class (:box (:line-width 4 :color ,color-background :style nil)
+                               :background ,color-background :foreground ,color-foreground))))
 
   ;; Mode line faces
   `(mode-line ((,class (:box () :background ,color-modeline-active :foreground ,color-foreground))))
@@ -167,6 +169,11 @@
   `(term-color-yellow ((,class (:foreground ,yellow-2))))
   `(term-color-pink ((,class (:foreground ,pink-2))))
   `(term-color-magenta ((,class (:foreground ,magenta-2))))
+
+  ;; compilation-mode
+  `(compilation-mode-line-exit ((,class (:foreground ,green-2))))
+  `(compilation-mode-line-run ((,class (:foreground ,red-2))))
+  `(compilation-mode-line-fail ((,class (:foreground ,red-2))))
 
   ;; Ivy
   `(ivy-virtual ((,class (:foreground ,white-1))))
@@ -207,14 +214,14 @@
   `(org-ellipsis ((,class (:foreground ,grey-4))))
   `(org-todo ((,class (:foreground ,red-2))))
   `(org-done ((,class (:foreground ,green-2))))
-  `(org-level-1 ((,class (:foreground ,color-headline-1))))
-  `(org-level-2 ((,class (:foreground ,color-headline-2))))
-  `(org-level-3 ((,class (:foreground ,color-headline-3))))
-  `(org-level-4 ((,class (:foreground ,color-headline-4))))
-  `(org-level-5 ((,class (:foreground ,color-headline-1))))
-  `(org-level-6 ((,class (:foreground ,color-headline-2))))
-  `(org-level-7 ((,class (:foreground ,color-headline-3))))
-  `(org-level-8 ((,class (:foreground ,color-headline-4))))
+  `(org-level-1 ((,class (:foreground ,color-headline-1 :bold t))))
+  `(org-level-2 ((,class (:foreground ,color-headline-2 :bold t))))
+  `(org-level-3 ((,class (:foreground ,color-headline-3 :bold t))))
+  `(org-level-4 ((,class (:foreground ,color-headline-4 :bold t))))
+  `(org-level-5 ((,class (:foreground ,color-headline-1 :bold t))))
+  `(org-level-6 ((,class (:foreground ,color-headline-2 :bold t))))
+  `(org-level-7 ((,class (:foreground ,color-headline-3 :bold t))))
+  `(org-level-8 ((,class (:foreground ,color-headline-4 :bold t))))
   `(org-link ((,class (:foreground ,color-link :underline t))))
   `(org-date ((,class (:foreground ,color-comment))))
   `(org-tag ((,class (:foreground ,color-comment :slant italic))))
@@ -229,14 +236,14 @@
   `(org-warning ((,class (:foreground ,color-error))))
   `(org-code ((,class (:foreground ,pink-2 :weight bold :inherit fixed-pitch))))
   `(org-verbatim ((,class (:foreground ,pink-2 :weight bold :inherit fixed-pitch))))
-  `(org-block-begin-line ((,class (:foreground ,color-comment :background ,color-highlight-1 :slant italic :inherit fixed-pitch :extend t))))
-  `(org-block ((,class (:background ,grey-0 :inherit fixed-pitch :extend t))))
-  `(org-block-end-line ((,class (:foreground ,color-comment :background ,color-highlight-1 :slant italic :inherit fixed-pitch :extend t))))
+  `(org-block-begin-line ((,class (:foreground ,color-comment :underline ,grey-2 :inherit fixed-pitch :extend t))))
+  `(org-block ((,class (:inherit fixed-pitch :extend nil))))
+  `(org-block-end-line ((,class (:foreground ,color-comment :overline ,grey-2 :inherit fixed-pitch :extend t))))
+  `(org-mode-line-clock ((,class (:foreground ,red-2 :overline ,grey-2 :inherit fixed-pitch :extend t))))
 
   ;; Org bullets
-  `(org-bullet ((,class (:foreground ,color-comment))))
-  `(org-superstar-leading ((,class (:foreground ,color-comment))))
-  `(org-superstar-header-bullet ((,class (:foreground ,color-comment))))
+  `(org-superstar-leading ((,class (:foreground ,red-2 :bold t))))
+  `(org-superstar-header-bullet ((,class (:foreground ,red-2 :bold t))))
 
   ;; Org-agenda
   `(org-agenda-structure ((,class (:foreground ,grey-4 :weight bold))))
