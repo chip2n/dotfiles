@@ -1,15 +1,41 @@
-;; -*- lexical-binding: t -*-
+;;; init.el --- My configuration for Emacs  -*- lexical-binding: t -*-
+
+;; Copyright (C) 2021  Andreas Arvidsson
+;;
+;; Author: Andreas Arvidsson <andreas@arvidsson.io>
+;; Keywords: config
+;;
+;; This file is not part of GNU Emacs
+;;
+;; This file is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either version 3, or (at your option)
+;; any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; For a full copy of the GNU General Public License
+;; see <http://www.gnu.org/licenses/>.
+
+;;; Code:
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
 (package-initialize)
+
 (add-to-list 'load-path "~/.emacs.d/scripts")
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
+
 (require 'use-package)
+
+;;; Deferred compilation
 
 (setq comp-deferred-compilation nil)
 
@@ -17,32 +43,47 @@
   (interactive)
   (native-compile-async "~/.emacs.d" 'recursively))
 
+;;; Theme
+
 (defgroup chip-theme nil
   "Options for my personal theme")
-
 (load-theme 'chip t)
 
+;; Disable all the GUI fluff
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 
-;; display underline further away from the text
+;; Display underline further away from the text
 (setq x-underline-at-descent-line t)
 
-;; hide welcome screen
+;; Hide welcome screen
 (setq inhibit-startup-screen t)
 
-;; highlight the current line
+;; Highlight the current line
 (global-hl-line-mode +1)
 
-;; show line numbers where appropriate
+;; Show line numbers where appropriate
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
+
+;; Inhibit startup message
+(setq inhibit-startup-echo-area-message "chip")
+
+;;; Package: paren-face
+
+;; I'm using this package to make individual faces for each parentheses. This
+;; allows us to dim them in the theme. Makes lispy code way more readable, yay!
 
 (use-package paren-face
   :ensure t
   :config
   (global-paren-face-mode)
   (setq paren-face-regexp "[][(){}]"))
+
+;;; Package: all-the-icons
+
+;; Using fancy icons in some places (e.g. ~treemacs~) to spice things up. This
+;; package includes icons from a bunch of different sources.
 
 (use-package all-the-icons
   :ensure t)
@@ -52,6 +93,8 @@
   :after (all-the-icons)
   :config
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
+
+;;; Fringes
 
 (define-fringe-bitmap 'left-curly-arrow
   [#b00000000
@@ -130,12 +173,13 @@
    #b00000000
    ])
 
+;;; Header
+
 (require 'header-mode)
 (setq header-icon " λ")
 (add-hook 'find-file-hook 'header-mode)
 
-;; (require 'mode-line+)
-;; (mode-line-mode+)
+;;; Modeline
 
 ;; taken from:
 ;; https://www.masteringemacs.org/article/hiding-replacing-modeline-strings
@@ -182,6 +226,10 @@ want to use in the modeline *in lieu of* the original.")
           (evil   . (telephone-line-airline-position-segment))))
   (telephone-line-mode t))
 
+
+;; I try to diminish most minor modes to keep the modeline free. Most are removed
+;; entirely, and some are shortened.
+
 (use-package diminish
   :ensure t
   :after (ivy projectile evil-snipe evil-lispy org-roam company-box)
@@ -213,6 +261,8 @@ want to use in the modeline *in lieu of* the original.")
   (diminish 'company-box-mode)
   (diminish 'flycheck-mode)
   (diminish 'ace-window-mode))
+
+;;; General
 
 (require 'private)
 
@@ -274,6 +324,10 @@ want to use in the modeline *in lieu of* the original.")
 (setq kill-buffer-query-functions
       (delq 'process-kill-buffer-query-function kill-buffer-query-functions))
 
+;;; Package: embark
+
+;; Provides a context-dependent menu - pick a target, decide action afterwards
+
 (use-package embark
   :ensure t
   :bind ("C-," . embark-act)
@@ -284,6 +338,8 @@ want to use in the modeline *in lieu of* the original.")
           (which-key--show-keymap "Embark" map nil nil 'no-paging)
           #'which-key--hide-popup-ignore-command)
         embark-become-indicator embark-action-indicator))
+
+;;; Text navigation
 
 (defun chip/move-end-of-line ()
   "Move point to end of line.
@@ -348,6 +404,8 @@ point reaches the beginning or end of the buffer, stop there."
   ;; turn off evil-snipe in magit
   (add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode))
 
+;;; File navigation
+
 (defun chip/open-config-file ()
   "Open Emacs configuration file"
   (interactive)
@@ -393,6 +451,10 @@ point reaches the beginning or end of the buffer, stop there."
   :ensure t
   :after (projectile))
 
+;;; Package: Treemacs
+
+;; I use treemacs to get a quick overview over the files of my most common projects.
+
 (use-package treemacs
   :ensure t
   :after (evil)
@@ -417,9 +479,15 @@ point reaches the beginning or end of the buffer, stop there."
    "<backspace>" 'treemacs
    "S-<backspace>" 'treemacs-select-window))
 
+;; I use treemacs-evil, because without it the cursor inside the treemacs
+;; buffer is still visible despite setting treemacs-show-cursor to nil.
+
 (use-package treemacs-evil
   :ensure t
   :after (evil))
+
+;; My treemacs theme is based on the Doom Treemacs theme (https://github.com/hlissner/emacs-doom-themes),
+;; but customized to fit the rest of my configuration.
 
 (defgroup chip-theme-treemacs nil
   "Options for my treemacs theme"
@@ -536,15 +604,12 @@ point reaches the beginning or end of the buffer, stop there."
              :extensions (fallback)))))))
   (treemacs-load-theme "chip"))
 
+;;; Dired
+
 (add-hook 'dired-mode-hook 'auto-revert-mode)
 
 ;; load dired-x immediately to make keybindings available
 (require 'dired-x)
-
-;; (use-package dired+
-;;   :load-path "packages"
-;;   :init
-;;   (setq diredp-hide-details-initially-flag nil))
 
 ;; show directories before files, and dotfiles first
 (setq dired-listing-switches "-aBhlv --group-directories-first")
@@ -553,11 +618,15 @@ point reaches the beginning or end of the buffer, stop there."
 (with-eval-after-load "evil"
   (add-to-list 'evil-emacs-state-modes 'dired-mode))
 
+;;; Package: deadgrep
+
 (use-package deadgrep
   :ensure t
   :after (evil)
   :config
   (add-to-list 'evil-emacs-state-modes 'deadgrep-mode))
+
+;;; Buffer
 
 (general-define-key
  :states '(normal)
@@ -581,7 +650,23 @@ point reaches the beginning or end of the buffer, stop there."
           ("OPTIMIZE" . "#fbf2bf")
           ("HACK" . "#fbf2bf"))))
 
-(setq inhibit-startup-echo-area-message "chip")
+(use-package outshine
+  :ensure t
+  :config
+  (general-define-key
+   :keymaps '(outshine-mode-map)
+   :states '(normal)
+   "TAB" 'outshine-cycle
+   "<backtab>" 'outshine-cycle-buffer)
+  (setq outshine-startup-folded-p nil)
+  (add-hook 'emacs-lisp-mode-hook 'outshine-mode))
+
+;;; Windows
+
+(use-package zoom
+  :ensure t
+  :config
+  (setq zoom-size '(0.618 . 0.618)))
 
 (defun chip/window-zoom ()
   (interactive)
@@ -631,10 +716,7 @@ point reaches the beginning or end of the buffer, stop there."
    'counsel-projectile-find-file
    '(("a" ace-window "ace-window"))))
 
-(use-package zoom
-  :ensure t
-  :config
-  (setq zoom-size '(0.618 . 0.618)))
+;;; Minibuffer
 
 (use-package ivy
   :ensure t
@@ -722,8 +804,15 @@ point reaches the beginning or end of the buffer, stop there."
   :config
   (which-key-mode))
 
+;;; Package: sudo-edit
+
+;; I use the sudo-edit package to allow me to enter sudo while viewing a (read-only)
+;; file. This is way more convenient than the standard method of C-x C-f with a sudo: prefix.
+
 (use-package sudo-edit
   :ensure t)
+
+;;; Refactoring
 
 (defun chip/lambda->fun ()
   (interactive)
@@ -759,8 +848,11 @@ point reaches the beginning or end of the buffer, stop there."
     (mark-defun)
     (indent-region (region-beginning) (region-end))))
 
+;; Toggle between CamelCase, snake_case etc
 (use-package string-inflection
   :ensure t)
+
+;;; Package: lispy
 
 (use-package lispy
   :ensure t
@@ -855,6 +947,8 @@ point reaches the beginning or end of the buffer, stop there."
 ;; language servers often generate large responses
 (setq read-process-output-max (* 1024 1024))
 
+;;; Package: lsp-mode
+
 (use-package lsp-mode
   :ensure t
   :config
@@ -925,6 +1019,8 @@ point reaches the beginning or end of the buffer, stop there."
                [show-entry show-children]
                1]
          :open-rec show-subtree :close hide-subtree :close-level hide-leaves)))
+
+;;; org-mode
 
 ;; set org todo keywords
 (setq org-todo-keywords
@@ -1077,6 +1173,11 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;; Redisplay inlined images after source block execution
 (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
+
+;; I often want to execute a bash source block in a separate shell buffer in order
+;; to monitor the output and interact with it (e.g. inputting passwords). This
+;; piece of code enables this behavior when the :buffer parameter is set in the
+;; sourch block header.
 
 (defun ob-shell-buffer-org-babel-execute-src-block (&optional orig-fun arg info params)
   (interactive "P")
@@ -1929,6 +2030,8 @@ all elements."
 (defun chip/magit-status-root-dir (dir)
   (magit-status (vc-find-root dir ".git")))
 
+;;; Apps
+
 (use-package magit
   :ensure t
   :after (ivy counsel projectile)
@@ -2068,6 +2171,8 @@ all elements."
 	;; pomidor-sound-break-over (expand-file-name (concat (getenv "HOME") "/Music/overwork.wav"))
         ))
 
+;;; Languages
+
 (general-define-key
  :map 'emacs-lisp-mode-map
  "C-c C-c" 'eval-defun)
@@ -2157,6 +2262,9 @@ all elements."
   :config
   (add-to-list 'auto-mode-alist (cons (rx ".rkt" eos) 'racket-mode)))
 
+;; In order to make Forth play nicely with org-babel, you need the gforth compiler
+;; as well as forth-mode distributed in with gforth in gforth.el. I've copied this
+;; file from the 0.7.3 because I'm a lazy boy, so I'll just require it.
 (require 'forth-mode)
 
 (use-package clojure-mode
@@ -2536,6 +2644,8 @@ all elements."
           (apply original-function args)))
     (apply original-function args)))
 
+;;; Autoremote
+
 (defun autoremote-send (message)
   (if (boundp 'autoremote-api-key)
       (call-process-shell-command
@@ -2663,6 +2773,8 @@ all elements."
   (quelpa '(tayl :repo "chip2n/tayl.el" :fetcher github))
   (quelpa '(vasttrafik :repo "chip2n/vasttrafik.el" :fetcher github)))
 
+;;; Utils
+
 (defun increment-number-at-point ()
   (interactive)
   (skip-chars-backward "0-9")
@@ -2743,3 +2855,5 @@ buffer in current window."
       (insert result)
       (clipboard-kill-region (point-min) (point-max)))
     result))
+
+;;; init.el ends here
