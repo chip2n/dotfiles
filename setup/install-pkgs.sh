@@ -26,4 +26,5 @@ pacman -Syyuu --needed \
   ldd \
   clang \
   thunar \
-  vlc
+  vlc \
+  rsync
