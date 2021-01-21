@@ -290,6 +290,7 @@
   `(magit-branch-remote-head ((,class (:box (:line-width 1) :foreground ,green-2))))
   `(magit-branch-current ((,class (:box (:line-width 1) :foreground ,blue-2))))
   `(magit-tag ((,class (:foreground ,yellow-1 :weight bold))))
+  `(magit-header-line ((,class nil)))
   `(git-commit-summary ((,class (:foreground ,white-1))))
 
   ;; Elfeed faces
