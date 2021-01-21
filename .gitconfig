@@ -1,20 +1,23 @@
 [user]
-	email = andreas.arvidson@gmail.com
-	name = Andreas Arvidsson
-[push]
-	default = simple
+email = andreas@arvidsson.io
+name = chip2n
+
 [alias]
-    ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
-    st = status
-    ai = add --interactive
-    ap = add --patch
-    a = add
-    ps = push
-    pl = pull
-    f = fetch
-    c = commit
-    rainbows = commit
-    candy = push
-    yolo = push --force
-[core]
-	editor = vim
+ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+st = status
+ai = add --interactive
+ap = add --patch
+a = add
+ps = push
+pl = pull
+f = fetch
+c = commit
+
+[filter "lfs"]
+smudge = git-lfs smudge -- %f
+process = git-lfs filter-process
+required = true
+clean = git-lfs clean -- %f
+
+[github]
+user = chip2n
