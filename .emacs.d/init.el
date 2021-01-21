@@ -262,9 +262,12 @@ want to use in the modeline *in lieu of* the original.")
   (diminish 'flycheck-mode)
   (diminish 'ace-window-mode))
 
-;;; General
+;;; Security
 
 (require 'private)
+(setq auth-sources '("~/.authinfo.gpg"))
+
+;;; General
 
 (require 'cl)
 
@@ -2027,10 +2030,10 @@ all elements."
         (if (deft-search-forward (car deft-filter-regexp))
             file)))))
 
+;;; Apps
+
 (defun chip/magit-status-root-dir (dir)
   (magit-status (vc-find-root dir ".git")))
-
-;;; Apps
 
 (use-package magit
   :ensure t
@@ -2062,7 +2065,9 @@ all elements."
 
 (use-package forge
   :ensure t
-  :after magit)
+  :after magit
+  :config
+  (add-to-list 'evil-emacs-state-modes 'forge-topic-mode))
 
 (use-package ssh-agency
   :ensure t
