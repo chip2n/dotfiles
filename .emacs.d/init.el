@@ -22,10 +22,23 @@
 
 ;;; Code:
 
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
-(package-initialize)
+(defvar bootstrap-version)
+
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+(straight-use-package 'use-package)
+
+(setq straight-use-package-by-default t)
 
 (add-to-list 'load-path "~/.emacs.d/scripts")
 
@@ -75,7 +88,6 @@
 ;; allows us to dim them in the theme. Makes lispy code way more readable, yay!
 
 (use-package paren-face
-  :ensure t
   :config
   (global-paren-face-mode)
   (setq paren-face-regexp "[][(){}]"))
@@ -85,11 +97,9 @@
 ;; Using fancy icons in some places (e.g. ~treemacs~) to spice things up. This
 ;; package includes icons from a bunch of different sources.
 
-(use-package all-the-icons
-  :ensure t)
+(use-package all-the-icons)
 
 (use-package all-the-icons-dired
-  :ensure t
   :after (all-the-icons)
   :config
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
@@ -210,7 +220,6 @@ want to use in the modeline *in lieu of* the original.")
 (add-hook 'after-change-major-mode-hook 'clean-mode-line)
 
 (use-package telephone-line
-  :ensure t
   :after (evil)
   :config
   (setq telephone-line-lhs
@@ -231,7 +240,6 @@ want to use in the modeline *in lieu of* the original.")
 ;; entirely, and some are shortened.
 
 (use-package diminish
-  :ensure t
   :after (ivy projectile evil-snipe evil-lispy org-roam company-box)
   :config
   (diminish 'auto-fill-function)
@@ -266,6 +274,18 @@ want to use in the modeline *in lieu of* the original.")
 
 (require 'private)
 (setq auth-sources '("~/.authinfo.gpg"))
+
+(use-package pass)
+
+(use-package ivy-pass
+  :after (ivy))
+
+(defmacro with-pass (args &rest body)
+  (declare (indent 1))
+  (let ((name (car args))
+        (key (cadr args)))
+    `(let ((,name (password-store-get ,key)))
+       ,@body)))
 
 ;;; General
 
@@ -332,7 +352,6 @@ want to use in the modeline *in lieu of* the original.")
 ;; Provides a context-dependent menu - pick a target, decide action afterwards
 
 (use-package embark
-  :ensure t
   :bind ("C-," . embark-act)
   :config
   ;; show command help via which-key
@@ -398,7 +417,6 @@ point reaches the beginning or end of the buffer, stop there."
    "M-p" 'flycheck-previous-error))
 
 (use-package evil-snipe
-  :ensure t
   :after (evil)
   :config
   (setq evil-snipe-scope 'buffer)
@@ -429,7 +447,6 @@ point reaches the beginning or end of the buffer, stop there."
    "C-S-B"   'counsel-switch-buffer-other-window))
 
 (use-package projectile
-  :ensure t
   :after (ivy)
   :config
   (add-to-list 'projectile-globally-ignored-directories "*node_modules")
@@ -446,29 +463,13 @@ point reaches the beginning or end of the buffer, stop there."
   (projectile-mode))
 
 (use-package counsel-projectile
-  :ensure t
   :after (counsel projectile))
 
 ;; For projectile-ag
 (use-package ag
-  :ensure t
   :after (projectile))
 
 ;;; Package: Treemacs
-
-;; I use treemacs to get a quick overview over the files of my most common projects.
-
-(use-package treemacs
-  :ensure t
-  :after (evil)
-  :config
-  (setq treemacs-show-cursor nil)
-  (setq treemacs-indentation 1)
-  (setq treemacs-space-between-root-nodes nil)
-  (add-hook 'treemacs-mode-hook
-            (lambda () (setq tab-width 1)))
-  (chip/treemacs-setup-theme)
-  (chip/treemacs-setup-keys))
 
 (defun chip/treemacs-setup-keys ()
   (general-define-key
@@ -481,13 +482,6 @@ point reaches the beginning or end of the buffer, stop there."
    :keymaps '(treemacs-mode-map)
    "<backspace>" 'treemacs
    "S-<backspace>" 'treemacs-select-window))
-
-;; I use treemacs-evil, because without it the cursor inside the treemacs
-;; buffer is still visible despite setting treemacs-show-cursor to nil.
-
-(use-package treemacs-evil
-  :ensure t
-  :after (evil))
 
 ;; My treemacs theme is based on the Doom Treemacs theme (https://github.com/hlissner/emacs-doom-themes),
 ;; but customized to fit the rest of my configuration.
@@ -607,6 +601,25 @@ point reaches the beginning or end of the buffer, stop there."
              :extensions (fallback)))))))
   (treemacs-load-theme "chip"))
 
+(use-package treemacs
+  :after (evil)
+  :config
+  (setq treemacs-show-cursor nil)
+  (setq treemacs-indentation 1)
+  (setq treemacs-space-between-root-nodes nil)
+  (add-hook 'treemacs-mode-hook
+            (lambda () (setq tab-width 1)))
+  (chip/treemacs-setup-theme)
+  (chip/treemacs-setup-keys))
+
+
+;; I use treemacs-evil, because without it the cursor inside the treemacs
+;; buffer is still visible despite setting treemacs-show-cursor to nil.
+
+(use-package treemacs-evil
+  :after (evil))
+
+
 ;;; Dired
 
 (add-hook 'dired-mode-hook 'auto-revert-mode)
@@ -624,15 +637,13 @@ point reaches the beginning or end of the buffer, stop there."
 ;;; Package: deadgrep
 
 (use-package deadgrep
-  :ensure t
   :after (evil)
   :config
   (add-to-list 'evil-emacs-state-modes 'deadgrep-mode))
 
 ;;; Package: rg
 
-(use-package rg
-  :ensure t)
+(use-package rg)
 
 ;;; Buffer
 
@@ -642,13 +653,11 @@ point reaches the beginning or end of the buffer, stop there."
  "-" 'text-scale-decrease)
 
 (use-package golden-ratio-scroll-screen
-  :ensure t
   :config
   (setq golden-ratio-scroll-highlight-flag nil))
 
 ;; highlight TODOs in comments
 (use-package hl-todo
-  :ensure t
   :hook ((prog-mode . hl-todo-mode))
   :config
   (setq hl-todo-keyword-faces
@@ -659,7 +668,6 @@ point reaches the beginning or end of the buffer, stop there."
           ("HACK" . "#fbf2bf"))))
 
 (use-package outshine
-  :ensure t
   :config
   (general-define-key
    :keymaps '(outshine-mode-map)
@@ -672,7 +680,6 @@ point reaches the beginning or end of the buffer, stop there."
 ;;; Windows
 
 (use-package zoom
-  :ensure t
   :config
   (setq zoom-size '(0.618 . 0.618)))
 
@@ -699,18 +706,15 @@ point reaches the beginning or end of the buffer, stop there."
    "S-<prior>" 'scroll-other-window-down))
 
 (use-package winner
-  :ensure t
   :config
   (winner-mode 1))
 
 ;; Allows you to transpose frames (mainly via ace-window)
 (require 'transpose-frame)
 
-(use-package avy
-  :ensure t)
+(use-package avy)
 
 (use-package ace-window
-  :ensure t
   :after (ivy)
   :config
   (setq aw-dispatch-always t)
@@ -727,7 +731,6 @@ point reaches the beginning or end of the buffer, stop there."
 ;;; Minibuffer
 
 (use-package ivy
-  :ensure t
   :config
   (ivy-mode)
   ;; slim down ivy display
@@ -738,7 +741,6 @@ point reaches the beginning or end of the buffer, stop there."
   (define-key ivy-minibuffer-map (kbd "<escape>") 'minibuffer-keyboard-quit))
 
 (use-package ivy-rich
-  :ensure t
   :config
   (setq ivy-rich-display-transformers-list
         '(counsel-find-file
@@ -777,38 +779,32 @@ point reaches the beginning or end of the buffer, stop there."
   (ivy-rich-mode 1))
 
 (use-package counsel
-  :ensure t
   :after (ivy)
   :config
   (counsel-mode))
 
 (use-package swiper
-  :ensure t
   :after (ivy))
 
 ;; Prescient allows you to filter and automatically sort ivy and company results
 ;; by frequency. It also enables searching by initialism (e.g. stbow ->
 ;; switch-to-buffer-other-window).
 (use-package prescient
-  :ensure t
   :after (counsel)
   :config
   (prescient-persist-mode))
 
 (use-package ivy-prescient
-  :ensure t
   :after (counsel)
   :config
   (ivy-prescient-mode))
 
 (use-package company-prescient
-  :ensure t
   :after (counsel)
   :config
   (company-prescient-mode))
 
 (use-package which-key
-  :ensure t
   :config
   (which-key-mode))
 
@@ -817,8 +813,7 @@ point reaches the beginning or end of the buffer, stop there."
 ;; I use the sudo-edit package to allow me to enter sudo while viewing a (read-only)
 ;; file. This is way more convenient than the standard method of C-x C-f with a sudo: prefix.
 
-(use-package sudo-edit
-  :ensure t)
+(use-package sudo-edit)
 
 ;;; Refactoring
 
@@ -857,13 +852,11 @@ point reaches the beginning or end of the buffer, stop there."
     (indent-region (region-beginning) (region-end))))
 
 ;; Toggle between CamelCase, snake_case etc
-(use-package string-inflection
-  :ensure t)
+(use-package string-inflection)
 
 ;;; Package: lispy
 
 (use-package lispy
-  :ensure t
   :config
   (setq lispy-close-quotes-at-end-p t)
   (general-unbind
@@ -875,7 +868,6 @@ point reaches the beginning or end of the buffer, stop there."
    "S" 'lispy-splice))
 
 (use-package evil-lispy
-  :ensure t
   :after (evil lispy)
   :config
   (if (not (member 'lispy evil-highlight-closing-paren-at-point-states))
@@ -892,11 +884,9 @@ point reaches the beginning or end of the buffer, stop there."
   (add-hook 'racket-mode-hook #'evil-lispy-mode)
   (add-hook 'scheme-mode-hook #'evil-lispy-mode))
 
-(use-package aggressive-indent
-  :ensure t)
+(use-package aggressive-indent)
 
 (use-package yasnippet
-  :ensure t
   :init
   :config
   (yas-global-mode 1)
@@ -916,7 +906,6 @@ point reaches the beginning or end of the buffer, stop there."
   (define-key company-active-map (kbd "<tab>") #'company-complete-selection))
 
 (use-package company
-  :ensure t
   :config
   (general-define-key
    :keymap 'prog-mode-map
@@ -942,7 +931,6 @@ point reaches the beginning or end of the buffer, stop there."
   (company-complete-common-or-cycle -1))
 
 (use-package company-box
-  :ensure t
   :after (company)
   :hook (company-mode . company-box-mode))
 
@@ -958,7 +946,6 @@ point reaches the beginning or end of the buffer, stop there."
 ;;; Package: lsp-mode
 
 (use-package lsp-mode
-  :ensure t
   :config
   (setq lsp-prefer-flymake nil)
   (setq lsp-eldoc-enable-hover nil)
@@ -980,12 +967,10 @@ point reaches the beginning or end of the buffer, stop there."
    "gd" 'lsp-find-definition))
 
 (use-package evil-nerd-commenter
-  :ensure t
   :bind (:map prog-mode-map
               (("C-;" . evilnc-comment-or-uncomment-lines))))
 
 (use-package evil
-  :ensure t
   :init
   (setq evil-want-keybinding nil)
   (setq evil-want-C-u-scroll nil)
@@ -1000,13 +985,11 @@ point reaches the beginning or end of the buffer, stop there."
   (add-to-list 'evil-emacs-state-modes 'image-mode))
 
 (use-package evil-visualstar
-  :ensure t
   :after (evil)
   :config
   (global-evil-visualstar-mode))
 
 (use-package evil-collection
-  :ensure t
   :after (evil)
   :config
   (evil-collection-init 'dired)
@@ -1058,19 +1041,16 @@ point reaches the beginning or end of the buffer, stop there."
 ;; Log state changes into the LOGBOOK drawer
 (setq org-log-into-drawer t)
 
-(use-package ob-restclient
-  :ensure t)
+(use-package ob-restclient)
 
 (use-package org-gcal
-  :ensure t
   :after org
   :config
   (setq org-gcal-client-id private/gcal-client-id
         org-gcal-client-secret private/gcal-client-secret
         org-gcal-file-alist `((,private/gcal-calendar-id . "~/org/personal/gcal.org"))))
 
-(use-package ob-http
-  :ensure t)
+(use-package ob-http)
 
 (defun enable-dnd ()
   (interactive)
@@ -1081,7 +1061,6 @@ point reaches the beginning or end of the buffer, stop there."
   (autoremote-send "disable-dnd"))
 
 (use-package org-pomodoro
-  :ensure t
   :commands (org-pomodoro)
   :config
   (setq alert-user-configuration (quote ((((:category . "org-pomodoro")) libnotify nil))))
@@ -1098,8 +1077,7 @@ point reaches the beginning or end of the buffer, stop there."
 (require 'org-id)
 (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
 
-(use-package ox-pandoc
-  :ensure t)
+(use-package ox-pandoc)
 (setq org-pandoc-options-for-latex-pdf '((pdf-engine . "xelatex")))
 
 (defun org-create-custom-id ()
@@ -1239,7 +1217,6 @@ point reaches the beginning or end of the buffer, stop there."
                            (setq fill-column 80)))
 
 (use-package org-superstar
-  :ensure t
   :after org
   :config
   (setq org-superstar-leading-bullet "λ")
@@ -1252,7 +1229,6 @@ point reaches the beginning or end of the buffer, stop there."
   :group 'org-bullets)
 
 ;; (use-package org-bullets
-;;   :ensure t
 ;;   :after org
 ;;   :config
 ;;   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
@@ -1968,7 +1944,6 @@ so change the default 'F' binding in the agenda to allow both"
 (run-at-time "24:01" nil 'chip/org-agenda-to-appt)
 
 (use-package org-re-reveal
-  :ensure t
   :config
   (setq org-re-reveal-root "file:///home/chip/reveal.js")
   (setq org-re-reveal-title-slide nil))
@@ -1977,7 +1952,6 @@ so change the default 'F' binding in the agenda to allow both"
 (require 'org-protocol)
 
 (use-package org-roam
-  :ensure t
   :hook
   (after-init . org-roam-mode)
   :config
@@ -1995,11 +1969,9 @@ so change the default 'F' binding in the agenda to allow both"
               :map org-mode-map
               (("C-c n i" . org-roam-insert))))
 
-(use-package org-roam-server
-  :ensure t)
+(use-package org-roam-server)
 
 (use-package deft
-  :ensure t
   :after (org evil)
   :bind
   ("C-c n d" . deft)
@@ -2041,7 +2013,6 @@ all elements."
   (magit-status (vc-find-root dir ".git")))
 
 (use-package magit
-  :ensure t
   :after (ivy counsel projectile)
   :config
   (add-hook 'magit-mode-hook (lambda () (display-line-numbers-mode -1)))
@@ -2069,18 +2040,15 @@ all elements."
    '(("v" chip/magit-status-root-dir "magit"))))
 
 (use-package forge
-  :ensure t
   :after magit
   :config
   (add-to-list 'evil-emacs-state-modes 'forge-topic-mode))
 
 (use-package ssh-agency
-  :ensure t
   :config
   (setq ssh-agency-keys '("~/.ssh/github")))
 
 (use-package elfeed
-  :ensure t
   :config
   (setq shr-inhibit-images t)           ; disable image loading when viewing entries
   (setq elfeed-feeds
@@ -2111,7 +2079,6 @@ all elements."
    "p" 'elfeed-show-prev))
 
 (use-package emms
-  :ensure t
   :config
   (emms-all)
   (emms-default-players))
@@ -2121,7 +2088,6 @@ all elements."
   :init
   (setq slack-buffer-emojify t)
   (setq slack-prefer-current-team t)
-  :ensure t
   :config
   (slack-register-team
    :name "remente"
@@ -2131,7 +2097,6 @@ all elements."
    :token private/slack-token-remente))
 
 (use-package alert
-  :ensure t
   :commands (alert)
   :config
   (setq alert-default-style 'libnotify))
@@ -2167,13 +2132,11 @@ all elements."
          :password (format "chip2n:%s" pwd))))
 
 (use-package pdf-tools
-  :ensure t
   :config
   (pdf-tools-install)
   (add-hook 'pdf-view-mode-hook (lambda () (blink-cursor-mode -1))))
 
 (use-package pomidor
-  :ensure t
   :config
   (setq pomidor-sound-tick nil
         pomidor-sound-tack nil
@@ -2198,7 +2161,6 @@ all elements."
   (add-hook 'emacs-lisp-mode-hook 'company-mode))
 
 (use-package slime
-  :ensure t
   :config
   (setq inferior-lisp-program "/usr/bin/sbcl")
   (setq slime-description-autofocus t)
@@ -2232,9 +2194,8 @@ all elements."
    "g" 'slime-macroexpand-again
    "q" 'slime-inspector-quit))
 
-(use-package slime-company
-  :ensure t
-  :after (slime company))
+;(use-package slime-company
+;  :after (slime company))
 
 (defun slime-enable-concurrent-hints ()
   (interactive)
@@ -2245,7 +2206,6 @@ all elements."
   (sly-mrepl #'switch-to-buffer-other-window))
 
 ;; (use-package sly
-;;   :ensure t
 ;;   :after (company)
 ;;   :config
 ;;   (sly-setup '(;; sly-indentation
@@ -2258,7 +2218,6 @@ all elements."
 ;;    "C-c C-z" #'sly-mrepl-other-window))
 
 (use-package geiser
-  :ensure t
   :after (evil)
   :config
   (setq geiser-chicken-binary "chicken-csi")
@@ -2268,7 +2227,6 @@ all elements."
   (add-to-list 'evil-emacs-state-modes 'geiser-debug-mode))
 
 (use-package racket-mode
-  :ensure t
   :config
   (add-to-list 'auto-mode-alist (cons (rx ".rkt" eos) 'racket-mode)))
 
@@ -2277,11 +2235,9 @@ all elements."
 ;; file from the 0.7.3 because I'm a lazy boy, so I'll just require it.
 (require 'forth-mode)
 
-(use-package clojure-mode
-  :ensure t)
+(use-package clojure-mode)
 
 (use-package cider
-  :ensure t
   :config
   (setq cider-test-show-report-on-success nil)
   (setq cider-auto-select-test-report-buffer nil)
@@ -2290,28 +2246,22 @@ all elements."
   (add-hook 'cider-mode-hook 'company-mode)
   (add-hook 'cider-repl-mode-hook 'company-mode))
 
-(use-package inf-clojure
-  :ensure t)
+(use-package inf-clojure)
 
-(use-package clj-refactor
-  :ensure t)
+(use-package clj-refactor)
 
 (use-package anaconda-mode
-  :ensure t
   :config
   (add-hook 'python-mode-hook 'anaconda-mode))
 
-(use-package pyvenv
-  :ensure t)
+(use-package pyvenv)
 
 (use-package company-anaconda
-  :ensure t
   :after (company anaconda-mode)
   :config
   (add-to-list 'company-backends 'company-anaconda))
 
 (use-package dart-mode
-  :ensure t
   :after (projectile)
   :config
   (add-to-list 'auto-mode-alist (cons (rx ".dart" eos) 'dart-mode))
@@ -2339,7 +2289,6 @@ all elements."
    "f" 'dart-server-format))
 
 (use-package dart-server
-  :ensure t
   :after (dart-mode))
 
 (defun flutter--find-project-root ()
@@ -2439,20 +2388,17 @@ all elements."
   (yank))
 
 (use-package lsp-haskell
-  :ensure t
   :after (lsp-mode lsp-ui)
   :config
   (setq lsp-haskell-process-path-hie "hie-wrapper")
   (add-hook 'haskell-mode-hook 'lsp-haskell-enable)
   (add-hook 'haskell-mode-hook 'flycheck-mode))
 
-(use-package nvm
-  :ensure t)
+(use-package nvm)
 (nvm-use "v12.10.0")
 ;; (nvm-use "v8.16.2")
 
 (use-package js2-mode
-  :ensure t
   :config
   (setq js-indent-level 2)
   (setq js2-skip-preprocessor-directives t) ; ignore shebangs
@@ -2466,13 +2412,11 @@ all elements."
   (setq js2-strict-inconsistent-return-warning nil))
 
 (use-package json-mode
-  :ensure t
   :config
   ;; add simple validation through flycheck (for missing commas etc)
   (add-hook 'json-mode-hook #'flycheck-mode))
 
 (use-package js2-refactor
-  :ensure t
   :after (js2-mode)
   :config
   (add-hook 'js2-mode-hook #'js2-refactor-mode)
@@ -2480,7 +2424,6 @@ all elements."
   (define-key js2-mode-map (kbd "C-k") #'js2r-kill))
 
 (use-package xref-js2
-  :ensure t
   :after (js2-mode)
   :config
   ;; js-mode (which js2 is based on) binds "M-." which conflicts with xref, so
@@ -2489,8 +2432,7 @@ all elements."
   (add-hook 'js2-mode-hook
 	    (lambda () (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t))))
 
-(use-package typescript-mode
-  :ensure t)
+(use-package typescript-mode)
 
 (defun setup-tide-mode ()
   (interactive)
@@ -2502,7 +2444,6 @@ all elements."
   (company-mode +1))
 
 (use-package tide
-  :ensure t
   :after (typescript-mode)
   :config
   ;; aligns annotation to the right hand side
@@ -2516,7 +2457,6 @@ all elements."
    "gd" 'tide-jump-to-definition))
 
 (use-package omnisharp
-  :ensure t
   :after (company)
   :config
   (add-to-list 'company-backends 'company-omnisharp)
@@ -2524,15 +2464,12 @@ all elements."
   (add-hook 'csharp-mode-hook 'omnisharp-mode))
 
 (use-package kotlin-mode
-  :ensure t
   :config
   (setq kotlin-tab-width 4))
 
-(use-package groovy-mode
-  :ensure t)
+(use-package groovy-mode)
 
 (use-package rustic
-  :ensure t
   :config
   (setq rustic-lsp-server 'rust-analyzer)
   (setq rustic-compile-backtrace 1)
@@ -2542,15 +2479,13 @@ all elements."
 (defvar lsp-elixir--config-options (make-hash-table))
 
 (use-package elixir-mode
-  :ensure t
   :config
   (add-to-list 'exec-path "/home/chip/elixir-ls/release")
   (add-hook 'elixir-mode-hook 'lsp)
   (add-hook 'lsp-after-initialize-hook
             (lambda () (lsp--set-configuration `(:elixirLS ,lsp-elixir--config-options)))))
 
-(use-package exunit
-  :ensure t)
+(use-package exunit)
 
 ;; (use-package inf-elixir
 ;;   :load-path "packages/inf-elixir/"
@@ -2561,8 +2496,7 @@ all elements."
 ;;     ("C-c C-l i r" . 'inf-elixir-send-region)
 ;;     ("C-c C-l i b" . 'inf-elixir-send-buffer)))
 
-(use-package yaml-mode
-  :ensure t)
+(use-package yaml-mode)
 
 (defun chip/yaml-toggle-fold ()
   "Toggle fold all lines larger than indentation on current line"
@@ -2574,32 +2508,26 @@ all elements."
       (set-selective-display
        (if selective-display nil (or col 1))))))
 
-(use-package toml-mode
-  :ensure t)
+(use-package toml-mode)
 
-(use-package markdown-mode
-  :ensure t)
+(use-package markdown-mode)
 
 (require 'ob-lilypond)
 
 (use-package pug-mode
-  :ensure t
   :config
   (add-to-list 'auto-mode-alist (cons (rx ".jade" eos) 'pug-mode))
   (add-to-list 'auto-mode-alist (cons (rx ".pug" eos) 'pug-mode)))
 
 (use-package stylus-mode
-  :ensure t
   :config
   (add-to-list 'auto-mode-alist (cons (rx ".styl" eos) 'pug-mode)))
 
-(use-package glsl-mode
-  :ensure t)
+(use-package glsl-mode)
 
 (require 'bolt-mode)
 
 (use-package zig-mode
-  :ensure t
   :after (lsp-mode)
   :bind (:map zig-mode-map
               ("C-c C-r" . chip/zig-compile-run)
@@ -2637,7 +2565,6 @@ all elements."
     (zig--run-cmd "build test")))
 
 (use-package gdscript-mode
-  :ensure t
   :config
   ;; suppress unknown notification errors.
   (add-hook 'gdscript-mode-hook 'lsp)
@@ -2662,8 +2589,11 @@ all elements."
        (format "AUTOREMOTE_API_KEY=\"%s\" autoremote %s" autoremote-api-key message))
     (message (format "No autoremote key set - unable to send message \"%s\"" message))))
 
-(use-package olivetti
-  :ensure t)
+;;; Olivetti
+
+(use-package olivetti)
+
+;;; Prose
 
 (defun prose--finish ()
   (interactive)
@@ -2676,44 +2606,19 @@ all elements."
   (kill-region (point-min) (point-max))
   (message "Prose cleared."))
 
-;; (defvar prose-mode-map
-;;   (let ((map (make-sparse-keymap)))
-;;     ;; (set-keymap-parent map olivetti-mode-map)
-;;     (define-key map "\C-c\C-c" 'prose--finish)))
-
 (define-minor-mode prose-mode
   "Mode for writing prose."
   :global nil
-  :keymap `(;; (,(kbd "C-c C-c") . prose--finish)
-            ("\C-c\C-c" . prose--finish)
+  :keymap `(("\C-c\C-c" . prose--finish)
             ("\C-c\C-k" . prose--clear)))
 
 (defun prose ()
   (interactive)
-  (switch-to-buffer
-   (get-buffer-create "*prose*"))
-  ;; (setq left-margin-width 16)
-  ;; (setq right-margin-width 16)
-  ;; (set-window-margins (get-buffer-window) 16 16)
-  (setq header-line-format (with-face " " :height 8.0))
+  (switch-to-buffer (get-buffer-create "*prose*"))
   (olivetti-mode)
-  (prose-mode)
-  (set (make-local-variable 'header-line)
-       'prose-header-line))
+  (prose-mode))
 
-(use-package pass
-  :ensure t)
-
-(use-package ivy-pass
-  :ensure t
-  :after (ivy))
-
-(defmacro with-pass (args &rest body)
-  (declare (indent 1))
-  (let ((name (car args))
-        (key (cadr args)))
-    `(let ((,name (password-store-get ,key)))
-       ,@body)))
+;;; Shell
 
 (add-hook 'shell-mode-hook (lambda () (display-line-numbers-mode -1)))
 (add-hook 'eshell-mode-hook (lambda () (display-line-numbers-mode -1)))
@@ -2729,7 +2634,6 @@ all elements."
 (add-hook 'shell-mode-hook (lambda () (chip/header-shell)))
 
 (use-package vterm
-  :ensure t
   :config
   (setq vterm-shell "fish")
   (general-define-key
@@ -2748,14 +2652,12 @@ all elements."
     (cd dir)))
 
 (use-package vterm-toggle
-  :ensure t
   :config
   (general-define-key
    "C-c t" 'vterm-toggle
    "C-c T" 'chip/vterm-toggle-cd))
 
 (use-package multi-term
-  :ensure t
   :config
   (setq multi-term-program "/bin/bash"))
 
@@ -2777,7 +2679,6 @@ all elements."
   (org-insert-link nil (format "file:%s" path) nil))
 
 (use-package quelpa
-  :ensure t
   :config
   (setq quelpa-checkout-melpa-p nil)    ; we're not using it for MELPA packages
   (quelpa '(tayl :repo "chip2n/tayl.el" :fetcher github))
