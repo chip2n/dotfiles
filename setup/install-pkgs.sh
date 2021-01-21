@@ -27,4 +27,5 @@ pacman -Syyuu --needed \
   clang \
   thunar \
   vlc \
-  rsync
+  rsync \
+  gnuplot
