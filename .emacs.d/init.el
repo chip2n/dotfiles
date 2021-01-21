@@ -629,6 +629,11 @@ point reaches the beginning or end of the buffer, stop there."
   :config
   (add-to-list 'evil-emacs-state-modes 'deadgrep-mode))
 
+;;; Package: rg
+
+(use-package rg
+  :ensure t)
+
 ;;; Buffer
 
 (general-define-key
