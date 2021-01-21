@@ -236,10 +236,10 @@
   `(org-warning ((,class (:foreground ,color-error))))
   `(org-code ((,class (:foreground ,pink-2 :weight bold :inherit fixed-pitch))))
   `(org-verbatim ((,class (:foreground ,pink-2 :weight bold :inherit fixed-pitch))))
-  `(org-block-begin-line ((,class (:foreground ,color-comment :underline ,grey-2 :inherit fixed-pitch :extend t))))
-  `(org-block ((,class (:inherit fixed-pitch :extend nil))))
-  `(org-block-end-line ((,class (:foreground ,color-comment :overline ,grey-2 :inherit fixed-pitch :extend t))))
-  `(org-mode-line-clock ((,class (:foreground ,red-2 :overline ,grey-2 :inherit fixed-pitch :extend t))))
+  `(org-block-begin-line ((,class (:foreground ,color-comment :underline ,grey-2 :extend t))))
+  `(org-block ((,class (:extend nil))))
+  `(org-block-end-line ((,class (:foreground ,color-comment :overline ,grey-2 :extend t))))
+  `(org-mode-line-clock ((,class (:foreground ,red-2 :overline ,grey-2 :extend t))))
 
   ;; Org bullets
   `(org-superstar-leading ((,class (:foreground ,red-2 :bold t))))
