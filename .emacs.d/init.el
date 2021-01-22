@@ -24,6 +24,12 @@
 
 (defvar bootstrap-version)
 
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(require 'use-package)
+
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
       (bootstrap-version 5))
@@ -40,14 +46,10 @@
 
 (setq straight-use-package-by-default t)
 
+;;; Source paths
+
 (add-to-list 'load-path "~/.emacs.d/new")
 (add-to-list 'load-path "~/.emacs.d/scripts")
-
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-(require 'use-package)
 
 ;;; Deferred compilation
 
