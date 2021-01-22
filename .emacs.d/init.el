@@ -24,12 +24,6 @@
 
 (defvar bootstrap-version)
 
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-(require 'use-package)
-
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
       (bootstrap-version 5))
@@ -41,10 +35,6 @@
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
-
-(straight-use-package 'use-package)
-
-(setq straight-use-package-by-default t)
 
 ;;; Source paths
 
@@ -65,6 +55,6 @@
 
 ;;; Desktop initialization
 
-(require 'chip-init-desktop)
+;; (require 'chip-init-desktop)
 
 ;;; init.el ends here
