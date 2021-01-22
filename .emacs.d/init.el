@@ -40,6 +40,7 @@
 
 (setq straight-use-package-by-default t)
 
+(add-to-list 'load-path "~/.emacs.d/new")
 (add-to-list 'load-path "~/.emacs.d/scripts")
 
 (unless (package-installed-p 'use-package)
@@ -58,29 +59,7 @@
 
 ;;; Theme
 
-(defgroup chip-theme nil
-  "Options for my personal theme")
-(load-theme 'chip t)
-
-;; Disable all the GUI fluff
-(scroll-bar-mode -1)
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-
-;; Display underline further away from the text
-(setq x-underline-at-descent-line t)
-
-;; Hide welcome screen
-(setq inhibit-startup-screen t)
-
-;; Highlight the current line
-(global-hl-line-mode +1)
-
-;; Show line numbers where appropriate
-(add-hook 'prog-mode-hook #'display-line-numbers-mode)
-
-;; Inhibit startup message
-(setq inhibit-startup-echo-area-message "chip")
+(require 'chip-theme-ui)
 
 ;;; Package: paren-face
 
