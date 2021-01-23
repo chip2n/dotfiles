@@ -22,6 +22,17 @@
 
 ;;; Code:
 
+(require 'chip-theme-desktop)
+
+(require 'chip-colors)
+(chip-theme-set-dark)
+(require 'chip-faces)
+(chip-faces)
+(require 'chip-modeline)
+(require 'chip-headerline)
+;; (require 'chip-agenda)
+;; (require 'chip-keys)
+
 ;;; Package: paren-face
 
 ;; I'm using this package to make individual faces for each parentheses. This
