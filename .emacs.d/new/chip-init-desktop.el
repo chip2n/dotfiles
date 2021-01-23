@@ -379,9 +379,9 @@ point reaches the beginning or end of the buffer, stop there."
 ;;; File navigation
 
 (defun chip/open-config-file ()
-  "Open Emacs configuration file"
+  "Open Emacs configuration file."
   (interactive)
-  (find-file "~/.emacs.d/init.el"))
+  (find-file chip-config-dir))
 
 (with-eval-after-load "general"
   (general-define-key

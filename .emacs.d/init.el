@@ -43,9 +43,18 @@
 (straight-use-package 'use-package)
 (setq straight-use-package-by-default t)
 
-;;; Source paths
+;;; Directories
+
+(defconst chip-config-dir "~/.emacs.d/"
+  "Path to emacs config directory.")
+
+(defconst chip-config-src-dir (concat chip-config-dir "src/")
+  "Path to emacs config src directory.")
+
+;;; Load path
 
 (add-to-list 'load-path "~/.emacs.d/new")
+(add-to-list 'load-path chip-config-src-dir)
 (add-to-list 'load-path "~/.emacs.d/scripts")
 
 ;;; Deferred compilation
@@ -55,6 +64,23 @@
 (defun chip/native-compile ()
   (interactive)
   (native-compile-async "~/.emacs.d" 'recursively))
+
+;;; Autoloads
+
+(defun chip/update-all-autoloads ()
+  "Update autoloaded definitions in loaddefs.el."
+  (interactive)
+  (cd chip-config-src-dir)
+  (let ((generated-autoload-file (expand-file-name "loaddefs.el")))
+    ;; create empty file if not exists
+    (when (not (file-exists-p generated-autoload-file))
+      (with-current-buffer (find-file-noselect
+                            generated-autoload-file)
+        (insert ";;")
+        (save-buffer)))
+    (mapc #'update-directory-autoloads '(""))))
+
+(load (concat chip-config-src-dir "loaddefs.el") nil t)
 
 ;;; Desktop initialization
 
