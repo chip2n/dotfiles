@@ -58,6 +58,7 @@
 
 ;;; Desktop initialization
 
-(require 'chip-init-desktop)
+;; (require 'chip-init-desktop)
+(require 'chip-init-android)
 
 ;;; init.el ends here

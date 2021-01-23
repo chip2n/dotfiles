@@ -22,6 +22,8 @@
 
 ;;; Code:
 
+(require 'chip-theme-android)
+
 (provide 'chip-init-android)
 
 ;;; chip-init-android.el ends here
