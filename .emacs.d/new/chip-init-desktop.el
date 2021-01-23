@@ -964,7 +964,7 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;;; org-mode
 
-(require 'init-org)
+(require 'chip-org)
 
 (use-package org-re-reveal
   :config

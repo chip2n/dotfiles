@@ -1,4 +1,26 @@
-;;; org-mode
+;;; chip-org.el -*- lexical-binding: t -*-
+
+;; Copyright (C) 2021  Andreas Arvidsson
+;;
+;; Author: Andreas Arvidsson <andreas@arvidsson.io>
+;; Keywords: config
+;;
+;; This file is not part of GNU Emacs
+;;
+;; This file is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either version 3, or (at your option)
+;; any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; For a full copy of the GNU General Public License
+;; see <http://www.gnu.org/licenses/>.
+
+;;; Code:
 
 ;; set org todo keywords
 (setq org-todo-keywords
@@ -929,4 +951,4 @@ so change the default 'F' binding in the agenda to allow both"
 ;; if we leave Emacs running overnight - reset the appointments one minute after midnight
 (run-at-time "24:01" nil 'chip/org-agenda-to-appt)
 
-(provide 'init-org)
+(provide 'chip-org)
