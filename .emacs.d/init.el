@@ -90,7 +90,11 @@
 
 (load (concat chip-config-src-dir "loaddefs.el") nil t)
 
-;;; Desktop initialization
+;;; Core functionality
+
+(use-package general)
+
+;;; Platform initialization
 
 (require 'chip-init-desktop)
 ;; (require 'chip-init-android)
