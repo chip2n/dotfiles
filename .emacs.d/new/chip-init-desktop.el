@@ -29,7 +29,7 @@
 (chip-theme-set-dark)
 (require 'chip-faces)
 (chip-faces)
-;; (require 'chip-modeline)
+(require 'chip-modeline)
 ;; (require 'chip-headerline)
 ;; (require 'chip-agenda)
 
@@ -170,21 +170,21 @@ want to use in the modeline *in lieu of* the original.")
 
 (add-hook 'after-change-major-mode-hook 'clean-mode-line)
 
-(use-package telephone-line
-  :after (evil)
-  :config
-  (setq telephone-line-lhs
-        '((evil   . (telephone-line-evil-tag-segment))
-          (accent . (telephone-line-vc-segment))
-          (nil    . (telephone-line-process-segment
-                     telephone-line-minor-mode-segment))
-	  ))
-  (setq telephone-line-rhs
-        '((nil    . (telephone-line-erc-modified-channels-segment))
-          (nil    . (telephone-line-misc-info-segment))
-          (nil . (telephone-line-major-mode-segment))
-          (evil   . (telephone-line-airline-position-segment))))
-  (telephone-line-mode t))
+;; (use-package telephone-line
+;;   :after (evil)
+;;   :config
+;;   (setq telephone-line-lhs
+;;         '((evil   . (telephone-line-evil-tag-segment))
+;;           (accent . (telephone-line-vc-segment))
+;;           (nil    . (telephone-line-process-segment
+;;                      telephone-line-minor-mode-segment))
+;; 	  ))
+;;   (setq telephone-line-rhs
+;;         '((nil    . (telephone-line-erc-modified-channels-segment))
+;;           (nil    . (telephone-line-misc-info-segment))
+;;           (nil . (telephone-line-major-mode-segment))
+;;           (evil   . (telephone-line-airline-position-segment))))
+;;   (telephone-line-mode t))
 
 
 ;; I try to diminish most minor modes to keep the modeline free. Most are removed

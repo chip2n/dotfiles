@@ -24,6 +24,7 @@
 
 (require 'chip-modeline-base)
 
+(require 'cl-lib)
 (require 's)
 
 ;;; configuration
@@ -54,7 +55,7 @@
 
 (defun chip-modeline-tag-major-mode ()
   "Tag used to display the current major mode"
-  (case major-mode
+  (cl-case major-mode
     ('emacs-lisp-mode "elisp")
     ('org-agenda-mode "agenda")
     (t (s-chop-suffix "-mode" (symbol-name major-mode)))))
@@ -68,11 +69,13 @@
 
 (defun chip-modeline-tag-evil-state ()
   "Tag used to display which evil state the buffer is in"
-  (cond
-   ((evil-insert-state-p) (propertize " " 'face 'chip-face-evil-state-insert))
-   ((evil-emacs-state-p)  (propertize " " 'face 'chip-face-evil-state-emacs))
-   ((evil-visual-state-p) (propertize " " 'face 'chip-face-evil-state-visual))
-   (t (propertize " " 'face 'chip-face-evil-state-normal))))
+  (if (featurep 'evil)
+      (cond
+       ((evil-insert-state-p) (propertize " " 'face 'chip-face-evil-state-insert))
+       ((evil-emacs-state-p)  (propertize " " 'face 'chip-face-evil-state-emacs))
+       ((evil-visual-state-p) (propertize " " 'face 'chip-face-evil-state-visual))
+       (t (propertize " " 'face 'chip-face-evil-state-normal)))
+    " "))
 
 ;; (defun chip-modeline-tag-org-clock ()
 ;;   (concat " | " (all-the-icons-material "timer")
