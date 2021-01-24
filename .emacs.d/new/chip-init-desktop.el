@@ -34,6 +34,7 @@
 ;; (require 'chip-agenda)
 
 (require 'chip-code-lisp)
+(require 'chip-lang)
 
 ;;; Package: paren-face
 

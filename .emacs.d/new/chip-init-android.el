@@ -33,6 +33,7 @@
 ;; (require 'chip-agenda)
 
 (require 'chip-code-lisp)
+(require 'chip-lang)
 
 (provide 'chip-init-android)
 
