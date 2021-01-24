@@ -29,8 +29,8 @@
 (chip-theme-set-dark)
 (require 'chip-faces)
 (chip-faces)
-(require 'chip-modeline)
-(require 'chip-headerline)
+;; (require 'chip-modeline)
+;; (require 'chip-headerline)
 ;; (require 'chip-agenda)
 
 ;;; Package: paren-face

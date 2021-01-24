@@ -1,4 +1,4 @@
-;;; chip-init-android.el -*- lexical-binding: t -*-
+;;; chip-colors.el -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021  Andreas Arvidsson
 ;;
@@ -22,13 +22,19 @@
 
 ;;; Code:
 
-(require 'chip-theme-android)
+(require 'chip-colors-base)
 
-(require 'chip-colors)
-(chip-theme-set-dark)
-(require 'chip-faces)
-(chip-faces)
+(defun chip-theme-set-dark ()
+  "Apply dark Chip theme base."
+  (setq frame-background-mode     'dark)
+  (setq chip-color-foreground "#eceff6")
+  (setq chip-color-background "#21242b")
+  (setq chip-color-highlight  "#282c34")
+  (setq chip-color-discrete   "#6b7385")
 
-(provide 'chip-init-android)
+  (setq chip-color-blue      "#a2e7ff")
+  (setq chip-color-pink      "#ffafcd"))
 
-;;; chip-init-android.el ends here
+(provide 'chip-colors)
+
+;;; chip-colors.el ends here
