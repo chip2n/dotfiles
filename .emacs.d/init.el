@@ -60,6 +60,7 @@
 ;;; Dependencies
 
 (use-package dash)
+(use-package s)
 
 ;;; Deferred compilation
 
