@@ -30,32 +30,33 @@
 
 (defun chip/find-file ()
   (interactive)
-  (counsel-find-file))
+  (call-interactively #'find-file))
 
 (defun chip/find-file-project-current ()
   (interactive)
-  (counsel-projectile-find-file))
+  (projectile-find-file))
 
 (defun chip/find-file-project ()
   (interactive)
-  (counsel-projectile-find-file))
+  (projectile-switch-project))
 
 (defun chip/switch-buffer ()
   (interactive)
-  (counsel-switch-buffer))
+  (consult-buffer))
 
 (defun chip/switch-buffer-other-window ()
   (interactive)
-  (counsel-switch-buffer))
+  (consult-buffer-other-window))
 
 (defun chip/grep ()
   (interactive)
-  (counsel-rg))
+  (consult-ripgrep))
 
 (defun chip/capture ()
   (interactive)
   (org-capture))
 
+;; TODO don't use counsel
 (defun chip/jump-to-task ()
   (interactive)
   (counsel-org-agenda-headlines))

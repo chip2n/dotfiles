@@ -33,6 +33,7 @@
 ;; (require 'chip-headerline)
 ;; (require 'chip-agenda)
 
+;; (require 'chip-completion)
 (require 'chip-code-lisp)
 (require 'chip-lang)
 
@@ -298,20 +299,6 @@ want to use in the modeline *in lieu of* the original.")
 ;; skip confirmation when killing processes
 (setq kill-buffer-query-functions
       (delq 'process-kill-buffer-query-function kill-buffer-query-functions))
-
-;;; Package: embark
-
-;; Provides a context-dependent menu - pick a target, decide action afterwards
-
-(use-package embark
-  :bind ("C-," . embark-act)
-  :config
-  ;; show command help via which-key
-  (setq embark-action-indicator
-        (lambda (map)
-          (which-key--show-keymap "Embark" map nil nil 'no-paging)
-          #'which-key--hide-popup-ignore-command)
-        embark-become-indicator embark-action-indicator))
 
 ;;; Text navigation
 

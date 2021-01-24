@@ -32,6 +32,7 @@
 ;; (require 'chip-headerline)
 ;; (require 'chip-agenda)
 
+;; (require 'chip-completion)
 (require 'chip-code-lisp)
 (require 'chip-lang)
 
