@@ -56,11 +56,12 @@
    :keymaps '(lispy-mode-map)
    "S" 'lispy-splice))
 
-(use-package evil-lispy
-  :after (evil lispy)
-  :config
-  (if (not (member 'lispy evil-highlight-closing-paren-at-point-states))
-      (push 'lispy evil-highlight-closing-paren-at-point-states)))
+(when c/config-evil?
+  (use-package evil-lispy
+    :after (evil lispy)
+    :config
+    (if (not (member 'lispy evil-highlight-closing-paren-at-point-states))
+        (push 'lispy evil-highlight-closing-paren-at-point-states))))
 
 (provide 'chip-code-lisp)
 
