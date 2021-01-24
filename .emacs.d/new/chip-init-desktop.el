@@ -594,6 +594,10 @@ point reaches the beginning or end of the buffer, stop there."
 
 (use-package rg)
 
+;;; Package: wgrep
+
+(use-package wgrep)
+
 ;;; Buffer
 
 (general-define-key
