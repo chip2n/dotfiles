@@ -1,4 +1,4 @@
-;;; chip-theme-ui.el --- Theming for Emacs UI  -*- lexical-binding: t -*-
+;;; chip-theme-desktop.el -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021  Andreas Arvidsson
 ;;
@@ -22,31 +22,11 @@
 
 ;;; Code:
 
-(defgroup chip-theme nil
-  "Options for my personal theme")
-(load-theme 'chip t)
-
-;; Disable all the GUI fluff
-(when (display-graphic-p)
-    (scroll-bar-mode -1))
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-
-;; Display underline further away from the text
-(setq x-underline-at-descent-line t)
-
-;; Hide welcome screen
-(setq inhibit-startup-screen t)
-
-;; Highlight the current line
-(global-hl-line-mode +1)
+(require 'chip-theme-base)
 
 ;; Show line numbers where appropriate
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
-;; Inhibit startup message
-(setq inhibit-startup-echo-area-message "chip")
+(provide 'chip-theme-desktop)
 
-(provide 'chip-theme-ui)
-
-;;; chip-theme-ui.el ends here
+;;; chip-theme-desktop.el ends here

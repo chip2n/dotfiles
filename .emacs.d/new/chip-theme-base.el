@@ -1,4 +1,4 @@
-;;; chip-theme-ui.el --- Theming for Emacs UI  -*- lexical-binding: t -*-
+;;; chip-theme-base.el -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2021  Andreas Arvidsson
 ;;
@@ -41,12 +41,13 @@
 ;; Highlight the current line
 (global-hl-line-mode +1)
 
-;; Show line numbers where appropriate
-(add-hook 'prog-mode-hook #'display-line-numbers-mode)
-
 ;; Inhibit startup message
 (setq inhibit-startup-echo-area-message "chip")
 
-(provide 'chip-theme-ui)
+(provide 'chip-theme-base)
 
-;;; chip-theme-ui.el ends here
+
+
+(provide 'chip-theme-base)
+
+;;; chip-theme-base.el ends here
