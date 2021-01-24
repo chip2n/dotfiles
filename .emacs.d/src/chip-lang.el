@@ -35,7 +35,8 @@
    "q" 'slime-inspector-quit))
 
 (use-package slime-company
-  :after (slime company))
+  ;; :after (slime company)
+  )
 
 (defun slime-enable-concurrent-hints ()
   (interactive)
