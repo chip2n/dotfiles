@@ -32,6 +32,8 @@
 ;; (require 'chip-headerline)
 ;; (require 'chip-agenda)
 
+(require 'chip-code-lisp)
+
 (provide 'chip-init-android)
 
 ;;; chip-init-android.el ends here

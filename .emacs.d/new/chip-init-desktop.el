@@ -33,6 +33,8 @@
 ;; (require 'chip-headerline)
 ;; (require 'chip-agenda)
 
+(require 'chip-code-lisp)
+
 ;;; Package: paren-face
 
 ;; I'm using this package to make individual faces for each parentheses. This
@@ -783,36 +785,6 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;; Toggle between CamelCase, snake_case etc
 (use-package string-inflection)
-
-;;; Package: lispy
-
-(use-package lispy
-  :config
-  (setq lispy-close-quotes-at-end-p t)
-  (general-unbind
-    :keymaps '(lispy-mode-map)
-    "M-o" ;; used for ace-window
-    )
-  (general-define-key
-   :keymaps '(lispy-mode-map)
-   "S" 'lispy-splice))
-
-(use-package evil-lispy
-  :after (evil lispy)
-  :config
-  (if (not (member 'lispy evil-highlight-closing-paren-at-point-states))
-      (push 'lispy evil-highlight-closing-paren-at-point-states))
-
-  (add-hook 'emacs-lisp-mode-hook #'evil-lispy-mode)
-  (add-hook 'clojure-mode-hook #'evil-lispy-mode)
-  (add-hook 'cider-repl-mode-hook #'evil-lispy-mode)
-  (add-hook 'clojurescript-mode-hook #'evil-lispy-mode)
-  (add-hook 'slime-mode-hook #'evil-lispy-mode)
-  (add-hook 'slime-repl-mode-hook #'evil-lispy-mode)
-  (add-hook 'sly-mode-hook #'evil-lispy-mode)
-  (add-hook 'sly-mrepl-mode-hook #'evil-lispy-mode)
-  (add-hook 'racket-mode-hook #'evil-lispy-mode)
-  (add-hook 'scheme-mode-hook #'evil-lispy-mode))
 
 (use-package aggressive-indent)
 
