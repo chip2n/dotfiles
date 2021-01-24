@@ -414,10 +414,6 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package counsel-projectile
   :after (counsel projectile))
 
-;; For projectile-ag
-(use-package ag
-  :after (projectile))
-
 ;;; Package: Treemacs
 
 (defun chip/treemacs-setup-keys ()
