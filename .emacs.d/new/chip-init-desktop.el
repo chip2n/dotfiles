@@ -381,20 +381,6 @@ point reaches the beginning or end of the buffer, stop there."
   (interactive)
   (find-file (concat chip-config-dir "init.el")))
 
-(with-eval-after-load "general"
-  (general-define-key
-   :states '(emacs normal insert visual motion)
-   "C-c c" 'chip/open-config-file
-   "C-x b" 'counsel-switch-buffer
-   "C-f"   'counsel-find-file
-   "C-p"   'counsel-projectile-find-file
-   "C-x p" 'counsel-projectile-find-file
-   "C-c r" 'counsel-rg
-   "C-S-P" 'counsel-projectile-switch-project
-   "C-x P" 'counsel-projectile-switch-project
-   "C-b"   'counsel-switch-buffer
-   "C-S-B"   'counsel-switch-buffer-other-window))
-
 (use-package projectile
   :after (ivy)
   :config
@@ -595,11 +581,6 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package wgrep)
 
 ;;; Buffer
-
-(general-define-key
- :states '(normal)
- "+" 'text-scale-increase
- "-" 'text-scale-decrease)
 
 (use-package golden-ratio-scroll-screen
   :config
