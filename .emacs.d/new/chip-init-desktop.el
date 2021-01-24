@@ -240,8 +240,6 @@ want to use in the modeline *in lieu of* the original.")
 
 ;;; General
 
-(require 'cl)
-
 (setenv "NODE_PATH" "/usr/lib/node_modules")
 (setenv "ANDROID_SDK_ROOT" "/home/chip/android/sdk")
 
