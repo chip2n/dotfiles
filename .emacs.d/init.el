@@ -57,6 +57,10 @@
 (add-to-list 'load-path chip-config-src-dir)
 (add-to-list 'load-path "~/.emacs.d/scripts")
 
+;;; Dependencies
+
+(use-package dash)
+
 ;;; Deferred compilation
 
 (setq comp-deferred-compilation nil)
