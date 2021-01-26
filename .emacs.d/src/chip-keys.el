@@ -30,27 +30,34 @@
 
 (defun chip/find-file ()
   (interactive)
-  (call-interactively #'find-file))
+  ;; (call-interactively #'find-file)
+  (counsel-find-file))
 
 (defun chip/find-file-project-current ()
   (interactive)
-  (projectile-find-file))
+  ;; (projectile-find-file)
+  (counsel-projectile-find-file))
 
 (defun chip/find-file-project ()
   (interactive)
-  (projectile-switch-project))
+  ;; (projectile-switch-project)
+  (counsel-projectile-switch-project))
 
 (defun chip/switch-buffer ()
   (interactive)
-  (consult-buffer))
+  ;; (consult-buffer)
+  (counsel-switch-buffer))
 
 (defun chip/switch-buffer-other-window ()
   (interactive)
-  (consult-buffer-other-window))
+  ;; (consult-buffer-other-window)
+  (other-window)
+  (counsel-switch-buffer))
 
 (defun chip/grep ()
   (interactive)
-  (consult-ripgrep))
+  ;; (consult-ripgrep)
+  (counsel-rg nil (projectile-project-root)))
 
 (defun chip/capture ()
   (interactive)
