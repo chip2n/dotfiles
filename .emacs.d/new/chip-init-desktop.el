@@ -33,7 +33,7 @@
 ;; (require 'chip-headerline)
 ;; (require 'chip-agenda)
 
-;; (require 'chip-completion)
+(require 'chip-completion)
 (require 'chip-code-lisp)
 (require 'chip-lang)
 
@@ -648,81 +648,7 @@ point reaches the beginning or end of the buffer, stop there."
    'counsel-projectile-find-file
    '(("a" ace-window "ace-window"))))
 
-;;; Minibuffer
-
-(use-package ivy
-  :config
-  (ivy-mode)
-  ;; slim down ivy display
-  (setq ivy-count-format ""
-        ivy-display-style nil
-        ivy-minibuffer-faces nil)
-
-  (define-key ivy-minibuffer-map (kbd "<escape>") 'minibuffer-keyboard-quit))
-
-(use-package ivy-rich
-  :config
-  (setq ivy-rich-display-transformers-list
-        '(counsel-find-file
-          (:columns
-           ((ivy-read-file-transformer)
-            (ivy-rich-counsel-find-file-truename
-             (:face font-lock-comment-face))))
-          counsel-M-x
-          (:columns
-           ((counsel-M-x-transformer
-             (:width 40))
-            (ivy-rich-counsel-function-docstring
-             (:face font-lock-comment-face))))
-          counsel-describe-function
-          (:columns
-           ((counsel-describe-function-transformer
-             (:width 40))
-            (ivy-rich-counsel-function-docstring
-             (:face font-lock-comment-face))))
-          counsel-describe-variable
-          (:columns
-           ((counsel-describe-variable-transformer
-             (:width 40))
-            (ivy-rich-counsel-variable-docstring
-             (:align right :face font-lock-comment-face))))
-          package-install
-          (:columns
-           ((ivy-rich-candidate
-             (:width 30))
-            (ivy-rich-package-version
-             (:width 16 :face font-lock-comment-face))
-            (ivy-rich-package-archive-summary
-             (:width 7 :face font-lock-comment-face))
-            (ivy-rich-package-install-summary
-             (:face font-lock-comment-face))))))
-  (ivy-rich-mode 1))
-
-(use-package counsel
-  :after (ivy)
-  :config
-  (counsel-mode))
-
-(use-package swiper
-  :after (ivy))
-
-;; Prescient allows you to filter and automatically sort ivy and company results
-;; by frequency. It also enables searching by initialism (e.g. stbow ->
-;; switch-to-buffer-other-window).
-(use-package prescient
-  :after (counsel)
-  :config
-  (prescient-persist-mode))
-
-(use-package ivy-prescient
-  :after (counsel)
-  :config
-  (ivy-prescient-mode))
-
-(use-package company-prescient
-  :after (counsel)
-  :config
-  (company-prescient-mode))
+;;; Package: which-key
 
 (use-package which-key
   :config
