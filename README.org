@@ -1,21 +1,29 @@
 * dotfiles
-My Arch Linux configuration!
+arch linux configuration files
 
-** Theme
-| *name*  | *hex*   |
-|---------+---------|
-| base0   | #21242b |
-| base1   | #282c34 |
-| base2   | #494e5a |
-| base3   | #6b7385 |
-| base4   | #ffffff |
-| red0    | #d98077 |
-| red1    | #f1988e |
-| green0  | #89d2b0 |
-| green1  | #b9e59f |
-| yellow0 | #eae1a6 |
-| yellow1 | #fbf2bf |
-| blue0   | #67acd5 |
-| blue1   | #96d3e8 |
-| pink0   | #dc8cac |
-| pink1   | #ecb3c9 |
+** Installation
+Make symlinks from relevant directories. For standard bspwm functionality, symlink .config/bspwm, .config/sxhkd and scripts. Also, add the following line to /etc/profile:
+
+#+begin_src bash
+export PANEL_FIFO=/tmp/panel-fifo
+#+end_src
+    
+The following packages are used by the bar:
+- trayer-srg
+- acpi
+- xtitle
+- conky
+
+Also, the following packages are optional for the same functionality and look:
+- lemonbar
+- siji-git (for glyphs)
+- dmenu
+- gnome-themes-standard
+- lxappearance
+- xclip (perl script for copy paste in URXVT)
+- unclutter (removes mouse cursor)
+- notify-osd (for desktop notifications)
+
+Recommended GTK3 themes:
+- Dorian Theme 3.10 (dorian-theme-3.10)   NOTE: Follow instructions to install the firefox theme.
+- Elementary icon theme (elementary-icon-theme in community repo)
