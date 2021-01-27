@@ -68,7 +68,6 @@
   (interactive)
   (org-capture))
 
-;; TODO don't use counsel
 (defun chip/jump-to-task ()
   (interactive)
   (counsel-org-agenda-headlines))
@@ -84,6 +83,10 @@
 (defun chip/clock-out-task ()
   (interactive)
   (org-clock-out))
+
+(defun chip/calendar ()
+  (interactive)
+  (org-goto-calendar))
 
 (general-define-key
  :states '(emacs normal insert visual motion)
