@@ -1299,9 +1299,25 @@ all elements."
   (add-hook 'haskell-mode-hook 'lsp-haskell-enable)
   (add-hook 'haskell-mode-hook 'flycheck-mode))
 
-(use-package nvm)
-(nvm-use "v12.10.0")
-;; (nvm-use "v8.16.2")
+;; nvm
+
+(defun chip/nvm-10.23.0 ()
+  (interactive)
+  (nvm-use "v10.23.0"))
+
+(defun chip/vterm-nvm-10.23.0 ()
+  (interactive)
+  (nvm-use "v10.23.0" (lambda () (vterm "*vterm-nvm-10.23.0*"))))
+
+(defun chip/nvm-12.10.0 ()
+  (interactive)
+  (nvm-use "v12.10.0"))
+
+(use-package nvm
+  :config
+  (chip/nvm-12.10.0))
+
+;; js2-mode
 
 (use-package js2-mode
   :config
