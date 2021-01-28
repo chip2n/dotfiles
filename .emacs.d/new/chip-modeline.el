@@ -200,7 +200,9 @@ want to use in the modeline *in lieu of* the original.")
   (diminish 'slime-mode "slime")
   (diminish 'company-box-mode)
   (diminish 'flycheck-mode)
-  (diminish 'ace-window-mode))
+  (diminish 'ace-window-mode)
+  (diminish 'olivetti-mode)
+  (diminish 'visual-line-mode))
 
 (provide 'chip-modeline)
 
