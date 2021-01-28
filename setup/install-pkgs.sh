@@ -28,4 +28,5 @@ pacman -Syyuu --needed \
   thunar \
   vlc \
   rsync \
-  gnuplot
+  gnuplot \
+  texlive-most
