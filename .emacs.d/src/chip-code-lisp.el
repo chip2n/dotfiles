@@ -24,7 +24,7 @@
 
 (define-minor-mode c/code-lisp-mode
   ""
-  :lighter "L"
+  :lighter nil
   (if c/code-lisp-mode
       (if (featurep 'evil-lispy)
           (evil-lispy-mode 1)

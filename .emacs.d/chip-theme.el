@@ -239,7 +239,7 @@
   `(org-block-begin-line ((,class (:foreground ,color-comment :underline ,grey-2 :extend t))))
   `(org-block ((,class (:extend nil))))
   `(org-block-end-line ((,class (:foreground ,color-comment :overline ,grey-2 :extend t))))
-  `(org-mode-line-clock ((,class (:foreground ,red-2 :overline ,grey-2 :extend t))))
+  `(org-mode-line-clock ((,class (:foreground nil))))
 
   ;; Org bullets
   `(org-superstar-leading ((,class (:foreground ,red-2 :bold t))))

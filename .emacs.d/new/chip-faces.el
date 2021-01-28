@@ -81,20 +81,24 @@
   ;;                              )
 
   (set-face-attribute 'chip-face-evil-state-normal nil
-                      :foreground chip-color-foreground
-                      :background chip-color-highlight)
+                      :foreground nil
+                      :background nil
+                      )
 
   (set-face-attribute 'chip-face-evil-state-insert nil
                       :foreground chip-color-blue
-                      :background chip-color-blue)
+                      :background nil
+                      )
 
   (set-face-attribute 'chip-face-evil-state-visual nil
                       :foreground chip-color-blue
-                      :background chip-color-blue)
+                      :background nil
+                      )
 
   (set-face-attribute 'chip-face-evil-state-emacs nil
                       :foreground chip-color-pink
-                      :background chip-color-pink))
+                      :background nil
+                      ))
 
 (provide 'chip-faces)
 
