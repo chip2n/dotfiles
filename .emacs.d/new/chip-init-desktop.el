@@ -1355,28 +1355,7 @@ all elements."
 
 ;;; Prose
 
-(defun prose--finish ()
-  (interactive)
-  (clipboard-kill-ring-save (point-min) (point-max))
-  (message "Prose saved to kill ring.")
-  (bury-buffer))
-
-(defun prose--clear ()
-  (interactive)
-  (kill-region (point-min) (point-max))
-  (message "Prose cleared."))
-
-(define-minor-mode prose-mode
-  "Mode for writing prose."
-  :global nil
-  :keymap `(("\C-c\C-c" . prose--finish)
-            ("\C-c\C-k" . prose--clear)))
-
-(defun prose ()
-  (interactive)
-  (switch-to-buffer (get-buffer-create "*prose*"))
-  (olivetti-mode)
-  (prose-mode))
+(require 'chip-prose)
 
 ;;; Shell
 
