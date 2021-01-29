@@ -508,7 +508,9 @@ point reaches the beginning or end of the buffer, stop there."
    "TAB" 'outshine-cycle
    "<backtab>" 'outshine-cycle-buffer)
   (setq outshine-startup-folded-p nil)
-  (add-hook 'emacs-lisp-mode-hook 'outshine-mode))
+  ;; TODO make generic hook for all lisps (chip-lisp-mode-hook)
+  (add-hook 'emacs-lisp-mode-hook 'outshine-mode)
+  (add-hook 'lisp-mode-hook 'outshine-mode))
 
 ;;; Windows
 
