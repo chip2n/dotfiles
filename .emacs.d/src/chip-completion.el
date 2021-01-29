@@ -112,10 +112,17 @@
 ;;              (:face font-lock-comment-face))))))
 ;;   (ivy-rich-mode 1))
 
-;; (use-package counsel
-;;   :after (ivy)
-;;   :config
-;;   (counsel-mode))
+(use-package counsel
+  :after (ivy)
+  :config
+  (counsel-mode)
+  (with-eval-after-load "projectile"
+    (ivy-add-actions
+     'counsel-projectile
+     '(("v" chip/magit-status-root-dir "magit")))
+    (ivy-add-actions
+     'counsel-projectile-find-file
+     '(("v" chip/magit-status-root-dir "magit")))))
 
 ;; (use-package swiper
 ;;   :after (ivy))

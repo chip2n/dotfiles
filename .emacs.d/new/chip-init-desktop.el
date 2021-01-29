@@ -814,31 +814,24 @@ all elements."
   (magit-status (vc-find-root dir ".git")))
 
 (use-package magit
-  :after (ivy counsel projectile)
+  :bind (("C-x g" . magit-status)
+         ("C-x G" . magit-file-dispatch))
+
+  :general (:keymaps 'magit-blame-mode-map
+            :states 'normal
+            "RET" 'magit-show-commit
+            "q" 'magit-blame-quit)
+
   :config
+  ;; don't show line numbers in magit buffers
   (add-hook 'magit-mode-hook (lambda () (display-line-numbers-mode -1)))
-  (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
+
+  ;; show magit in current window
+  (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
 
   ;; start magit commit buffers in evil insert mode
-  (add-hook 'git-commit-mode-hook 'evil-insert-state)
-
-  (general-define-key
-   :keymaps '(shell-mode-map)
-   "C-x g" 'magit-status)
-
-  (general-define-key
-   :states '(normal)
-   :keymaps '(magit-blame-mode-map)
-   "RET" 'magit-show-commit
-   "q" 'magit-blame-quit)
-
-  (ivy-add-actions
-   'counsel-projectile-find-file
-   '(("v" chip/magit-status-root-dir "magit")))
-
-  (ivy-add-actions
-   'counsel-projectile
-   '(("v" chip/magit-status-root-dir "magit"))))
+  (with-eval-after-load "evil"
+    (add-hook 'git-commit-mode-hook 'evil-insert-state)))
 
 (use-package forge
   :after magit
