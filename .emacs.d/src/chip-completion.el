@@ -42,6 +42,9 @@
   (embark-collect-mode . embark-consult-preview-minor-mode))
 
 (use-package selectrum
+  :bind (:map selectrum-minibuffer-map
+         (("<next>" . 'selectrum-next-page)
+          ("<prior>" . 'selectrum-previous-page)))
   :config
   (selectrum-mode +1))
 
