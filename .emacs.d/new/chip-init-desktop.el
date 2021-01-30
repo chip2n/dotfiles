@@ -33,6 +33,7 @@
 (require 'chip-headerline)
 ;; (require 'chip-agenda)
 
+(require 'chip-vc)
 (require 'chip-completion)
 (require 'chip-code-lisp)
 (require 'chip-lang)
@@ -811,38 +812,6 @@ all elements."
             file)))))
 
 ;;; Apps
-
-(defun chip/magit-status-root-dir (dir)
-  (magit-status (vc-find-root dir ".git")))
-
-(use-package magit
-  :bind (("C-x g" . magit-status)
-         ("C-x G" . magit-file-dispatch))
-
-  :general (:keymaps 'magit-blame-mode-map
-            :states 'normal
-            "RET" 'magit-show-commit
-            "q" 'magit-blame-quit)
-
-  :config
-  ;; don't show line numbers in magit buffers
-  (add-hook 'magit-mode-hook (lambda () (display-line-numbers-mode -1)))
-
-  ;; show magit in current window
-  (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
-
-  ;; start magit commit buffers in evil insert mode
-  (with-eval-after-load "evil"
-    (add-hook 'git-commit-mode-hook 'evil-insert-state)))
-
-(use-package forge
-  :after magit
-  :config
-  (add-to-list 'evil-emacs-state-modes 'forge-topic-mode))
-
-(use-package ssh-agency
-  :config
-  (setq ssh-agency-keys '("~/.ssh/github")))
 
 (use-package elfeed
   :config
