@@ -27,6 +27,9 @@
   ;; enabled right away. Note that this forces loading the package.
   (marginalia-mode)
 
+  ;; Display more annotations - e.g. docstring with M-x
+  (setq marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+
   ; When using Selectrum, ensure that Selectrum is refreshed when cycling annotations.
   (advice-add #'marginalia-cycle :after
               (lambda () (when (bound-and-true-p selectrum-mode) (selectrum-exhibit)))))
@@ -46,6 +49,9 @@
          (("<next>" . 'selectrum-next-page)
           ("<prior>" . 'selectrum-previous-page)))
   :config
+  ;; I want the candidate highligt background to extend to the edge of the frame
+  (setq selectrum-extend-current-candidate-highlight nil)
+
   (selectrum-mode +1))
 
 ;; Prescient allows you to filter and automatically sort ivy and company results
@@ -116,16 +122,7 @@
 ;;   (ivy-rich-mode 1))
 
 (use-package counsel
-  :after (ivy)
-  :config
-  (counsel-mode)
-  (with-eval-after-load "projectile"
-    (ivy-add-actions
-     'counsel-projectile
-     '(("v" chip/magit-status-root-dir "magit")))
-    (ivy-add-actions
-     'counsel-projectile-find-file
-     '(("v" chip/magit-status-root-dir "magit")))))
+  :after (ivy))
 
 ;; (use-package swiper
 ;;   :after (ivy))
