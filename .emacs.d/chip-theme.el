@@ -178,6 +178,13 @@
   ;; Ivy
   `(ivy-virtual ((,class (:foreground ,white-1))))
 
+  ;; selectrum
+  `(selectrum-primary-highlight ((,class (:foreground ,color-foreground :background ,color-highlight-2))))
+  `(selectrum-current-candidate ((,class (:foreground ,red-2 :background ,color-highlight-1))))
+
+  ;; Marginalia
+  `(marginalia-documentation ((,class (:foreground ,color-comment))))
+
   ;; Posframe
   `(ivy-posframe ((,class (:background ,grey-2 :foreground ,white-1))))
   `(ivy-posframe-border ((,class (:background ,grey-2))))
