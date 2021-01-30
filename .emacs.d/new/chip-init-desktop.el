@@ -256,7 +256,7 @@ point reaches the beginning or end of the buffer, stop there."
    "C-c i"   'imenu
    "C-s"   'avy-goto-char-2
    "C-c s" 'avy-goto-char-2
-   "M-s"   'swiper))
+   "M-s"   'consult-line))
 
 (with-eval-after-load "general"
   (general-define-key
