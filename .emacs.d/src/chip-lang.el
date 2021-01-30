@@ -85,7 +85,9 @@ Lisp function does not specify a special indentation."
   (setq slime-description-autofocus t)
   ;; (add-hook 'slime-repl-mode-hook 'header-mode)
   (add-hook 'slime-macroexpansion-minor-mode-hook (lambda () (interactive) (evil-motion-state)))
-  (slime-setup '(slime-fancy slime-asdf slime-cl-indent slime-company slime-fuzzy))
+
+  (after-load (slime-company)
+    (slime-setup '(slime-fancy slime-asdf slime-cl-indent slime-company slime-fuzzy)))
 
   (add-hook 'slime-xref-mode-hook (lambda () (interactive) (evil-emacs-state)))
 
@@ -113,9 +115,7 @@ Lisp function does not specify a special indentation."
    "g" 'slime-macroexpand-again
    "q" 'slime-inspector-quit))
 
-(use-package slime-company
-  ;; :after (slime company)
-  )
+(use-package slime-company)
 
 (defun slime-enable-concurrent-hints ()
   (interactive)

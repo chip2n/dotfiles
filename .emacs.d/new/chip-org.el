@@ -121,20 +121,19 @@
 (require 'org-depend)
 (setq org-depend-tag-blocked nil)
 
-(with-eval-after-load "org"
-  (with-eval-after-load "general"
-    (general-define-key
-     :keymaps 'org-mode-map
-     "M-p" 'org-previous-visible-heading
-     "M-n" 'org-next-visible-heading
-     "M-k" 'org-move-subtree-up
-     "M-j" 'org-move-subtree-down
-     "M-l" 'org-metaright
-     "M-h" 'org-metaleft
-     "M-L" 'org-demote-subtree
-     "M-H" 'org-promote-subtree
-     "C-M-<return>" 'org-insert-subheading
-     "<RET>" 'org-return-indent)))
+(after-load (org general)
+  (general-define-key
+   :keymaps 'org-mode-map
+   "M-p" 'org-previous-visible-heading
+   "M-n" 'org-next-visible-heading
+   "M-k" 'org-move-subtree-up
+   "M-j" 'org-move-subtree-down
+   "M-l" 'org-metaright
+   "M-h" 'org-metaleft
+   "M-L" 'org-demote-subtree
+   "M-H" 'org-promote-subtree
+   "C-M-<return>" 'org-insert-subheading
+   "<RET>" 'org-return-indent))
 
 ;; enable easy templates
 (require 'org-tempo)

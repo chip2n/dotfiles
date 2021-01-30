@@ -248,17 +248,16 @@ point reaches the beginning or end of the buffer, stop there."
     (when (= orig-point (point))
       (move-beginning-of-line 1))))
 
-(with-eval-after-load "general"
+(after-load (general)
   (general-define-key
    :states '(normal insert visual emacs)
    "C-e"   'chip/move-end-of-line
    "C-a"   'chip/move-beginning-of-line
-   "C-c i"   'imenu
+   "C-c i" 'imenu
    "C-s"   'avy-goto-char-2
    "C-c s" 'avy-goto-char-2
-   "M-s"   'consult-line))
+   "M-s"   'consult-line)
 
-(with-eval-after-load "general"
   (general-define-key
    :keymaps '(flymake-mode-map)
    "M-n" 'flymake-goto-next-error
@@ -466,7 +465,7 @@ point reaches the beginning or end of the buffer, stop there."
 (setq dired-listing-switches "-aBhlv --group-directories-first")
 
 ;; start dired in emacs mode
-(with-eval-after-load "evil"
+(after-load (evil)
   (add-to-list 'evil-emacs-state-modes 'dired-mode))
 
 ;;; Package: deadgrep
@@ -530,7 +529,7 @@ point reaches the beginning or end of the buffer, stop there."
       (chip/window-zoom)
     (other-window 1)))
 
-(with-eval-after-load "general"
+(after-load (general)
   (general-define-key
    "C-c ["     'winner-undo
    "C-c ]"     'winner-redo
@@ -625,7 +624,7 @@ point reaches the beginning or end of the buffer, stop there."
   (add-to-list 'yas-snippet-dirs (locate-user-emacs-file "snippets")))
 
 (setq compilation-scroll-output t)
-(with-eval-after-load "general"
+(after-load (general)
   (general-define-key
    :keymaps '(compilation-mode-map)
    "k" 'kill-this-buffer-and-process))
@@ -922,7 +921,7 @@ all elements."
                 (evil-emacs-state)
               (evil-normal-state))))
 
-(with-eval-after-load "company"
+(after-load (company)
   (add-hook 'emacs-lisp-mode-hook 'company-mode))
 
 (use-package geiser

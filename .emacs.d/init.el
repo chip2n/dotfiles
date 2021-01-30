@@ -94,6 +94,8 @@
 
 (use-package general)
 
+(require 'chip-macro)
+
 ;;; Emacs behavior
 
 ;; break at line 80 by default when using functions like `fill-paragraph`

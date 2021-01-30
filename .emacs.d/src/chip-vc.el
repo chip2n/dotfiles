@@ -48,19 +48,17 @@
   (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
 
   ;; start magit commit buffers in evil insert mode
-  (with-eval-after-load "evil"
+  (after-load (evil)
     (add-hook 'git-commit-mode-hook 'evil-insert-state))
 
   ;; add magit as ivy actions
-  (with-eval-after-load "ivy"
-    (with-eval-after-load "counsel"
-      (with-eval-after-load "projectile"
-        (ivy-add-actions
-         'counsel-projectile
-         '(("v" chip/magit-status-root-dir "magit")))
-        (ivy-add-actions
-         'counsel-projectile-find-file
-         '(("v" chip/magit-status-root-dir "magit")))))))
+  (after-load (ivy counsel projectile)
+    (ivy-add-actions
+     'counsel-projectile
+     '(("v" chip/magit-status-root-dir "magit")))
+    (ivy-add-actions
+     'counsel-projectile-find-file
+     '(("v" chip/magit-status-root-dir "magit")))))
 
 (use-package forge
   :after magit
