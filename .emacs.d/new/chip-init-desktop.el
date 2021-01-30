@@ -146,9 +146,6 @@
 
 (use-package pass)
 
-(use-package ivy-pass
-  :after (ivy))
-
 (defmacro with-pass (args &rest body)
   (declare (indent 1))
   (let ((name (car args))
@@ -285,7 +282,6 @@ point reaches the beginning or end of the buffer, stop there."
   (find-file (concat chip-config-dir "init.el")))
 
 (use-package projectile
-  :after (ivy)
   :config
   (add-to-list 'projectile-globally-ignored-directories "*node_modules")
   (setq projectile-enable-caching nil)
@@ -293,15 +289,14 @@ point reaches the beginning or end of the buffer, stop there."
   ;; this is mainly so that they don't always appear as the first search
   (setq projectile-git-command "git ls-files -zc --exclude-standard")
   (setq projectile-indexing-method 'alien)
-  (setq projectile-completion-system 'ivy)
   (projectile-register-project-type 'shadow-cljs '("shadow-cljs.edn")
                                     :src-dir "src/main"
                                     :test-dir "src/test"
                                     :test-suffix "_test")
   (projectile-mode))
 
-(use-package counsel-projectile
-  :after (counsel projectile))
+;; (use-package counsel-projectile
+;;   :after (counsel projectile))
 
 ;;; Package: Treemacs
 
@@ -553,15 +548,16 @@ point reaches the beginning or end of the buffer, stop there."
   :after (ivy)
   :config
   (setq aw-dispatch-always t)
-  (ivy-add-actions
-   'ivy-switch-buffer
-   '(("a" ace-window "ace-window")))
-  (ivy-add-actions
-   'counsel-find-file
-   '(("a" ace-window "ace-window")))
-  (ivy-add-actions
-   'counsel-projectile-find-file
-   '(("a" ace-window "ace-window"))))
+  (after-load (ivy counsel projectile)
+    (ivy-add-actions
+     'ivy-switch-buffer
+     '(("a" ace-window "ace-window")))
+    (ivy-add-actions
+     'counsel-find-file
+     '(("a" ace-window "ace-window")))
+    (ivy-add-actions
+     'counsel-projectile-find-file
+     '(("a" ace-window "ace-window")))))
 
 ;;; Package: which-key
 
@@ -1237,15 +1233,6 @@ all elements."
 
 (require 'ob-lilypond)
 
-(use-package pug-mode
-  :config
-  (add-to-list 'auto-mode-alist (cons (rx ".jade" eos) 'pug-mode))
-  (add-to-list 'auto-mode-alist (cons (rx ".pug" eos) 'pug-mode)))
-
-(use-package stylus-mode
-  :config
-  (add-to-list 'auto-mode-alist (cons (rx ".styl" eos) 'pug-mode)))
-
 (use-package glsl-mode)
 
 (require 'bolt-mode)
@@ -1379,12 +1366,6 @@ all elements."
   (interactive "FPath: ")
   (android-screenshot-shrinked path)
   (org-insert-link nil (format "file:%s" path) nil))
-
-(use-package quelpa
-  :config
-  (setq quelpa-checkout-melpa-p nil)    ; we're not using it for MELPA packages
-  (quelpa '(tayl :repo "chip2n/tayl.el" :fetcher github))
-  (quelpa '(vasttrafik :repo "chip2n/vasttrafik.el" :fetcher github)))
 
 ;;; Utils
 

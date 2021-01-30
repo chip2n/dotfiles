@@ -121,8 +121,8 @@
 ;;              (:face font-lock-comment-face))))))
 ;;   (ivy-rich-mode 1))
 
-(use-package counsel
-  :after (ivy))
+;; (use-package counsel
+;;   :after (ivy))
 
 ;; (use-package swiper
 ;;   :after (ivy))
