@@ -300,6 +300,7 @@
   `(magit-branch-current ((,class (:box (:line-width 1) :foreground ,blue-2))))
   `(magit-tag ((,class (:foreground ,yellow-1 :weight bold))))
   `(magit-header-line ((,class nil)))
+  `(magit-blame-highlight ((,class (:foreground ,color-comment :background ,grey-2))))
   `(git-commit-summary ((,class (:foreground ,white-1))))
 
   ;; git-gutter
