@@ -68,10 +68,6 @@
   (interactive)
   (org-capture))
 
-(defun chip/jump-to-task ()
-  (interactive)
-  (counsel-org-agenda-headlines))
-
 (defun chip/jump-to-clocked-task ()
   (interactive)
   (org-clock-goto))
