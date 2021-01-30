@@ -120,7 +120,7 @@
  "C-c o g" 'chip/jump-to-clocked-task
 
  ;; quickly jump to a task in your agenda files
- "C-c j" 'chip/jump-to-task)
+ "C-c j" 'c/jump-to-org-headline)
 
 (general-define-key
  :states '(normal)

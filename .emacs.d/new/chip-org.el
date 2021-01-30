@@ -22,6 +22,40 @@
 
 ;;; Code:
 
+(require 'cl-lib)
+
+(defun c/org-agenda-headlines-candidates ()
+  "Return a list of completion candidates for use with selectrum."
+  (org-map-entries
+   (lambda ()
+     (cl-destructuring-bind (_ _ todo priority text tags) (org-heading-components)
+       (let* ((path (org-get-outline-path)))
+         (list (mapconcat 'identity
+                          (cl-remove-if 'null
+                                        (list
+                                         todo
+                                         (and priority (format "[#%c]" priority))
+                                         (s-join "/" (append path (list text)))
+                                         tags))
+                          " ")
+               buffer-file-name
+               (point)))))
+   nil
+   'agenda))
+
+(defun c/jump-to-org-headline ()
+  (interactive)
+  (let* ((completions (c/org-agenda-headlines-candidates))
+         (completion-table (lambda (string pred action)
+                             (if (eq action 'metadata)
+                                 `(metadata (display-sort-function . ,#'identity))
+                               (complete-with-action action completions string pred)))))
+    (let ((result (assoc (completing-read "Jump to headline " completion-table) completions)))
+      (when result
+        (find-file (cadr result))
+        (goto-char (caddr result))
+        (recenter)))))
+
 ;; set org todo keywords
 (setq org-todo-keywords
       '((sequence "TODO(t)" "NEXT(n)" "WAIT(w@/!)" "HOLD(h@/!)" "|" "DONE(d)" "KILL(c@)")))
