@@ -94,6 +94,11 @@
 
 (use-package general)
 
+;;; Emacs behavior
+
+;; break at line 80 by default when using functions like `fill-paragraph`
+(setq fill-column 80)
+
 ;;; Platform initialization
 
 (require 'chip-init-desktop)

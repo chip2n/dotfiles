@@ -218,9 +218,7 @@
 
 ;; add automatic newlines when lines get too long
 ;; using this instead of word-wrap since it doesn't affect tables
-(add-hook 'org-mode-hook (lambda ()
-                           (auto-fill-mode)
-                           (setq fill-column 80)))
+(add-hook 'org-mode-hook 'auto-fill-mode)
 
 (use-package org-superstar
   :ensure t
