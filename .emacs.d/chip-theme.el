@@ -212,8 +212,10 @@
 
   ;; Org
   `(org-ellipsis ((,class (:foreground ,grey-4))))
-  `(org-todo ((,class (:foreground ,red-2))))
-  `(org-done ((,class (:foreground ,green-2))))
+  `(org-todo ((,class (:foreground ,red-2 :bold t))))
+  `(org-done ((,class (:foreground ,green-2 :bold t))))
+  `(org-headline-todo ((,class (:foreground ,color-foreground :bold t))))
+  `(org-headline-done ((,class (:foreground ,color-foreground :bold t))))
   `(org-level-1 ((,class (:foreground ,color-headline-1 :bold t))))
   `(org-level-2 ((,class (:foreground ,color-headline-2 :bold t))))
   `(org-level-3 ((,class (:foreground ,color-headline-3 :bold t))))
@@ -292,6 +294,11 @@
   `(magit-tag ((,class (:foreground ,yellow-1 :weight bold))))
   `(magit-header-line ((,class nil)))
   `(git-commit-summary ((,class (:foreground ,white-1))))
+
+  ;; git-gutter
+  `(git-gutter:added ((,class (:foreground ,green-2 :bold t))))
+  `(git-gutter:deleted ((,class (:foreground ,red-1 :bold t))))
+  `(git-gutter:modified ((,class (:foreground ,color-comment :bold t))))
 
   ;; Elfeed faces
   `(message-header-name ((,class (:foreground ,grey-3 :weight bold))))
