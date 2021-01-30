@@ -25,12 +25,9 @@
 (defconst c/config-evil? t
   "If non-nil, load evil-mode & related packages.")
 
-;; (eval-when-compile
-;;   (add-to-list 'load-path "use-package")
-;;   (require 'use-package))
+;;; Straight
 
 (defvar bootstrap-version)
-
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
       (bootstrap-version 5))
