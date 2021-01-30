@@ -175,20 +175,17 @@ want to use in the modeline *in lieu of* the original.")
 ;; entirely, and some are shortened.
 
 (use-package diminish
-  :after (ivy projectile evil-snipe evil-lispy org-roam company-box)
+  :after (projectile evil-snipe evil-lispy org-roam company-box)
   :config
   (diminish 'auto-fill-function)
   (diminish 'undo-tree-mode)
   (diminish 'company-mode)
-  (diminish 'counsel-mode)
-  (diminish 'ivy-mode)
-  (diminish 'projectile-mode)
   (diminish 'projectile-mode)
   (diminish 'evil-snipe-mode)
   (diminish 'evil-snipe-local-mode)
   (diminish 'lispy-mode)
   (diminish 'evil-lispy-mode)
-  (diminish 'auto-revert-mode (chip-modeline--propertize-octicon "sync"))
+  (diminish 'auto-revert-mode (concat " " (chip-modeline--propertize-octicon "sync")))
   (diminish 'emacs-lisp-mode "elisp")
   (diminish 'eldoc-mode)
   (diminish 'yas-minor-mode)
