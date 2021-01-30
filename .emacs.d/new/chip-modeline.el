@@ -79,13 +79,16 @@ Containing LEFT, and RIGHT aligned respectively."
 
 (defun chip-modeline-tag-major-mode ()
   "Tag used to display the current major mode"
-  (concat
-   (chip-modeline--propertize-octicon "code")
-   " "
-   (cl-case major-mode
-     ('emacs-lisp-mode "elisp")
-     ('org-agenda-mode "agenda")
-     (t (s-chop-suffix "-mode" (symbol-name major-mode))))))
+
+  (let ((name (cl-case major-mode
+                ('emacs-lisp-mode "elisp")
+                ('org-agenda-mode "agenda")
+                (t (s-chop-suffix "-mode" (symbol-name major-mode)))))
+        (icon (cond
+               ((eq major-mode 'org-mode) (chip-modeline--propertize-octicon "pencil"))
+               ((eq major-mode 'org-agenda-mode) (chip-modeline--propertize-octicon "check"))
+               (t (chip-modeline--propertize-octicon "code")))))
+    (concat icon " " name)))
 
 (defun chip-modeline-tag-vc ()
   "Tag used to display the current VC branch"
