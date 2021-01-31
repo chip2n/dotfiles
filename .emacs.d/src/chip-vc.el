@@ -67,7 +67,7 @@
 
 (use-package ssh-agency
   :config
-  (setq ssh-agency-vc '("~/.ssh/github")))
+  (setq ssh-agency-keys '("~/.ssh/github")))
 
 ;;; Package: git-gutter
 
