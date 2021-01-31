@@ -106,6 +106,11 @@
  ;; quickly jump to a task in your agenda files
  "C-c j" 'c/jump-to-org-headline)
 
+;; org-mode agenda buffer
+(general-define-key
+ :map 'org-agenda-mode-map
+  "C-g" 'org-agenda-quit)
+
 (general-define-key
  :states '(normal)
  "+" 'text-scale-increase
