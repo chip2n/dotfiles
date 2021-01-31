@@ -33,6 +33,7 @@
 (require 'chip-headerline)
 ;; (require 'chip-agenda)
 
+(require 'chip-doc)
 (require 'chip-vc)
 (require 'chip-completion)
 (require 'chip-code-lisp)
