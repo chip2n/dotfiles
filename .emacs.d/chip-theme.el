@@ -138,7 +138,7 @@
 
   ;; Mode line faces
   `(mode-line ((,class (:box () :background ,color-modeline-active :foreground ,color-foreground))))
-  `(mode-line-inactive ((,class (:box () :background ,color-modeline-inactive :foreground ,grey-3))))
+  `(mode-line-inactive ((,class (:box () :background ,color-modeline-inactive :foreground ,color-modeline-inactive))))
   `(mode-line-evil-state-normal ((,class (:foreground ,color-evil-normal))))
   `(mode-line-evil-state-insert ((,class (:foreground ,color-evil-insert))))
   `(mode-line-evil-state-visual ((,class (:foreground ,color-evil-visual))))
