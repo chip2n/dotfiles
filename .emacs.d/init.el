@@ -25,6 +25,12 @@
 (defconst c/config-evil? t
   "If non-nil, load evil-mode & related packages.")
 
+(defconst chip-config-dir "~/.emacs.d/"
+  "Path to emacs config directory.")
+
+(defconst chip-config-src-dir (concat chip-config-dir "src/")
+  "Path to emacs config src directory.")
+
 ;;; Straight
 
 (defvar bootstrap-version)
@@ -43,13 +49,13 @@
 (straight-use-package 'use-package)
 (setq straight-use-package-by-default t)
 
-;;; Directories
+;;; Deferred compilation
 
-(defconst chip-config-dir "~/.emacs.d/"
-  "Path to emacs config directory.")
+(setq comp-deferred-compilation nil)
 
-(defconst chip-config-src-dir (concat chip-config-dir "src/")
-  "Path to emacs config src directory.")
+(defun chip/native-compile ()
+  (interactive)
+  (native-compile-async chip-config-dir 'recursively))
 
 ;;; Load path
 
@@ -61,14 +67,6 @@
 
 (use-package dash)
 (use-package s)
-
-;;; Deferred compilation
-
-(setq comp-deferred-compilation nil)
-
-(defun chip/native-compile ()
-  (interactive)
-  (native-compile-async "~/.emacs.d" 'recursively))
 
 ;;; Autoloads
 
