@@ -87,6 +87,11 @@ Containing LEFT, and RIGHT aligned respectively."
         (icon (cond
                ((eq major-mode 'org-mode) (chip-modeline--propertize-octicon "pencil"))
                ((eq major-mode 'org-agenda-mode) (chip-modeline--propertize-octicon "check"))
+               ((eq major-mode 'messages-buffer-mode) (chip-modeline--propertize-octicon "bug"))
+               ((s-equals? (buffer-name) "*Warnings*") (chip-modeline--propertize-octicon "bug"))
+               ((eq major-mode 'vterm-mode) (chip-modeline--propertize-octicon "terminal"))
+               ((eq major-mode 'shell-mode) (chip-modeline--propertize-octicon "terminal"))
+               ((eq major-mode 'sshell-mode) (chip-modeline--propertize-octicon "terminal"))
                (t (chip-modeline--propertize-octicon "code")))))
     (concat icon " " name)))
 
