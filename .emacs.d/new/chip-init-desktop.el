@@ -742,11 +742,6 @@ point reaches the beginning or end of the buffer, stop there."
 
 (require 'chip-org)
 
-(use-package org-re-reveal
-  :config
-  (setq org-re-reveal-root "file:///home/chip/reveal.js")
-  (setq org-re-reveal-title-slide nil))
-
 (server-start)
 (require 'org-protocol)
 
