@@ -1,5 +1,3 @@
-(provide 'private)
-
 ;; slack
 (setq private/slack-client-id-remente ""
       private/slack-client-secret-remente ""
@@ -22,3 +20,8 @@
 
 ;; västtrafik
 (setq vasttrafik-api-key "")
+
+;; reddit
+(setq private/reddit-rss-feed "")
+
+(provide 'private)

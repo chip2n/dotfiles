@@ -856,35 +856,46 @@ all elements."
 
 ;;; Apps
 
+(defun youtube-rss (cid)
+  (format "https://www.youtube.com/feeds/videos.xml?channel_id=%s" cid))
+
+(defun reddit-rss (feed user)
+  (format "https://www.reddit.com/.rss?feed=%s&user=%s" feed user))
+
 (use-package elfeed
   :config
   (setq shr-inhibit-images t)           ; disable image loading when viewing entries
   (setq elfeed-feeds
-        '(("http://feeds.feedburner.com/blogspot/hsDu" android) ; Android Developers Blog
-	  ("http://oremacs.com/atom.xml" emacs)                 ; (or emacs)
-	  ("http://pragmaticemacs.com/feed/" emacs)             ; Pragmatic Emacs
+        `(("http://feeds.feedburner.com/blogspot/hsDu" android) ; Android Developers Blog
+          ("http://oremacs.com/atom.xml" emacs) ; (or emacs)
+          ("http://pragmaticemacs.com/feed/" emacs) ; Pragmatic Emacs
           ("https://emacsair.me/feed.xml" emacs)
-          ("https://protesilaos.com/codelog.xml" emacs)         ; Protesilaos Stavrou blog
-          ("http://feeds.bbci.co.uk/news/science_and_environment/rss.xml" news) ; BBC News - Science & Environment
-          ("https://www.theverge.com/rss/index.xml" news) ; The Verge
+          ("https://protesilaos.com/codelog.xml" emacs) ; Protesilaos Stavrou blog
           ("https://defn.io/index.xml" racket)
           "http://techsnuffle.com/feed.xml"
-          "https://ultimatemachine.se/articles.xml"))
+          "https://ultimatemachine.se/articles.xml"
+          "https://hnrss.org/newest?comments=10"
+          ,(youtube-rss "UCaxar6TBM-94_ezoS00fLkA") ; Day9TV
+          ,(reddit-rss private/reddit-rss-feed "chip2n")
+          ))
 
-  (general-define-key
-   :states 'normal
-   :keymaps '(elfeed-search-mode-map)
-   "f" 'elfeed-search-set-filter
-   "r" 'elfeed-update
-   "o" 'elfeed-search-show-entry
-   "q" 'elfeed-kill-buffer)
+  (add-to-list 'evil-emacs-state-modes 'elfeed-search-mode)
 
-  (general-define-key
-   :states 'normal
-   :keymaps '(elfeed-show-mode-map)
-   "q" 'elfeed-kill-buffer
-   "n" 'elfeed-show-next
-   "p" 'elfeed-show-prev))
+  ;; (general-define-key
+  ;;  :states 'normal
+  ;;  :keymaps '(elfeed-search-mode-map)
+  ;;  "f" 'elfeed-search-set-filter
+  ;;  "r" 'elfeed-update
+  ;;  "o" 'elfeed-search-show-entry
+  ;;  "q" 'elfeed-kill-buffer)
+
+  ;; (general-define-key
+  ;;  :states 'normal
+  ;;  :keymaps '(elfeed-show-mode-map)
+  ;;  "q" 'elfeed-kill-buffer
+  ;;  "n" 'elfeed-show-next
+  ;;  "p" 'elfeed-show-prev)
+  )
 
 (use-package emms
   :config
