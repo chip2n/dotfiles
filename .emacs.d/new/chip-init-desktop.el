@@ -22,6 +22,8 @@
 
 ;;; Code:
 
+;; (require 'chip-wm)
+
 (require 'chip-theme-desktop)
 (require 'chip-keys)
 
@@ -743,7 +745,6 @@ point reaches the beginning or end of the buffer, stop there."
 
 (require 'chip-org)
 
-(server-start)
 (require 'org-protocol)
 
 (use-package org-roam

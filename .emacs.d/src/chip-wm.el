@@ -1,4 +1,26 @@
-(provide 'init-exwm)
+;;; chip-wm.el -*- lexical-binding: t -*-
+
+;; Copyright (C) 2021  Andreas Arvidsson
+;;
+;; Author: Andreas Arvidsson <andreas@arvidsson.io>
+;; Keywords: config
+;;
+;; This file is not part of GNU Emacs
+;;
+;; This file is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either version 3, or (at your option)
+;; any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; For a full copy of the GNU General Public License
+;; see <http://www.gnu.org/licenses/>.
+
+;;; Code:
 
 (use-package exwm
   :ensure t)
@@ -13,45 +35,48 @@
              "xrandr" nil "xrandr --output DVI-D-0 --left-of DVI-I-0 --auto")))
 (exwm-randr-enable)
 
-(exwm-input-set-key (kbd "s-SPC") 'counsel-M-x)
+;; (exwm-input-set-key (kbd "s-SPC") 'counsel-M-x)
+
+(setq exwm-input-global-keys
+      '((,(kbd "C-b") . chip/switch-buffer)))
 
 (push ?\s-w exwm-input-prefix-keys)
 (push ?\s-e exwm-input-prefix-keys)
-(exwm-input-set-key (kbd "s-w") (lambda () (interactive) (exwm-workspace-switch 0)))
-(exwm-input-set-key (kbd "s-e") (lambda () (interactive) (exwm-workspace-switch 1)))
+(exwm-input-set-key (kbd "s-q") (lambda () (interactive) (exwm-workspace-switch 0)))
+(exwm-input-set-key (kbd "s-w") (lambda () (interactive) (exwm-workspace-switch 1)))
 
 (push ?\s-h exwm-input-prefix-keys)
 (push ?\s-k exwm-input-prefix-keys)
 (push ?\s-j exwm-input-prefix-keys)
 (push ?\s-l exwm-input-prefix-keys)
 (exwm-input-set-key (kbd "s-h") 'evil-window-left)
-(exwm-input-set-key (kbd "s-k") 'evil-window-up)
-(exwm-input-set-key (kbd "s-l") 'evil-window-right)
-(exwm-input-set-key (kbd "s-j") 'evil-window-down)
+(exwm-input-set-key (kbd "s-n") 'evil-window-down)
+(exwm-input-set-key (kbd "s-e") 'evil-window-up)
+(exwm-input-set-key (kbd "s-i") 'evil-window-right)
 
 (push ?\s-C exwm-input-prefix-keys)
 (exwm-input-set-key (kbd "s-C") 'kill-buffer-and-window)
 
 (push ?\s-b exwm-input-prefix-keys)
-(exwm-input-set-key (kbd "s-b") 'ivy-switch-buffer)
+(exwm-input-set-key (kbd "s-b") 'chip/switch-buffer)
 
 (push ?\s-\C-h exwm-input-prefix-keys)
 (push ?\s-\C-j exwm-input-prefix-keys)
 (push ?\s-\C-k exwm-input-prefix-keys)
 (push ?\s-\C-l exwm-input-prefix-keys)
 (exwm-input-set-key (kbd "s-C-h") 'split-window-right)
-(exwm-input-set-key (kbd "s-C-j") (lambda () (interactive) (split-window-below) (other-window 1)))
-(exwm-input-set-key (kbd "s-C-k") 'split-window-below)
-(exwm-input-set-key (kbd "s-C-l") (lambda () (interactive) (split-window-right) (other-window 1)))
+(exwm-input-set-key (kbd "s-C-n") (lambda () (interactive) (split-window-below) (other-window 1)))
+(exwm-input-set-key (kbd "s-C-e") 'split-window-below)
+(exwm-input-set-key (kbd "s-C-i") (lambda () (interactive) (split-window-right) (other-window 1)))
 
 (push ?\s-H exwm-input-prefix-keys)
 (push ?\s-J exwm-input-prefix-keys)
 (push ?\s-K exwm-input-prefix-keys)
 (push ?\s-L exwm-input-prefix-keys)
-(exwm-input-set-key (kbd "s-L") 'evil-window-increase-width)
 (exwm-input-set-key (kbd "s-H") 'evil-window-decrease-width)
-(exwm-input-set-key (kbd "s-K") 'evil-window-increase-height)
-(exwm-input-set-key (kbd "s-J") 'evil-window-decrease-height)
+(exwm-input-set-key (kbd "s-N") 'evil-window-decrease-height)
+(exwm-input-set-key (kbd "s-E") 'evil-window-increase-width)
+(exwm-input-set-key (kbd "s-I") 'evil-window-increase-height)
 
 (push ?\s-1 exwm-input-prefix-keys)
 (push ?\s-2 exwm-input-prefix-keys)
@@ -89,3 +114,7 @@
 (add-hook 'exwm-update-title-hook 'exwm-rename-buffer)
 
 (exwm-enable)
+
+(provide 'chip-wm)
+
+;;; chip-wm.el ends here
