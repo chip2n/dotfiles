@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# Run dbeaver with Java 15
+
+export PATH="/usr/lib/jvm/java-15-openjdk/bin/:$PATH"
+exec /usr/bin/dbeaver "$@"
