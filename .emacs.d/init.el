@@ -31,6 +31,9 @@
 (defconst chip-config-src-dir (concat chip-config-dir "src/")
   "Path to emacs config src directory.")
 
+(defconst chip-dev-dir "~/dev/"
+  "Path to development directory.")
+
 ;;; Straight
 
 (defvar bootstrap-version)

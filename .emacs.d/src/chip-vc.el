@@ -41,6 +41,8 @@
             "q" 'magit-blame-quit)
 
   :config
+  (setq magit-clone-default-directory chip-dev-dir)
+
   ;; don't show line numbers in magit buffers
   (add-hook 'magit-mode-hook (lambda () (display-line-numbers-mode -1)))
 
