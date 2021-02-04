@@ -25,8 +25,7 @@
 (require 'dash)
 (require 'general)
 
-(defvar c/doc-directories
-  '("/home/chip/ebooks"))
+(defvar c/doc-directory "/home/chip/ebooks")
 
 (general-define-key
  "C-c d" 'c/doc-view)
@@ -40,7 +39,7 @@
   (interactive)
   (let ((files (--map (let ((name (file-name-nondirectory it)))
                         (cons name it))
-                      (directory-files-recursively "/home/chip/ebooks" ".+.pdf"))))
+                      (directory-files-recursively c/doc-directory ".+.pdf"))))
     (--> (completing-read "doc: " files)
       (cdr (assoc it files))
       (c/--doc-open it))))
