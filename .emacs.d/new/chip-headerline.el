@@ -12,22 +12,6 @@
    '(" λ %b" chip-headerline-tag-buffer-position)
    '()))
 
-
-
-;; prose --------------
-;; TODO move
-
-(defface chip-face-prose nil
-  ""
-  :group 'chip)
-
-(set-face-attribute 'chip-face-prose nil
-                    :foreground "#ff0000"
-                    :background nil
-                    :height 400)
-
-;; --------------
-
 (defun chip-headerline--format-active ()
   (cl-case major-mode
     ('treemacs-mode " λ projects")
@@ -37,7 +21,6 @@
                    `(:propertize " "
                                  face
                                  chip-face-prose)
-         ;; (propertize "boroo" 'face 'chip-face-prose)
        (if (buffer-file-name)
            (chip-headerline--format-filepath)
          (chip-headerline--format-buffer))))))

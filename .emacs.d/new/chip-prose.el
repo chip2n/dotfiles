@@ -1,11 +1,18 @@
 (require 'olivetti)
-
-(use-package org-bullets
-  :ensure t)
+(require 'org-bullets)
 
 (defgroup chip-prose
   nil
   "")
+
+(defface chip-face-prose nil
+  ""
+  :group 'chip)
+
+(set-face-attribute 'chip-face-prose nil
+                    :foreground "#ff0000"
+                    :background nil
+                    :height 400)
 
 (defface chip-prose-org-level-1
   `((t :inherit org-level-1

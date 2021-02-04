@@ -270,6 +270,8 @@
   (setq org-superstar-headline-bullets-list '("λ"))
   (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1))))
 
+(use-package org-bullets)
+
 (defface org-bullet
   '((t (:inherit (default))))
   "Face used for org-bullets."
