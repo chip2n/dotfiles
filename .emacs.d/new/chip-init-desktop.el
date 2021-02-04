@@ -724,7 +724,8 @@ point reaches the beginning or end of the buffer, stop there."
   ;; evaluating last sexp
   ;; (setq evil-move-cursor-back t)
   (setq evil-move-beyond-eol t)
-  (add-to-list 'evil-emacs-state-modes 'image-mode))
+  (add-to-list 'evil-emacs-state-modes 'image-mode)
+  (add-hook 'help-mode-hook 'evil-emacs-state))
 
 (use-package evil-visualstar
   :after (evil)
