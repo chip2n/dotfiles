@@ -81,6 +81,8 @@ Lisp function does not specify a special indentation."
 
 (use-package slime
   :config
+  (c/diminish slime-autodoc-mode)
+  (c/diminish slime-mode)
   (setq inferior-lisp-program "/usr/bin/sbcl")
   (setq slime-description-autofocus t)
   ;; (add-hook 'slime-repl-mode-hook 'header-mode)

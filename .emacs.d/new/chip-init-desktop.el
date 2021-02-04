@@ -271,6 +271,9 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package evil-snipe
   :after (evil)
   :config
+  (c/diminish evil-snipe-mode)
+  (c/diminish evil-snipe-local-mode)
+
   (setq evil-snipe-scope 'buffer)
   (evil-snipe-mode +1)
   (evil-snipe-override-mode +1)
@@ -286,6 +289,8 @@ point reaches the beginning or end of the buffer, stop there."
 
 (use-package projectile
   :config
+  (c/diminish projectile-mode)
+
   (add-to-list 'projectile-globally-ignored-directories "*node_modules")
   (setq projectile-enable-caching nil)
   ;; we remove -o flag so that untracked files are not included
@@ -500,6 +505,7 @@ point reaches the beginning or end of the buffer, stop there."
 
 (use-package outshine
   :config
+  (c/diminish outshine-mode)
   (general-define-key
    :keymaps '(outshine-mode-map)
    :states '(normal)
@@ -550,6 +556,7 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package ace-window
   :after (ivy)
   :config
+  (c/diminish ace-window-mode)
   (setq aw-dispatch-always t)
   (after-load (ivy counsel projectile)
     (ivy-add-actions
@@ -566,6 +573,7 @@ point reaches the beginning or end of the buffer, stop there."
 
 (use-package which-key
   :config
+  (c/diminish which-key-mode)
   (which-key-mode))
 
 ;;; Package: sudo-edit
@@ -637,6 +645,8 @@ point reaches the beginning or end of the buffer, stop there."
 
 (use-package company
   :config
+  (c/diminish company-mode)
+
   (general-define-key
    :keymap 'prog-mode-map
    "M-/" 'counsel-company)
@@ -662,7 +672,9 @@ point reaches the beginning or end of the buffer, stop there."
 
 (use-package company-box
   :after (company)
-  :hook (company-mode . company-box-mode))
+  :hook (company-mode . company-box-mode)
+  :config
+  (c/diminish company-box-mode))
 
 ;; communication with language servers generate a lot of garbage
 (setq gc-cons-threshold 100000000)
@@ -758,6 +770,8 @@ point reaches the beginning or end of the buffer, stop there."
          :map org-mode-map
          (("C-c n i" . org-roam-insert)))
   :config
+  (c/diminish org-roam-mode)
+
   (setq org-roam-directory "/home/chip/org/personal/roam")
   (setq org-roam-dailies-directory "daily/")
   (setq org-roam-buffer-position 'left)
@@ -1194,22 +1208,6 @@ all elements."
   ;; add simple validation through flycheck (for missing commas etc)
   (add-hook 'json-mode-hook #'flycheck-mode))
 
-(use-package js2-refactor
-  :after (js2-mode)
-  :config
-  (add-hook 'js2-mode-hook #'js2-refactor-mode)
-  (js2r-add-keybindings-with-prefix "C-c C-r")
-  (define-key js2-mode-map (kbd "C-k") #'js2r-kill))
-
-(use-package xref-js2
-  :after (js2-mode)
-  :config
-  ;; js-mode (which js2 is based on) binds "M-." which conflicts with xref, so
-  ;; unbind it.
-  (define-key js-mode-map (kbd "M-.") nil)
-  (add-hook 'js2-mode-hook
-	    (lambda () (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t))))
-
 (use-package typescript-mode)
 
 (defun setup-tide-mode ()
@@ -1360,7 +1358,9 @@ all elements."
 
 ;;; Olivetti
 
-(use-package olivetti)
+(use-package olivetti
+  :config
+  (c/diminish olivetti-mode))
 
 ;;; Prose
 

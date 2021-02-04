@@ -47,6 +47,8 @@
 
 (use-package lispy
   :config
+  (c/diminish lispy-mode)
+
   (setq lispy-close-quotes-at-end-p t)
   (general-unbind
     :keymaps '(lispy-mode-map)
@@ -60,6 +62,7 @@
   (use-package evil-lispy
     :after (evil lispy)
     :config
+    (c/diminish evil-lispy-mode)
     (if (not (member 'lispy evil-highlight-closing-paren-at-point-states))
         (push 'lispy evil-highlight-closing-paren-at-point-states))))
 
