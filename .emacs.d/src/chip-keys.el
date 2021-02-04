@@ -108,8 +108,8 @@
 
 ;; org-mode agenda buffer
 (general-define-key
- :map 'org-agenda-mode-map
-  "C-g" 'org-agenda-quit)
+ :keymaps 'org-agenda-mode-map
+ "C-g" 'org-agenda-quit)
 
 (general-define-key
  :states '(normal)

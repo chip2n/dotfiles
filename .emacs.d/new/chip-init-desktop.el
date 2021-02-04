@@ -966,7 +966,7 @@ all elements."
 ;;; Languages
 
 (general-define-key
- :map 'emacs-lisp-mode-map
+ :keymaps 'emacs-lisp-mode-map
  "C-c C-c" 'eval-defun)
 
 ;; Toggle evil emacs state when entering edebug mode
