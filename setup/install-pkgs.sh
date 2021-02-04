@@ -29,4 +29,5 @@ pacman -Syyuu --needed \
   vlc \
   rsync \
   gnuplot \
-  texlive-most
+  texlive-most \
+  flameshot
