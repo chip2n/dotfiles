@@ -207,7 +207,8 @@ want to use in the modeline *in lieu of* the original.")
   (diminish 'flycheck-mode)
   (diminish 'ace-window-mode)
   (diminish 'olivetti-mode)
-  (diminish 'visual-line-mode))
+  (diminish 'visual-line-mode)
+  (diminish 'js2-refactor-mode))
 
 (provide 'chip-modeline)
 
