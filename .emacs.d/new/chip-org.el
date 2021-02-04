@@ -24,6 +24,13 @@
 
 (require 'cl-lib)
 
+;;; Attachments
+
+;; use inheritance for attachments - this allows us to link to an file attached to a parent node
+(setq org-attach-use-inheritance t)
+
+;;; Jump to headline
+
 (defun c/org-agenda-headlines-candidates ()
   "Return a list of completion candidates for use with selectrum."
   (org-map-entries
@@ -55,6 +62,8 @@
         (find-file (cadr result))
         (goto-char (caddr result))
         (recenter)))))
+
+;;; Misc
 
 ;; set org todo keywords
 (setq org-todo-keywords
