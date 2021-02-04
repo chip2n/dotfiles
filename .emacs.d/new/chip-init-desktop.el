@@ -749,20 +749,71 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package org-roam
   :hook
   (after-init . org-roam-mode)
+  :bind (:map org-roam-mode-map
+         (("C-c n l" . org-roam)
+          ("C-c n t" . org-roam-dailies-find-today)
+          ("C-c n f" . org-roam-find-file)
+          ("C-c n c" . org-roam-dailies-capture-today))
+         :map org-mode-map
+         (("C-c n i" . org-roam-insert)))
   :config
   (setq org-roam-directory "/home/chip/org/personal/roam")
+  (setq org-roam-dailies-directory "daily/")
   (setq org-roam-buffer-position 'left)
   (setq org-roam-buffer-width 0.2)
   (setq org-roam-encrypt-files nil)
   (setq org-roam-db-location "/home/chip/.org-roam.db")
+
+  (setq org-roam-dailies-capture-templates
+      '(("e" "entry" entry
+         #'org-roam-capture--get-point
+         "* %?\n%T"
+         :file-name "daily/%<%Y-%m-%d>"
+         :head "#+title: %<%Y-%m-%d>\n")
+        ("u" "supplements" entry
+         #'org-roam-capture--get-point
+         "* Supplements\n%T\n| %? |  |"
+         :file-name "daily/%<%Y-%m-%d>"
+         :head "#+title: %<%Y-%m-%d>\n")
+        ("s" "summary" entry
+         #'org-roam-capture--get-point
+         "* Day summary\n%T\n%?\n\n%(org-clock-report-today)"
+         :file-name "daily/%<%Y-%m-%d>"
+         :head "#+title: %<%Y-%m-%d>\n")
+
+
+        ("w" "Workout")
+        ("wa" "Workout A" entry
+         #'org-roam-capture--get-point
+         "
+* Workout
+%T
+| Bulgarian Split Squat    | 3x10 | %?  |
+| Bench Press              | 3x10 |   |
+| Straight-Legged Deadlift | 3x10 |   |
+| Plank                    | 3x10 | - |
+"
+         :file-name "daily/%<%Y-%m-%d>"
+         :head "#+title: %<%Y-%m-%d>\n"
+         :clock-in t
+         :clock-resume t)
+        ("wb" "Workout B" entry
+         #'org-roam-capture--get-point
+         "
+* Workout
+%T
+| Bulgarian Split Squat | 3x10 | %?  |
+| Seated Shoulder Press | 3x10 |   |
+| Bent Over Row         | 3x10 |   |
+| Plank                 | 3x10 | - |
+"
+         :file-name "daily/%<%Y-%m-%d>"
+         :head "#+title: %<%Y-%m-%d>\n"
+         :clock-in t
+         :clock-resume t)))
+
   (add-to-list 'evil-emacs-state-modes 'org-roam-backlinks-mode)
-  (require 'org-roam-protocol)
-  :bind (:map org-roam-mode-map
-              (("C-c n l" . org-roam)
-               ("C-c n t" . org-roam-today)
-               ("C-c n f" . org-roam-find-file))
-              :map org-mode-map
-              (("C-c n i" . org-roam-insert))))
+  (require 'org-roam-protocol))
 
 (use-package org-roam-server)
 

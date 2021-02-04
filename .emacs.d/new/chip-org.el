@@ -291,13 +291,6 @@
 (setq org-capture-templates
       `(("t" "TODO" entry (file "~/org/personal/refile.org")
          "* TODO %?")
-        ("j" "Journal")
-        ("je" "Entry" entry #'get-journal-path
-         "* %?\n%T")
-        ("js" "Day summary" entry #'get-journal-path
-         "* Day summary\n%T\n%?\n\n%(org-clock-report-today)")
-        ("ju" "Supplements" entry #'get-journal-path
-         "* Supplements\n%T\n| %? |  |")
         ("w" "Workout")
         ("wa" "Workout A" entry #'get-journal-path
          "
