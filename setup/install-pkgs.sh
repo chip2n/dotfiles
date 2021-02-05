@@ -30,4 +30,5 @@ pacman -Syyuu --needed \
   rsync \
   gnuplot \
   texlive-most \
-  flameshot
+  flameshot \
+  youtube-dl
