@@ -896,6 +896,7 @@ all elements."
           ))
 
   (add-to-list 'evil-emacs-state-modes 'elfeed-search-mode)
+  (add-to-list 'evil-emacs-state-modes 'elfeed-show-mode)
 
   ;; (general-define-key
   ;;  :states 'normal
