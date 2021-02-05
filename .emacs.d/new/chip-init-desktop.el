@@ -31,6 +31,8 @@
 (chip-theme-set-dark)
 (require 'chip-faces)
 (chip-faces)
+
+(require 'chip-window)
 (require 'chip-modeline)
 (require 'chip-headerline)
 ;; (require 'chip-agenda)
