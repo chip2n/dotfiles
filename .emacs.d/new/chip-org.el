@@ -302,6 +302,8 @@
 (setq org-capture-templates
       `(("t" "TODO" entry (file "~/org/personal/refile.org")
          "* TODO %?")
+        ("f" "Log fitness data" table-line (file+headline "~/org/personal/fitness.org" "Weight tracking")
+         "| %t | %? |   |")
         ("w" "Workout")
         ("wa" "Workout A" entry #'get-journal-path
          "
