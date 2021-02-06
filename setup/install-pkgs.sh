@@ -23,7 +23,7 @@ pacman -Syyuu --needed \
   fuse \
   fish \
   inetutils\
-  ldd \
+  lld \
   clang \
   thunar \
   vlc \
