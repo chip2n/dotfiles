@@ -345,7 +345,12 @@
   `(cider-fringe-good-face ((,class (:foreground ,color-comment))))
 
   ;; SLIME faces
-  `(slime-repl-inputed-output-face ((,class (:foreground ,red-1))))
+  `(slime-repl-inputed-output-face ((,class (:foreground ,color-comment))))
+
+  ;; Sly faces
+  `(sly-mrepl-output-face ((,class (:foreground ,color-comment))))
+  `(sly-mrepl-note-face ((,class (:foreground ,color-comment))))
+  `(sly-mrepl-prompt-face ((,class (:foreground ,red-2))))
 
   ;; Slack faces
   `(slack-message-output-header ((,class (:foreground ,blue-2 :weight bold))))

@@ -127,16 +127,20 @@ Lisp function does not specify a special indentation."
   (interactive)
   (sly-mrepl #'switch-to-buffer-other-window))
 
-;; (use-package sly
-;;   :after (company)
-;;   :config
-;;   (sly-setup '(;; sly-indentation
-;;                ))
-;;   (add-to-list 'evil-emacs-state-modes 'sly-db-mode)
-;;   (setq inferior-lisp-program "/usr/bin/sbcl")
-;;   (add-hook 'sly-mode-hook 'company-mode)
-;;   (general-define-key
-;;    :keymaps 'sly-mode-map
-;;    "C-c C-z" #'sly-mrepl-other-window))
+(use-package sly
+  :after (company)
+  :config
+  (sly-setup '(;; sly-indentation
+               ))
+  (after-load (evil)
+    (add-to-list 'evil-emacs-state-modes 'sly-db-mode))
+  (setq inferior-lisp-program "/usr/bin/sbcl")
+  (add-hook 'sly-mode-hook 'company-mode)
+  (after-load (lispy)
+    (setq lispy-use-sly t))
+  (setq org-babel-lisp-eval-fn #'sly-eval)
+  (general-define-key
+   :keymaps 'sly-mode-map
+   "C-c C-z" #'sly-mrepl-other-window))
 
 (provide 'chip-lang)
