@@ -893,6 +893,7 @@ all elements."
           "http://techsnuffle.com/feed.xml"
           "https://ultimatemachine.se/articles.xml"
           "https://hnrss.org/newest?comments=10"
+          "https://lisp-journey.gitlab.io/index.xml"
           ,(youtube-rss "UCaxar6TBM-94_ezoS00fLkA") ; Day9TV
           ,(youtube-rss "UC0uTPqBCFIpZxlz_Lv1tk_g") ; Protesilaos Stavrou
           ,(reddit-rss private/reddit-rss-feed "chip2n")
