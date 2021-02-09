@@ -77,6 +77,10 @@ Lisp function does not specify a special indentation."
 (add-hook 'emacs-lisp-mode-hook
           (lambda () (setq-local lisp-indent-function #'chip/lisp-indent-function)))
 
+(general-define-key
+ :keymaps '(emacs-lisp-mode-map lisp-interaction-mode-map)
+  "C-c C-c" 'eval-defun)
+
 ;;; Common Lisp
 
 (use-package slime
