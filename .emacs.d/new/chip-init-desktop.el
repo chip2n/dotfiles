@@ -40,6 +40,7 @@
 (require 'chip-doc)
 (require 'chip-vc)
 (require 'chip-completion)
+(require 'chip-code)
 (require 'chip-code-lisp)
 (require 'chip-lang)
 
