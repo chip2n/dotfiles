@@ -323,21 +323,13 @@
 | Bent Over Row         | 3x10 |   |
 | Plank                 | 3x10 | - |
 " :clock-in t :clock-resume t)
-        ("i" "Idea" entry (file+olp "~/org/personal/ideas.org" "Ideas")
-         "* %?" :prepend t)
-        ("p" "Remente presentation" entry #',(lambda () (find-file (get-presentation-path)))
-         "
-#+OPTIONS: num:nil
-#+OPTIONS: toc:nil
-#+OPTIONS: reveal_title_slide:nil
-#+REVEAL_EXTRA_CSS: /home/chip/.emacs.d/presentation.css
-#+REVEAL_TRANS: linear
-#+REVEAL_THEME: solarized
-#+REVEAL_HLEVEL: 2
-
-* %?")
-        ("m" "Meeting" entry (file "~/org/personal/refile.org")
-         "* DONE Meeting with %? :meeting:\n%U" :clock-in t :clock-resume t)))
+        ("c" "Daily checklist" entry (file "~/org/remente/remente.org")
+         "* TODO Daily Checklist
+- [ ] Check slack%?
+- [ ] Check email
+- [ ] Check missive"
+         :clock-in t
+         :clock-resume t)))
 
 ;; auto-saving org buffers after certain actions
 (defun save-org-buffers (&rest args)
