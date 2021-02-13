@@ -26,6 +26,12 @@
 
 ;;; Code:
 
+;; When splitting windows, I often also want to switch to the new buffer
+(after-load (general)
+  (general-define-key
+   "C-x 2" (lambda () (interactive) (split-window-vertically) (other-window 1))
+   "C-x 3" (lambda () (interactive) (split-window-horizontally) (other-window 1))))
+
 ;; Save window configurations as bookmarks
 (use-package burly
   :bind (("C-c w s" . burly-bookmark-windows))
