@@ -523,7 +523,8 @@ point reaches the beginning or end of the buffer, stop there."
 
 (use-package zoom
   :config
-  (setq zoom-size '(0.618 . 0.618)))
+  (setq zoom-size '(0.618 . 0.618))
+  (c/diminish zoom-mode))
 
 (defun chip/window-zoom ()
   (interactive)
