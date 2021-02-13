@@ -31,4 +31,5 @@ pacman -Syyuu --needed \
   gnuplot \
   texlive-most \
   flameshot \
-  youtube-dl
+  youtube-dl \
+  inkscape
