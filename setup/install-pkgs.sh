@@ -32,4 +32,5 @@ pacman -Syyuu --needed \
   texlive-most \
   flameshot \
   youtube-dl \
-  inkscape
+  inkscape \
+  webkit2gtk
