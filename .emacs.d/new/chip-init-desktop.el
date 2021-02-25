@@ -519,60 +519,6 @@ point reaches the beginning or end of the buffer, stop there."
   (add-hook 'emacs-lisp-mode-hook 'outshine-mode)
   (add-hook 'lisp-mode-hook 'outshine-mode))
 
-;;; Windows
-
-(use-package zoom
-  :config
-  (setq zoom-size '(0.618 . 0.618))
-  (c/diminish zoom-mode))
-
-(defun chip/window-zoom ()
-  (interactive)
-  (zoom))
-
-(defun chip/window-unzoom ()
-  (interactive)
-  (other-window 1)
-  (unwind-protect
-      (chip/window-zoom)
-    (other-window 1)))
-
-(after-load (general)
-  (general-define-key
-   "C-c ["     'winner-undo
-   "C-c ]"     'winner-redo
-   "C-x +"     'chip/window-zoom
-   "C-x -"     'chip/window-unzoom
-   "C-x ="     'balance-windows
-   "M-o"       'ace-window
-   "S-<next>"  'scroll-other-window
-   "S-<prior>" 'scroll-other-window-down))
-
-(use-package winner
-  :config
-  (winner-mode 1))
-
-;; Allows you to transpose frames (mainly via ace-window)
-(require 'transpose-frame)
-
-(use-package avy)
-
-(use-package ace-window
-  :after (ivy)
-  :config
-  (c/diminish ace-window-mode)
-  (setq aw-dispatch-always t)
-  (after-load (ivy counsel projectile)
-    (ivy-add-actions
-     'ivy-switch-buffer
-     '(("a" ace-window "ace-window")))
-    (ivy-add-actions
-     'counsel-find-file
-     '(("a" ace-window "ace-window")))
-    (ivy-add-actions
-     'counsel-projectile-find-file
-     '(("a" ace-window "ace-window")))))
-
 ;;; Package: which-key
 
 (use-package which-key
