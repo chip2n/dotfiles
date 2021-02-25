@@ -38,6 +38,8 @@
 ;; (require 'chip-agenda)
 
 (require 'chip-doc)
+(require 'chip-watch)
+(require 'chip-export)
 (require 'chip-vc)
 (require 'chip-completion)
 (require 'chip-code)
