@@ -181,19 +181,22 @@
 ;; enable easy templates
 (require 'org-tempo)
 
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((python . t)
-   (shell . t)
-   (js . t)
-   (lilypond . t)
-   (ditaa . t)
-   (restclient . t)
-   (scheme . t)
-   (emacs-lisp . t)
-   (lisp . t)
-   (forth . t)
-   (http . t)))
+;; TODO make macro that calls this and adds to org-confirm-babel-evaluate
+(after-load (ob-typescript)
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((python . t)
+     (shell . t)
+     (js . t)
+     (typescript . t)
+     (lilypond . t)
+     (ditaa . t)
+     (restclient . t)
+     (scheme . t)
+     (emacs-lisp . t)
+     (lisp . t)
+     (forth . t)
+     (http . t))))
 
 ;; Enable noweb expansion in all languages
 (setq org-babel-default-header-args
@@ -201,7 +204,7 @@
             (assq-delete-all :noweb org-babel-default-header-args)))
 
 (defun my-org-confirm-babel-evaluate (lang body)
-  (not (member lang '("python" "bash" "js" "lisp" "lilypond" "ditaa" "restclient" "scheme" "elisp" "emacs-lisp" "forth"))))
+  (not (member lang '("python" "bash" "js" "typescript" "lisp" "lilypond" "ditaa" "restclient" "scheme" "elisp" "emacs-lisp" "forth"))))
 
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
 
@@ -324,7 +327,7 @@
 | Plank                 | 3x10 | - |
 " :clock-in t :clock-resume t)
         ("c" "Daily checklist" entry (file "~/org/remente/remente.org")
-         "* TODO Daily Checklist
+         "* TODO Daily checklist
 - [ ] Check slack%?
 - [ ] Check email
 - [ ] Check missive"
