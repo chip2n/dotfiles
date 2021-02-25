@@ -352,6 +352,9 @@
   `(sly-mrepl-note-face ((,class (:foreground ,color-comment))))
   `(sly-mrepl-prompt-face ((,class (:foreground ,red-2))))
 
+  ;; Macrostep faces
+  `(macrostep-expansion-highlight-face ((,class (:background ,color-highlight-1))))
+
   ;; Slack faces
   `(slack-message-output-header ((,class (:foreground ,blue-2 :weight bold))))
   `(slack-message-output-reaction ((,class (:foreground ,grey-4))))

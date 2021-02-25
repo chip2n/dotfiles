@@ -131,11 +131,21 @@ Lisp function does not specify a special indentation."
   (interactive)
   (sly-mrepl #'switch-to-buffer-other-window))
 
+(use-package sly-macrostep
+  :config
+  (require 'sly-macrostep-autoloads)
+
+  (add-hook 'macrostep-mode-hook
+            (lambda ()
+              (if macrostep-mode
+                  (evil-emacs-state)
+                (evil-normal-state)))))
+
 (use-package sly
   :after (company)
   :config
-  (sly-setup '(;; sly-indentation
-               ))
+  (require 'sly-autoloads)
+
   (after-load (evil)
     (add-to-list 'evil-emacs-state-modes 'sly-db-mode))
   (setq inferior-lisp-program "/usr/bin/sbcl")
