@@ -980,7 +980,8 @@ all elements."
 
 (use-package anaconda-mode
   :config
-  (add-hook 'python-mode-hook 'anaconda-mode))
+  (add-hook 'python-mode-hook 'anaconda-mode)
+  (c/diminish anaconda-mode))
 
 (use-package pyvenv)
 
