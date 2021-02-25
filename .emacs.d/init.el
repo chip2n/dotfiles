@@ -102,6 +102,9 @@
 ;; break at line 80 by default when using functions like `fill-paragraph`
 (setq fill-column 80)
 
+;; show trailing whitespaces
+(setq-default show-trailing-whitespace t)
+
 ;;; Platform initialization
 
 (require 'chip-init-desktop)
