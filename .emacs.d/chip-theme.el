@@ -181,6 +181,8 @@
   ;; selectrum
   `(selectrum-primary-highlight ((,class (:foreground ,color-foreground :background ,color-highlight-2))))
   `(selectrum-current-candidate ((,class (:foreground ,red-2 :background ,color-highlight-1))))
+  `(selectrum-group-title ((,class (:foreground ,color-comment))))
+  `(selectrum-group-separator ((,class (:foreground ,color-comment :strike-through t))))
 
   ;; Marginalia
   `(marginalia-documentation ((,class (:foreground ,color-comment))))
