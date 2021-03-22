@@ -205,6 +205,8 @@
 
   ;; LSP
   `(lsp-lsp-flycheck-warning-unnecessary-face ((,class (:underline (:color ,color-warning :style wave)))))
+  `(lsp-lens-face ((,class (:foreground ,color-comment :slant italic))))
+  `(lsp-lens-mouse-face ((,class (:foreground ,color-link :underline t :slant italic))))
 
   ;; Avy
   `(avy-lead-face ((,class (:background ,red-1 :foreground ,grey-2 :weight bold))))
