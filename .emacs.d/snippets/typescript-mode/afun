@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: afun
+# key: afun
+# --
+async function $1($2): Promise<$3> {
+    $0
+}
