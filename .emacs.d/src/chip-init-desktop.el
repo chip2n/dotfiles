@@ -974,7 +974,10 @@ all elements."
 ;; file from the 0.7.3 because I'm a lazy boy, so I'll just require it.
 (require 'forth-mode)
 
-(use-package clojure-mode)
+(use-package clojure-mode
+  :config
+  (add-hook 'clojure-mode 'outshine-mode)
+  (add-hook 'clojurescript-mode 'outshine-mode))
 
 (use-package cider
   :config
