@@ -103,7 +103,8 @@
 (setq fill-column 80)
 
 ;; show trailing whitespaces
-(setq-default show-trailing-whitespace t)
+(add-hook 'prog-mode-hook (lambda ()
+                            (setq show-trailing-whitespace t)))
 
 ;;; Platform initialization
 
