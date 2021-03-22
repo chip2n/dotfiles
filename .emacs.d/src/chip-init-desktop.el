@@ -1195,6 +1195,7 @@ all elements."
   ;; formats the buffer before saving
   (add-hook 'before-save-hook 'tide-format-before-save)
   (add-hook 'typescript-mode-hook 'setup-tide-mode)
+  (c/diminish tide-mode)
   (general-define-key
    :states 'normal
    :keymaps 'typescript-mode-map
