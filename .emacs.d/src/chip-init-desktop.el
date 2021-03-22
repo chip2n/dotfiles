@@ -639,26 +639,36 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;;; Package: lsp-mode
 
+(defun c/lsp-avy-lens ()
+  "Calls `lsp-avy-lens' and refreshes all lenses afterwards."
+  (interactive)
+  (lsp-avy-lens)
+  (lsp-lens-refresh t))
+
 (use-package lsp-mode
   :config
   (setq lsp-prefer-flymake nil)
   (setq lsp-eldoc-enable-hover nil)
   (setq lsp-enable-xref nil)
   (setq lsp-ui-sideline-enable nil)
-  (setq lsp-ui-doc-enable nil)
+  ;; (setq lsp-ui-doc-enable nil)
+  (setq lsp-lens-enable t)
   (setq lsp-auto-guess-root t)
   (setq lsp-headerline-breadcrumb-enable nil)
 
   ;; prevent docs in minibuffer
-  (setq lsp-signature-auto-activate nil)
+  ;; (setq lsp-signature-auto-activate nil)
   (general-define-key
    :keymaps 'lsp-mode-map
    "C-c C-a" 'lsp-execute-code-action
-   "C-c C-c C-f" 'lsp-format-buffer)
+   "C-c C-c C-f" 'lsp-format-buffer
+   "C-c l" 'c/lsp-avy-lens)
   (general-define-key
    :keymaps 'lsp-mode-map
    :states '(normal)
    "gd" 'lsp-find-definition))
+
+(use-package lsp-ui)
 
 (use-package evil-nerd-commenter
   :bind (:map prog-mode-map
