@@ -1116,13 +1116,6 @@ all elements."
   (flutter-widget-delete)
   (yank))
 
-(use-package lsp-haskell
-  :after (lsp-mode lsp-ui)
-  :config
-  (setq lsp-haskell-process-path-hie "hie-wrapper")
-  (add-hook 'haskell-mode-hook 'lsp-haskell-enable)
-  (add-hook 'haskell-mode-hook 'flycheck-mode))
-
 ;; nvm
 
 (defun chip/nvm-10.23.0 ()
