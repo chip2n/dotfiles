@@ -33,4 +33,5 @@ pacman -Syyuu --needed \
   flameshot \
   youtube-dl \
   inkscape \
-  webkit2gtk
+  webkit2gtk \
+  gst-plugins-good
