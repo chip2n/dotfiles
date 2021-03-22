@@ -1159,7 +1159,7 @@ all elements."
   ;; disable semicolon warnings
   (setq js2-strict-missing-semi-warning nil)
   (setq js2-missing-semi-one-line-override t)
-  
+
   ;; disable inconsistent return warnings
   (setq js2-strict-inconsistent-return-warning nil))
 
@@ -1168,7 +1168,9 @@ all elements."
   ;; add simple validation through flycheck (for missing commas etc)
   (add-hook 'json-mode-hook #'flycheck-mode))
 
-(use-package typescript-mode)
+(use-package typescript-mode
+  :config
+  (add-hook 'typescript-mode-hook 'outshine-mode))
 
 (use-package ob-typescript)
 
