@@ -24,6 +24,9 @@
 
 (use-package impatient-mode)
 
+;; Avoid clashing with e.g. CIDER
+(setq httpd-port 8081)
+
 (defun c/watch-file (path)
   (interactive "fWatch file: ")
 
