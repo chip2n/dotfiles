@@ -203,6 +203,10 @@
       (cons '(:noweb . "yes")
             (assq-delete-all :noweb org-babel-default-header-args)))
 
+;; Default to lexical scope in elisp blocks
+(setq org-babel-default-header-args:emacs-lisp
+      '((:lexical . "yes")))
+
 (defun my-org-confirm-babel-evaluate (lang body)
   (not (member lang '("python" "bash" "js" "typescript" "lisp" "lilypond" "ditaa" "restclient" "scheme" "elisp" "emacs-lisp" "forth"))))
 
