@@ -167,7 +167,7 @@
 (setenv "ANDROID_SDK_ROOT" "/home/chip/android/sdk")
 
 ;; using bash for shell-command
-(setq shell-file-name "/bin/bash") 
+(setq shell-file-name "/bin/bash")
 
 ;; save backups in separate directory
 (setq backup-directory-alist `(("." . "~/.emacs.d/.backups")))
@@ -183,7 +183,7 @@
 (setq vc-follow-symlinks t)
 
 ;; disable lock files
-(setq create-lockfiles nil) 
+(setq create-lockfiles nil)
 
 ;; disable copy to clipboard on selection
 (setq select-enable-clipboard nil)
@@ -464,7 +464,11 @@ point reaches the beginning or end of the buffer, stop there."
 
 ;;; Dired
 
-(add-hook 'dired-mode-hook 'auto-revert-mode)
+(defun c/dired-setup ()
+  (auto-revert-mode)
+  (dired-hide-details-mode))
+
+(add-hook 'dired-mode-hook 'c/dired-setup)
 
 ;; load dired-x immediately to make keybindings available
 (require 'dired-x)
@@ -519,7 +523,9 @@ point reaches the beginning or end of the buffer, stop there."
   (setq outshine-startup-folded-p nil)
   ;; TODO make generic hook for all lisps (chip-lisp-mode-hook)
   (add-hook 'emacs-lisp-mode-hook 'outshine-mode)
-  (add-hook 'lisp-mode-hook 'outshine-mode))
+  (add-hook 'lisp-mode-hook 'outshine-mode)
+  (add-hook 'clojure-mode-hook 'outshine-mode)
+  (add-hook 'clojurescript-mode-hook 'outshine-mode))
 
 ;;; Package: which-key
 
@@ -1140,6 +1146,20 @@ all elements."
   (interactive)
   (nvm-use "v10.23.0" (lambda () (vterm "*vterm-nvm-10.23.0*"))))
 
+(defun chip/vterm-nvm-8.17.0 ()
+  (interactive)
+  (nvm-use "v8.17.0" (lambda () (vterm "*vterm-nvm-8.17.0*"))))
+
+(defvar chip/nvm-versions
+  '("8.17.0" "10.23.0" "12.10.0" "12.22.1")
+  "Versions available for use with NVM.")
+
+(defun chip/vterm-nvm-pick ()
+  (interactive)
+  (let ((versions ))
+    (let ((version (completing-read "NVM version" chip/nvm-versions)))
+      (nvm-use version (lambda () (vterm (format "*vterm-nvm-%s*" version)))))))
+
 (defun chip/nvm-12.10.0 ()
   (interactive)
   (nvm-use "v12.10.0"))
@@ -1147,6 +1167,16 @@ all elements."
 (use-package nvm
   :config
   (chip/nvm-12.10.0))
+
+(defun do-nvm-use (version)
+  (interactive "sVersion: ")
+  (nvm-use version))
+
+(defun run-node (cwd)
+  (interactive "DDirectory: ")
+  (call-interactively 'do-nvm-use)
+  (let ((default-directory cwd))
+    (pop-to-buffer (make-comint (format "node-repl-%s" cwd) "node" nil "--interactive"))))
 
 ;; js2-mode
 
@@ -1329,7 +1359,8 @@ all elements."
 
 (use-package olivetti
   :config
-  (c/diminish olivetti-mode))
+  (c/diminish olivetti-mode)
+  (setq-default olivetti-body-width 80))
 
 ;;; Prose
 
