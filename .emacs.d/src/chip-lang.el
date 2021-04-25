@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 ;;; Elisp
 
 ;; stolen from: https://emacs.stackexchange.com/a/10233
@@ -88,6 +90,7 @@ Lisp function does not specify a special indentation."
   (c/diminish slime-autodoc-mode)
   (c/diminish slime-mode)
   (setq inferior-lisp-program "/usr/bin/sbcl")
+  ;; (setq inferior-lisp-program "/usr/bin/ecl")
   (setq slime-description-autofocus t)
   ;; (add-hook 'slime-repl-mode-hook 'header-mode)
   (add-hook 'slime-macroexpansion-minor-mode-hook (lambda () (interactive) (evil-motion-state)))
@@ -141,21 +144,40 @@ Lisp function does not specify a special indentation."
                   (evil-emacs-state)
                 (evil-normal-state)))))
 
+(defun sly-switch-package (package)
+  (with-current-buffer (sly-mrepl--find-create (sly-current-connection))
+    (sly-mrepl--eval-for-repl `(slynk-mrepl:guess-and-set-package ,package))))
+
+(defun sly-init-with-package (package)
+  (cl-flet ((init ()
+                  (sly-eval `(quicklisp:quickload ,package))
+                  (sly-switch-package package)))
+    (if (sly-connected-p)
+        (init)
+      (sly-start :program inferior-lisp-program :init-function #'init))))
+
 (use-package sly
   :after (company)
   :config
   (require 'sly-autoloads)
 
   (after-load (evil)
-    (add-to-list 'evil-emacs-state-modes 'sly-db-mode))
+    (add-to-list 'evil-emacs-state-modes 'sly-db-mode)
+    (add-to-list 'evil-emacs-state-modes 'sly-inspector-mode))
   (setq inferior-lisp-program "/usr/bin/sbcl")
   (add-hook 'sly-mode-hook 'company-mode)
+  (add-hook 'sly-inspector-mode-hook 'evil-emacs-state)
+
   (after-load (lispy)
     (setq lispy-use-sly t))
   (setq org-babel-lisp-eval-fn #'sly-eval)
   (general-define-key
    :keymaps 'sly-mode-map
-   "C-c C-z" #'sly-mrepl-other-window))
+    [remap sly-mrepl] 'sly-mrepl-other-window)
+  (general-define-key
+   :states '(normal)
+   :keymaps 'sly-mode-map
+    "gd" 'sly-edit-definition))
 
 (provide 'chip-lang)
 
