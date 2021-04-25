@@ -255,6 +255,7 @@
   `(org-mode-line-clock ((,class (:foreground nil))))
 
   ;; Org bullets
+  `(org-bullet ((,class (:foreground ,red-2 :bold t))))
   `(org-superstar-leading ((,class (:foreground ,red-2 :bold t))))
   `(org-superstar-header-bullet ((,class (:foreground ,red-2 :bold t))))
 
