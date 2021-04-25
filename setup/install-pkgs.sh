@@ -34,4 +34,6 @@ pacman -Syyuu --needed \
   youtube-dl \
   inkscape \
   webkit2gtk \
-  gst-plugins-good
+  gst-plugins-good \
+  zip \
+  gdb
