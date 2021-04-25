@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# name: mochasuite
-# key: mochasuite
-# --
-describe('$1', () => {
-  before($2)
-
-  $3
-})

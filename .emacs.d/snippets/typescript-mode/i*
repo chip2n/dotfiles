@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: i*
+# key: i*
+# --
+import * as $1 from '$2'
