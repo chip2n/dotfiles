@@ -25,8 +25,8 @@
 ;; This file contains code for managing windows.
 
 ;;; Code:
-
 ;; When splitting windows, I often also want to switch to the new buffer
+
 (after-load (general)
   (general-define-key
    "C-x 2"     (lambda () (interactive) (split-window-vertically) (other-window 1))
@@ -39,6 +39,9 @@
    "M-o"       'ace-window
    "S-<next>"  'scroll-other-window
    "S-<prior>" 'scroll-other-window-down))
+
+(global-set-key [C-tab] 'evil-window-next)
+(global-set-key [C-iso-lefttab] 'evil-window-prev)
 
 ;; Save window configurations as bookmarks
 (use-package burly
@@ -88,6 +91,12 @@
     (ivy-add-actions
      'counsel-projectile-find-file
      '(("a" ace-window "ace-window")))))
+
+(use-package popper
+  :bind (("C-<return>" . popper-toggle-latest)
+         ("C-S-<return>" . popper-cycle))
+  :config
+  (setf popper-mode-line nil))
 
 (provide 'chip-window)
 
