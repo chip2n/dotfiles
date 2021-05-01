@@ -51,10 +51,10 @@
 ;; I'm using this package to make individual faces for each parentheses. This
 ;; allows us to dim them in the theme. Makes lispy code way more readable, yay!
 
-(use-package paren-face
-  :config
-  (global-paren-face-mode)
-  (setq paren-face-regexp "[][(){}]"))
+;; (use-package paren-face
+;;   :config
+;;   (global-paren-face-mode)
+;;   (setq paren-face-regexp "[][(){}]"))
 
 ;;; Package: all-the-icons
 
