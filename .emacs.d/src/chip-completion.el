@@ -52,6 +52,9 @@
   ;; I want the candidate highligt background to extend to the edge of the frame
   (setq selectrum-extend-current-candidate-highlight nil)
 
+  ;; Got some issues with buffer height when using 1440p monitor - this seems to fix that
+  (setq selectrum-fix-vertical-window-height t)
+
   (selectrum-mode +1))
 
 ;; Prescient allows you to filter and automatically sort ivy and company results
