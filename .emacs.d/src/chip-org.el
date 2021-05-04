@@ -31,14 +31,25 @@
    :keymaps 'org-mode-map
    "M-p" 'org-previous-visible-heading
    "M-n" 'org-next-visible-heading
-   "M-E" 'org-move-subtree-up
+   "M-e" 'org-previous-visible-heading
    "M-N" 'org-move-subtree-down
    "M-i" 'org-metaright
    "M-h" 'org-metaleft
    "M-I" 'org-shiftmetaright
    "M-H" 'org-shiftmetaleft
-   "C-M-<return>" 'org-insert-subheading
+   "C-<return>" 'c/org-insert-heading-respect-content
+   "C-S-<return>" 'c/org-insert-todo-heading-respect-content
    "<RET>" 'org-return-indent))
+
+(defun c/org-insert-heading-respect-content ()
+  (interactive)
+  (org-insert-heading-respect-content)
+  (evil-insert-state))
+
+(defun c/org-insert-todo-heading-respect-content ()
+  (interactive)
+  (org-insert-todo-heading-respect-content)
+  (evil-insert-state))
 
 ;;; Deadlines
 
