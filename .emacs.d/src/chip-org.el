@@ -24,6 +24,22 @@
 
 (require 'cl-lib)
 
+;;; Keybindings
+
+(after-load (org general)
+  (general-define-key
+   :keymaps 'org-mode-map
+   "M-p" 'org-previous-visible-heading
+   "M-n" 'org-next-visible-heading
+   "M-E" 'org-move-subtree-up
+   "M-N" 'org-move-subtree-down
+   "M-i" 'org-metaright
+   "M-h" 'org-metaleft
+   "M-I" 'org-shiftmetaright
+   "M-H" 'org-shiftmetaleft
+   "C-M-<return>" 'org-insert-subheading
+   "<RET>" 'org-return-indent))
+
 ;;; Deadlines
 
 ;; Deadlines are discretely displayed in the agenda 7 days before due
@@ -173,20 +189,6 @@
 ;; enable blocker properties for unnested dependencies
 (require 'org-depend)
 (setq org-depend-tag-blocked nil)
-
-(after-load (org general)
-  (general-define-key
-   :keymaps 'org-mode-map
-   "M-p" 'org-previous-visible-heading
-   "M-n" 'org-next-visible-heading
-   "M-k" 'org-move-subtree-up
-   "M-j" 'org-move-subtree-down
-   "M-l" 'org-metaright
-   "M-h" 'org-metaleft
-   "M-L" 'org-demote-subtree
-   "M-H" 'org-promote-subtree
-   "C-M-<return>" 'org-insert-subheading
-   "<RET>" 'org-return-indent))
 
 ;; enable easy templates
 (require 'org-tempo)
