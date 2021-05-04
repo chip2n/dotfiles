@@ -46,8 +46,4 @@
 
 (provide 'chip-theme-base)
 
-
-
-(provide 'chip-theme-base)
-
 ;;; chip-theme-base.el ends here
