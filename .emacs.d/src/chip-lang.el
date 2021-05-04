@@ -86,6 +86,7 @@ Lisp function does not specify a special indentation."
 ;;; Common Lisp
 
 (use-package slime
+  :disabled t
   :config
   (c/diminish slime-autodoc-mode)
   (c/diminish slime-mode)
@@ -124,7 +125,8 @@ Lisp function does not specify a special indentation."
    "g" 'slime-macroexpand-again
    "q" 'slime-inspector-quit))
 
-(use-package slime-company)
+(use-package slime-company
+  :disabled t)
 
 (defun slime-enable-concurrent-hints ()
   (interactive)
