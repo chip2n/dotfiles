@@ -100,7 +100,7 @@
 ;;; Emacs behavior
 
 ;; break at line 80 by default when using functions like `fill-paragraph`
-(setq fill-column 80)
+(setq-default fill-column 80)
 
 ;; show trailing whitespaces
 (add-hook 'prog-mode-hook (lambda ()
