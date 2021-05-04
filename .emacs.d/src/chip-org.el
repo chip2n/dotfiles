@@ -24,6 +24,16 @@
 
 (require 'cl-lib)
 
+;;; Deadlines
+
+;; Deadlines are discretely displayed in the agenda 7 days before due
+;; date, and are extra highlighted 2 days before.
+(setq org-deadline-warning-days 7)
+(setq org-agenda-deadline-faces
+      '((1.0 . org-warning)
+        (0.7 . org-upcoming-deadline)
+        (0.0 . org-upcoming-distant-deadline)))
+
 ;;; Attachments
 
 ;; use inheritance for attachments - this allows us to link to an file attached to a parent node
