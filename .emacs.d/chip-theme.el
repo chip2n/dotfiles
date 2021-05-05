@@ -161,6 +161,9 @@
   `(telephone-line-accent-inactive
     ((,class (:background ,color-modeline-inactive :foreground ,grey-3))))
 
+  ;; Pulse (e.g. when jumping with xref)
+  `(pulse-highlight-start-face ((,class (:background ,red-1))))
+
   ;; Term colors
   `(term-color-black ((,class (:foreground ,grey-3))))
   `(term-color-red ((,class (:foreground ,red-2))))
@@ -337,6 +340,8 @@
   `(treemacs-git-added-face ((,class (:foreground ,color-foreground))))
   `(treemacs-git-untracked-face ((,class (:foreground ,color-foreground))))
   `(treemacs-directory-face ((,class (:foreground ,color-foreground))))
+  `(treemacs-pulse-on-success ((,class (:background ,color-success))))
+  `(treemacs-pulse-on-error ((,class (:background ,color-error))))
 
   `(chip-theme-treemacs-root-face ((,class (:foreground ,blue-2))))
   `(chip-theme-treemacs-file-face ((,class (:foreground ,blue-2))))
