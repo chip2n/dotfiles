@@ -26,6 +26,7 @@ feh --bg-scale /home/chip/dotfiles/gray.png
 #skype -style GTK &
 unclutter &
 #xbacklight -set 100
+dunst &
 
 switch-keyboard-builtin
 

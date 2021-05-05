@@ -36,4 +36,5 @@ pacman -Syyuu --needed \
   webkit2gtk \
   gst-plugins-good \
   zip \
-  gdb
+  gdb \
+  dunst
