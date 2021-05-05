@@ -104,7 +104,12 @@
  "C-c o g" 'chip/jump-to-clocked-task
 
  ;; quickly jump to a task in your agenda files
- "C-c j" 'c/jump-to-org-headline)
+ "C-c j" 'c/jump-to-org-headline
+
+ ;; code
+ "M-." 'xref-find-definitions
+ "M-," 'xref-pop-marker-stack
+ "C-h ." 'describe-thing-at-point)
 
 ;; org-mode agenda buffer
 (general-define-key
