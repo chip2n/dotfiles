@@ -1285,7 +1285,9 @@ all elements."
 
 (use-package toml-mode)
 
-(use-package markdown-mode)
+(use-package markdown-mode
+  :config
+  (add-hook 'markdown-mode-hook 'toggle-word-wrap))
 
 (require 'ob-lilypond)
 
