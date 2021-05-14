@@ -33,6 +33,7 @@
    "M-n" 'org-next-visible-heading
    "M-e" 'org-previous-visible-heading
    "M-N" 'org-move-subtree-down
+   "M-E" 'org-move-subtree-up
    "M-i" 'org-metaright
    "M-h" 'org-metaleft
    "M-I" 'org-shiftmetaright
@@ -50,6 +51,11 @@
   (interactive)
   (org-insert-todo-heading-respect-content)
   (evil-insert-state))
+
+;;; Theming
+
+;; Enable background colors etc in quote and verse blocks
+(setq org-fontify-quote-and-verse-blocks t)
 
 ;;; Deadlines
 

@@ -43,6 +43,7 @@
 (require 'chip-vc)
 (require 'chip-completion)
 (require 'chip-code)
+(require 'chip-code-dbg)
 (require 'chip-code-lisp)
 (require 'chip-lang)
 
@@ -259,8 +260,8 @@ point reaches the beginning or end of the buffer, stop there."
    "C-e"   'chip/move-end-of-line
    "C-a"   'chip/move-beginning-of-line
    "C-c i" 'imenu
-   "C-s"   'avy-goto-char-2
-   "C-c s" 'avy-goto-char-2
+   "C-s"   'avy-goto-char-timer
+   "C-c s" 'avy-goto-char-timer
    "M-s"   'consult-line)
 
   (general-define-key
@@ -692,8 +693,8 @@ point reaches the beginning or end of the buffer, stop there."
   ;; evaluating last sexp
   ;; (setq evil-move-cursor-back t)
   (setq evil-move-beyond-eol t)
-  (add-to-list 'evil-emacs-state-modes 'image-mode)
-  (add-hook 'help-mode-hook 'evil-emacs-state))
+  (evil-set-initial-state 'help-mode 'emacs)
+  (evil-set-initial-state 'image-mode 'emacs))
 
 (use-package evil-visualstar
   :after (evil)
@@ -1240,7 +1241,9 @@ all elements."
 
 (use-package kotlin-mode
   :config
-  (setq kotlin-tab-width 4))
+  (setq kotlin-tab-width 4)
+  (after-load (outshine-mode)
+    (add-hook 'kotlin-mode-hook 'outshine-mode)))
 
 (use-package groovy-mode)
 
@@ -1301,7 +1304,9 @@ all elements."
               ("C-c C-r" . chip/zig-compile-run)
               ("C-c C-b" . chip/zig-compile)
               ("C-c C-t" . chip/zig-test)
-              ("C-c C-f" . lsp-format-buffer))
+              ("C-c C-f" . lsp-format-buffer)
+              ("C-M-n" . next-error)
+              ("C-M-p" . previous-error))
   :config
   ;; formatting on save breaks lsp-mode
   ;; see https://github.com/ziglang/zig-mode/issues/49
@@ -1510,6 +1515,22 @@ buffer in current window."
       (insert result)
       (clipboard-kill-region (point-min) (point-max)))
     result))
+
+;; calfw
+
+(use-package calfw
+  :config
+  (setq cfw:fchar-junction ?╋
+        cfw:fchar-vertical-line ?┃
+        cfw:fchar-horizontal-line ?━
+        cfw:fchar-left-junction ?┣
+        cfw:fchar-right-junction ?┫
+        cfw:fchar-top-junction ?┯
+        cfw:fchar-top-left-corner ?┏
+        cfw:fchar-top-right-corner ?┓)
+
+  ;; Iosevka has incorrect width for ellipsis character currently
+  (setq truncate-string-ellipsis "..."))
 
 (provide 'chip-init-desktop)
 
