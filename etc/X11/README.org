@@ -1,0 +1,3 @@
+* Xorg configuration
+
+Generated partially with the ~nvidia-settings~ tool. Enables 144hz on my main monitor.
