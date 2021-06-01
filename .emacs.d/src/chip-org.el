@@ -57,6 +57,27 @@
 ;; Enable background colors etc in quote and verse blocks
 (setq org-fontify-quote-and-verse-blocks t)
 
+;;; Clocking
+
+(defun c/org-add-clocked-time (mins)
+  "Add some amount of minutes as a clock entry to the heading at point.
+The start timestamp of the clock entry is created `mins' minutes from the current time."
+  (interactive "nMinutes: ")
+  (save-window-excursion
+    (save-excursion
+      (when (eq major-mode 'org-agenda-mode)
+        (org-agenda-switch-to))
+      (goto-char (org-log-beginning t))
+      (let* ((now (org-current-time org-clock-rounding-minutes))
+             (start (org-time-subtract now (seconds-to-time (* 60 mins)))))
+        (save-excursion
+          (insert "CLOCK: ")
+          (org-insert-time-stamp start 'with-hm 'inactive)
+          (insert "--")
+          (org-insert-time-stamp now 'with-hm 'inactive)
+          (newline))
+        (org-evaluate-time-range)))))
+
 ;;; Deadlines
 
 ;; Deadlines are discretely displayed in the agenda 7 days before due
