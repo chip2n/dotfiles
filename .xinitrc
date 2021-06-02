@@ -27,6 +27,7 @@ feh --bg-scale /home/chip/dotfiles/gray.png
 unclutter &
 #xbacklight -set 100
 dunst &
+udiskie &
 
 switch-keyboard-builtin
 

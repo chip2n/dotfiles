@@ -37,4 +37,5 @@ pacman -Syyuu --needed \
   gst-plugins-good \
   zip \
   gdb \
-  dunst
+  dunst \
+  udisk2 udiskie \
