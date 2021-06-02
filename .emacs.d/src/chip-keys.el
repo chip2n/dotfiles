@@ -103,8 +103,8 @@
  "C-c o o" 'chip/clock-out-task
  "C-c o g" 'chip/jump-to-clocked-task
 
- ;; quickly jump to a task in your agenda files
- "C-c j" 'c/jump-to-org-headline
+ ;; quickly jump to an org headline
+ "C-c j" 'c/org-jump-to-headline
 
  ;; code
  "M-." 'xref-find-definitions
@@ -114,6 +114,7 @@
 ;; org-mode agenda buffer
 (general-define-key
  :keymaps 'org-agenda-mode-map
+ "j" 'c/org-agenda-jump-to-task
  "C-g" 'org-agenda-quit)
 
 (general-define-key

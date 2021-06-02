@@ -95,8 +95,15 @@ The start timestamp of the clock entry is created `mins' minutes from the curren
 
 ;;; Jump to headline
 
+(defun c/sorted-completion-table (completions)
+  "Create a completion table that is sorted by index in list `completions'."
+  (lambda (string pred action)
+    (if (eq action 'metadata)
+        `(metadata (display-sort-function . ,#'identity))
+      (complete-with-action action completions string pred))))
+
 (defun c/org-agenda-headlines-candidates ()
-  "Return a list of completion candidates for use with selectrum."
+  "Return a list of headline completion candidates for use with selectrum."
   (org-map-entries
    (lambda ()
      (cl-destructuring-bind (_ _ todo priority text tags) (org-heading-components)
@@ -114,18 +121,34 @@ The start timestamp of the clock entry is created `mins' minutes from the curren
    nil
    'agenda))
 
-(defun c/jump-to-org-headline ()
+(defun c/org-jump-to-headline ()
+  "Jump to the location of an org headline."
   (interactive)
   (let* ((completions (c/org-agenda-headlines-candidates))
-         (completion-table (lambda (string pred action)
-                             (if (eq action 'metadata)
-                                 `(metadata (display-sort-function . ,#'identity))
-                               (complete-with-action action completions string pred)))))
+         (completion-table (c/sorted-completion-table completions)))
     (let ((result (assoc (completing-read "Jump to headline " completion-table) completions)))
       (when result
         (find-file (cadr result))
         (goto-char (caddr result))
         (recenter)))))
+
+(defun c/org-agenda-jump-to-task ()
+  "Jump to the location of an org task inside the org agenda."
+  (interactive)
+  (let (results)
+    (save-excursion
+      (goto-char (point-min))
+      (while (not (eobp))
+        (when (org-get-at-bol 'todo-state)
+          (push (text-properties-at (point)) *tmp*)
+          (push (cons (org-get-at-bol 'txt) (point)) results))
+        (forward-line 1)))
+    (setq results (nreverse results))
+    (goto-char
+     (cdr
+      (assoc
+       (completing-read "Test: " (c/sorted-completion-table results))
+       results)))))
 
 ;;; Misc
 
