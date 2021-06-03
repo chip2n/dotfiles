@@ -129,6 +129,7 @@
   `(line-number ((,class (:foreground ,grey-3))))
   `(line-number-current-line ((,class (:foreground ,color-foreground :background ,color-highlight-1 :bold t))))
   `(help-key-binding ((,class (:foreground ,pink-2 :underline t :bold t))))
+  `(bookmark-face ((,class ())))
 
   ;; Paren match
   `(show-paren-match ((,class (:background ,color-highlight-2))))
