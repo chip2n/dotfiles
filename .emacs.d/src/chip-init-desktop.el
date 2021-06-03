@@ -1479,6 +1479,12 @@ all elements."
   (interactive)
   (insert (int-to-string (current-time-unix))))
 
+(defun current-time-utc ()
+  (interactive)
+  (message
+   (string-trim-right
+    (shell-command-to-string (format "unix-to-date --utc %s" (current-time-unix))))))
+
 (defun toggle-window-dedicated ()
   "Control whether or not Emacs is allowed to display another
 buffer in current window."
