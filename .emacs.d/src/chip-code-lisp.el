@@ -26,12 +26,16 @@
   ""
   :lighter nil
   (if c/code-lisp-mode
+      (progn
+        (if (featurep 'evil-lispy)
+            (evil-lispy-mode 1)
+          (lispy-mode 1))
+        (prettify-symbols-mode 1))
+    (progn
       (if (featurep 'evil-lispy)
-          (evil-lispy-mode 1)
-        (lispy-mode 1))
-    (if (featurep 'evil-lispy)
-        (evil-lispy-mode -1)
-      (lispy-mode -1))))
+          (evil-lispy-mode -1)
+        (lispy-mode -1))
+      (prettify-symbols-mode -1))))
 
 ;; TODO move these
 (add-hook 'emacs-lisp-mode-hook #'c/code-lisp-mode)
