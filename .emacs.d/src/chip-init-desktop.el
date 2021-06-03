@@ -1467,6 +1467,18 @@ all elements."
       (string-trim-right
        (shell-command-to-string (format "unix-to-date %s" timestamp)))))))
 
+(defun current-time-unix ()
+  (interactive)
+  (let ((time (time-convert nil 'integer)))
+    (if (called-interactively-p 'interactive)
+        (message (int-to-string time))
+      time)))
+
+(defun insert-current-time-unix ()
+  "Inserts the number of seconds since 1970-01-01 00:00:00."
+  (interactive)
+  (insert (int-to-string (current-time-unix))))
+
 (defun toggle-window-dedicated ()
   "Control whether or not Emacs is allowed to display another
 buffer in current window."
