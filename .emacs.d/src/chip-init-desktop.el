@@ -1280,6 +1280,17 @@ all elements."
   (let ((default-directory (projectile-project-root)))
     (zig--run-cmd "build test")))
 
+(defun chip/zig-debug ()
+  (interactive)
+  (let ((existing (get-buffer "*gdb*")))
+    (when existing (kill-buffer existing)))
+  (let ((pid (shell-command-to-string "pgrep zig-dbg"))
+        (buffer (save-window-excursion (vterm "*gdb*"))))
+    (switch-to-buffer-other-window buffer)
+    (vterm-send-string "gdb")
+    (vterm-send-return)
+    (vterm-send-string (format "attach %s" pid))))
+
 (use-package gdscript-mode
   :config
   ;; suppress unknown notification errors.
