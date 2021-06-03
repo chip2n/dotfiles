@@ -23,6 +23,18 @@
 ;;; Code:
 
 (require 'cl-lib)
+(require 's)
+
+;;; Packages
+
+(use-package org-contrib
+  :config
+  ;; enable blocker properties for unnested dependencies
+  (require 'org-depend)
+  (setq org-depend-tag-blocked nil)
+
+  ;; enable easy templates
+  (require 'org-tempo))
 
 ;;; Keybindings
 
@@ -140,7 +152,6 @@ The start timestamp of the clock entry is created `mins' minutes from the curren
       (goto-char (point-min))
       (while (not (eobp))
         (when (org-get-at-bol 'todo-state)
-          (push (text-properties-at (point)) *tmp*)
           (push (cons (org-get-at-bol 'txt) (point)) results))
         (forward-line 1)))
     (setq results (nreverse results))
@@ -149,6 +160,104 @@ The start timestamp of the clock entry is created `mins' minutes from the curren
       (assoc
        (completing-read "Test: " (c/sorted-completion-table results))
        results)))))
+
+;;; Bullets
+
+(defface org-bullet
+  '((t (:inherit (default))))
+  "Face used for org-bullets."
+  :group 'org-bullet)
+
+(defface org-headline-content
+  '((t (:inherit (default))))
+  "Face used for content portion of a headline"
+  :group 'org-bullet)
+
+(defcustom org-bullet-char ?\#
+  "Replacement for * as header prefixes."
+  :type 'characterp
+  :group 'org-bullet)
+
+(define-minor-mode org-bullet-mode
+  "Bullet for org-mode"
+  nil nil nil
+  (let* ((keyword `(("^\\(\\*+ \\)\\(.*\\)"
+                     (0 (let* ((level (- (match-end 1) (match-beginning 1) 1))
+                               (header (save-match-data
+                                         (save-excursion
+                                           (goto-char (match-beginning 1))
+                                           (org-heading-components))))
+                               (todo (caddr header)))
+                          ;; Change bullet
+                          (put-text-property (match-beginning 1)
+                                             (- (match-end 1) 1)
+                                             'display
+                                             (propertize (make-string level org-bullet-char) 'face 'org-bullet))
+                          ;; Set face for headline content
+                          (if todo
+                              (put-text-property (+ (match-beginning 2) (length todo) 1)
+                                                 (match-end 2)
+                                                 'face
+                                                 'org-headline-content)
+                            (put-text-property (match-beginning 2)
+                                                 (match-end 2)
+                                                 'face
+                                                 'org-headline-content))
+                          nil)))
+                    ("^\\*+ .*[^\s]+\\([[:blank:]]+\\):.+:"
+                     (0 (let* ((spaces (- (match-end 1) (match-beginning 1))))
+                          ;; Fix spaces between header text and tags
+                          (put-text-property (match-beginning 1)
+                                             (match-end 1)
+                                             'face
+                                             'org-default)
+                          nil)))
+                    )))
+    (if org-bullet-mode
+        (progn
+          (font-lock-add-keywords nil keyword)
+          (font-lock-fontify-buffer))
+      (save-excursion
+        (goto-char (point-min))
+        (font-lock-remove-keywords nil keyword)
+        (font-lock-fontify-buffer)))))
+
+(add-hook 'org-mode-hook 'org-bullet-mode)
+
+;;; Notifications
+
+(defun c/org-agenda-to-appt ()
+  (interactive)
+  (org-agenda-to-appt t))
+
+;; Set up when emacs starts
+(c/org-agenda-to-appt)
+
+;; Activate appointments so we get notifications
+(appt-activate t)
+
+;; Refresh reminders every 10 minutes
+(run-at-time t (* 60 10) 'c/org-agenda-to-appt)
+
+;; Show reminders at 15, 10 and 5 minutes prior
+(setq appt-message-warning-time 15)
+(setq appt-display-interval 5)
+
+;; Display notifications using the alert package
+(defun c/appt-disp-window-function (min-to-app new-time msg)
+  ;; Each argument may also be a list in case of multiple appts occuring at the same time
+  (let ((min-to-app (if (listp min-to-app) min-to-app (list min-to-app)))
+        (msg (if (listp msg) msg (list msg)))
+        (new-time (if (listp new-time) new-time (list new-time)))))
+
+  ;; Process message (remove tags if any exists)
+  (let ((output (if (string-match "^\\*+ .*[^\s]+\\([[:blank:]]+\\):.+:" msg)
+                    (s-trim (substring msg 0 (match-end 1)))
+                  (s-trim msg)))
+        (severity (if (= (string-to-number min-to-app) 0) 'high 'normal)))
+    (alert (format "%s (in %s minutes)" msg min-to-app) :severity severity)))
+
+(setq appt-disp-window-function #'c/appt-disp-window-function)
 
 ;;; Misc
 
@@ -247,29 +356,20 @@ The start timestamp of the clock entry is created `mins' minutes from the curren
         (org-id-add-location id (buffer-file-name (buffer-base-buffer)))
         id)))))
 
-;; enable blocker properties for unnested dependencies
-(require 'org-depend)
-(setq org-depend-tag-blocked nil)
-
-;; enable easy templates
-(require 'org-tempo)
-
 ;; TODO make macro that calls this and adds to org-confirm-babel-evaluate
-(after-load (ob-typescript)
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((python . t)
-     (shell . t)
-     (js . t)
-     (typescript . t)
-     (lilypond . t)
-     (ditaa . t)
-     (restclient . t)
-     (scheme . t)
-     (emacs-lisp . t)
-     (lisp . t)
-     (forth . t)
-     (http . t))))
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)
+   (shell . t)
+   (js . t)
+   (lilypond . t)
+   (ditaa . t)
+   (restclient . t)
+   (scheme . t)
+   (emacs-lisp . t)
+   (lisp . t)
+   (forth . t)
+   (http . t)))
 
 ;; Enable noweb expansion in all languages
 (setq org-babel-default-header-args
@@ -321,7 +421,7 @@ The start timestamp of the clock entry is created `mins' minutes from the curren
 
 (advice-add 'org-babel-execute-src-block :around 'ob-shell-buffer-org-babel-execute-src-block)
 
-(setq org-startup-indented t)
+(setq org-startup-indented nil)
 (setq org-adapt-indentation nil)
 (setq org-indent-indentation-per-level 2)
 
@@ -341,31 +441,6 @@ The start timestamp of the clock entry is created `mins' minutes from the curren
 ;; add automatic newlines when lines get too long
 ;; using this instead of word-wrap since it doesn't affect tables
 (add-hook 'org-mode-hook 'auto-fill-mode)
-
-(use-package org-superstar
-  :ensure t
-  :after org
-  :config
-  (setq org-superstar-leading-bullet "λ")
-  (setq org-superstar-headline-bullets-list '("λ"))
-  (add-hook 'org-mode-hook (lambda () (org-superstar-mode 1))))
-
-(use-package org-bullets)
-
-(defface org-bullet
-  '((t (:inherit (default))))
-  "Face used for org-bullets."
-  :group 'org-bullets)
-
-;; (use-package org-bullets
-;;   :ensure t
-;;   :after org
-;;   :config
-;;   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-;;   (setq org-bullets-bullet-list '("ʃ"
-;;                                   ;; ""
-;;                                   ))
-;;   (setq org-bullets-face-name 'org-bullet))
 
 (defun get-presentation-path ()
   "Prompt for presentation name via minibuffer and return path."
@@ -1042,22 +1117,5 @@ so change the default 'F' binding in the agenda to allow both"
 
 ;; Limit restriction lock highlighting to the headline only
 (setq org-agenda-restriction-lock-highlight-subtree nil)
-
-(defun chip/org-agenda-to-appt ()
-  (interactive)
-  (setq appt-time-msg-list nil)
-  (org-agenda-to-appt))
-
-;; rebuild the reminders everytime the agenda is displayed
-(add-hook 'org-finalize-agenda-hook 'chip/org-agenda-to-appt 'append)
-
-;; set up when emacs starts
-(chip/org-agenda-to-appt)
-
-;; activate appointments so we get notifications
-(appt-activate t)
-
-;; if we leave Emacs running overnight - reset the appointments one minute after midnight
-(run-at-time "24:01" nil 'chip/org-agenda-to-appt)
 
 (provide 'chip-org)

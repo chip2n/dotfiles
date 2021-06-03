@@ -92,9 +92,6 @@
 
 (use-package general)
 
-;; when using straight, we need to load this before loading any other org code
-(straight-use-package 'org-plus-contrib)
-
 (require 'chip-macro)
 
 ;;; Emacs behavior

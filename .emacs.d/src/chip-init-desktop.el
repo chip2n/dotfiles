@@ -1153,8 +1153,6 @@ all elements."
   :config
   (add-hook 'typescript-mode-hook 'outshine-mode))
 
-(use-package ob-typescript)
-
 (defun setup-tide-mode ()
   (interactive)
   (tide-setup)
