@@ -78,7 +78,6 @@
  ;; file system
  "C-c c" 'chip/open-config-file
  "C-f" 'chip/find-file
- "C-c C-f" 'chip/find-file
  "C-p" 'chip/find-file-project-current
  "C-x p" 'chip/find-file-project-current
  "C-S-P" 'chip/find-file-project
