@@ -114,6 +114,7 @@
 (general-define-key
  :keymaps 'org-agenda-mode-map
  "j" 'c/org-agenda-jump-to-task
+ "RET" 'org-agenda-switch-to
  "C-g" 'org-agenda-quit)
 
 (general-define-key

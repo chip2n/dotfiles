@@ -891,12 +891,6 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                nil))))
 
 (general-define-key
- :keymaps 'org-agenda-mode-map
- "RET" 'org-agenda-switch-to
- "j" 'org-agenda-next-line
- "k" 'org-agenda-previous-line)
-
-(general-define-key
  "C-c o n" 'bh/org-todo
  "C-c o w" 'bh/widen)
 
