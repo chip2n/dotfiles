@@ -1,3 +1,10 @@
 #!/bin/bash
 
-date +'%Y-%m-%d %H:%M:%S' -d @$1
+case $1 in
+  -u|--utc)
+    date -u +'%Y-%m-%d %H:%M:%S' -d @$2
+    ;;
+  *)
+    date +'%Y-%m-%d %H:%M:%S' -d @$1
+    ;;
+esac
