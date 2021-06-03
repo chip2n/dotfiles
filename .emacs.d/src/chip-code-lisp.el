@@ -49,6 +49,18 @@
 (add-hook 'racket-mode-hook #'c/code-lisp-mode)
 (add-hook 'scheme-mode-hook #'c/code-lisp-mode)
 
+(defun c/lisp-comment-sexp-at-point ()
+  (interactive)
+  (save-excursion
+    (evil-lispy/enter-state-left)
+    (lispy-comment)
+    (lispy-quit))
+  (backward-char 3))
+
+(general-define-key
+ :keymaps 'c/code-mode-map
+ "C-;" 'c/lisp-comment-sexp-at-point)
+
 ;;; Lispy
 
 (use-package lispy
