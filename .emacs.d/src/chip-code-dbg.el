@@ -22,34 +22,45 @@
 
 ;;; Code:
 
-(use-package realgud)
+(require 's)
 
-(defun c/gdb ()
-  (interactive)
-  (save-window-excursion
-    (gdb "gdb -i=mi /home/chip/dev/zig-sdl/zig-out/bin/zig-sdl")
-    (gdb-display-memory-buffer))
-  (delete-other-windows)
-  (split-window-below -20)
-  (other-window 1)
-  (switch-to-buffer gud-comint-buffer)
-  (split-window-right)
-  (other-window 1)
-  (switch-to-buffer (gdb-get-buffer 'gdb-memory-buffer)))
-
-(use-package gdb-mi
-  :straight (:type git :host github :protocol ssh :repo "weirdNox/emacs-gdb")
-  :general (:keymaps 'gdb-keys-mode-map
-            :states 'normal
-            "r" 'gdb-run
-            "n" 'gdb-next
-            "s" 'gdb-step
-            "w" 'gdb-watcher-add
-            "b" 'gdb-toggle-breakpoint
-            "q" 'gdb-kill-session)
+(use-package realgud
   :config
-  (fmakunbound 'gdb)
-  (fmakunbound 'gdb-enable-debug))
+  (setq realgud-safe-mode nil))
+
+(defun c/gdb (path)
+  (interactive "FPath to executable: ")
+  (let ((source-buf (current-buffer)))
+    (delete-other-windows)
+    (realgud:gdb (format "gdb %s" path))
+    (realgud:attach-source-buffer source-buf)
+    (let ((gdb-buf (current-buffer)))
+      (split-window-horizontally)
+      (switch-to-buffer source-buf)
+      (other-window 1)
+      (switch-to-buffer gdb-buf))))
+
+(defun c/gdb-attach ()
+  (interactive)
+  (let* ((output (s-lines (shell-command-to-string "ps -u chip -o pid,comm")))
+         (lines (-filter (-compose #'not #'s-blank?) (cdr output)))
+         (processes (mapcar (lambda (line)
+                              (let* ((split (s-split " " (s-trim line)))
+                                     (pid (string-to-number (s-trim (car split))))
+                                     (comm (s-trim (cadr split))))
+                                (cons comm pid)))
+                            lines))
+         (pid (-> (completing-read "Attach to process:" processes)
+                (assoc processes)
+                (cdr)))
+         (source-buf (current-buffer)))
+        (save-window-excursion
+          (realgud:gdb-pid pid)
+          (realgud:attach-source-buffer source-buf))
+        (delete-other-windows)
+        (split-window-horizontally)
+        (other-window 1)
+        (switch-to-buffer (realgud:gdb-find-command-buffer pid))))
 
 (provide 'chip-code-dbg)
 
