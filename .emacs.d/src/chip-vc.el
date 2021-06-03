@@ -43,6 +43,9 @@
   :config
   (setq magit-clone-default-directory chip-dev-dir)
 
+  ;; use C-<tab> for switching windows
+  (define-key magit-status-mode-map (kbd "C-<tab>") nil)
+
   ;; don't show line numbers in magit buffers
   (add-hook 'magit-mode-hook (lambda () (display-line-numbers-mode -1)))
 
