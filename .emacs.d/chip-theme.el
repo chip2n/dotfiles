@@ -319,6 +319,9 @@
   `(git-gutter:deleted ((,class (:foreground ,red-1 :bold t))))
   `(git-gutter:modified ((,class (:foreground ,color-comment :bold t))))
 
+  ;; realgud
+  `(realgud-bp-line-enabled-face ((,class ())))
+
   ;; Elfeed faces
   `(message-header-name ((,class (:foreground ,grey-3 :weight bold))))
   `(message-header-subject ((,class (:foreground ,blue-2 :weight bold))))
