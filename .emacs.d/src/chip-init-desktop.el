@@ -1241,6 +1241,7 @@ all elements."
   ;; see https://github.com/ziglang/zig-mode/issues/49
   (setq zig-format-on-save nil)
   (add-to-list 'lsp-language-id-configuration '(zig-mode . "zig"))
+  (add-hook 'zig-mode-hook 'c/code-mode)
   (add-hook 'zig-mode-hook 'lsp)
   (lsp-register-client
    (make-lsp-client
