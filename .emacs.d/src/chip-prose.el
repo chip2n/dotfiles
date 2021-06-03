@@ -1,5 +1,4 @@
 (require 'olivetti)
-(require 'org-bullets)
 
 (defgroup chip-prose
   nil
@@ -65,13 +64,15 @@
 ;; TODO rename
 (defun prose--remove-stars ()
   (font-lock-add-keywords
-   nil                         ; highlights added for the current buffer
-   '(("^\\*\\*+ "              ; match every headline except the first
+   nil                       ; highlights added for the current buffer
+   '(("^\\*\\*+ "            ; match every headline except the first
       (0
        (prog1 nil
          (put-text-property (match-beginning 0)
                             (- (match-end 0) 2)
-                            'invisible t)))))))
+                            'invisible t))))))
+  ;; refresh buffer in case something is out of date
+  (font-lock-flush))
 
 (defun prose--finish ()
   (interactive)
@@ -90,31 +91,32 @@
   :keymap '(("\C-c\C-c" . prose--finish)
             ("\C-c\C-k" . prose--clear)))
 
+(defun prose--enable ()
+  (interactive)
+  (olivetti-mode)
+  (auto-fill-mode -1)
+  (org-indent-mode -1)
+
+  ;; TODO add more levels
+  (face-remap-add-relative 'org-level-1 'chip-prose-org-level-1)
+  (face-remap-add-relative 'org-level-2 'chip-prose-org-level-2)
+  (face-remap-add-relative 'org-level-3 'chip-prose-org-level-3)
+  (face-remap-add-relative 'org-todo 'chip-prose-org-todo)
+  (face-remap-add-relative 'org-done 'chip-prose-org-done)
+  (face-remap-add-relative 'org-document-title 'chip-prose-org-document-title)
+  (face-remap-add-relative 'org-document-info 'chip-prose-org-document-info)
+
+  ;; hide title / author ... keywords
+  (setq-local org-hidden-keywords '(title author date email))
+  (prose--remove-stars))
+
 (defun prose ()
   (interactive)
   (let ((buffer (get-buffer-create "*prose*")))
     (switch-to-buffer buffer)
 
     (org-mode)
-    (olivetti-mode)
     (prose-mode)
-
-    (auto-fill-mode -1)
-    (org-indent-mode -1)
-    (org-bullets-mode 1)
-
-    ;; TODO add more levels
-    (face-remap-add-relative 'org-level-1 'chip-prose-org-level-1)
-    (face-remap-add-relative 'org-level-2 'chip-prose-org-level-2)
-    (face-remap-add-relative 'org-level-3 'chip-prose-org-level-3)
-    (face-remap-add-relative 'org-todo 'chip-prose-org-todo)
-    (face-remap-add-relative 'org-done 'chip-prose-org-done)
-    (face-remap-add-relative 'org-document-title 'chip-prose-org-document-title)
-    (face-remap-add-relative 'org-document-info 'chip-prose-org-document-info)
-
-    ;; hide title / author ... keywords
-    (setq-local org-hidden-keywords '(title author date email))
-
-    (prose--remove-stars)))
+    (prose--enable)))
 
 (provide 'chip-prose)
