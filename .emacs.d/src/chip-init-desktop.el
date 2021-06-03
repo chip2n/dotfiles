@@ -669,7 +669,8 @@ point reaches the beginning or end of the buffer, stop there."
   :after (evil)
   :config
   (evil-collection-init 'dired)
-  (evil-collection-init 'cider))
+  (evil-collection-init 'cider)
+  (c/diminish evil-collection-unimpaired-mode))
 
 (setq evil-fold-list
       '(((hs-minor-mode)
