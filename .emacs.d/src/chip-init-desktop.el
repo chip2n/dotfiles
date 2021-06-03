@@ -1246,10 +1246,8 @@ all elements."
   :bind (:map zig-mode-map
               ("C-c C-r" . chip/zig-compile-run)
               ("C-c C-b" . chip/zig-compile)
-              ("C-c C-t" . chip/zig-test)
-              ("C-c C-f" . lsp-format-buffer)
-              ("C-M-n" . next-error)
-              ("C-M-p" . previous-error))
+              ("C-c C-k" . kill-compilation)
+              ("C-c C-t" . chip/zig-test))
   :config
   ;; formatting on save breaks lsp-mode
   ;; see https://github.com/ziglang/zig-mode/issues/49
