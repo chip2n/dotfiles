@@ -74,7 +74,11 @@
 ;; Allows you to transpose frames (mainly via ace-window)
 (require 'transpose-frame)
 
-(use-package avy)
+(use-package avy
+  :config
+  (setq avy-timeout-seconds 0.3)
+  ;; colemak homerow
+  (setq avy-keys '(?a ?r ?s ?t ?d ?h ?n ?e ?i ?o)))
 
 (use-package ace-window
   :after (ivy)
