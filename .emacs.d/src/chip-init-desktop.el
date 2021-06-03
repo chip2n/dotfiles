@@ -595,46 +595,6 @@ point reaches the beginning or end of the buffer, stop there."
    :keymaps '(compilation-mode-map)
    "k" 'kill-this-buffer-and-process))
 
-(defun chip/company-setup-keys ()
-  "Setup keybindings for company mode"
-  (interactive)
-  (define-key company-active-map (kbd "<return>") nil)
-  (define-key company-active-map (kbd "RET") nil)
-  (define-key company-active-map (kbd "<tab>") #'company-complete-selection))
-
-(use-package company
-  :config
-  (c/diminish company-mode)
-
-  (general-define-key
-   :keymap 'prog-mode-map
-   "M-/" 'counsel-company)
-  (add-hook 'company-mode-hook 'chip/company-setup-keys)
-  ;; prevent downcasing when autocompleting
-  (setq company-dabbrev-downcase nil)
-  (setq evil-complete-next-func 'complete-complete-cycle-next)
-  (setq evil-complete-previous-func 'complete-complete-cycle-previous)
-
-  ;; show company completion with delay
-  (setq company-idle-delay 0.3)
-
-  ;; show suggestions after entering one character.
-  (setq company-minimum-prefix-length 1)
-
-  (setq company-selection-wrap-around t))
-
-(defun complete-complete-cycle-next (arg)
-  (company-complete-common-or-cycle))
-
-(defun complete-complete-cycle-previous (arg)
-  (company-complete-common-or-cycle -1))
-
-(use-package company-box
-  :after (company)
-  :hook (company-mode . company-box-mode)
-  :config
-  (c/diminish company-box-mode))
-
 ;; communication with language servers generate a lot of garbage
 (setq gc-cons-threshold 100000000)
 
@@ -960,9 +920,6 @@ all elements."
                 (evil-emacs-state)
               (evil-normal-state))))
 
-(after-load (company)
-  (add-hook 'emacs-lisp-mode-hook 'company-mode))
-
 (use-package geiser
   :after (evil)
   :config
@@ -991,9 +948,7 @@ all elements."
   (setq cider-test-show-report-on-success nil)
   (setq cider-auto-select-test-report-buffer nil)
   (eldoc-mode t)
-  (add-to-list 'evil-motion-state-modes 'cider-test-report-mode)
-  (add-hook 'cider-mode-hook 'company-mode)
-  (add-hook 'cider-repl-mode-hook 'company-mode))
+  (add-to-list 'evil-motion-state-modes 'cider-test-report-mode))
 
 (use-package inf-clojure)
 
@@ -1005,11 +960,6 @@ all elements."
   (c/diminish anaconda-mode))
 
 (use-package pyvenv)
-
-(use-package company-anaconda
-  :after (company anaconda-mode)
-  :config
-  (add-to-list 'company-backends 'company-anaconda))
 
 (use-package dart-mode
   :after (projectile)
@@ -1221,8 +1171,6 @@ all elements."
 (use-package tide
   :after (typescript-mode)
   :config
-  ;; aligns annotation to the right hand side
-  (setq company-tooltip-align-annotations t)
   ;; formats the buffer before saving
   (add-hook 'before-save-hook 'tide-format-before-save)
   (add-hook 'typescript-mode-hook 'setup-tide-mode)
@@ -1231,13 +1179,6 @@ all elements."
    :states 'normal
    :keymaps 'typescript-mode-map
    "gd" 'tide-jump-to-definition))
-
-(use-package omnisharp
-  :after (company)
-  :config
-  (add-to-list 'company-backends 'company-omnisharp)
-  (add-hook 'csharp-mode-hook #'company-mode)
-  (add-hook 'csharp-mode-hook 'omnisharp-mode))
 
 (use-package kotlin-mode
   :config

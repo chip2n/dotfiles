@@ -44,6 +44,15 @@
   :hook
   (embark-collect-mode . embark-consult-preview-minor-mode))
 
+(use-package orderless
+  :ensure t
+  :custom (completion-styles '(orderless))
+  :config
+  (setq orderless-matching-styles '(orderless-literal orderless-regexp))
+  (after-load (selectrum)
+    (setq orderless-skip-highlighting (lambda () selectrum-is-active)))
+  (savehist-mode 1))
+
 (use-package selectrum
   :bind (:map selectrum-minibuffer-map
          (("<next>" . 'selectrum-next-page)
@@ -55,24 +64,62 @@
   ;; Got some issues with buffer height when using 1440p monitor - this seems to fix that
   (setq selectrum-fix-vertical-window-height t)
 
+  (after-load (orderless)
+    (setq selectrum-highlight-candidates-function #'orderless-highlight-matches))
+
   (selectrum-mode +1))
+(define-minor-mode c/complete-mode
+  "Enable code completion."
+  :global nil
+  (if c/complete-mode
+      (progn
+        (company-mode 1))
+    (company-mode 0)))
 
-;; Prescient allows you to filter and automatically sort ivy and company results
-;; by frequency. It also enables searching by initialism (e.g. stbow ->
-;; switch-to-buffer-other-window).
-(use-package prescient
+(add-hook 'prog-mode-hook 'c/complete-mode)
+
+(defun chip/company-setup-keys ()
+  "Setup keybindings for company mode"
+  (interactive)
+  (define-key company-active-map (kbd "<return>") nil)
+  (define-key company-active-map (kbd "RET") nil)
+  (define-key company-active-map (kbd "<tab>") #'company-complete-selection))
+
+(use-package company
   :config
-  (prescient-persist-mode))
+  (c/diminish company-mode)
 
-(use-package selectrum-prescient
-  :after (prescient selectrum)
-  :config
-  (selectrum-prescient-mode +1))
+  (general-define-key
+   :keymap 'prog-mode-map
+   "M-/" 'counsel-company)
+  (add-hook 'company-mode-hook 'chip/company-setup-keys)
+  ;; prevent downcasing when autocompleting
+  (setq company-dabbrev-downcase nil)
+  (setq evil-complete-next-func 'complete-complete-cycle-next)
+  (setq evil-complete-previous-func 'complete-complete-cycle-previous)
 
-(use-package company-prescient
+  ;; show company completion with delay
+  (setq company-idle-delay 0.3)
+
+  ;; show suggestions after entering one character.
+  (setq company-minimum-prefix-length 1)
+
+  (setq company-selection-wrap-around t)
+
+  ;; aligns annotation to the right hand side
+  (setq company-tooltip-align-annotations t))
+
+(defun complete-complete-cycle-next (arg)
+  (company-complete-common-or-cycle))
+
+(defun complete-complete-cycle-previous (arg)
+  (company-complete-common-or-cycle -1))
+
+(use-package company-box
   :after (company)
+  :hook (company-mode . company-box-mode)
   :config
-  (company-prescient-mode))
+  (c/diminish company-box-mode))
 
 ;;; Ivy configuration (disabled)
 

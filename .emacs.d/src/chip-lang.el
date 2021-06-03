@@ -163,12 +163,12 @@ Lisp function does not specify a special indentation."
   :config
   (require 'sly-autoloads)
 
+  (setq inferior-lisp-program "/usr/bin/sbcl")
+
   (after-load (evil)
     (add-to-list 'evil-emacs-state-modes 'sly-db-mode)
-    (add-to-list 'evil-emacs-state-modes 'sly-inspector-mode))
-  (setq inferior-lisp-program "/usr/bin/sbcl")
-  (add-hook 'sly-mode-hook 'company-mode)
-  (add-hook 'sly-inspector-mode-hook 'evil-emacs-state)
+    (add-to-list 'evil-emacs-state-modes 'sly-inspector-mode)
+    (add-hook 'sly-inspector-mode-hook 'evil-emacs-state))
 
   (after-load (lispy)
     (setq lispy-use-sly t))

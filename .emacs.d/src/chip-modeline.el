@@ -185,7 +185,7 @@ want to use in the modeline *in lieu of* the original.")
      (diminish ',mode ,to-what)))
 
 (use-package diminish
-  :after (projectile evil-snipe evil-lispy org-roam company-box)
+  :after (projectile evil-snipe evil-lispy org-roam)
   :config
   (c/diminish auto-fill-function)
   (c/diminish undo-tree-mode)
