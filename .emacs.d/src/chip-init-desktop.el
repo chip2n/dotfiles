@@ -1348,7 +1348,11 @@ all elements."
   (general-define-key
    :keymaps 'vterm-mode-map
    "<prior>" 'scroll-down-command
-   "<next>" 'scroll-up-command)
+   "<next>" 'scroll-up-command
+   "S-<prior>" 'scroll-other-window-down
+   "S-<next>" 'scroll-other-window
+   "M-n" 'vterm-send-down
+   "M-p" 'vterm-send-up)
   ;; line highlight flickers in vterm, so disable it
   (add-hook 'vterm-mode-hook (lambda () (setq-local global-hl-line-mode nil))))
 
