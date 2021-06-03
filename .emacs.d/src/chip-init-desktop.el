@@ -32,9 +32,9 @@
 (require 'chip-faces)
 (chip-faces)
 
-(require 'chip-window)
 (require 'chip-modeline)
 (require 'chip-headerline)
+(require 'chip-window)
 ;; (require 'chip-agenda)
 
 (require 'chip-doc)
@@ -262,17 +262,7 @@ point reaches the beginning or end of the buffer, stop there."
    "C-c i" 'imenu
    "C-s"   'avy-goto-char-timer
    "C-c s" 'avy-goto-char-timer
-   "M-s"   'consult-line)
-
-  (general-define-key
-   :keymaps '(flymake-mode-map)
-   "M-n" 'flymake-goto-next-error
-   "M-p" 'flymake-goto-prev-error)
-
-  (general-define-key
-   :keymaps '(flycheck-mode-map)
-   "M-n" 'flycheck-next-error
-   "M-p" 'flycheck-previous-error))
+   "M-s"   'consult-line))
 
 (use-package evil-snipe
   :after (evil)

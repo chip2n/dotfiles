@@ -22,6 +22,35 @@
 
 ;;; Code:
 
+;;; Mode
+
+(define-minor-mode c/code-mode
+  "Mode for coding the codes."
+  :lighter nil
+  :keymap `((,(kbd "M-n") . c/next-error)
+            (,(kbd "M-p") . c/prev-error)
+            (,(kbd "C-c C-f") . c/format-buffer)))
+
+(defun c/format-buffer ()
+  (interactive)
+  (lsp-format-buffer))
+
+;;; Compilation buffer
+
+(setq compilation-window-height 20)
+
+(defun c/compilation-hook ()
+  "Force compilation buffer to be shown using vertical split with a short height."
+  (when (not (get-buffer-window "*compilation*"))
+    (save-selected-window
+      (save-excursion
+        (let* ((w (split-window-vertically))
+               (h (window-height w)))
+          (select-window w)
+          (switch-to-buffer "*compilation*")
+          (shrink-window (- h compilation-window-height)))))))
+(add-hook 'compilation-mode-hook 'c/compilation-hook)
+
 ;;; Compile on save
 
 ;; Stolen from: https://rtime.ciirc.cvut.cz/~sojka/blog/compile-on-save/
@@ -65,5 +94,19 @@ Interactively also sends a terminating newline."
    "i" 'c/compilation-send-input))
 
 (provide 'chip-code)
+
+;;; Error navigation
+
+(defun c/next-error ()
+  (interactive)
+  (if (flycheck-next-error-pos 1 t)
+      (flycheck-next-error)
+    (next-error)))
+
+(defun c/prev-error ()
+  (interactive)
+  (if (flycheck-next-error-pos 1 t)
+      (flycheck-previous-error)
+    (previous-error)))
 
 ;;; chip-code.el ends here
