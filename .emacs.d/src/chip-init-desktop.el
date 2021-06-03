@@ -1479,6 +1479,10 @@ buffer in current window."
   ;; Iosevka has incorrect width for ellipsis character currently
   (setq truncate-string-ellipsis "..."))
 
+(use-package calfw-org
+  :config
+  (setq cfw:org-face-agenda-item-foreground-color "white"))
+
 (provide 'chip-init-desktop)
 
 ;;; chip-init-desktop.el ends here

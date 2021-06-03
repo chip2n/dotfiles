@@ -352,6 +352,20 @@
   `(chip-theme-treemacs-root-face ((,class (:foreground ,blue-2))))
   `(chip-theme-treemacs-file-face ((,class (:foreground ,blue-2))))
 
+  ;; Calfw
+  `(cfw:face-title ((,class (:foreground ,color-foreground))))
+  `(cfw:face-toolbar ((,class (:background ,color-background))))
+  `(cfw:face-toolbar-button-off ((,class (:background ,color-background :foreground ,color-comment))))
+  `(cfw:face-toolbar-button-on ((,class (:background ,color-background :foreground ,blue-2))))
+  `(cfw:face-grid ((,class (:foreground ,color-highlight-1))))
+  `(cfw:face-select ((,class (:background ,color-highlight-1))))
+  `(cfw:face-day-title ((,class (:background ,color-background))))
+  `(cfw:face-today-title ((,class (:background ,color-highlight-1))))
+  `(cfw:face-holiday ((,class (:foreground ,color-foreground))))
+  `(cfw:face-sunday ((,class (:foreground ,color-foreground))))
+  `(cfw:face-disable ((,class (:foreground ,color-comment))))
+  `(cfw:face-header ((,class (:foreground ,color-foreground))))
+
   ;; Lispy
   `(lispy-face-hint ((,class (:foreground ,grey-4 :weight bold))))
 
