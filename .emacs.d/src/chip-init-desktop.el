@@ -520,6 +520,18 @@ point reaches the beginning or end of the buffer, stop there."
   (add-hook 'clojure-mode-hook 'outshine-mode)
   (add-hook 'clojurescript-mode-hook 'outshine-mode))
 
+;;; Comint
+
+;; I always want comint to scroll to the bottom on output by default so that the
+;; prompt is always visible
+(setq comint-scroll-to-bottom-on-output t)
+
+;; TODO These doesn't seem to work?
+(general-define-key
+ :keymaps '(comint-mode-map)
+  "M-p" 'comint-previous-input
+  "M-n" 'comint-next-input)
+
 ;;; Package: which-key
 
 (use-package which-key
