@@ -34,6 +34,8 @@
 (defconst chip-dev-dir "~/dev/"
   "Path to development directory.")
 
+(setq user-mail-address "andreas@arvidsson.io")
+
 ;;; Straight
 
 (defvar bootstrap-version)
