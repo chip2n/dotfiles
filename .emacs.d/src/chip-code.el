@@ -31,6 +31,8 @@
             (,(kbd "M-p") . c/prev-error)
             (,(kbd "C-c C-f") . c/format-buffer)))
 
+(add-hook 'prog-mode-hook 'c/code-mode)
+
 (defun c/format-buffer ()
   (interactive)
   (lsp-format-buffer))
