@@ -85,6 +85,10 @@ Lisp function does not specify a special indentation."
 
 ;;; Common Lisp
 
+(defun c/quicklisp-symlink (path)
+  (interactive (list (read-directory-name "Select project to symlink: " chip-dev-dir)))
+  (make-symbolic-link (file-truename (s-chop-suffix "/" path)) "~/quicklisp/local-projects/"))
+
 (use-package slime
   :disabled t
   :config
