@@ -102,6 +102,32 @@
   :config
   (setf popper-mode-line nil))
 
+(defun c/split-window-sensibly (&optional window)
+  "Attempt to sensibly split the window.
+WINDOW defaults to current window. If two non-dedicated windows already exist,
+do not split. Otherwise, split along the longest edge."
+  (let ((windows (-filter (-compose 'not 'window-dedicated-p)
+                          (window-list)))
+        (window (or window (selected-window))))
+    (when (< (length windows) 2)
+      (with-selected-window window
+        (if (> (frame-inner-height) (frame-inner-width))
+            (split-window-below)
+          (split-window-right))))))
+
+(setq split-window-preferred-function 'c/split-window-sensibly)
+
+(defun count-visible-buffers (&optional frame)
+  "Count how many buffers are currently being shown. Defaults to selected frame."
+  (length (mapcar #'window-buffer (window-list frame))))
+
+(defun do-not-split-more-than-two-windows (window &optional horizontal)
+  (if (and horizontal (> (count-visible-buffers) 1))
+      nil
+    t))
+
+(advice-add 'window-splittable-p :before-while #'do-not-split-more-than-two-windows)
+
 (provide 'chip-window)
 
 ;;; chip-window.el ends here
