@@ -313,6 +313,8 @@ point reaches the beginning or end of the buffer, stop there."
 
   (general-define-key
    :keymaps '(treemacs-mode-map)
+   "<next>" 'scroll-up-command
+   "<prior>" 'scroll-down-command
    "<backspace>" 'treemacs
    "S-<backspace>" 'treemacs-select-window))
 
