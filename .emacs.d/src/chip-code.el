@@ -37,22 +37,6 @@
   (interactive)
   (lsp-format-buffer))
 
-;;; Compilation buffer
-
-(setq compilation-window-height 20)
-
-(defun c/compilation-hook ()
-  "Force compilation buffer to be shown using vertical split with a short height."
-  (when (not (get-buffer-window "*compilation*"))
-    (save-selected-window
-      (save-excursion
-        (let* ((w (split-window-vertically))
-               (h (window-height w)))
-          (select-window w)
-          (switch-to-buffer "*compilation*")
-          (shrink-window (- h compilation-window-height)))))))
-(add-hook 'compilation-mode-hook 'c/compilation-hook)
-
 ;;; Compile on save
 
 ;; Stolen from: https://rtime.ciirc.cvut.cz/~sojka/blog/compile-on-save/
