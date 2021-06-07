@@ -473,6 +473,15 @@ point reaches the beginning or end of the buffer, stop there."
 (after-load (evil)
   (add-to-list 'evil-emacs-state-modes 'dired-mode))
 
+;; Stolen from: https://emacs.stackexchange.com/a/51614/31683
+(define-minor-mode dired-follow-mode
+  "Diplay file at point in dired after a move."
+  :lighter "dired-follow"
+  :global t
+  (if dired-follow-mode
+      (advice-add 'dired-next-line :after (lambda (arg) (dired-display-file)))
+    (advice-remove 'dired-next-line (lambda (arg) (dired-display-file)))))
+
 ;;; Package: deadgrep
 
 (use-package deadgrep
