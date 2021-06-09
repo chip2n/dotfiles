@@ -23,3 +23,4 @@ ln -sf /home/chip/dotfiles/audio /home/chip/audio
 ln -sf /home/chip/Dropbox/elfeed /home/chip/.elfeed
 ln -sf /home/chip/dotfiles/.ideavimrc /home/chip/.ideavimrc
 ln -sf /home/chip/dotfiles/.asoundrc /home/chip/.asoundrc
+ln -sf /home/chip/dotfiles/.slynkrc /home/chip/.slynkrc

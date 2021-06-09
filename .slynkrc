@@ -1,0 +1,5 @@
+;; Needed to print output in the correct order.
+;; Encountered this when showing a reading prompt with (read-line) and printed the input
+;; back to the user immediately (i.e. REPL-like interaction).
+;; See: https://github.com/joaotavora/sly/issues/347
+(setf slynk:*use-dedicated-output-stream* nil)
