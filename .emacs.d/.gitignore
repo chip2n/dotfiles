@@ -33,3 +33,7 @@ Cask
 .cask/
 emms/
 eln-cache
+.dap-breakpoints
+.extension
+.org-generic-id-locations
+eaf
