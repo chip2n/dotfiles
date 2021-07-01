@@ -1,0 +1,4 @@
+# key: p
+# name: p
+# --
+std.debug.print("$1", .{$2});
