@@ -517,6 +517,7 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package outshine
   :config
   (c/diminish outshine-mode)
+  (c/diminish outline-minor-mode)
   (general-define-key
    :keymaps '(outshine-mode-map)
    :states '(normal)
