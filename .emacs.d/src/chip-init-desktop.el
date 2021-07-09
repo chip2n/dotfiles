@@ -35,6 +35,7 @@
 (require 'chip-modeline)
 (require 'chip-headerline)
 (require 'chip-window)
+(require 'chip-registers)
 ;; (require 'chip-agenda)
 
 (require 'chip-doc)
