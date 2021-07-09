@@ -600,6 +600,7 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package yasnippet
   :init
   :config
+  (c/diminish yas-minor-mode)
   (yas-global-mode 1)
   (add-to-list 'yas-snippet-dirs (locate-user-emacs-file "snippets")))
 
