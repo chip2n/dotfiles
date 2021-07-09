@@ -919,6 +919,13 @@ all elements."
   (pdf-tools-install)
   (add-hook 'pdf-view-mode-hook (lambda () (blink-cursor-mode -1))))
 
+(straight-use-package
+ '(pdf-continuous-scroll-mode
+   :type git
+   :host github
+   :protocol ssh
+   :repo "dalanicolai/pdf-continuous-scroll-mode.el"))
+
 (use-package pomidor
   :config
   (setq pomidor-sound-tick nil
