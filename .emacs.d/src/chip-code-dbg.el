@@ -25,6 +25,7 @@
 (require 's)
 
 (use-package realgud
+  :defer t
   :config
   (setq realgud-safe-mode nil))
 
