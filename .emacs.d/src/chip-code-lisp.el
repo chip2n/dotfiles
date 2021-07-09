@@ -86,6 +86,10 @@
 
 ;;; Elisp
 
+(use-package eldoc
+  :config
+  (c/diminish eldoc-mode))
+
 (defun describe-thing-at-point ()
   "Show the documentation of the Elisp function and variable near point.
 This checks in turn:
