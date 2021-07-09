@@ -163,7 +163,6 @@ Lisp function does not specify a special indentation."
       (sly-start :program inferior-lisp-program :init-function #'init))))
 
 (use-package sly
-  :after (company)
   :config
   (require 'sly-autoloads)
 
@@ -174,9 +173,13 @@ Lisp function does not specify a special indentation."
     (add-to-list 'evil-emacs-state-modes 'sly-inspector-mode)
     (add-hook 'sly-inspector-mode-hook 'evil-emacs-state))
 
+  (after-load (company)
+    (add-hook 'sly-mrepl-mode-hook 'company-mode))
+
   (after-load (lispy)
     (setq lispy-use-sly t))
   (setq org-babel-lisp-eval-fn #'sly-eval)
+
   (general-define-key
    :keymaps 'sly-mode-map
     [remap sly-mrepl] 'sly-mrepl-other-window)
