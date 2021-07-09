@@ -171,6 +171,7 @@ Lisp function does not specify a special indentation."
   (after-load (evil)
     (add-to-list 'evil-emacs-state-modes 'sly-db-mode)
     (add-to-list 'evil-emacs-state-modes 'sly-inspector-mode)
+    (add-hook 'sly-macroexpansion-minor-mode-hook 'evil-emacs-state)
     (add-hook 'sly-inspector-mode-hook 'evil-emacs-state))
 
   (after-load (company)
