@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: li
+# key: li
+# --
+std.log.info("$1", .{$2});
