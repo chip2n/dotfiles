@@ -19,7 +19,11 @@
   :config
   ;; Configure a function which returns the project root directory
   (autoload 'projectile-project-root "projectile")
-  (setq consult-project-root-function #'projectile-project-root))
+  (setq consult-project-root-function #'projectile-project-root)
+
+  (after-load (evil)
+    ;; Remember point before search for `evil-jump-backward'
+    (evil-set-command-property 'consult-line :jump t)))
 
 (use-package marginalia
   :init
