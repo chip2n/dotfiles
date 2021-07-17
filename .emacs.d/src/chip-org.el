@@ -52,7 +52,8 @@
    "M-H" 'org-shiftmetaleft
    "C-<return>" 'c/org-insert-heading-respect-content
    "C-S-<return>" 'c/org-insert-todo-heading-respect-content
-   "<RET>" 'org-return-indent))
+   "<RET>" 'org-return-indent
+   "<tab>" 'org-cycle))
 
 (defun c/org-insert-heading-respect-content ()
   (interactive)
