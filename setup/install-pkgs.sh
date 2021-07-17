@@ -39,3 +39,5 @@ pacman -Syyuu --needed \
   gdb \
   dunst \
   udisk2 udiskie \
+  github-cli \
+  wine wine-mono wine-gecko \
