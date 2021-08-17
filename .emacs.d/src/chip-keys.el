@@ -72,11 +72,15 @@
   (interactive)
   (org-goto-calendar))
 
+(defun chip/history-back ()
+  (interactive)
+  (evil-jump-backward)
+  (recenter-top-bottom))
+
 (general-define-key
  :states '(emacs normal insert visual motion)
 
  ;; file system
- "C-c c" 'chip/open-config-file
  "C-f" 'chip/find-file
  "C-p" 'chip/find-file-project-current
  "C-x p" 'chip/find-file-project-current
@@ -87,6 +91,9 @@
  "C-b" 'chip/switch-buffer
  "C-x b" 'chip/switch-buffer
  "C-S-B" 'chip/switch-buffer-other-window
+
+ ;; navigation
+ "C-o" 'chip/history-back
 
  ;; searching
  "C-c g" 'chip/grep

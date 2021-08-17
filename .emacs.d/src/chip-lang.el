@@ -220,3 +220,7 @@ Lisp function does not specify a special indentation."
     (evil-define-key 'normal haskell-mode-map
       "o" 'haskell-evil-open-below
       "O" 'haskell-evil-open-above)))
+
+;;; Julia
+
+(use-package julia-mode)

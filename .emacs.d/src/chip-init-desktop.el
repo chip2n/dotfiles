@@ -37,6 +37,7 @@
 (require 'chip-window)
 (require 'chip-registers)
 ;; (require 'chip-agenda)
+(require 'chip-project)
 
 (require 'chip-doc)
 (require 'chip-watch)
@@ -435,7 +436,8 @@ point reaches the beginning or end of the buffer, stop there."
             (treemacs-create-icon
              :icon (format "  %s\t" text-icon)
              :extensions (fallback)))))))
-  (treemacs-load-theme "chip"))
+  ;; (treemacs-load-theme "chip")
+  )
 
 (use-package treemacs
   :after (evil)
@@ -448,13 +450,11 @@ point reaches the beginning or end of the buffer, stop there."
   (chip/treemacs-setup-theme)
   (chip/treemacs-setup-keys))
 
-
 ;; I use treemacs-evil, because without it the cursor inside the treemacs
 ;; buffer is still visible despite setting treemacs-show-cursor to nil.
 
 (use-package treemacs-evil
   :after (evil))
-
 
 ;;; Dired
 
@@ -707,47 +707,37 @@ point reaches the beginning or end of the buffer, stop there."
 (require 'org-protocol)
 
 (use-package org-roam
-  :hook
-  (after-init . org-roam-mode)
-  :bind (:map org-roam-mode-map
-         (("C-c n l" . org-roam)
-          ("C-c n t" . org-roam-dailies-find-today)
-          ("C-c n f" . org-roam-find-file)
-          ("C-c n c" . org-roam-dailies-capture-today))
-         :map org-mode-map
-         (("C-c n i" . org-roam-insert)))
+  :straight (org-roam
+             :type git
+             :host github
+             :repo "org-roam/org-roam"
+             :branch "v2")
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n t" . org-roam-dailies-find-today)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n c" . org-roam-dailies-capture-today))
   :config
-  (c/diminish org-roam-mode)
-
+  ;; (setq org-roam-directory "/home/chip/tmp/roam")
   (setq org-roam-directory "/home/chip/org/personal/roam")
-  (setq org-roam-dailies-directory "daily/")
-  (setq org-roam-buffer-position 'left)
-  (setq org-roam-buffer-width 0.2)
-  (setq org-roam-encrypt-files nil)
-  (setq org-roam-db-location "/home/chip/.org-roam.db")
+  (setq org-roam-file-extensions '("org"))
 
   (setq org-roam-dailies-capture-templates
-      '(("e" "entry" entry
-         #'org-roam-capture--get-point
-         "* %?\n%T"
-         :file-name "daily/%<%Y-%m-%d>"
-         :head "#+title: %<%Y-%m-%d>\n")
-        ("u" "supplements" entry
-         #'org-roam-capture--get-point
-         "* Supplements\n%T\n| %? |  |"
-         :file-name "daily/%<%Y-%m-%d>"
-         :head "#+title: %<%Y-%m-%d>\n")
-        ("s" "summary" entry
-         #'org-roam-capture--get-point
-         "* Day summary\n%T\n%?\n\n%(org-clock-report-today)"
-         :file-name "daily/%<%Y-%m-%d>"
-         :head "#+title: %<%Y-%m-%d>\n")
+        '(
+          ("e" "entry" entry
+           "* %?\n%T"
+           :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")
+           ;; :head "#+title: %<%Y-%m-%d>\n"
+           )
+          ("s" "summary" entry
+           "* Day summary\n%T\n%?\n\n%(org-clock-report-today)"
+           :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")
+           :head "#+title: %<%Y-%m-%d>\n")
 
 
-        ("w" "Workout")
-        ("wa" "Workout A" entry
-         #'org-roam-capture--get-point
-         "
+          ("w" "Workout")
+          ("wa" "Workout A" entry
+           "
 * Workout
 %T
 | Bulgarian Split Squat    | 3x10 | %?  |
@@ -755,13 +745,12 @@ point reaches the beginning or end of the buffer, stop there."
 | Straight-Legged Deadlift | 3x10 |   |
 | Plank                    | 3x10 | - |
 "
-         :file-name "daily/%<%Y-%m-%d>"
-         :head "#+title: %<%Y-%m-%d>\n"
-         :clock-in t
-         :clock-resume t)
-        ("wb" "Workout B" entry
-         #'org-roam-capture--get-point
-         "
+           :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")
+           :head "#+title: %<%Y-%m-%d>\n"
+           :clock-in t
+           :clock-resume t)
+          ("wb" "Workout B" entry
+           "
 * Workout
 %T
 | Bulgarian Split Squat | 3x10 | %?  |
@@ -769,15 +758,13 @@ point reaches the beginning or end of the buffer, stop there."
 | Bent Over Row         | 3x10 |   |
 | Plank                 | 3x10 | - |
 "
-         :file-name "daily/%<%Y-%m-%d>"
-         :head "#+title: %<%Y-%m-%d>\n"
-         :clock-in t
-         :clock-resume t)))
+           :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")
+           :head "#+title: %<%Y-%m-%d>\n"
+           :clock-in t
+           :clock-resume t)
+          ))
 
-  (add-to-list 'evil-emacs-state-modes 'org-roam-backlinks-mode)
-  (require 'org-roam-protocol))
-
-(use-package org-roam-server)
+  (org-roam-setup))
 
 (use-package deft
   :after (org evil)
@@ -838,6 +825,7 @@ all elements."
           "https://hnrss.org/newest?comments=10"
           "https://lisp-journey.gitlab.io/index.xml"
           "https://lexi-lambda.github.io/feeds/all.rss.xml"
+          "https://zig.news/feed"                   ; Zig News
           ,(youtube-rss "UCaxar6TBM-94_ezoS00fLkA") ; Day9TV
           ,(youtube-rss "UC0uTPqBCFIpZxlz_Lv1tk_g") ; Protesilaos Stavrou
           ,(reddit-rss private/reddit-rss-feed "chip2n")
@@ -1267,7 +1255,8 @@ all elements."
               ("C-c C-r" . chip/zig-compile-run)
               ("C-c C-b" . chip/zig-compile)
               ("C-c C-k" . kill-compilation)
-              ("C-c C-t" . chip/zig-test))
+              ("C-c C-t" . chip/zig-test)
+              ("C-c C-d" . chip/zig-test-this))
   :config
   ;; formatting on save breaks lsp-mode
   ;; see https://github.com/ziglang/zig-mode/issues/49
@@ -1297,6 +1286,13 @@ all elements."
   (interactive)
   (let ((default-directory (projectile-project-root)))
     (zig--run-cmd "build test")))
+
+(defun chip/zig-test-this ()
+  "Test current file using `zig test`."
+  (interactive)
+  (let ((default-directory (projectile-project-root))
+        (path (buffer-file-name)))
+    (zig--run-cmd "test" path)))
 
 (defun chip/zig-debug ()
   (interactive)

@@ -185,17 +185,14 @@ want to use in the modeline *in lieu of* the original.")
      (diminish ',mode ,to-what)))
 
 (use-package diminish
-  :after (projectile evil-snipe evil-lispy org-roam)
+  :after (all-the-icons)
   :config
   (c/diminish auto-fill-function)
   (c/diminish undo-tree-mode)
   (c/diminish auto-revert-mode (concat " " (chip-modeline--propertize-octicon "sync")))
   (c/diminish emacs-lisp-mode "elisp")
-  (c/diminish eldoc-mode)
-  (c/diminish yas-minor-mode)
   (c/diminish org-indent-mode)
   (c/diminish org-src-mode)
-  (c/diminish outline-minor-mode)
   (c/diminish flycheck-mode)
   (c/diminish visual-line-mode))
 

@@ -58,7 +58,7 @@
   (backward-char 3))
 
 (general-define-key
- :keymaps 'c/code-mode-map
+ :keymaps 'c/code-lisp-mode-map
  "C-;" 'c/lisp-comment-sexp-at-point)
 
 ;;; Lispy
