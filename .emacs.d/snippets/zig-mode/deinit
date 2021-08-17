@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: deinit
+# key: deinit
+# --
+fn deinit(self: *$1) void {
+   $2
+}

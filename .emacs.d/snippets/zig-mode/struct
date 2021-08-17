@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: struct
+# key: struct
+# --
+const $1 = struct {
+    $2
+};
