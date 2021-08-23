@@ -25,7 +25,8 @@ pacman -Syyuu --needed \
   inetutils\
   lld \
   clang \
-  thunar \
+  ffmpeg \
+  thunar tumbler tumbler-plugins-extra ffmpegthumbnailer \
   vlc \
   rsync \
   gnuplot \
