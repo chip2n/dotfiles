@@ -38,7 +38,19 @@
    "C-x ="     'balance-windows
    "M-o"       'ace-window
    "S-<next>"  'scroll-other-window
-   "S-<prior>" 'scroll-other-window-down))
+   "S-<prior>" 'scroll-other-window-down
+   "S-<up>" 'c/prev-line-center
+   "S-<down>" 'c/next-line-center))
+
+(defun c/prev-line-center ()
+  (interactive)
+  (evil-previous-line)
+  (scroll-down 1))
+
+(defun c/next-line-center ()
+  (interactive)
+  (evil-next-line)
+  (scroll-up 1))
 
 (global-set-key [C-tab] 'evil-window-next)
 (global-set-key [C-iso-lefttab] 'evil-window-prev)
