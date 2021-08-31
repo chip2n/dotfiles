@@ -707,11 +707,6 @@ point reaches the beginning or end of the buffer, stop there."
 (require 'org-protocol)
 
 (use-package org-roam
-  :straight (org-roam
-             :type git
-             :host github
-             :repo "org-roam/org-roam"
-             :branch "v2")
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n t" . org-roam-dailies-find-today)
          ("C-c n f" . org-roam-node-find)
