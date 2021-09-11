@@ -57,10 +57,21 @@
     (setq orderless-skip-highlighting (lambda () selectrum-is-active)))
   (savehist-mode 1))
 
+(defun c/selectrum-kill-backwards (&optional arg)
+  "Custom code for killing backwards inside selectrum without saving to the kill ring.
+ARG is the same as for `backward-kill-sexp'."
+  (interactive "p")
+  (save-restriction
+    (narrow-to-region (minibuffer-prompt-end) (point-max))
+    (let ((opoint (point)))
+      (forward-sexp (- (or arg 1)))
+      (delete-region opoint (point)))))
+
 (use-package selectrum
   :bind (:map selectrum-minibuffer-map
          (("<next>" . 'selectrum-next-page)
-          ("<prior>" . 'selectrum-previous-page)))
+          ("<prior>" . 'selectrum-previous-page)
+          ("C-<backspace>" . 'c/selectrum-kill-backwards)))
   :config
   ;; I want the candidate highligt background to extend to the edge of the frame
   (setq selectrum-extend-current-candidate-highlight nil)
