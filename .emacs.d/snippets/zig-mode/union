@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: union
+# key: union
+# --
+const $1 = union {
+    $2
+};

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: lw
+# key: lw
+# --
+std.log.warn("$1", .{$2});
