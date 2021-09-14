@@ -717,9 +717,12 @@ point reaches the beginning or end of the buffer, stop there."
          ("C-c n f" . org-roam-node-find)
          ("C-c n i" . org-roam-node-insert)
          ("C-c n c" . org-roam-dailies-capture-today))
+  :init
+  (setq org-roam-v2-ack t)
   :config
   ;; (setq org-roam-directory "/home/chip/tmp/roam")
   (setq org-roam-directory "/home/chip/org/personal/roam")
+  (setq org-roam-dailies-directory "/home/chip/org/personal/roam/daily")
   (setq org-roam-file-extensions '("org"))
 
   (setq org-roam-dailies-capture-templates
@@ -765,6 +768,19 @@ point reaches the beginning or end of the buffer, stop there."
           ))
 
   (org-roam-setup))
+
+(use-package websocket)
+(use-package simple-httpd)
+
+(use-package org-roam-ui
+  :straight
+    (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
+    :after org-roam
+    :config
+    (setq org-roam-ui-sync-theme t
+          org-roam-ui-follow t
+          org-roam-ui-update-on-save t
+          org-roam-ui-open-on-start t))
 
 (use-package deft
   :after (org evil)
