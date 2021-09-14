@@ -6,6 +6,7 @@ export PATH=$HOME/.cask/bin:$PATH
 export PATH=$HOME/.gem/ruby/2.7.0/bin:$PATH
 export PATH=$HOME/.gem/ruby/3.0.0/bin:$PATH
 export PATH=$HOME/Android/Sdk/platform-tools:$PATH
+export PATH=$HOME/Android/Sdk/tools/bin:$PATH
 export PATH=$HOME/Android/Sdk/emulator:$PATH
 export PATH=$HOME/flutter/bin:$PATH
 export PATH=$HOME/flutter/bin/cache/dart-sdk/bin:$PATH
