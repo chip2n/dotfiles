@@ -707,6 +707,10 @@ point reaches the beginning or end of the buffer, stop there."
 
 (require 'org-protocol)
 
+;; For plotting org-mode tables
+(use-package gnuplot)
+(use-package gnuplot-mode)
+
 (use-package org-roam
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n t" . org-roam-dailies-find-today)
