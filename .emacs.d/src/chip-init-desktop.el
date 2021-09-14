@@ -1221,26 +1221,6 @@ all elements."
   (add-hook 'rustic-mode-hook
             (lambda () (setq company-backends '(company-capf)))))
 
-(defvar lsp-elixir--config-options (make-hash-table))
-
-(use-package elixir-mode
-  :config
-  (add-to-list 'exec-path "/home/chip/elixir-ls/release")
-  (add-hook 'elixir-mode-hook 'lsp)
-  (add-hook 'lsp-after-initialize-hook
-            (lambda () (lsp--set-configuration `(:elixirLS ,lsp-elixir--config-options)))))
-
-(use-package exunit)
-
-;; (use-package inf-elixir
-;;   :load-path "packages/inf-elixir/"
-;;   :bind (
-;;     ("C-c C-l i i" . 'inf-elixir)
-;;     ("C-c C-l i p" . 'inf-elixir-project)
-;;     ("C-c C-l i l" . 'inf-elixir-send-line)
-;;     ("C-c C-l i r" . 'inf-elixir-send-region)
-;;     ("C-c C-l i b" . 'inf-elixir-send-buffer)))
-
 (use-package yaml-mode)
 
 (defun chip/yaml-toggle-fold ()
