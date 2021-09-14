@@ -1384,7 +1384,14 @@ all elements."
    "M-n" 'vterm-send-down
    "M-p" 'vterm-send-up)
   ;; line highlight flickers in vterm, so disable it
-  (add-hook 'vterm-mode-hook (lambda () (setq-local global-hl-line-mode nil))))
+  (add-hook 'vterm-mode-hook (lambda () (setq-local global-hl-line-mode nil)))
+  ;; reset window configuration when toggling back
+  (setq vterm-toggle-hide-method 'reset-window-configration)
+  ;; show vterm in current window
+  (setq vterm-toggle-fullscreen-p nil)
+  (add-to-list 'display-buffer-alist
+               '((lambda (bufname _) (with-current-buffer bufname (equal major-mode 'vterm-mode)))
+                 (display-buffer-reuse-window display-buffer-same-window))))
 
 (defun chip/vterm-toggle-cd ()
   "Toggles vterm buffer with current working directory."
