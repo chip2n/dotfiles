@@ -111,6 +111,7 @@
 
  ;; quickly jump to an org headline
  "C-c j" 'c/org-jump-to-headline
+ "C-c J" 'c/project-org-jump
 
  ;; code
  "M-." 'xref-find-definitions

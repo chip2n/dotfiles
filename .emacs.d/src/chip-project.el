@@ -26,11 +26,32 @@
 
 ;;; Code:
 
+(defvar-local c/project-org-id nil
+  "ID for org header associated with current project.
+This can be used with directory local variables to be able to jump the project
+org task quickly.")
+
+(defun c/project-org-jump ()
+  "Jump to org header associated with current project."
+  (interactive)
+  (unless c/project-org-id (error "Set c/project-org-id variable to the ID of the org header for this project."))
+  (org-id-goto c/project-org-id))
+
 (defmacro with-project-root (&rest body)
   "Run `body' in the root of the project as located by projectile."
   (let ((project-root-buffer (gensym)))
     `(save-excursion
        (let ((,project-root-buffer (find-file-noselect (projectile-project-root))))
+         (set-buffer ,project-root-buffer)
+         ,@body
+         (kill-buffer ,project-root-buffer)))))
+
+(defmacro with-dominating-file-dir (filename &rest body)
+  "Run `body' in the root of the project as located by projectile."
+  (declare (indent defun))
+  (let ((project-root-buffer (gensym)))
+    `(save-excursion
+       (let ((,project-root-buffer (find-file-noselect (locate-dominating-file default-directory ,filename))))
          (set-buffer ,project-root-buffer)
          ,@body
          (kill-buffer ,project-root-buffer)))))

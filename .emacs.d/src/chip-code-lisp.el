@@ -23,7 +23,7 @@
 ;;; Code:
 
 (define-minor-mode c/code-lisp-mode
-  ""
+  "Mode for working with lisp code."
   :lighter nil
   (if c/code-lisp-mode
       (progn
@@ -38,6 +38,7 @@
       (prettify-symbols-mode -1))))
 
 ;; TODO move these
+(add-hook 'lisp-data-mode-hook #'c/code-lisp-mode)
 (add-hook 'emacs-lisp-mode-hook #'c/code-lisp-mode)
 (add-hook 'clojure-mode-hook #'c/code-lisp-mode)
 (add-hook 'cider-repl-mode-hook #'c/code-lisp-mode)
