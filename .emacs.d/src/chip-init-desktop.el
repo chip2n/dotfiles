@@ -47,6 +47,7 @@
 (require 'chip-code)
 (require 'chip-code-dbg)
 (require 'chip-code-lisp)
+(require 'chip-code-elixir)
 (require 'chip-lang)
 
 ;;; Package: paren-face
