@@ -276,6 +276,10 @@ point reaches the beginning or end of the buffer, stop there."
   (setq evil-snipe-scope 'buffer)
   (evil-snipe-mode +1)
   (evil-snipe-override-mode +1)
+
+  ;; I don't want search to repeat when tapping s/f again (I use ; for this)
+  (setq evil-snipe-repeat-keys nil)
+
   ;; turn off evil-snipe in magit
   (add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode))
 
