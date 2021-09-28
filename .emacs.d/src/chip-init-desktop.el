@@ -636,7 +636,7 @@ point reaches the beginning or end of the buffer, stop there."
   (setq lsp-enable-xref nil)
   (setq lsp-ui-sideline-enable nil)
   ;; (setq lsp-ui-doc-enable nil)
-  (setq lsp-lens-enable t)
+  (setq lsp-lens-enable nil)
   (setq lsp-auto-guess-root t)
   (setq lsp-headerline-breadcrumb-enable nil)
 
@@ -653,6 +653,10 @@ point reaches the beginning or end of the buffer, stop there."
    "gd" 'lsp-find-definition))
 
 (use-package lsp-ui)
+
+(use-package dap-mode
+  :config
+  (setq dap-auto-configure-features '(sessions locals tooltip)))
 
 (use-package evil-nerd-commenter
   :bind (:map prog-mode-map
@@ -989,16 +993,17 @@ all elements."
 
 (use-package pyvenv)
 
+(use-package lsp-dart
+  :config
+  (setq lsp-dart-sdk-dir "/home/chip/flutter/bin/cache/dart-sdk/")
+  (add-hook 'dart-mode-hook 'lsp)
+  (setq lsp-dart-dap-flutter-hot-reload-on-save t))
+
 (use-package dart-mode
   :after (projectile)
   :config
   (add-to-list 'auto-mode-alist (cons (rx ".dart" eos) 'dart-mode))
-  ;; (setq dart-enable-analysis-server t)
-  (setq dart-sdk-path "/home/chip/flutter/bin/cache/dart-sdk/")
-  (add-hook 'dart-mode-hook 'lsp)
   (add-hook 'dart-mode-hook 'flycheck-mode)
-  (add-hook 'dart-mode-hook (lambda ()
-                              (add-hook 'after-save-hook 'flutter-hot-reload nil 'make-it-local)))
   (add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml")
   (add-to-list 'projectile-project-root-files-bottom-up "BUILD")
 
@@ -1015,9 +1020,6 @@ all elements."
    "wg" 'flutter-widget-wrap-group
    "wr" 'flutter-widget-lift
    "f" 'dart-server-format))
-
-(use-package dart-server
-  :after (dart-mode))
 
 (defun flutter--find-project-root ()
   (locate-dominating-file (buffer-file-name) "pubspec.yaml"))
