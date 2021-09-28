@@ -61,16 +61,26 @@
   (with-dominating-file-dir "mix.exs"
     (async-shell-command "mix ecto.migrate" "*mix deps.get*")))
 
-(defhydra hydra-elixir ()
-  "elixir"
-  ("r" c/elixir-run-phx "mix phx.server")
-  ("d" c/elixir-fetch-deps "mix deps.get")
-  ("m" c/elixir-ecto-migrate "mix ecto.migrate"))
+(pretty-hydra-define hydra-elixir (:color teal :title "λ Elixir" :quit-key "q")
+  ("Action"
+   (("r" c/elixir-run-phx "mix phx.server")
+    ("d" c/elixir-fetch-deps "mix deps.get")
+    ("m" c/elixir-ecto-migrate "mix ecto.migrate"))
+
+   "Testing"
+   (("tc" exunit-verify "test current file")
+    ("tt" exunit-rerun "rerun last test")
+    ("tp" exunit-verify-all "test project"))))
 
 (use-package elixir-mode
   :config
   (setq lsp-clients-elixir-server-executable '("~/dev/elixir-ls/release/language_server.sh"))
   (add-hook 'elixir-mode-hook 'lsp))
+
+(use-package smartparens
+  :config
+  (require 'smartparens-config)
+  (add-hook 'elixir-mode-hook 'smartparens-mode))
 
 (use-package mix)
 
@@ -81,6 +91,31 @@
 (use-package inf-elixir
   :config
   (add-hook 'elixir-mode-hook 'inf-elixir-minor-mode))
+
+(use-package web-mode
+  :config
+  (setq web-mode-markup-indent-offset 2))
+
+(use-package polymode
+  :after (web-mode polymode)
+  :mode ("\.ex$" . poly-elixir-web-mode)
+  :config
+  (define-hostmode poly-elixir-hostmode :mode 'elixir-mode)
+  (define-innermode poly-liveview-expr-elixir-innermode
+    :mode 'web-mode
+    :head-matcher (rx line-start (* space) "~H" (= 3 (char "\"'")) "\n")
+    :tail-matcher (rx line-start (* space) (= 3 (char "\"'")) line-end)
+    :head-mode 'host
+    :tail-mode 'host
+    :allow-nested nil
+    :keep-in-mode 'host
+    :fallback-mode 'host)
+  (define-polymode poly-elixir-web-mode
+    :hostmode 'poly-elixir-hostmode
+    :innermodes '(poly-liveview-expr-elixir-innermode))
+  ;; We don't care about the keybindings
+  (setcdr polymode-mode-map nil))
+(setq web-mode-engines-alist '(("elixir" . "\\.ex\\'")))
 
 (provide 'chip-code-elixir)
 

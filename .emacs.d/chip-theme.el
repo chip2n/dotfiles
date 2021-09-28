@@ -226,6 +226,11 @@
   `(swiper-match-face-1 ((,class (:background ,white-1 :foreground ,grey-2 :weight bold))))
   `(swiper-background-match-face-1 ((,class (:background ,color-highlight-2 :foreground ,white-1 :weight bold))))
 
+  ;; Hydra
+  `(hydra-face-red ((,class (:foreground ,red-1))))
+  `(hydra-face-amaranth ((,class (:foreground ,pink-1))))
+  `(hydra-face-teal ((,class (:foreground ,blue-1))))
+
   ;; Org
   `(org-default ((,class (:foreground ,white-1 :underline nil))))
   `(org-ellipsis ((,class (:foreground ,grey-4))))

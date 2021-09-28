@@ -130,6 +130,11 @@
  "+" 'text-scale-increase
  "-" 'text-scale-decrease)
 
+;;; Hydra
+
+(use-package hydra)
+(use-package major-mode-hydra)
+
 (provide 'chip-keys)
 
 ;;; chip-keys.el ends here
