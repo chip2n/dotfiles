@@ -3,7 +3,7 @@
 # key: slw.child
 # --
 class $1 extends StatelessWidget {
-  $1({this.child});
+  const $1({Key? key, required this.child}) : super(key: key);
 
   final Widget child;
 
