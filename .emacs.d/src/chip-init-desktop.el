@@ -1531,6 +1531,10 @@ buffer in current window."
   :config
   (setq cfw:org-face-agenda-item-foreground-color "white"))
 
+;; Docker
+
+(use-package dockerfile-mode)
+
 (provide 'chip-init-desktop)
 
 ;;; chip-init-desktop.el ends here
