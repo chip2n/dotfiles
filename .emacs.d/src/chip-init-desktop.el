@@ -1539,6 +1539,18 @@ buffer in current window."
 
 (use-package dockerfile-mode)
 
+;; web-mode
+
+(use-package web-mode
+  :config
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-engines-alist '(("elixir" . "\\.ex\\'")
+                                 ("elixir" . "\\.heex\\'")
+                                 ("elixir" . "\\.sface\\'")))
+  (add-to-list 'auto-mode-alist '("\\.sface\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.heex\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.mjml\\'" . web-mode)))
+
 (provide 'chip-init-desktop)
 
 ;;; chip-init-desktop.el ends here

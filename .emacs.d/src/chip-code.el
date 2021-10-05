@@ -34,9 +34,10 @@
 
 (add-hook 'prog-mode-hook 'c/code-mode)
 
+(defvar c/format-fun #'lsp-format-buffer)
 (defun c/format-buffer ()
   (interactive)
-  (lsp-format-buffer))
+  (funcall c/format-fun))
 
 ;; Allows me to specify custom compilation commands using dir locals, modes etc
 ;; to have a unified keybinding for it
