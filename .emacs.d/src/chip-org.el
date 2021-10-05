@@ -103,8 +103,11 @@ The start timestamp of the clock entry is created `mins' minutes from the curren
 
 ;;; Attachments
 
-;; use inheritance for attachments - this allows us to link to an file attached to a parent node
+;; Use inheritance for attachments - this allows us to link to an file attached to a parent node
 (setq org-attach-use-inheritance t)
+
+;; Use relative attachment directory to separate work and personal stuff (this breaks refiling a bit though!)
+(setq org-attach-id-dir "data/")
 
 ;;; Jump to headline
 
@@ -554,9 +557,9 @@ The start timestamp of the clock entry is created `mins' minutes from the curren
 (require 'org-habit)
 
 (setq org-agenda-files
-      '("~/org/personal/personal.org"
-        "~/org/personal/refile.org"
-        "~/org/remente/remente.org"))
+      `(,(concat c/org-dir "personal/personal.org")
+        ,(concat c/org-dir "personal/refile.org")
+        ,(concat c/org-dir "remente/remente.org")))
 
 ;; keep agenda filters after closing agenda buffer
 (setq org-agenda-persistent-filter t)
