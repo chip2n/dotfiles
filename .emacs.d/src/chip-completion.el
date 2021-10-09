@@ -50,9 +50,11 @@
 
 (use-package orderless
   :ensure t
-  :custom (completion-styles '(orderless))
+  :custom (completion-styles '(basic partial-completion orderless))
   :config
   (setq orderless-matching-styles '(orderless-literal orderless-regexp))
+  ;; allow & as separator, useful for company-mode where space breaks completion
+  (setq orderless-component-separator "[ &]")
   (after-load (selectrum)
     (setq orderless-skip-highlighting (lambda () selectrum-is-active)))
   (savehist-mode 1))
@@ -83,6 +85,7 @@ ARG is the same as for `backward-kill-sexp'."
     (setq selectrum-highlight-candidates-function #'orderless-highlight-matches))
 
   (selectrum-mode +1))
+
 (define-minor-mode c/complete-mode
   "Enable code completion."
   :global nil
