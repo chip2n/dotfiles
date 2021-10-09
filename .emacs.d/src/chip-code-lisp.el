@@ -30,16 +30,19 @@
         (if (featurep 'evil-lispy)
             (evil-lispy-mode 1)
           (lispy-mode 1))
-        (prettify-symbols-mode 1))
+        (prettify-symbols-mode 1)
+        (c/complete-mode 1))
     (progn
       (if (featurep 'evil-lispy)
           (evil-lispy-mode -1)
         (lispy-mode -1))
-      (prettify-symbols-mode -1))))
+      (prettify-symbols-mode -1)
+      (c/complete-mode -1))))
 
 ;; TODO move these
 (add-hook 'lisp-data-mode-hook #'c/code-lisp-mode)
 (add-hook 'emacs-lisp-mode-hook #'c/code-lisp-mode)
+(add-hook 'ielm-mode-hook #'c/code-lisp-mode)
 (add-hook 'clojure-mode-hook #'c/code-lisp-mode)
 (add-hook 'cider-repl-mode-hook #'c/code-lisp-mode)
 (add-hook 'clojurescript-mode-hook #'c/code-lisp-mode)
