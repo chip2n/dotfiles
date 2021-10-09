@@ -679,7 +679,10 @@ point reaches the beginning or end of the buffer, stop there."
   ;; (setq evil-move-cursor-back t)
   (setq evil-move-beyond-eol t)
   (evil-set-initial-state 'help-mode 'emacs)
-  (evil-set-initial-state 'image-mode 'emacs))
+  (evil-set-initial-state 'image-mode 'emacs)
+  (evil-set-initial-state 'special-mode 'emacs)
+
+  )
 
 (use-package evil-visualstar
   :after (evil)
