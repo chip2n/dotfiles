@@ -34,6 +34,9 @@
 (defconst chip-dev-dir "~/dev/"
   "Path to development directory.")
 
+(defconst c/org-dir "~/org/"
+  "Path to org files.")
+
 (setq user-mail-address "andreas@arvidsson.io")
 
 ;;; Straight
