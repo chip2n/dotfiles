@@ -694,6 +694,7 @@ point reaches the beginning or end of the buffer, stop there."
   :config
   (evil-collection-init 'dired)
   (evil-collection-init 'cider)
+  (evil-collection-init 'vterm)
   (c/diminish evil-collection-unimpaired-mode))
 
 (setq evil-fold-list
@@ -1393,7 +1394,7 @@ all elements."
 (use-package vterm-toggle
   :config
   (general-define-key
-   "C-c t" 'vterm-toggle
+   "C-c t" 'vterm
    "C-c T" 'chip/vterm-toggle-cd))
 
 (use-package multi-term
