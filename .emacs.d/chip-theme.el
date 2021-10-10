@@ -147,6 +147,9 @@
   `(mode-line-evil-state-motion ((,class (:foreground ,color-evil-motion))))
   `(mode-line-evil-state-emacs ((,class (:foreground ,color-evil-emacs))))
 
+  ;; Info
+  `(Info-quoted ((,class (:foreground ,pink-2 :bold t))))
+
   ;; Telephone line faces
   `(telephone-line-evil-normal
     ((,class (:background ,color-evil-normal :foreground ,color-foreground :weight bold))))
