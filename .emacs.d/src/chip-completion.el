@@ -37,6 +37,16 @@ targets."
   (c/embark-file-open-term
    (expand-file-name path (projectile-project-root))))
 
+(defun c/embark-file-save-absolute-path (file)
+  "Save the absolute path to FILE in the kill ring"
+  (interactive "FFile: ")
+  (kill-new (expand-file-name file default-directory)))
+
+(defun c/embark-project-save-absolute-path (file)
+  "Save the absolute path to FILE in the kill ring"
+  (interactive "FFile: ")
+  (kill-new (expand-file-name file (projectile-project-root))))
+
 (use-package embark
   :bind ("C-," . embark-act)
   :config
@@ -50,7 +60,10 @@ targets."
     "Keymap for actions when completing on project files.")
 
   (define-key embark-file-map (kbd "t") 'c/embark-file-open-term)
+  (define-key embark-file-map (kbd "a") 'c/embark-file-save-absolute-path)
+
   (define-key embark-project-map (kbd "t") 'c/embark-project-open-term)
+  (define-key embark-project-map (kbd "a") 'c/embark-project-save-absolute-path)
 
   (add-to-list 'embark-keymap-alist '(project . embark-project-map))
   (add-to-list 'marginalia-command-categories '(projectile-find-file . project))
