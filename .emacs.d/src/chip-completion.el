@@ -1,19 +1,72 @@
+(defun embark-which-key-indicator ()
+  "An embark indicator that displays keymaps using which-key.
+The which-key help message will show the type and value of the
+current target followed by an ellipsis if there are further
+targets."
+  (lambda (&optional keymap targets prefix)
+    (if (null keymap)
+        (which-key--hide-popup-ignore-command)
+      (which-key--show-keymap
+       (if (eq (caar targets) 'embark-become)
+           "Become"
+         (format "Act on %s '%s'%s"
+                 (plist-get (car targets) :type)
+                 (embark--truncate-target (plist-get (car targets) :target))
+                 (if (cdr targets) "…" "")))
+       (if prefix
+           (pcase (lookup-key keymap prefix 'accept-default)
+             ((and (pred keymapp) km) km)
+             (_ (key-binding prefix 'accept-default)))
+         keymap)
+       nil nil t))))
+
+(defun c/vterm-clear-prompt ()
+  (let ((beg (vterm--get-prompt-point))
+        (end (vterm--get-end-of-line)))
+    (vterm-delete-region beg end)))
+
+(defun c/embark-file-open-term (path)
+  (let* ((path (file-name-directory path))
+         (default-directory path))
+    (vterm)
+    (c/vterm-clear-prompt)
+    (vterm-insert (format "cd %s" path))
+    (vterm-send-return)))
+
+(defun c/embark-project-open-term (path)
+  (c/embark-file-open-term
+   (expand-file-name path (projectile-project-root))))
+
 (use-package embark
   :bind ("C-," . embark-act)
   :config
   ;; show command help via which-key
-  (setq embark-action-indicator
-        (lambda (map)
-          (which-key--show-keymap "Embark" map nil nil 'no-paging)
-          #'which-key--hide-popup-ignore-command)
-        embark-become-indicator embark-action-indicator)
+  (setq embark-indicators
+  '(embark-which-key-indicator
+    embark-highlight-indicator
+    embark-isearch-highlight-indicator))
 
-  (embark-define-keymap embark-project-file-map
-    "Keymap for actions when completing on project files."
-    ("d" delete-file)
-    ;; ("r" rename-file)
-    ;; ("c" copy-file)
-    ))
+  (embark-define-keymap embark-project-map
+    "Keymap for actions when completing on project files.")
+
+  (define-key embark-file-map (kbd "t") 'c/embark-file-open-term)
+  (define-key embark-project-map (kbd "t") 'c/embark-project-open-term)
+
+  (add-to-list 'embark-keymap-alist '(project . embark-project-map))
+  (add-to-list 'marginalia-command-categories '(projectile-find-file . project))
+  (add-to-list 'marginalia-command-categories '(projectile-find-dir . project))
+  (add-to-list 'marginalia-command-categories '(projectile-switch-project . project))
+
+  (add-to-list 'marginalia-command-categories '(projectile-commander . project)))
+
+(use-package embark-consult
+  :ensure t
+  :after (embark consult)
+  :demand t ; only necessary if you have the hook below
+  ;; if you want to have consult previews as you move around an
+  ;; auto-updating embark collect buffer
+  :hook
+  (embark-collect-mode . embark-consult-preview-minor-mode))
 
 (use-package consult
   :config
@@ -34,19 +87,32 @@
   ;; Display more annotations - e.g. docstring with M-x
   (setq marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
 
-  ; When using Selectrum, ensure that Selectrum is refreshed when cycling annotations.
+  ;; When using Selectrum, ensure that Selectrum is refreshed when cycling annotations.
   (advice-add #'marginalia-cycle :after
               (lambda () (when (bound-and-true-p selectrum-mode) (selectrum-exhibit)))))
 
-;; Consult users will also want the embark-consult package.
-(use-package embark-consult
-  :ensure t
-  :after (embark consult)
-  :demand t ; only necessary if you have the hook below
-  ;; if you want to have consult previews as you move around an
-  ;; auto-updating embark collect buffer
-  :hook
-  (embark-collect-mode . embark-consult-preview-minor-mode))
+;; -----------------------------------------------------------------------------
+;; Marginalia doesn't remember the this-command when switching projects using
+;; projectile, since it uses multiple minibuffers. In order to classify project
+;; completions properly, we keep track of when we're in the process of switching
+;; projects and make sure to return the correct category
+
+(defvar c/switching-project? nil)
+(defun c/projectile-before-switch-project ()
+  (setq c/switching-project? t))
+(defun c/projectile-after-switch-project ()
+  (setq c/switching-project? nil))
+
+(after-load (projectile marginalia)
+  (add-hook 'projectile-before-switch-project-hook #'c/projectile-before-switch-project)
+  (add-hook 'projectile-after-switch-project-hook #'c/projectile-after-switch-project)
+
+  (advice-add 'marginalia-classify-by-prompt :around
+              (lambda (orig-fun &rest args)
+                (if c/switching-project?
+                    'project
+                  (apply orig-fun args)))))
+;; -----------------------------------------------------------------------------
 
 (use-package orderless
   :ensure t

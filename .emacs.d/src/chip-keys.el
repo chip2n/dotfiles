@@ -32,14 +32,6 @@
   (interactive)
   (call-interactively #'find-file))
 
-(defun chip/find-file-project-current ()
-  (interactive)
-  (projectile-find-file))
-
-(defun chip/find-file-project ()
-  (interactive)
-  (projectile-switch-project))
-
 (defun chip/switch-buffer ()
   (interactive)
   (consult-buffer))
@@ -82,10 +74,10 @@
 
  ;; file system
  "C-f" 'chip/find-file
- "C-p" 'chip/find-file-project-current
- "C-x p" 'chip/find-file-project-current
- "C-S-P" 'chip/find-file-project
- "C-x P" 'chip/find-file-project
+ "C-p" 'projectile-find-file
+ "C-x p" 'projectile-find-file
+ "C-S-P" 'projectile-switch-project
+ "C-x P" 'projectile-switch-project
 
  ;; buffers
  "C-b" 'chip/switch-buffer
