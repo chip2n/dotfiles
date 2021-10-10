@@ -106,8 +106,8 @@ The start timestamp of the clock entry is created `mins' minutes from the curren
 ;; Use inheritance for attachments - this allows us to link to an file attached to a parent node
 (setq org-attach-use-inheritance t)
 
-;; Use relative attachment directory to separate work and personal stuff (this breaks refiling a bit though!)
-(setq org-attach-id-dir "data/")
+;; Use absolute attachment directory so that refiling doesn't break attachments
+(setq org-attach-id-dir (concat c/org-dir "attachments"))
 
 ;;; Jump to headline
 
