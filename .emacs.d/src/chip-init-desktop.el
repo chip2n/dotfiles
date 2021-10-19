@@ -1221,6 +1221,13 @@ all elements."
    :keymaps 'typescript-mode-map
    "gd" 'tide-jump-to-definition))
 
+(defun c/tsc-watch (path)
+  (interactive (list (read-file-name "Select file to watch with tsc: ")))
+  (vterm "*tsc*")
+  (c/vterm-cd (file-name-directory path))
+  (vterm-insert "npx tsc -w")
+  (vterm-send-return))
+
 (use-package kotlin-mode
   :config
   (setq kotlin-tab-width 4)
