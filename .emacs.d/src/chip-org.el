@@ -394,6 +394,7 @@ The start timestamp of the clock entry is created `mins' minutes from the curren
    (emacs-lisp . t)
    (lisp . t)
    (forth . t)
+   (julia . t)
    (http . t)))
 
 ;; Enable noweb expansion in all languages
