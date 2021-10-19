@@ -20,18 +20,10 @@ targets."
          keymap)
        nil nil t))))
 
-(defun c/vterm-clear-prompt ()
-  (let ((beg (vterm--get-prompt-point))
-        (end (vterm--get-end-of-line)))
-    (vterm-delete-region beg end)))
-
 (defun c/embark-file-open-term (path)
   (let* ((path (file-name-directory path))
          (default-directory path))
-    (vterm)
-    (c/vterm-clear-prompt)
-    (vterm-insert (format "cd %s" path))
-    (vterm-send-return)))
+    (c/vterm-toggle-cd path)))
 
 (defun c/embark-project-open-term (path)
   (c/embark-file-open-term

@@ -1132,6 +1132,10 @@ all elements."
   (interactive)
   (nvm-use "v10.23.0"))
 
+(defun chip/vterm-nvm-14.18.1 ()
+  (interactive)
+  (nvm-use "v14.18.1" (lambda () (vterm "*vterm-nvm-14.18.1*"))))
+
 (defun chip/vterm-nvm-10.23.0 ()
   (interactive)
   (nvm-use "v10.23.0" (lambda () (vterm "*vterm-nvm-10.23.0*"))))
@@ -1374,6 +1378,9 @@ all elements."
    "S-<next>" 'scroll-other-window
    "M-n" 'vterm-send-down
    "M-p" 'vterm-send-up)
+  (general-define-key
+   "C-c t" 'vterm
+   "C-c T" 'c/vterm-toggle-cd)
   ;; line highlight flickers in vterm, so disable it
   (add-hook 'vterm-mode-hook (lambda () (setq-local global-hl-line-mode nil)))
   ;; reset window configuration when toggling back
@@ -1384,19 +1391,22 @@ all elements."
                '((lambda (bufname _) (with-current-buffer bufname (equal major-mode 'vterm-mode)))
                  (display-buffer-reuse-window display-buffer-same-window))))
 
-(defun chip/vterm-toggle-cd ()
-  "Toggles vterm buffer with current working directory."
-  (interactive)
-  (let ((dir default-directory))
-    (vterm-toggle-cd)
-    (vterm-toggle-insert-cd)
-    (cd dir)))
+(defun c/vterm-clear-prompt ()
+  (let ((beg (vterm--get-prompt-point))
+        (end (vterm--get-end-of-line)))
+    (vterm-delete-region beg end)))
 
-(use-package vterm-toggle
-  :config
-  (general-define-key
-   "C-c t" 'vterm
-   "C-c T" 'chip/vterm-toggle-cd))
+(defun c/vterm-toggle-cd (path)
+  (interactive)
+  "Switch to vterm buffer and send cd command."
+  (vterm)
+  (vterm-cd))
+
+(defun c/vterm-cd (path)
+  "Switch to vterm buffer and send cd command."
+  (c/vterm-clear-prompt)
+  (vterm-insert (format "cd %s" path))
+  (vterm-send-return))
 
 (use-package multi-term
   :config
