@@ -1403,17 +1403,17 @@ all elements."
         (end (vterm--get-end-of-line)))
     (vterm-delete-region beg end)))
 
-(defun c/vterm-toggle-cd (path)
-  (interactive)
-  "Switch to vterm buffer and send cd command."
-  (vterm)
-  (vterm-cd))
-
 (defun c/vterm-cd (path)
   "Switch to vterm buffer and send cd command."
   (c/vterm-clear-prompt)
   (vterm-insert (format "cd %s" path))
   (vterm-send-return))
+
+(defun c/vterm-toggle-cd (path)
+  (interactive)
+  "Switch to vterm buffer and send cd command."
+  (vterm)
+  (c/vterm-cd path))
 
 (use-package multi-term
   :config
