@@ -34,6 +34,8 @@
 
 (require 'chip-modeline)
 (require 'chip-headerline)
+
+(require 'chip-evil)
 (require 'chip-window)
 (require 'chip-registers)
 ;; (require 'chip-agenda)
@@ -661,58 +663,6 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package dap-mode
   :config
   (setq dap-auto-configure-features '(sessions locals tooltip)))
-
-(use-package evil-nerd-commenter
-  :bind (:map prog-mode-map
-              (("C-;" . evilnc-comment-or-uncomment-lines))))
-
-(use-package evil
-  :init
-  (setq evil-want-keybinding nil)
-  (setq evil-want-C-u-scroll nil)
-  (setq evil-want-C-d-scroll t)
-  (setq evil-disable-insert-state-bindings t)
-  :config
-  (evil-mode 1)
-  ;; allow cursor to move past last character - useful in lisp for
-  ;; evaluating last sexp
-  ;; (setq evil-move-cursor-back t)
-  (setq evil-move-beyond-eol t)
-  (evil-set-initial-state 'help-mode 'emacs)
-  (evil-set-initial-state 'Info-mode 'emacs)
-  (evil-set-initial-state 'image-mode 'emacs)
-  (evil-set-initial-state 'special-mode 'emacs)
-
-  )
-
-(use-package evil-visualstar
-  :after (evil)
-  :config
-  (global-evil-visualstar-mode))
-
-(use-package evil-collection
-  :after (evil)
-  :config
-  (evil-collection-init 'dired)
-  (evil-collection-init 'cider)
-  (evil-collection-init 'vterm)
-  (c/diminish evil-collection-unimpaired-mode))
-
-(setq evil-fold-list
-      '(((hs-minor-mode)
-         :open-all hs-show-all :close-all hs-hide-all :toggle hs-toggle-hiding :open hs-show-block :open-rec nil :close hs-hide-block :close-level my-hs-hide-level)
-        ((hide-ifdef-mode)
-         :open-all show-ifdefs :close-all hide-ifdefs :toggle nil :open show-ifdef-block :open-rec nil :close hide-ifdef-block)
-        ((outline-mode outline-minor-mode org-mode markdown-mode)
-         :open-all show-all :close-all
-         #[nil "\300\301!\207"
-               [hide-sublevels 1]
-               2]
-         :toggle outline-toggle-children :open
-         #[nil "\300 \210\301 \207"
-               [show-entry show-children]
-               1]
-         :open-rec show-subtree :close hide-subtree :close-level hide-leaves)))
 
 ;;; org-mode
 
