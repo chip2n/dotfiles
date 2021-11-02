@@ -119,19 +119,39 @@ targets."
                   (apply orig-fun args)))))
 ;; -----------------------------------------------------------------------------
 
+(use-package savehist
+  :config
+  (savehist-mode 1))
+
 (use-package orderless
   :ensure t
+  ;; :hook (minibuffer-setup . c/use-orderless-in-minibuffer)
   :custom (completion-styles '(basic partial-completion orderless))
+  ;; Fixes /ssh: prefix when using Vertico
+  :custom (completion-category-overrides '((file (styles basic partial-completion))))
+  :preface
+  ;; In the minibuffer, I don't use basic completion since it "breaks" in common
+  ;; scenarios such as writing "master" looking for "origin/master".
+  ;; (defun c/use-orderless-in-minibuffer ()
+  ;;   (setq-local completion-styles '(substring orderless)))
   :config
   (setq orderless-matching-styles '(orderless-literal orderless-regexp))
   ;; allow & as separator, useful for company-mode where space breaks completion
   (setq orderless-component-separator "[ &]")
   (after-load (selectrum)
-    (setq orderless-skip-highlighting (lambda () selectrum-is-active)))
-  (savehist-mode 1))
+    (setq orderless-skip-highlighting (lambda () selectrum-is-active))))
 
-(defun c/selectrum-kill-backwards (&optional arg)
-  "Custom code for killing backwards inside selectrum without saving to the kill ring.
+;; (use-package orderless
+;;   :hook (minibuffer-setup . sanityinc/use-orderless-in-minibuffer)
+;;   :config
+;;   (setq completion-category-defaults nil
+;;         completion-category-overrides '((file (styles partial-completion))))
+;;   :preface
+;;   (defun sanityinc/use-orderless-in-minibuffer ()
+;;     (setq-local completion-styles '(substring orderless))))
+
+(defun c/minibuffer-kill-backwards (&optional arg)
+  "Custom code for killing backwards inside minibuffer without saving to the kill ring.
 ARG is the same as for `backward-kill-sexp'."
   (interactive "p")
   (save-restriction
@@ -140,22 +160,37 @@ ARG is the same as for `backward-kill-sexp'."
       (forward-sexp (- (or arg 1)))
       (delete-region opoint (point)))))
 
-(use-package selectrum
-  :bind (:map selectrum-minibuffer-map
-         (("<next>" . 'selectrum-next-page)
-          ("<prior>" . 'selectrum-previous-page)
-          ("C-<backspace>" . 'c/selectrum-kill-backwards)))
-  :config
-  ;; I want the candidate highligt background to extend to the edge of the frame
-  (setq selectrum-extend-current-candidate-highlight nil)
+;; (use-package selectrum
+;;   :bind (:map selectrum-minibuffer-map
+;;          (("<next>" . 'selectrum-next-page)
+;;           ("<prior>" . 'selectrum-previous-page)
+;;           ("C-<backspace>" . 'c/selectrum-kill-backwards)))
+;;   :config
+;;   ;; I want the candidate highligt background to extend to the edge of the frame
+;;   (setq selectrum-extend-current-candidate-highlight nil)
 
-  ;; Got some issues with buffer height when using 1440p monitor - this seems to fix that
-  (setq selectrum-fix-vertical-window-height t)
+;;   ;; Got some issues with buffer height when using 1440p monitor - this seems to fix that
+;;   (setq selectrum-fix-vertical-window-height t)
 
-  (after-load (orderless)
-    (setq selectrum-highlight-candidates-function #'orderless-highlight-matches))
+;;   (after-load (orderless)
+;;     (setq selectrum-highlight-candidates-function #'orderless-highlight-matches))
 
-  (selectrum-mode +1))
+;;   (selectrum-mode +1))
+
+(use-package vertico
+  :bind (:map vertico-map
+         (("<next>" . 'c/vertico-next-page)
+          ("<prior>" . 'c/vertico-previous-page)
+          ("C-<backspace>" . 'c/minibuffer-kill-backwards)))
+  :preface
+  (defun c/vertico-next-page ()
+    (interactive)
+    (vertico-next 10))
+  (defun c/vertico-previous-page ()
+    (interactive)
+    (vertico-previous 10))
+  :init
+  (vertico-mode))
 
 (define-minor-mode c/complete-mode
   "Enable code completion."
@@ -175,6 +210,7 @@ ARG is the same as for `backward-kill-sexp'."
   (define-key company-active-map (kbd "<tab>") #'company-complete-selection))
 
 (use-package company
+  :custom (company-tooltip-maximum-width 120)
   :config
   (c/diminish company-mode)
 
@@ -207,6 +243,8 @@ ARG is the same as for `backward-kill-sexp'."
 (use-package company-box
   :after (company)
   :hook (company-mode . company-box-mode)
+  :custom (company-box-scrollbar nil)
+  :custom (company-box-tooltip-maximum-width 120)
   :config
   (c/diminish company-box-mode))
 
