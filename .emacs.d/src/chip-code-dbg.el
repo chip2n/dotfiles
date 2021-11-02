@@ -24,6 +24,14 @@
 
 (require 's)
 
+(defun c/profiler-start ()
+  (interactive)
+  (profiler-start 'cpu))
+
+(general-define-key
+ "C-c y" 'c/profiler-start
+ "C-c Y" 'profiler-stop)
+
 (use-package realgud
   :defer t
   :config
