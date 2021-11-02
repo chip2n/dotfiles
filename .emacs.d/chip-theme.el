@@ -192,6 +192,11 @@
   `(selectrum-group-title ((,class (:foreground ,color-comment))))
   `(selectrum-group-separator ((,class (:foreground ,color-comment :strike-through t))))
 
+  ;; Vertico
+  `(vertico-current ((,class (:foreground ,red-2 :background ,color-highlight-1))))
+  `(vertico-group-title ((,class (:foreground ,color-comment))))
+  `(vertico-group-separator ((,class (:foreground ,color-highlight-2 :strike-through t))))
+
   ;; Marginalia
   `(marginalia-documentation ((,class (:foreground ,color-comment))))
 
