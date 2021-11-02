@@ -88,6 +88,12 @@
     (if (not (member 'lispy evil-highlight-closing-paren-at-point-states))
         (push 'lispy evil-highlight-closing-paren-at-point-states))))
 
+;;; Symex
+
+(use-package symex
+  :config
+  (symex-initialize))
+
 ;;; Elisp
 
 (use-package eldoc
