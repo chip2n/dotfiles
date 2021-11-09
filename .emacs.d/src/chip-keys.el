@@ -40,9 +40,11 @@
   (interactive)
   (consult-buffer-other-window))
 
-(defun chip/grep ()
-  (interactive)
-  (consult-ripgrep))
+(defun chip/grep (prefix)
+  "Grep in current projectile directory.
+If prefix is used, grep in current directory instead."
+  (interactive "P")
+  (consult-ripgrep (if (not prefix) nil t)))
 
 (defun chip/capture ()
   (interactive)
