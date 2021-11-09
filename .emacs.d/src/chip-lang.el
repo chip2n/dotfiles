@@ -224,3 +224,7 @@ Lisp function does not specify a special indentation."
 ;;; Julia
 
 (use-package julia-mode)
+
+;;; Swift
+
+(use-package swift-mode)
