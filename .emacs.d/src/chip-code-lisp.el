@@ -92,7 +92,11 @@
 
 (use-package symex
   :config
-  (symex-initialize))
+  (symex-initialize)
+  (general-define-key
+   :states 'normal
+   :keymaps 'emacs-lisp-mode-map
+    "(" 'symex-mode-interface))
 
 ;;; Elisp
 
