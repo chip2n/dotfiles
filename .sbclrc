@@ -5,3 +5,9 @@
     (load quicklisp-init)))
 
 (ql:quickload :quickproject)
+
+(use-package :quickproject)
+(use-package :quicklisp)
+
+(defun l (package)
+  (quickload package))
