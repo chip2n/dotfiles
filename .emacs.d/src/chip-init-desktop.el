@@ -50,6 +50,7 @@
 (require 'chip-code-dbg)
 (require 'chip-code-lisp)
 (require 'chip-code-elixir)
+(require 'chip-code-zig)
 (require 'chip-lang)
 
 ;;; Package: paren-face
@@ -1215,62 +1216,6 @@ all elements."
 (use-package glsl-mode)
 
 (require 'bolt-mode)
-
-(use-package zig-mode
-  :after (lsp-mode)
-  :bind (:map zig-mode-map
-              ("C-c C-r" . chip/zig-compile-run)
-              ("C-c C-b" . chip/zig-compile)
-              ("C-c C-k" . kill-compilation)
-              ("C-c C-t" . chip/zig-test)
-              ("C-c C-d" . chip/zig-test-this))
-  :config
-  ;; formatting on save breaks lsp-mode
-  ;; see https://github.com/ziglang/zig-mode/issues/49
-  (setq zig-format-on-save nil)
-  (add-to-list 'lsp-language-id-configuration '(zig-mode . "zig"))
-  (add-hook 'zig-mode-hook 'lsp)
-  (lsp-register-client
-   (make-lsp-client
-    :new-connection (lsp-stdio-connection "/home/chip/Downloads/x86_64-linux/zls")
-    :major-modes '(zig-mode)
-    :server-id 'zls)))
-
-(defun chip/zig-compile ()
-  "Compile using `zig build`."
-  (interactive)
-  (let ((default-directory (projectile-project-root)))
-    (zig--run-cmd "build")))
-
-(defun chip/zig-compile-run ()
-  "Compile and run using `zig build run`."
-  (interactive)
-  (let ((default-directory (projectile-project-root)))
-    (zig--run-cmd "build run")))
-
-(defun chip/zig-test ()
-  "Test using `zig build test`."
-  (interactive)
-  (let ((default-directory (projectile-project-root)))
-    (zig--run-cmd "build test")))
-
-(defun chip/zig-test-this ()
-  "Test current file using `zig test`."
-  (interactive)
-  (let ((default-directory (projectile-project-root))
-        (path (buffer-file-name)))
-    (zig--run-cmd "test" path)))
-
-(defun chip/zig-debug ()
-  (interactive)
-  (let ((existing (get-buffer "*gdb*")))
-    (when existing (kill-buffer existing)))
-  (let ((pid (shell-command-to-string "pgrep zig-dbg"))
-        (buffer (save-window-excursion (vterm "*gdb*"))))
-    (switch-to-buffer-other-window buffer)
-    (vterm-send-string "gdb")
-    (vterm-send-return)
-    (vterm-send-string (format "attach %s" pid))))
 
 (use-package gdscript-mode
   :config
