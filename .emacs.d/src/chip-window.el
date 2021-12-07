@@ -92,6 +92,27 @@
   ;; colemak homerow
   (setq avy-keys '(?a ?r ?s ?t ?d ?h ?n ?e ?i ?o)))
 
+(defun c/avy-action-embark (pt)
+  (unwind-protect
+      (save-excursion
+        (goto-char pt)
+        (embark-act))
+    (select-window
+     (cdr (ring-ref avy-ring 0))))
+  t)
+
+(setf (alist-get ?, avy-dispatch-alist) 'c/avy-action-embark)
+
+(defun c/avy-action-kill-lines (pt)
+  (save-excursion
+    (beginning-of-line)
+    (let ((start (point)))
+      (goto-char pt)
+      (end-of-line)
+      (kill-region start (+ 1 (point))))))
+
+(setf (alist-get ?l avy-dispatch-alist) 'c/avy-action-kill-lines)
+
 (use-package ace-window
   :after (ivy)
   :config
