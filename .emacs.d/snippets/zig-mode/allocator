@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: allocator
+# key: allocator
+# --
+allocator: *std.mem.Allocator
