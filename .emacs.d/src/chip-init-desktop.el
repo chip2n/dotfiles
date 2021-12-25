@@ -613,12 +613,6 @@ point reaches the beginning or end of the buffer, stop there."
   (yas-global-mode 1)
   (add-to-list 'yas-snippet-dirs (locate-user-emacs-file "snippets")))
 
-(setq compilation-scroll-output t)
-(after-load (general)
-  (general-define-key
-   :keymaps '(compilation-mode-map)
-   "k" 'kill-this-buffer-and-process))
-
 ;; communication with language servers generate a lot of garbage
 (setq gc-cons-threshold 100000000)
 
