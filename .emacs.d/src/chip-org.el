@@ -284,6 +284,26 @@ The start timestamp of the clock entry is created `mins' minutes from the curren
 
 (setq appt-disp-window-function #'c/appt-disp-window-function)
 
+;;; Archiving
+
+;; Use `c/org-query-archived' to query and archive tasks
+
+(use-package org-ql)
+
+(defun c/beginning-of-last-month ()
+  (let* ((daynr (string-to-number (format-time-string "%d" (current-time))))
+         (a-month-ago (* 60 60 24 (+ daynr 1)))
+         (last-month (format-time-string "%Y-%m-01" (time-subtract (current-time) (seconds-to-time a-month-ago)))))
+    last-month))
+
+(defun c/org-query-archived ()
+  (interactive)
+  (org-ql-search
+    org-agenda-files
+    `(and (done)
+          (not (parent))
+          (ts-active :to ,(c/beginning-of-last-month)))))
+
 ;;; Misc
 
 ;; set org todo keywords
@@ -843,29 +863,6 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
        (t
         nil)))))
 
-(defun chip/org-agenda-skip-non-archivable-tasks ()
-  "Skip trees that are not available for archiving"
-  (save-restriction
-    (widen)
-    ;; Consider only tasks with done todo headings as archivable candidates
-    (let ((next-headline (save-excursion (or (outline-next-heading) (point-max))))
-          (subtree-end (save-excursion (org-end-of-subtree t))))
-      (if (member (org-get-todo-state) org-todo-keywords-1)
-          (if (member (org-get-todo-state) org-done-keywords)
-              (let* ((daynr (string-to-number (format-time-string "%d" (current-time))))
-                     (a-month-ago (* 60 60 24 (+ daynr 1)))
-                     (last-month (format-time-string "%Y-%m-" (time-subtract (current-time) (seconds-to-time a-month-ago))))
-                     (this-month (format-time-string "%Y-%m-" (current-time)))
-                     (subtree-is-current (save-excursion
-                                           (forward-line 1)
-                                           (and (< (point) subtree-end)
-                                                (re-search-forward (concat last-month "\\|" this-month) subtree-end t)))))
-                (if subtree-is-current
-                    subtree-end ; Has a date in this month or last month, skip it
-                  nil))  ; available to archive
-            (or subtree-end (point-max)))
-        next-headline))))
-
 (setq org-agenda-custom-commands
       (quote (("N" "Notes" tags "NOTE"
                ((org-agenda-overriding-header "Notes")
@@ -878,10 +875,6 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                ((agenda "" nil)
                 (tags "refile"
                       ((org-agenda-overriding-header "\nrefile -------------------------------------------------------------------------")
-                       (org-tags-match-list-sublevels nil)))
-                (tags "-refile/"
-                      ((org-agenda-overriding-header "archive ------------------------------------------------------------------------")
-                       (org-agenda-skip-function 'chip/org-agenda-skip-non-archivable-tasks)
                        (org-tags-match-list-sublevels nil)))
                 (tags-todo "-refile-KILL/!"
                            ((org-agenda-overriding-header
