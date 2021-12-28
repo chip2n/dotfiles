@@ -128,8 +128,8 @@
   `(vertical-border ((,class (:foreground ,color-border))))
   `(link ((,class (:foreground ,blue-2 :underline t))))
   `(link-visited ((,class (:foreground ,blue-1 :underline t))))
-  `(line-number ((,class (:foreground ,grey-3))))
-  `(line-number-current-line ((,class (:foreground ,color-foreground :background ,color-highlight-1 :bold t))))
+  `(line-number ((,class (:inherit default :foreground ,grey-3))))
+  `(line-number-current-line ((,class (:inherit default :foreground ,color-foreground :background ,color-highlight-1 :bold t))))
   `(help-key-binding ((,class (:foreground ,pink-2 :underline t :bold t))))
   `(bookmark-face ((,class ())))
 
@@ -138,7 +138,8 @@
 
   ;; Header faces
   `(header-line ((,class (:box (:line-width 4 :color ,color-background :style nil)
-                               :background ,color-background :foreground ,color-foreground))))
+                          :background ,color-background
+                          :foreground ,color-foreground))))
 
   ;; Mode line faces
   `(mode-line ((,class (:box () :background ,color-modeline-active :foreground ,color-foreground))))
