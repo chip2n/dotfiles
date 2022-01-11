@@ -25,6 +25,9 @@
 ;; This file contains code for managing windows.
 
 ;;; Code:
+
+;;;; Windows
+
 ;; When splitting windows, I often also want to switch to the new buffer
 
 (after-load (general)
