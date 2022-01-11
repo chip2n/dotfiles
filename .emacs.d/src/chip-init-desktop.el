@@ -664,10 +664,6 @@ point reaches the beginning or end of the buffer, stop there."
 
 (use-package lsp-ui)
 
-(use-package dap-mode
-  :config
-  (setq dap-auto-configure-features '(sessions locals tooltip)))
-
 ;;; org-mode
 
 (require 'chip-org)

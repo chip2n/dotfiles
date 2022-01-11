@@ -24,6 +24,43 @@
 
 (require 's)
 
+(use-package dap-mode
+  :config
+  (setq dap-auto-configure-features '(sessions locals tooltip))
+  (require 'dap-gdb-lldb))
+
+(define-minor-mode c/dap-session-mode
+  "A mode for adding keybindings to running sessions"
+  :lighter nil
+  :keymap `((,(kbd "n") . dap-next)
+            (,(kbd "e") . dap-eval)
+            (,(kbd "i") . dap-step-in)
+            (,(kbd "o") . dap-step-out)
+            (,(kbd "c") . dap-continue)
+            (,(kbd "b") . dap-breakpoint-toggle)
+            (,(kbd "q") . dap-disconnect))
+
+  ;; Always turn off zoom-mode to preserve UI windows for session
+  (when zoom-mode
+    (zoom-mode 0))
+
+  (if c/dap-session-mode
+      (let ((session-at-creation (dap--cur-active-session-or-die)))
+        (add-hook 'dap-terminated-hook
+                  (lambda (session)
+                    (when (eq session session-at-creation)
+                      (c/dap-session-mode -1))))
+        (read-only-mode 1)
+        (evil-emacs-state))
+    (read-only-mode 0)
+    (evil-normal-state)))
+
+(add-hook 'dap-session-created-hook 'c/dap-session-mode)
+(add-hook 'dap-stopped-hook 'c/dap-session-mode)
+(add-hook 'dap-stack-frame-changed-hook (lambda (session)
+                                          (when (dap--session-running session)
+                                            (c/dap-session-mode 1))))
+
 (defun c/profiler-start ()
   (interactive)
   (profiler-start 'cpu))
