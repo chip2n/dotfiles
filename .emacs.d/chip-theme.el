@@ -143,7 +143,7 @@
 
   ;; Mode line faces
   `(mode-line ((,class (:box () :background ,color-modeline-active :foreground ,color-foreground))))
-  `(mode-line-inactive ((,class (:box () :background ,color-modeline-inactive :foreground ,color-modeline-inactive))))
+  `(mode-line-inactive ((,class (:box () :background ,color-modeline-inactive :foreground ,color-comment))))
   `(mode-line-evil-state-normal ((,class (:foreground ,color-evil-normal))))
   `(mode-line-evil-state-insert ((,class (:foreground ,color-evil-insert))))
   `(mode-line-evil-state-visual ((,class (:foreground ,color-evil-visual))))
@@ -368,8 +368,8 @@
   `(treemacs-pulse-on-success ((,class (:background ,color-success))))
   `(treemacs-pulse-on-error ((,class (:background ,color-error))))
 
-  `(chip-theme-treemacs-root-face ((,class (:foreground ,blue-2))))
-  `(chip-theme-treemacs-file-face ((,class (:foreground ,blue-2))))
+  `(chip-theme-treemacs-root-face ((,class (:foreground ,color-foreground))))
+  `(chip-theme-treemacs-file-face ((,class (:foreground ,color-foreground))))
 
   ;; Calfw
   `(cfw:face-title ((,class (:foreground ,color-foreground))))
@@ -399,7 +399,8 @@
   ;; Sly faces
   `(sly-mrepl-output-face ((,class (:foreground ,color-comment))))
   `(sly-mrepl-note-face ((,class (:foreground ,color-comment))))
-  `(sly-mrepl-prompt-face ((,class (:foreground ,red-2))))
+  `(sly-mrepl-prompt-face ((,class (:foreground ,color-foreground :weight bold))))
+  `(sly-part-button-face ((,class (:foreground ,blue-2 :weight bold))))
 
   ;; Macrostep faces
   `(macrostep-expansion-highlight-face ((,class (:background ,color-highlight-1))))
