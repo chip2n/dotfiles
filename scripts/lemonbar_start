@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+mkfifo /tmp/panel.fifo
+tail -f /tmp/panel.fifo | lemonbar -p -B "#282c34" -o 0 -f "Iosevka:size=10" -o -3 -f 'Font Awesome 5 Free:size=7' -o -3 -f 'Font Awesome 5 Brands:size=7' -o -3 -f 'Font Awesome 5 Free Solid:size=7'
