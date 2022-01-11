@@ -21,3 +21,6 @@ clean = git-lfs clean -- %f
 
 [github]
 user = chip2n
+
+[credential "https://github.com"]
+helper = !/usr/bin/gh auth git-credential
