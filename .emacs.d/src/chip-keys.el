@@ -68,8 +68,7 @@ If prefix is used, grep in current directory instead."
 
 (defun chip/history-back ()
   (interactive)
-  (evil-jump-backward)
-  (recenter-top-bottom))
+  (evil-jump-backward))
 
 (general-define-key
  :states '(emacs normal insert visual motion)
