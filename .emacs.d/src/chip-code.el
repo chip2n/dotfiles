@@ -90,7 +90,12 @@ Interactively also sends a terminating newline."
    :keymaps '(compilation-mode-map)
    "i" 'c/compilation-send-input))
 
-(provide 'chip-code)
+;;; Compilation buffer
+
+;; If a compilation buffer is visible in another frame, reuse that frame instead
+;; of creating a new window in the current frame.
+(add-to-list 'display-buffer-alist '("*compilation*" nil (reusable-frames . t)))
+
 
 ;;; Error navigation
 
@@ -105,5 +110,7 @@ Interactively also sends a terminating newline."
   (if (flycheck-next-error-pos 1 t)
       (flycheck-previous-error)
     (previous-error)))
+
+(provide 'chip-code)
 
 ;;; chip-code.el ends here
