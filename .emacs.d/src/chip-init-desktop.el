@@ -65,15 +65,10 @@
 
 ;;; Package: all-the-icons
 
-;; Using fancy icons in some places (e.g. ~treemacs~) to spice things up. This
+;; Using fancy icons in some places (e.g. treemacs) to spice things up. This
 ;; package includes icons from a bunch of different sources.
 
 (use-package all-the-icons)
-
-(use-package all-the-icons-dired
-  :after (all-the-icons)
-  :config
-  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
 
 ;;; Fringes
 
@@ -352,8 +347,8 @@ point reaches the beginning or end of the buffer, stop there."
                     (all-the-icons-octicon name
                                            :height 1.0
                                            :v-adjust -0.1
-                                           :face 'root-face)))
-      (let ((root-icon (icon "repo" :v-adjust -0.1 :face 'root-face))
+                                           :face face)))
+      (let ((root-icon (icon "repo" :v-adjust -0.1 :face root-face))
             (dir-icon (icon "file-directory"))
             (pkg-icon (icon "package"))
             (tag-icon (icon "tag" :height 0.9))
@@ -367,6 +362,8 @@ point reaches the beginning or end of the buffer, stop there."
             (pdf-icon (icon "file-pdf"))
             (zip-icon (icon "file-zip"))
             (binary-icon (icon "file-binary"))
+            (lock-icon (icon "lock"))
+            (settings-icon (icon "gear"))
             (parent-closed-icon "+")
             (parent-opened-icon "-"))
         (treemacs-create-theme "chip"
@@ -375,77 +372,88 @@ point reaches the beginning or end of the buffer, stop there."
           (progn
             (treemacs-create-icon
              :icon (format " %s\t" root-icon)
-             :extensions (root))
+             :extensions (root-open))
             (treemacs-create-icon
-             :icon (format "%s\t%s\t" parent-opened-icon dir-icon)
+             :icon (format " %s\t" root-icon)
+             :extensions (root-closed))
+            (treemacs-create-icon
+             :icon (format "%s\t%s " parent-opened-icon dir-icon)
              :extensions (dir-open))
             (treemacs-create-icon
-             :icon (format "%s\t%s\t" parent-closed-icon dir-icon)
+             :icon (format "%s\t%s " parent-closed-icon dir-icon)
              :extensions (dir-closed))
             (treemacs-create-icon
-             :icon (format "%s\t%s\t" parent-opened-icon pkg-icon)
+             :icon (format "%s\t%s " parent-opened-icon pkg-icon)
              :extensions (tag-open))
             (treemacs-create-icon
-             :icon (format "%s\t%s\t" parent-closed-icon pkg-icon)
+             :icon (format "%s\t%s " parent-closed-icon pkg-icon)
              :extensions (tag-closed))
             (treemacs-create-icon
-             :icon (format "\t\t%s\t" tag-icon)
+             :icon (format "\t\t%s " tag-icon)
              :extensions (tag-leaf))
             (treemacs-create-icon
-             :icon (format "%s\t" error-icon)
+             :icon (format "%s " error-icon)
              :extensions (error))
             (treemacs-create-icon
-             :icon (format "%s\t" warning-icon)
+             :icon (format "%s " warning-icon)
              :extensions (warning))
             (treemacs-create-icon
-             :icon (format "%s\t" info-icon)
+             :icon (format "%s " info-icon)
              :extensions (info))
             (treemacs-create-icon
-             :icon (format "  %s\t" media-icon)
+             :icon (format "  %s " media-icon)
              :extensions ("png" "jpg" "jpeg" "gif" "ico" "tif" "tiff" "svg" "bmp"
                           "psd" "ai" "eps" "indd" "mov" "avi" "mp4" "webm" "mkv"
                           "wav" "mp3" "ogg" "midi"))
             (treemacs-create-icon
-             :icon (format "  %s\t" code-icon)
-             :extensions ("adoc" "asciidoc" "bashrc" "c" "cabal" "cabal" "cask" "cc"
+             :icon (format "  %s " code-icon)
+             :extensions ("adoc" "asciidoc" "bashrc" "bat" "c" "cabal" "cabal" "cask" "cc"
                           "clj" "cljc" "cljs" "cpp" "css" "csv" "cxx" "dart"
                           "dockerfile" "dockerfile" "editorconfig" "eex" "el"
-                          "elm" "ex" "exs" "fish" "gitconfig" "gitignore" "go" "h"
+                          "elm" "ex" "exs" "fish" "gradle" "gitconfig" "gitignore" "go" "h"
                           "hh" "hpp" "hs" "htm" "html" "hy" "ideavimrc" "inputrc"
                           "j2" "j2" "java" "jinja2" "jinja2" "jl" "js" "json" "jsx"
                           "kt" "kt" "kts" "lhs" "lisp" "lua" "lua" "makefile" "ml"
                           "mli" "nim" "nim" "nims" "nix" "perl" "pl" "plt" "pm"
                           "pm6" "pp" "pp" "py" "pyc" "r" "racket" "rb" "re" "rei"
                           "rkt" "rktd" "rktl" "rs" "sbt" "scala" "scm" "scrbl"
-                          "scribble" "scss" "sh" "sql" "sql" "styles" "sv" "tex"
-                          "toml" "tpp" "tridactylrc" "ts" "tsx" "v" "vagrantfile"
+                          "scribble" "scss" "sh" "sql" "sqlite" "sql" "styles" "sv"
+                          "tex" "toml" "tpp" "tridactylrc" "ts" "tsx" "v" "vagrantfile"
                           "vagrantfile" "vh" "vimperatorrc" "vimrc" "vrapperrc"
                           "vue" "xml" "xsl" "yaml" "yml" "zsh" "zshrc"))
             (treemacs-create-icon
-             :icon (format "  %s\t" book-icon)
+             :icon (format "  %s " book-icon)
              :extensions ("lrf" "lrx" "cbr" "cbz" "cb7" "cbt" "cba" "chm" "djvu"
                           "doc" "docx" "pdb" "pdb" "fb2" "xeb" "ceb" "inf" "azw"
                           "azw3" "kf8" "kfx" "lit" "prc" "mobi" "exe" "or" "html"
                           "pkg" "opf" "txt" "pdb" "ps" "rtf" "pdg" "xml" "tr2"
                           "tr3" "oxps" "xps"))
             (treemacs-create-icon
-             :icon (format "  %s\t" text-icon)
+             :icon (format "  %s " text-icon)
              :extensions ("md" "markdown" "rst" "log" "org" "txt"
                           "CONTRIBUTE" "LICENSE" "README" "CHANGELOG"))
             (treemacs-create-icon
-             :icon (format "  %s\t" binary-icon)
+             :icon (format "  %s " binary-icon)
              :extensions ("exe" "dll" "obj" "so" "o" "out" "elc"))
             (treemacs-create-icon
-             :icon (format "  %s\t" pdf-icon)
+             :icon (format "  %s " lock-icon)
+             :extensions ("lock"))
+            (treemacs-create-icon
+             :icon (format "  %s " settings-icon)
+             :extensions ("cfg" "properties"))
+            (treemacs-create-icon
+             :icon (format "  %s " pdf-icon)
              :extensions ("pdf"))
             (treemacs-create-icon
-             :icon (format "  %s\t" zip-icon)
+             :icon (format "  %s " zip-icon)
              :extensions ("zip" "7z" "tar" "gz" "rar" "tgz"))
             (treemacs-create-icon
-             :icon (format "  %s\t" text-icon)
+             :icon (format "  %s " text-icon)
+             :extensions ("package.json" "package-lock.json"))
+            (treemacs-create-icon
+             :icon (format "  %s " text-icon)
              :extensions (fallback)))))))
-  ;; (treemacs-load-theme "chip")
-  )
+  (treemacs-load-theme "chip"))
 
 (use-package treemacs
   :after (evil)
@@ -453,6 +461,7 @@ point reaches the beginning or end of the buffer, stop there."
   (setq treemacs-show-cursor nil)
   (setq treemacs-indentation 1)
   (setq treemacs-space-between-root-nodes nil)
+  (setq treemacs-is-never-other-window t)
   (add-hook 'treemacs-mode-hook
             (lambda () (setq tab-width 1)))
   (chip/treemacs-setup-theme)
