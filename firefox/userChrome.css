@@ -4,9 +4,25 @@
 /* hide normal horizontal tab bar */
 #TabsToolbar { visibility: collapse; }
 
+#nav-bar {
+    background: #21242b !important;
+}
+
 /* hide sidebar header for tree style tabs sidebar */
 #sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar-header {
   display: none;
+}
+
+#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] {
+    background: #ff0000 !important;
+}
+
+#urlbar-background {
+    /* background: #21242b !important; */
+}
+
+#identity-icon-box {
+    background: #282c34 !important;
 }
 
 :root {
@@ -17,6 +33,7 @@
 #sidebar-box, #sidebar-box #sidebar {
     min-width: var(--sidebar-width) !important;
     max-width: var(--sidebar-width) !important;
+    background: #21242b !important;
 }
 
 #sidebar { border-right: 1px solid #2B2A33; }

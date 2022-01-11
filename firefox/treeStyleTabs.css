@@ -1,0 +1,18 @@
+/* Background colour for the tree sidebar */
+:root,
+#background {
+    background: #21242b;
+}
+
+/* Hide scrollbars */
+#tabbar {
+  overflow-y: scroll;
+}
+:root.left #tabbar,
+#tabContextMenu,
+#tabContextMenu ul {
+  margin-left: -5px;
+}
+:root.right #tabbar {
+  margin-right: -5px;
+}
