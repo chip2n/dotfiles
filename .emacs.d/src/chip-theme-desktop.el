@@ -25,7 +25,8 @@
 (require 'chip-theme-base)
 
 ;; Show line numbers where appropriate
-(add-hook 'prog-mode-hook #'display-line-numbers-mode)
+;; (add-hook 'prog-mode-hook #'display-line-numbers-mode)
+
 ;; Use minimum of 3 characters to avoid frequent resizing during window height change (e.g. during M-x)
 (setq-default display-line-numbers-width 3)
 
