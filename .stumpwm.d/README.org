@@ -1,0 +1,11 @@
+* Installation
+
+Requires the following ~quicklisp~ packages:
+- ~slynk~
+- ~stumpwm~
+
+Also, to make the ~ttf-fonts~ module work:
+
+#+begin_src bash
+git clone git@github.com:goose121/clx-truetype.git ~/quicklisp/local-projects
+#+end_src

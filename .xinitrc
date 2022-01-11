@@ -56,9 +56,6 @@ eval $(ssh-agent)
 
 export _JAVA_AWT_WM_NONREPARENTING=1
 
-# Stumpwm
-# exec stumpwm
-
 # XMonad
 exec xmonad
 
@@ -71,3 +68,6 @@ exec xmonad
 
 # EXWM
 #exec dbus-launch --exit-with-session emacs
+
+# stumpwm
+#exec sbcl --load ~/.stumpwm.d/startwm.lisp
