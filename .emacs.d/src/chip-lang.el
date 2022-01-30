@@ -172,7 +172,9 @@ Lisp function does not specify a special indentation."
     (add-to-list 'evil-emacs-state-modes 'sly-db-mode)
     (add-to-list 'evil-emacs-state-modes 'sly-inspector-mode)
     (add-hook 'sly-macroexpansion-minor-mode-hook 'evil-emacs-state)
-    (add-hook 'sly-inspector-mode-hook 'evil-emacs-state))
+    (add-hook 'sly-inspector-mode-hook 'evil-emacs-state)
+
+    (evil-add-command-properties #'sly-edit-definition :jump t))
 
   (after-load (company)
     (add-hook 'sly-mrepl-mode-hook 'company-mode))
@@ -188,8 +190,6 @@ Lisp function does not specify a special indentation."
    :states '(normal)
    :keymaps 'sly-mode-map
     "gd" 'sly-edit-definition))
-
-(provide 'chip-lang)
 
 ;;; Haskell
 
@@ -228,3 +228,5 @@ Lisp function does not specify a special indentation."
 ;;; Swift
 
 (use-package swift-mode)
+
+(provide 'chip-lang)
