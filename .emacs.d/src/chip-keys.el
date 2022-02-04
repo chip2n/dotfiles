@@ -70,6 +70,10 @@ If prefix is used, grep in current directory instead."
   (interactive)
   (evil-jump-backward))
 
+(defun chip/history-forward ()
+  (interactive)
+  (evil-jump-forward))
+
 (general-define-key
  :states '(emacs normal insert visual motion)
 
@@ -87,6 +91,7 @@ If prefix is used, grep in current directory instead."
 
  ;; navigation
  "C-o" 'chip/history-back
+ "C-S-o" 'chip/history-forward
 
  ;; searching
  "C-c g" 'chip/grep
