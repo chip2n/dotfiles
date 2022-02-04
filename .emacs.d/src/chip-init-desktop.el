@@ -421,6 +421,8 @@ point reaches the beginning or end of the buffer, stop there."
       (advice-add 'dired-next-line :after (lambda (arg) (dired-display-file)))
     (advice-remove 'dired-next-line (lambda (arg) (dired-display-file)))))
 
+(use-package dired-narrow)
+
 ;;; Package: deadgrep
 
 (use-package deadgrep
