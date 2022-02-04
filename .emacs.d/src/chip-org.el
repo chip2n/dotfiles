@@ -130,6 +130,10 @@ The start timestamp of the clock entry is created `mins' minutes from the curren
 ;; Use absolute attachment directory so that refiling doesn't break attachments
 (setq org-attach-id-dir (concat c/org-dir "attachments"))
 
+(use-package org-attach-screenshot
+  :config
+  (setq org-attach-screenshot-auto-refresh #'never))
+
 ;;; Jump to headline
 
 (defun c/sorted-completion-table (completions)
