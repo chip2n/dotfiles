@@ -125,15 +125,15 @@ targets."
 
 (use-package orderless
   :ensure t
-  ;; :hook (minibuffer-setup . c/use-orderless-in-minibuffer)
+  :hook (minibuffer-setup . c/use-orderless-in-minibuffer)
   :custom (completion-styles '(basic partial-completion orderless))
   ;; Fixes /ssh: prefix when using Vertico
   :custom (completion-category-overrides '((file (styles basic partial-completion))))
   :preface
   ;; In the minibuffer, I don't use basic completion since it "breaks" in common
   ;; scenarios such as writing "master" looking for "origin/master".
-  ;; (defun c/use-orderless-in-minibuffer ()
-  ;;   (setq-local completion-styles '(substring orderless)))
+  (defun c/use-orderless-in-minibuffer ()
+    (setq-local completion-styles '(substring orderless)))
   :config
   (setq orderless-matching-styles '(orderless-literal orderless-regexp))
   ;; allow & as separator, useful for company-mode where space breaks completion
