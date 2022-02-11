@@ -223,10 +223,12 @@ Lisp function does not specify a special indentation."
 
 ;;; Julia
 
-(use-package julia-mode)
+(use-package julia-mode
+  :mode "\\.jl\\'")
 
 ;;; Swift
 
-(use-package swift-mode)
+(use-package swift-mode
+  :mode "\\.swift\\'")
 
 (provide 'chip-lang)
