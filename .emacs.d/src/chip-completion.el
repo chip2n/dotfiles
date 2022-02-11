@@ -123,20 +123,30 @@ targets."
   :config
   (savehist-mode 1))
 
+;; Fixes /ssh: prefix when using Vertico
+;; This is added as an override for the `file' completion category below.
+;; See: https://github.com/minad/vertico#tramp-hostname-completion
+(defun basic-remote-try-completion (string table pred point)
+  (and (vertico--remote-p string)
+       (completion-basic-try-completion string table pred point)))
+(defun basic-remote-all-completions (string table pred point)
+  (and (vertico--remote-p string)
+       (completion-basic-all-completions string table pred point)))
+(add-to-list 'completion-styles-alist '(basic-remote basic-remote-try-completion basic-remote-all-completions nil))
+
 (use-package orderless
   :ensure t
-  :hook (minibuffer-setup . c/use-orderless-in-minibuffer)
-  :custom (completion-styles '(basic partial-completion orderless))
-  ;; Fixes /ssh: prefix when using Vertico
-  :custom (completion-category-overrides '((file (styles basic partial-completion))))
-  :preface
-  ;; In the minibuffer, I don't use basic completion since it "breaks" in common
-  ;; scenarios such as writing "master" looking for "origin/master".
-  (defun c/use-orderless-in-minibuffer ()
-    (setq-local completion-styles '(substring orderless)))
+  :custom (completion-styles '(orderless))
+  :custom (completion-category-overrides '((file (styles basic-remote orderless partial-completion))))
+  ;; Orderless doesn't work too well when completing with company, so we apply a
+  ;; more sane completion style here
+  (define-advice company-capf
+      (:around (orig-fun &rest args) set-completion-styles)
+    (let ((completion-styles '(basic partial-completion)))
+      (apply orig-fun args)))
   :config
   (setq orderless-matching-styles '(orderless-literal orderless-regexp))
-  ;; allow & as separator, useful for company-mode where space breaks completion
+  ;; Allow & as separator, useful for company-mode where space breaks completion
   (setq orderless-component-separator "[ &]")
   (after-load (selectrum)
     (setq orderless-skip-highlighting (lambda () selectrum-is-active))))
