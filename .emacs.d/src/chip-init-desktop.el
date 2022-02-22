@@ -854,11 +854,6 @@ all elements."
   :config
   (add-to-list 'auto-mode-alist (cons (rx ".rkt" eos) 'racket-mode)))
 
-;; In order to make Forth play nicely with org-babel, you need the gforth compiler
-;; as well as forth-mode distributed in with gforth in gforth.el. I've copied this
-;; file from the 0.7.3 because I'm a lazy boy, so I'll just require it.
-(require 'forth-mode)
-
 (use-package clojure-mode
   :defer t
   :config
