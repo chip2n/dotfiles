@@ -1,0 +1,4 @@
+# key: ld
+# name: ld
+# --
+std.log.debug("$1", .{$2});
