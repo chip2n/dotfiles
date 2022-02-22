@@ -68,6 +68,7 @@
 ;;; Lispy
 
 (use-package lispy
+  :disabled t
   :config
   (c/diminish lispy-mode)
 
@@ -92,10 +93,33 @@
 
 (use-package symex
   :config
+  ;; Reverse up/down to match my mental model better
+  (setq symex--user-evil-keyspec
+      '(("j" . symex-go-up)
+        ("k" . symex-go-down)
+        ("C-j" . symex-climb-branch)
+        ("C-k" . symex-descend-branch)
+        ("M-j" . symex-goto-highest)
+        ("M-k" . symex-goto-lowest)))
   (symex-initialize)
+
+  ;; Override evaluation function - we're using sly instead of slime
+  (defun symex-eval-common-lisp ()
+  "Eval last sexp.
+
+Accounts for different point location in evil vs Emacs mode."
+  (interactive)
+  (sly-eval-last-expression))
+
+  (defun symex-eval-definition-common-lisp ()
+    "Eval entire containing definition."
+    (interactive)
+    (sly-eval-defun))
+
   (general-define-key
    :states 'normal
-   :keymaps 'emacs-lisp-mode-map
+   :keymaps 'symex-mode-map
+   ;; :keymaps 'emacs-lisp-mode-map
     "(" 'symex-mode-interface))
 
 ;;; Elisp
