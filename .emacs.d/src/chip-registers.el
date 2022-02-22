@@ -26,8 +26,16 @@
 
 ;;; Code:
 
+(defun c/jump-to-register ()
+  (interactive)
+  ;; We always want to match the actual register letter first - if more letters
+  ;; are used in the minibuffer input, we switch over to orderless matching
+  (let ((completion-styles '(basic orderless)))
+    (consult-register))
+  (recenter-top-bottom))
+
 (general-define-key
- "C-c r" 'consult-register
+ "C-c r" 'c/jump-to-register
  "C-c R" 'consult-register-store)
 
 (provide 'chip-registers)
