@@ -379,6 +379,7 @@ The start timestamp of the clock entry is created `mins' minutes from the curren
 (setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
 
 (use-package ox-pandoc
+  :defer t
   :ensure t)
 (setq org-pandoc-options-for-latex-pdf '((pdf-engine . "xelatex")))
 

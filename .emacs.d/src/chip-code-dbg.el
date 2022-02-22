@@ -25,6 +25,7 @@
 (require 's)
 
 (use-package dap-mode
+  :defer t
   :config
   (setq dap-auto-configure-features '(sessions locals tooltip))
   (require 'dap-gdb-lldb))

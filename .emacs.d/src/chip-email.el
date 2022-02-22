@@ -27,6 +27,7 @@
 ;;; Code:
 
 (use-package notmuch
+  :defer t
   :config
   (setq notmuch-show-logo nil)
   ;; Remove html colors from UI

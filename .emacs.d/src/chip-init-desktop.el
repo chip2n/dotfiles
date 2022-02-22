@@ -377,6 +377,7 @@ point reaches the beginning or end of the buffer, stop there."
   (treemacs-load-theme "chip"))
 
 (use-package treemacs
+  :defer t
   :after (evil)
   :config
   (setq treemacs-show-cursor nil)
@@ -392,6 +393,7 @@ point reaches the beginning or end of the buffer, stop there."
 ;; buffer is still visible despite setting treemacs-show-cursor to nil.
 
 (use-package treemacs-evil
+  :defer t
   :after (evil))
 
 ;;; Dired
@@ -456,6 +458,7 @@ point reaches the beginning or end of the buffer, stop there."
           ("HACK" . "#fbf2bf"))))
 
 (use-package outshine
+  :defer t
   :config
   (c/diminish outshine-mode)
   (c/diminish outline-minor-mode)
@@ -495,7 +498,8 @@ point reaches the beginning or end of the buffer, stop there."
 ;; I use the sudo-edit package to allow me to enter sudo while viewing a (read-only)
 ;; file. This is way more convenient than the standard method of C-x C-f with a sudo: prefix.
 
-(use-package sudo-edit)
+(use-package sudo-edit
+  :defer t)
 
 ;;; Refactoring
 
@@ -539,7 +543,7 @@ point reaches the beginning or end of the buffer, stop there."
 (use-package aggressive-indent)
 
 (use-package yasnippet
-  :init
+  :defer t
   :config
   (c/diminish yas-minor-mode)
   (yas-global-mode 1)
@@ -713,6 +717,7 @@ all elements."
   (format "https://www.reddit.com/.rss?feed=%s&user=%s" feed user))
 
 (use-package elfeed
+  :defer t
   :config
   (setq shr-inhibit-images t)           ; disable image loading when viewing entries
   (setq elfeed-feeds
@@ -806,6 +811,7 @@ all elements."
          :password (format "chip2n:%s" pwd))))
 
 (use-package pdf-tools
+  :defer t
   :config
   (pdf-tools-install)
   (add-hook 'pdf-view-mode-hook (lambda () (blink-cursor-mode -1))))
@@ -835,6 +841,7 @@ all elements."
 
 (use-package geiser
   :after (evil)
+  :defer t
   :config
   (setq geiser-chicken-binary "chicken-csi")
   (setq geiser-active-implementations '(chicken racket))
@@ -843,6 +850,7 @@ all elements."
   (add-to-list 'evil-emacs-state-modes 'geiser-debug-mode))
 
 (use-package racket-mode
+  :defer t
   :config
   (add-to-list 'auto-mode-alist (cons (rx ".rkt" eos) 'racket-mode)))
 
@@ -852,20 +860,24 @@ all elements."
 (require 'forth-mode)
 
 (use-package clojure-mode
+  :defer t
   :config
   (add-hook 'clojure-mode 'outshine-mode)
   (add-hook 'clojurescript-mode 'outshine-mode))
 
 (use-package cider
+  :defer t
   :config
   (setq cider-test-show-report-on-success nil)
   (setq cider-auto-select-test-report-buffer nil)
   (eldoc-mode t)
   (add-to-list 'evil-motion-state-modes 'cider-test-report-mode))
 
-(use-package inf-clojure)
+(use-package inf-clojure
+  :defer t)
 
-(use-package clj-refactor)
+(use-package clj-refactor
+  :defer t)
 
 (use-package anaconda-mode
   :config
@@ -875,6 +887,7 @@ all elements."
 (use-package pyvenv)
 
 (use-package lsp-dart
+  :defer t
   :config
   (setq lsp-dart-sdk-dir "/home/chip/flutter/bin/cache/dart-sdk/")
   (add-hook 'dart-mode-hook 'lsp)
@@ -882,6 +895,7 @@ all elements."
 
 (use-package dart-mode
   :after (projectile)
+  :defer t
   :config
   (add-to-list 'auto-mode-alist (cons (rx ".dart" eos) 'dart-mode))
   (add-hook 'dart-mode-hook 'flycheck-mode)
@@ -1047,6 +1061,7 @@ all elements."
 ;; js2-mode
 
 (use-package js2-mode
+  :defer t
   :config
   (setq js-indent-level 2)
   (setq js2-skip-preprocessor-directives t) ; ignore shebangs
@@ -1191,6 +1206,9 @@ all elements."
 (add-hook 'shell-mode-hook (lambda () (chip/header-shell)))
 
 (use-package vterm
+  :defer t
+  :bind (("C-c t" . vterm)
+         ("C-c T" . c/vterm-toggle-cd))
   :config
   (setq vterm-shell "fish")
   (general-define-key
@@ -1201,9 +1219,6 @@ all elements."
    "S-<next>" 'scroll-other-window
    "M-n" 'vterm-send-down
    "M-p" 'vterm-send-up)
-  (general-define-key
-   "C-c t" 'vterm
-   "C-c T" 'c/vterm-toggle-cd)
   ;; line highlight flickers in vterm, so disable it
   (add-hook 'vterm-mode-hook (lambda () (setq-local global-hl-line-mode nil)))
   ;; reset window configuration when toggling back

@@ -76,23 +76,28 @@
 
 (use-package elixir-mode
   :after (lsp-mode)
+  :defer t
   :config
   (setq lsp-clients-elixir-server-executable '("~/dev/elixir-ls/release/language_server.sh"))
   (add-hook 'elixir-mode-hook 'lsp)
   (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]\\.elixir_ls\\'"))
 
 (use-package smartparens
+  :defer t
   :config
   (require 'smartparens-config)
   (add-hook 'elixir-mode-hook 'smartparens-mode))
 
-(use-package mix)
+(use-package mix
+  :defer t)
 
 (use-package exunit
+  :defer t
   :config
   (add-hook 'elixir-mode-hook 'exunit-mode))
 
 (use-package inf-elixir
+  :defer t
   :config
   (add-hook 'elixir-mode-hook 'inf-elixir-minor-mode))
 
@@ -109,6 +114,7 @@
 
 (use-package polymode
   :after (web-mode polymode)
+  :defer t
   :mode ("\.ex$" . poly-elixir-web-mode)
   :config
   (define-hostmode poly-elixir-hostmode :mode 'elixir-mode)
