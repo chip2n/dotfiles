@@ -193,22 +193,24 @@ Lisp function does not specify a special indentation."
 
 ;;; Haskell
 
-(defun haskell-evil-open-above ()
-  (interactive)
-  (evil-digit-argument-or-evil-beginning-of-line)
-  (haskell-indentation-newline-and-indent)
-  (evil-previous-line)
-  (haskell-indentation-indent-line)
-  (evil-append-line nil))
-
-(defun haskell-evil-open-below ()
-  (interactive)
-  (evil-append-line nil)
-  (haskell-indentation-newline-and-indent))
-
 (use-package lsp-haskell
   :after (lsp-mode lsp-ui)
+  :mode "\\.hs\\'"
   :config
+
+  (defun haskell-evil-open-above ()
+    (interactive)
+    (evil-digit-argument-or-evil-beginning-of-line)
+    (haskell-indentation-newline-and-indent)
+    (evil-previous-line)
+    (haskell-indentation-indent-line)
+    (evil-append-line nil))
+
+  (defun haskell-evil-open-below ()
+    (interactive)
+    (evil-append-line nil)
+    (haskell-indentation-newline-and-indent))
+
   ;; (setq lsp-haskell-process-path-hie "hie-wrapper")
   (add-hook 'haskell-mode-hook #'lsp)
   (add-hook 'haskell-literate-mode-hook #'lsp)
