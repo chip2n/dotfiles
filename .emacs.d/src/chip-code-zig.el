@@ -93,7 +93,7 @@
   (interactive)
   (let ((default-directory (chip/zig--locate-root))
         (path (buffer-file-name)))
-    (zig--run-cmd "test" path)))
+    (zig--run-cmd "test -lc" path)))
 
 (defun chip/zig-debug ()
   (interactive)
