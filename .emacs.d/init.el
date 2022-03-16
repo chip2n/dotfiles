@@ -113,6 +113,10 @@
 
 ;;; Platform initialization
 
+;; Fix for dired not working on Mac OS (requires `brew install coreutils`)
+(when (equal system-type 'darwin)
+  (setq insert-directory-program "/usr/local/opt/coreutils/libexec/gnubin/ls"))
+
 (require 'chip-init-desktop)
 ;; (require 'chip-init-android)
 
