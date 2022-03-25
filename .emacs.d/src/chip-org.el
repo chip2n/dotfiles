@@ -112,6 +112,8 @@ The start timestamp of the clock entry is created `mins' minutes from the curren
           (newline))
         (org-evaluate-time-range)))))
 
+(setq org-clock-sound "~/audio/waterdrop.wav")
+
 ;;; Deadlines
 
 ;; Deadlines are discretely displayed in the agenda 7 days before due
