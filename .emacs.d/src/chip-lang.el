@@ -162,6 +162,21 @@ Lisp function does not specify a special indentation."
         (init)
       (sly-start :program inferior-lisp-program :init-function #'init))))
 
+(defvar c/sly-init-current--history nil)
+(defun c/sly-init-current ()
+  (interactive)
+  (let ((pkg (sly-current-package))
+        (system (completing-read "System: " c/sly-init-current--history nil nil (car c/sly-init-current--history) 'c/sly-init-current--history)))
+    (sly-start :program inferior-lisp-program
+               :init-function (lambda ()
+                                (sly-eval `(quicklisp:quickload ,system))
+                                (sly-switch-package pkg)))))
+
+(defun c/sly-mrepl-quickload ()
+  (interactive)
+  (let ((package (completing-read "Load package: " (sly-eval `(quicklisp:list-local-systems)))))
+    (sly-eval `(quicklisp:quickload ,package))))
+
 (use-package sly
   :config
   (require 'sly-autoloads)
@@ -171,6 +186,8 @@ Lisp function does not specify a special indentation."
   (after-load (evil)
     (add-to-list 'evil-emacs-state-modes 'sly-db-mode)
     (add-to-list 'evil-emacs-state-modes 'sly-inspector-mode)
+    (add-to-list 'evil-emacs-state-modes 'sly-xref-mode)
+    ;; (add-hook 'sly-xref-mode-hook (lambda () (interactive) (evil-emacs-state)))
     (add-hook 'sly-macroexpansion-minor-mode-hook 'evil-emacs-state)
     (add-hook 'sly-inspector-mode-hook 'evil-emacs-state)
 
@@ -178,6 +195,9 @@ Lisp function does not specify a special indentation."
 
   (after-load (company)
     (add-hook 'sly-mrepl-mode-hook 'company-mode))
+
+  (add-hook 'sly-mrepl-mode-hook
+            (lambda () (add-to-list 'sly-mrepl-shortcut-alist '("quickload" . c/sly-mrepl-quickload))))
 
   (after-load (lispy)
     (setq lispy-use-sly t))

@@ -120,7 +120,12 @@ Accounts for different point location in evil vs Emacs mode."
    :states 'normal
    :keymaps 'symex-mode-map
    ;; :keymaps 'emacs-lisp-mode-map
-    "(" 'symex-mode-interface))
+    "(" 'symex-mode-interface)
+
+  (general-define-key
+   :states 'insert
+   :keymaps 'symex-mode-map
+   "C-(" 'symex-mode-interface))
 
 ;;; Elisp
 

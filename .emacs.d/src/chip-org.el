@@ -591,7 +591,8 @@ The start timestamp of the clock entry is created `mins' minutes from the curren
 (defun chip/org-agenda ()
   (interactive)
   (org-agenda nil "c")
-  (org-agenda-redo-all))
+  ;; (org-agenda-redo-all)
+  )
 
 (defun chip/dashboard ()
   (interactive)

@@ -32,8 +32,10 @@
 
 (after-load (general)
   (general-define-key
-   "C-x 2"     (lambda () (interactive) (split-window-vertically) (other-window 1))
-   "C-x 3"     (lambda () (interactive) (split-window-horizontally) (other-window 1))
+   "C-x 2"     'split-window-vertically
+   "C-x 3"     'split-window-horizontally
+   ;; "C-x 2"     (lambda () (interactive) (split-window-vertically) (other-window 1))
+   ;; "C-x 3"     (lambda () (interactive) (split-window-horizontally) (other-window 1))
    "C-c w u"   'winner-undo
    "C-c w r"   'winner-redo
    "C-x +"     'chip/window-zoom
