@@ -26,11 +26,9 @@
   "Options for my personal theme")
 (load-theme 'chip t)
 
-;; Disable all the GUI fluff
+;; Hide scroll bars
 (when (display-graphic-p)
-    (scroll-bar-mode -1))
-(menu-bar-mode -1)
-(tool-bar-mode -1)
+  (scroll-bar-mode -1))
 
 ;; Display underline further away from the text
 (setq x-underline-at-descent-line t)
