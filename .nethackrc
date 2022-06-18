@@ -1,3 +1,6 @@
 OPTIONS=color
 OPTIONS=autopickup,pickup_types:$?/+="!
-
+OPTIONS=windowtype:curses
+OPTIONS=perm_invent
+OPTIONS=time
+OPTIONS=number_pad:0
