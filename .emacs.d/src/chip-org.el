@@ -173,6 +173,8 @@ The start timestamp of the clock entry is created `mins' minutes from the curren
       (when result
         (find-file (cadr result))
         (goto-char (caddr result))
+        (org-fold-show-set-visibility t)
+        (org-fold-show-entry)
         (recenter)))))
 
 (defun c/org-agenda-jump-to-task ()

@@ -74,6 +74,12 @@
     ("tt" exunit-rerun "rerun last test")
     ("tp" exunit-verify-all "test project"))))
 
+(defvar lsp-elixir--config-options (make-hash-table))
+
+(add-hook 'lsp-after-initialize-hook
+          (lambda ()
+            (lsp--set-configuration `(:elixirLS, lsp-elixir--config-options))))
+
 (use-package elixir-mode
   :after (lsp-mode)
   :defer t
