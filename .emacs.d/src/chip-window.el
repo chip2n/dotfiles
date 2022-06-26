@@ -119,20 +119,9 @@
 (setf (alist-get ?l avy-dispatch-alist) 'c/avy-action-kill-lines)
 
 (use-package ace-window
-  :after (ivy)
   :config
   (c/diminish ace-window-mode)
-  (setq aw-dispatch-always t)
-  (after-load (ivy counsel projectile)
-    (ivy-add-actions
-     'ivy-switch-buffer
-     '(("a" ace-window "ace-window")))
-    (ivy-add-actions
-     'counsel-find-file
-     '(("a" ace-window "ace-window")))
-    (ivy-add-actions
-     'counsel-projectile-find-file
-     '(("a" ace-window "ace-window")))))
+  (setq aw-dispatch-always t))
 
 (use-package popper
   :bind (("C-<return>" . popper-toggle-latest)
