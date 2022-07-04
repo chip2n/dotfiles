@@ -165,8 +165,8 @@ Lisp function does not specify a special indentation."
 (defvar c/sly-init-current--history nil)
 (defun c/sly-init-current ()
   (interactive)
-  (let ((pkg (sly-current-package))
-        (system (completing-read "System: " c/sly-init-current--history nil nil (car c/sly-init-current--history) 'c/sly-init-current--history)))
+  (let* ((system (completing-read "System: " c/sly-init-current--history nil nil (car c/sly-init-current--history) 'c/sly-init-current--history))
+         (pkg (format "#:%s" system)))
     (sly-start :program inferior-lisp-program
                :init-function (lambda ()
                                 (sly-eval `(quicklisp:quickload ,system))

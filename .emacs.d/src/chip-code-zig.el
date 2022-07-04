@@ -39,7 +39,7 @@
 
 (defun c/zig-build ()
   (interactive)
-  (let ((default-directory (projectile-project-root)))
+  (let ((default-directory (projectile-locate-dominating-file (buffer-file-name) "build.zig")))
     (let ((step (completing-read "Select build step:" (c/zig--steps))))
       (zig--run-cmd (format "build %s" step)))))
 

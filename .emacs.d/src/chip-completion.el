@@ -39,14 +39,28 @@ targets."
   (interactive "FFile: ")
   (kill-new (expand-file-name file (projectile-project-root))))
 
+;; Change o dispatch to using ace-window (this gives you access to the ace-window dispatches for e.g. splitting windows)
+
+(eval-when-compile
+  (defmacro c/embark-ace-action (fn)
+    `(defun ,(intern (concat "c/embark-ace-" (symbol-name fn))) ()
+       (interactive)
+       (with-demoted-errors "%s"
+         (require 'ace-window)
+         (if (= (length (window-list)) 1)
+             (switch-to-buffer-other-window (current-buffer))
+           (let ((aw-dispatch-always t))
+             (aw-switch-to-window (aw-select nil))))
+         (call-interactively (symbol-function ',fn))))))
+
 (use-package embark
   :bind ("C-," . embark-act)
   :config
   ;; show command help via which-key
   (setq embark-indicators
-  '(embark-which-key-indicator
-    embark-highlight-indicator
-    embark-isearch-highlight-indicator))
+        '(embark-which-key-indicator
+          embark-highlight-indicator
+          embark-isearch-highlight-indicator))
 
   (embark-define-keymap embark-project-map
     "Keymap for actions when completing on project files.")
@@ -56,6 +70,10 @@ targets."
 
   (define-key embark-project-map (kbd "t") 'c/embark-project-open-term)
   (define-key embark-project-map (kbd "a") 'c/embark-project-save-absolute-path)
+
+  (define-key embark-file-map     (kbd "o") (c/embark-ace-action find-file))
+  (define-key embark-buffer-map   (kbd "o") (c/embark-ace-action switch-to-buffer))
+  (define-key embark-bookmark-map (kbd "o") (c/embark-ace-action bookmark-jump))
 
   (add-to-list 'embark-keymap-alist '(project . embark-project-map))
   (add-to-list 'marginalia-command-categories '(projectile-find-file . project))
