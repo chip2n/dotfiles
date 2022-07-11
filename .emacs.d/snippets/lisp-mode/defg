@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: defg
+# key: defg
+# --
+defgeneric ${1:name} ($2)
+ (:documentation "$3")

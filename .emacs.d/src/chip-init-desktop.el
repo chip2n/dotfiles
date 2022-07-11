@@ -469,6 +469,7 @@ point reaches the beginning or end of the buffer, stop there."
    "<backtab>" 'outshine-cycle-buffer)
   (setq outshine-startup-folded-p nil)
   ;; TODO make generic hook for all lisps (chip-lisp-mode-hook)
+  ;; TODO Move all of these to their separate config locations (with after-load)
   (add-hook 'emacs-lisp-mode-hook 'outshine-mode)
   (add-hook 'lisp-mode-hook 'outshine-mode)
   (add-hook 'clojure-mode-hook 'outshine-mode)
@@ -843,11 +844,14 @@ all elements."
   :after (evil)
   :defer t
   :config
-  (setq geiser-chicken-binary "chicken-csi")
-  (setq geiser-active-implementations '(chicken racket))
-  (setq geiser-default-implementation 'chicken)
-  (add-hook 'geiser-repl-mode-hook 'evil-lispy-mode)
+  ;; (setq geiser-chicken-binary "chicken-csi")
+  ;; (setq geiser-active-implementations '(guile))
+  ;; (setq geiser-default-implementation 'guile)
+  ;; (add-hook 'geiser-repl-mode-hook 'evil-lispy-mode)
   (add-to-list 'evil-emacs-state-modes 'geiser-debug-mode))
+
+(use-package geiser-guile
+  :after (geiser))
 
 (use-package racket-mode
   :defer t

@@ -136,9 +136,50 @@ Lisp function does not specify a special indentation."
   (interactive)
   (setf slime-inhibit-pipelining nil))
 
-(defun sly-mrepl-other-window ()
+(defvar *c/sly-mrepl-prev-window* nil)
+;; (defun c/sly-mrepl-toggle ()
+;;   (interactive)
+;;   (let* ((current-window (selected-window))
+;;          (buffer (sly-mrepl--find-create (sly-current-connection)))
+;;          (win (get-buffer-window buffer)))
+
+;;     (if (eq (window-buffer current-window) buffer)
+;;         (progn
+;;           (when (window-live-p *c/sly-mrepl-prev-window*)
+;;             (select-window *c/sly-mrepl-prev-window*))
+;;           (setq *c/sly-mrepl-prev-window* nil))
+;;         (if win
+;;             (select-window win)
+;;           (switch-to-buffer-other-window buffer))
+;;       (setq *c/sly-mrepl-prev-window* current-window))
+
+;;     ;; Prevent repl from being selected by other-window (use keybinding instead)
+;;     (set-window-parameter win 'no-other-window t)
+;;     ))
+
+(defun c/sly-mrepl--open-side-window (buffer)
+  (display-buffer-in-side-window buffer '((side . bottom)
+                                          (slot . 0)
+                                          (dedicated . t)
+                                          (window-height . 12)
+                                          (window-parameters . ((no-other-window . t))))))
+
+(defun c/sly-mrepl-toggle ()
   (interactive)
-  (sly-mrepl #'switch-to-buffer-other-window))
+  (let* ((current-window (selected-window))
+         (buffer (save-window-excursion (sly-mrepl--find-create (sly-current-connection))))
+         (win (get-buffer-window buffer)))
+
+    (if (eq (window-buffer current-window) buffer)
+        (progn
+          (when (window-live-p *c/sly-mrepl-prev-window*)
+            (select-window *c/sly-mrepl-prev-window*))
+          (setq *c/sly-mrepl-prev-window* nil))
+      (if win
+          (select-window win)
+        (select-window
+         (c/sly-mrepl--open-side-window buffer)))
+      (setq *c/sly-mrepl-prev-window* current-window))))
 
 (use-package sly-macrostep
   :config
@@ -205,7 +246,7 @@ Lisp function does not specify a special indentation."
 
   (general-define-key
    :keymaps 'sly-mode-map
-    [remap sly-mrepl] 'sly-mrepl-other-window)
+    [remap sly-mrepl] 'c/sly-mrepl-toggle)
   (general-define-key
    :states '(normal)
    :keymaps 'sly-mode-map

@@ -42,10 +42,20 @@
    "C-x -"     'chip/window-unzoom
    "C-x ="     'balance-windows
    "M-o"       'ace-window
+   "C-<tab>"   'c/next-window
+   "C-<iso-lefttab>"   'c/prev-window
    "S-<next>"  'scroll-other-window
    "S-<prior>" 'scroll-other-window-down
    "S-<up>" 'c/prev-line-center
    "S-<down>" 'c/next-line-center))
+
+(defun c/next-window ()
+  (interactive)
+  (other-window 1))
+
+(defun c/prev-window ()
+  (interactive)
+  (other-window -1))
 
 (defun c/prev-line-center ()
   (interactive)
@@ -56,9 +66,6 @@
   (interactive)
   (evil-next-line)
   (scroll-up 1))
-
-(global-set-key [C-tab] 'evil-window-next)
-(global-set-key [C-iso-lefttab] 'evil-window-prev)
 
 ;; Save window configurations as bookmarks
 (use-package burly
