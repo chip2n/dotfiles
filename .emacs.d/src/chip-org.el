@@ -263,14 +263,13 @@ The start timestamp of the clock entry is created `mins' minutes from the curren
   (interactive)
   (org-agenda-to-appt t))
 
-;; Set up when emacs starts
-(c/org-agenda-to-appt)
+;; Activate appointments so we get notifications for Linux systems
+(when (string-equal system-type "gnu/linux")
+  (c/org-agenda-to-appt)
+  (appt-activate t)
 
-;; Activate appointments so we get notifications
-(appt-activate t)
-
-;; Refresh reminders every 10 minutes
-(run-at-time t (* 60 10) 'c/org-agenda-to-appt)
+  ;; Refresh reminders every 10 minutes
+  (run-at-time t (* 60 10) 'c/org-agenda-to-appt))
 
 ;; Show reminders at 15, 10 and 5 minutes prior
 (setq appt-message-warning-time 15)
