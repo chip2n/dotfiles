@@ -95,7 +95,7 @@ targets."
   :config
   ;; Configure a function which returns the project root directory
   (autoload 'projectile-project-root "projectile")
-  (setq consult-project-root-function #'projectile-project-root)
+  (setq consult-project-function #'projectile-project-root)
 
   (after-load (evil)
     ;; Remember point before search for `evil-jump-backward'
