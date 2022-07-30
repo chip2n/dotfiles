@@ -403,7 +403,7 @@
   `(sly-part-button-face ((,class (:foreground ,blue-2 :weight bold))))
 
   ;; Macrostep faces
-  `(macrostep-expansion-highlight-face ((,class (:background ,color-highlight-1))))
+  `(macrostep-expansion-highlight-face ((,class (:background ,color-highlight-1 :extend t))))
 
   ;; Slack faces
   `(slack-message-output-header ((,class (:foreground ,blue-2 :weight bold))))
