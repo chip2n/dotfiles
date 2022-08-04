@@ -5,7 +5,7 @@
   '((white-1   . "#eceff6")
     (grey-0    . "#1b1e24")
     (grey-1    . "#21242b")
-    (grey-2    . "#282c34")
+    (grey-2    . "#2c3039")
     (grey-3    . "#494e5a")
     (grey-4    . "#6b7385")
     (grey-5    . "#b6bed0")
@@ -27,7 +27,7 @@
     (color-foreground        . white-1)
     (color-comment           . grey-4)
     (color-cursor            . grey-4)
-    (color-modeline-active   . grey-2)
+    (color-modeline-active   . grey-3)
     (color-modeline-inactive . grey-2)
     (color-highlight-1       . grey-2)
     (color-highlight-2       . grey-3)
@@ -111,7 +111,10 @@
                                    ,blue-2 ,magenta-2 ,blue-1 ,grey-4]))))
 
 (with-theme 'chip
-  `(default ((,class (:foreground ,color-foreground :background ,color-background :family "Iosevka" :height 100))))
+  `(default ((,class (:foreground ,color-foreground
+                      :background ,color-background
+                      :family "Iosevka"
+                      :height 100))))
   `(fixed-pitch ((,class (:family "Iosevka" :height 100))))
   `(variable-pitch ((,class (:family "Iosevka" :height 100))))
   `(cursor ((,class (:background ,color-cursor))))
@@ -126,10 +129,16 @@
   `(lazy-highlight ((,class (:background ,color-highlight-2))))
   `(trailing-whitespace ((,class (:background ,color-error))))
   `(vertical-border ((,class (:foreground ,color-border))))
+
+  `(window-divider ((,class (:foreground ,color-border))))
+
   `(link ((,class (:foreground ,blue-2 :underline t))))
   `(link-visited ((,class (:foreground ,blue-1 :underline t))))
   `(line-number ((,class (:inherit default :foreground ,grey-3))))
-  `(line-number-current-line ((,class (:inherit default :foreground ,color-foreground :background ,color-highlight-1 :bold t))))
+  `(line-number-current-line ((,class (:inherit default
+                                       :foreground ,color-foreground
+                                       :background ,color-highlight-1
+                                       :bold t))))
   `(help-key-binding ((,class (:foreground ,pink-2 :underline t :bold t))))
   `(bookmark-face ((,class ())))
 
@@ -235,7 +244,9 @@
   ;; Swiper
   `(swiper-line-face ((,class (:background ,color-highlight-1 :extend t))))
   `(swiper-match-face-1 ((,class (:background ,white-1 :foreground ,grey-2 :weight bold))))
-  `(swiper-background-match-face-1 ((,class (:background ,color-highlight-2 :foreground ,white-1 :weight bold))))
+  `(swiper-background-match-face-1 ((,class (:background ,color-highlight-2
+                                             :foreground ,white-1
+                                             :weight bold))))
 
   ;; Hydra
   `(hydra-face-red ((,class (:foreground ,red-1))))
@@ -297,14 +308,14 @@
   `(org-agenda-dimmed-todo-face ((,class (:foreground ,color-comment))))
 
   ;; outshine
-  `(outshine-level-1 ((,class (:foreground ,color-headline-1 :underline t))))
-  `(outshine-level-2 ((,class (:foreground ,color-headline-2 :underline t))))
-  `(outshine-level-3 ((,class (:foreground ,color-headline-3 :underline t))))
-  `(outshine-level-4 ((,class (:foreground ,color-headline-4 :underline t))))
-  `(outshine-level-5 ((,class (:foreground ,color-headline-1 :underline t))))
-  `(outshine-level-6 ((,class (:foreground ,color-headline-2 :underline t))))
-  `(outshine-level-7 ((,class (:foreground ,color-headline-3 :underline t))))
-  `(outshine-level-8 ((,class (:foreground ,color-headline-4 :underline t))))
+  `(outshine-level-1 ((,class (:foreground ,color-headline-1 :bold t :underline (:color ,grey-4) :extend t))))
+  `(outshine-level-2 ((,class (:foreground ,color-headline-2 :bold t :underline (:color ,grey-4) :extend t))))
+  `(outshine-level-3 ((,class (:foreground ,color-headline-3 :bold t :underline (:color ,grey-4) :extend t))))
+  `(outshine-level-4 ((,class (:foreground ,color-headline-4 :bold t :underline (:color ,grey-4) :extend t))))
+  `(outshine-level-5 ((,class (:foreground ,color-headline-1 :bold t :underline (:color ,grey-4) :extend t))))
+  `(outshine-level-6 ((,class (:foreground ,color-headline-2 :bold t :underline (:color ,grey-4) :extend t))))
+  `(outshine-level-7 ((,class (:foreground ,color-headline-3 :bold t :underline (:color ,grey-4) :extend t))))
+  `(outshine-level-8 ((,class (:foreground ,color-headline-4 :bold t :underline (:color ,grey-4) :extend t))))
 
   ;; Magit faces
   `(magit-section-highlight ((,class (:background ,color-highlight-1))))

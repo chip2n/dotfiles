@@ -157,15 +157,23 @@ Lisp function does not specify a special indentation."
 ;;     (set-window-parameter win 'no-other-window t)
 ;;     ))
 
-(defun c/sly-mrepl--open-side-window (buffer)
+(defun c/sly-mrepl--open-bottom-window (buffer)
   (display-buffer-in-side-window buffer '((side . bottom)
                                           (slot . 0)
                                           (dedicated . t)
                                           (window-height . 12)
                                           (window-parameters . ((no-other-window . t))))))
 
-(defun c/sly-mrepl-toggle ()
-  (interactive)
+(defun c/sly-mrepl--open-side-window (buffer)
+  (display-buffer-in-side-window buffer '((side . right)
+                                          (slot . 0)
+                                          (dedicated . t)
+                                          ;; (preserve-size . '(t . nil))
+                                          (window-width . 100)
+                                          ;; (window-parameters . ((no-other-window . t)))
+                                          )))
+
+(defun c/sly-mrepl--toggle (open-fn)
   (let* ((current-window (selected-window))
          (buffer (save-window-excursion (sly-mrepl--find-create (sly-current-connection))))
          (win (get-buffer-window buffer)))
@@ -177,9 +185,23 @@ Lisp function does not specify a special indentation."
           (setq *c/sly-mrepl-prev-window* nil))
       (if win
           (select-window win)
-        (select-window
-         (c/sly-mrepl--open-side-window buffer)))
+        (funcall open-fn buffer))
       (setq *c/sly-mrepl-prev-window* current-window))))
+
+(defun c/sly-mrepl-toggle ()
+  (interactive)
+  ;; (c/sly-mrepl--toggle #'c/sly-mrepl--open-bottom-window)
+  ;; (c/sly-mrepl--toggle #'c/sly-mrepl--open-side-window)
+  (c/sly-mrepl--toggle #'switch-to-buffer-other-window)
+  )
+
+(defun c/sly-apropos (string package)
+  "Search for a symbol, optionally limitid to a single package."
+  (interactive
+   (list (sly-read-from-minibuffer "Apropos external symbols: ")
+         (sly-read-package-name "Package (blank for all): "
+                                nil 'allow-blank)))
+  (sly-apropos string t package))
 
 (use-package sly-macrostep
   :config
@@ -237,6 +259,9 @@ Lisp function does not specify a special indentation."
   (after-load (company)
     (add-hook 'sly-mrepl-mode-hook 'company-mode))
 
+  (after-load (symex)
+    (add-hook 'sly-mrepl-mode-hook 'symex-mode))
+
   (add-hook 'sly-mrepl-mode-hook
             (lambda () (add-to-list 'sly-mrepl-shortcut-alist '("quickload" . c/sly-mrepl-quickload))))
 
@@ -246,11 +271,17 @@ Lisp function does not specify a special indentation."
 
   (general-define-key
    :keymaps 'sly-mode-map
-    [remap sly-mrepl] 'c/sly-mrepl-toggle)
+   [remap sly-mrepl] 'c/sly-mrepl-toggle)
+
   (general-define-key
    :states '(normal)
    :keymaps 'sly-mode-map
-    "gd" 'sly-edit-definition))
+    "gd" 'sly-edit-definition)
+
+  (general-define-key
+   :states '(normal)
+   :keymaps 'sly-popup-buffer-mode-map
+    "q" 'quit-window))
 
 ;;; Haskell
 

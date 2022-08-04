@@ -58,6 +58,7 @@ Containing LEFT, and RIGHT aligned respectively."
    ((evil-insert-state-p) (propertize s 'face 'chip-face-evil-state-insert))
    ((evil-emacs-state-p) (propertize s 'face 'chip-face-evil-state-emacs))
    ((evil-visual-state-p) (propertize s 'face 'chip-face-evil-state-visual))
+   (symex-editing-mode (propertize s 'face 'chip-face-evil-state-emacs))
    (t (propertize s 'face 'chip-face-evil-state-normal))))
 
 ;;; Modeline
@@ -189,7 +190,10 @@ want to use in the modeline *in lieu of* the original.")
   :config
   (c/diminish auto-fill-function)
   (c/diminish undo-tree-mode)
-  (c/diminish auto-revert-mode (concat " " (chip-modeline--propertize-octicon "sync")))
+  ;; Not sure why using the hook is needed
+  (add-hook 'auto-revert-mode-hook
+            (lambda ()
+              (c/diminish auto-revert-mode (concat " " (chip-modeline--propertize-octicon "sync")))))
   (c/diminish emacs-lisp-mode "elisp")
   (c/diminish org-indent-mode)
   (c/diminish org-src-mode)

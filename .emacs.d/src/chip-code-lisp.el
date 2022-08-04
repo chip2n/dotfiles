@@ -93,14 +93,21 @@
 
 (use-package symex
   :config
+  (c/diminish symex-mode)
+  (c/diminish symex-editing-mode)
   ;; Reverse up/down to match my mental model better
   (setq symex--user-evil-keyspec
       '(("j" . symex-go-up)
         ("k" . symex-go-down)
+        ("m" . mark-sexp)
         ("C-j" . symex-climb-branch)
         ("C-k" . symex-descend-branch)
         ("M-j" . symex-goto-highest)
-        ("M-k" . symex-goto-lowest)))
+        ("M-k" . symex-goto-lowest)
+
+        ;; I use this keybinding for switching windows
+        ("C-<tab>" . nil)))
+
   (symex-initialize)
 
   ;; Override evaluation function - we're using sly instead of slime

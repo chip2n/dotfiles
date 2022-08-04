@@ -14,9 +14,11 @@
 ;; autoremote
 (setq autoremote-api-key "")
 
-;; znc
-(setq private/znc-server "")
-(setq private/znc-port 1234)
+;; irc
+(setq private/irc-server "")
+(setq private/irc-port 1234)
+(setq private/irc-nick "")
+(setq private/irc-password "")
 
 ;; västtrafik
 (setq vasttrafik-api-key "")

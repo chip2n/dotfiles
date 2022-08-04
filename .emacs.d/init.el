@@ -60,6 +60,7 @@
 ;;; Deferred compilation
 
 (setq comp-deferred-compilation nil)
+(setq native-comp-async-report-warnings-errors nil)
 
 (defun chip/native-compile ()
   (interactive)

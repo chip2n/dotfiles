@@ -468,6 +468,10 @@ point reaches the beginning or end of the buffer, stop there."
    "TAB" 'outshine-cycle
    "<backtab>" 'outshine-cycle-buffer)
   (setq outshine-startup-folded-p nil)
+
+  ;; Fontify entire line (allows to use :extend on faces)
+  (setq outshine-fontify-whole-heading-line t)
+
   ;; TODO make generic hook for all lisps (chip-lisp-mode-hook)
   ;; TODO Move all of these to their separate config locations (with after-load)
   (add-hook 'emacs-lisp-mode-hook 'outshine-mode)

@@ -42,7 +42,11 @@
 ;; Inhibit startup message
 (setq inhibit-startup-echo-area-message "chip")
 
-(provide 'chip-theme-base)
+;; Configure window dividers
+(setf window-divider-default-places t)
+(setf window-divider-default-right-width 1)
+(setf window-divider-default-bottom-width 1)
+(window-divider-mode 1)
 
 ;; Fringes
 
@@ -142,5 +146,7 @@
    #b00000000
    #b00000000
    ])
+
+(provide 'chip-theme-base)
 
 ;;; chip-theme-base.el ends here
