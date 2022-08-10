@@ -156,13 +156,14 @@ targets."
   :ensure t
   :custom (completion-styles '(orderless))
   :custom (completion-category-overrides '((file (styles basic-remote orderless partial-completion))))
+  :config
   ;; Orderless doesn't work too well when completing with company, so we apply a
   ;; more sane completion style here
   (define-advice company-capf
       (:around (orig-fun &rest args) set-completion-styles)
     (let ((completion-styles '(basic partial-completion)))
       (apply orig-fun args)))
-  :config
+
   (setq orderless-matching-styles '(orderless-literal orderless-regexp))
   ;; Allow & as separator, useful for company-mode where space breaks completion
   (setq orderless-component-separator "[ &]")
