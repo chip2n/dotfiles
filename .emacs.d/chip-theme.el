@@ -113,10 +113,11 @@
 (with-theme 'chip
   `(default ((,class (:foreground ,color-foreground
                       :background ,color-background
-                      :family "Iosevka"
-                      :height 100))))
-  `(fixed-pitch ((,class (:family "Iosevka" :height 100))))
-  `(variable-pitch ((,class (:family "Iosevka" :height 100))))
+                      :family "Jetbrains Mono"
+                      :height 100
+                      ))))
+  `(fixed-pitch ((,class (:family "Jetbrains Mono" :height 100))))
+  `(variable-pitch ((,class (:family "Jetbrains Mono" :height 100))))
   `(cursor ((,class (:background ,color-cursor))))
   `(parenthesis ((,class (:foreground ,color-comment))))
 
@@ -146,13 +147,16 @@
   `(show-paren-match ((,class (:background ,color-highlight-2))))
 
   ;; Header faces
-  `(header-line ((,class (:box (:line-width 4 :color ,color-background :style nil)
+  ;; `(header-line ((,class (:background ,color-modeline-active
+  ;;                         :foreground ,color-foreground))))
+  `(header-line ((,class (:box (:line-width 4 :color ,color-background)
                           :background ,color-background
                           :foreground ,color-foreground))))
 
   ;; Mode line faces
-  `(mode-line ((,class (:box () :background ,color-modeline-active :foreground ,color-foreground))))
-  `(mode-line-inactive ((,class (:box () :background ,color-modeline-inactive :foreground ,color-comment))))
+  `(mode-line ((,class (:background ,color-modeline-active :foreground ,color-foreground))))
+  `(mode-line-inactive ((,class (:background ,color-modeline-inactive :foreground ,color-comment))))
+  `(mode-line-highlight ((,class (:background nil :foreground ,color-foreground))))
   `(mode-line-evil-state-normal ((,class (:foreground ,color-evil-normal))))
   `(mode-line-evil-state-insert ((,class (:foreground ,color-evil-insert))))
   `(mode-line-evil-state-visual ((,class (:foreground ,color-evil-visual))))
@@ -161,6 +165,7 @@
 
   ;; Info
   `(Info-quoted ((,class (:foreground ,pink-2 :bold t))))
+  `(info-menu-star ((,class (:inherit default))))
 
   ;; Telephone line faces
   `(telephone-line-evil-normal
@@ -189,6 +194,15 @@
   `(term-color-yellow ((,class (:foreground ,yellow-2))))
   `(term-color-pink ((,class (:foreground ,pink-2))))
   `(term-color-magenta ((,class (:foreground ,magenta-2))))
+  `(term-color-magenta ((,class (:foreground ,magenta-2))))
+  `(vterm-color-black ((,class (:foreground ,grey-3))))
+  `(vterm-color-red ((,class (:foreground ,red-2))))
+  `(vterm-color-blue ((,class (:foreground ,blue-2))))
+  `(vterm-color-green ((,class (:foreground ,green-2))))
+  `(vterm-color-yellow ((,class (:foreground ,yellow-2))))
+  `(vterm-color-pink ((,class (:foreground ,pink-2))))
+  `(vterm-color-magenta ((,class (:foreground ,magenta-2))))
+  `(vterm-color-magenta ((,class (:foreground ,magenta-2))))
 
   ;; compilation-mode
   `(compilation-mode-line-exit ((,class (:foreground ,green-2))))
@@ -308,14 +322,14 @@
   `(org-agenda-dimmed-todo-face ((,class (:foreground ,color-comment))))
 
   ;; outshine
-  `(outshine-level-1 ((,class (:foreground ,color-headline-1 :bold t :underline (:color ,grey-4) :extend t))))
-  `(outshine-level-2 ((,class (:foreground ,color-headline-2 :bold t :underline (:color ,grey-4) :extend t))))
-  `(outshine-level-3 ((,class (:foreground ,color-headline-3 :bold t :underline (:color ,grey-4) :extend t))))
-  `(outshine-level-4 ((,class (:foreground ,color-headline-4 :bold t :underline (:color ,grey-4) :extend t))))
-  `(outshine-level-5 ((,class (:foreground ,color-headline-1 :bold t :underline (:color ,grey-4) :extend t))))
-  `(outshine-level-6 ((,class (:foreground ,color-headline-2 :bold t :underline (:color ,grey-4) :extend t))))
-  `(outshine-level-7 ((,class (:foreground ,color-headline-3 :bold t :underline (:color ,grey-4) :extend t))))
-  `(outshine-level-8 ((,class (:foreground ,color-headline-4 :bold t :underline (:color ,grey-4) :extend t))))
+  `(outshine-level-1 ((,class (:foreground ,color-headline-1 :bold t :underline (:color ,grey-3) :extend t))))
+  `(outshine-level-2 ((,class (:foreground ,color-headline-2 :bold t :underline (:color ,grey-3) :extend t))))
+  `(outshine-level-3 ((,class (:foreground ,color-headline-3 :bold t :underline (:color ,grey-3) :extend t))))
+  `(outshine-level-4 ((,class (:foreground ,color-headline-4 :bold t :underline (:color ,grey-3) :extend t))))
+  `(outshine-level-5 ((,class (:foreground ,color-headline-1 :bold t :underline (:color ,grey-3) :extend t))))
+  `(outshine-level-6 ((,class (:foreground ,color-headline-2 :bold t :underline (:color ,grey-3) :extend t))))
+  `(outshine-level-7 ((,class (:foreground ,color-headline-3 :bold t :underline (:color ,grey-3) :extend t))))
+  `(outshine-level-8 ((,class (:foreground ,color-headline-4 :bold t :underline (:color ,grey-3) :extend t))))
 
   ;; Magit faces
   `(magit-section-highlight ((,class (:background ,color-highlight-1))))
@@ -348,6 +362,10 @@
   `(git-gutter:added ((,class (:foreground ,green-2 :bold t))))
   `(git-gutter:deleted ((,class (:foreground ,red-1 :bold t))))
   `(git-gutter:modified ((,class (:foreground ,color-comment :bold t))))
+
+  ;; debugging
+  `(breakpoint-enabled ((,class (:foreground ,red-1))))
+  `(breakpoint-disabled ((,class (:foreground ,color-comment))))
 
   ;; realgud
   `(realgud-bp-line-enabled-face ((,class ())))
@@ -435,6 +453,17 @@
   ;; EIN
   `(ein:cell-input-area ((,class (:background ,grey-2))))
   `(ein:cell-output-area ((,class (:foreground ,grey-4))))
+
+  ;; notmuch
+  `(notmuch-search-unread-face ((,class (:weight bold))))
+  `(notmuch-message-summary-face ((,class (:background ,grey-2))))
+  `(notmuch-tag-unread ((,class (:foreground ,red-2))))
+  `(notmuch-tag-face ((,class (:foreground ,green-2))))
+  `(notmuch-show-part-button-default ((,class (:inherit link))))
+  `(message-mml ((,class (:inherit link))))
+  `(widget-field ((,class (:background ,grey-3))))
+  `(widget-button ((,class (:inherit link))))
+  `(widget-button-pressed ((,class (:background ,grey-2 :foreground ,color-foreground))))
 
   ;; Pomidor
   `(pomidor-time-face ((,class (:foreground ,green-1 :weight bold))))
