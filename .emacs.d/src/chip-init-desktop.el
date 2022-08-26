@@ -737,6 +737,7 @@ all elements."
           "https://hnrss.org/newest?comments=10"
           "https://lisp-journey.gitlab.io/index.xml"
           "https://lexi-lambda.github.io/feeds/all.rss.xml"
+          "https://kaveh808.medium.com/feed"        ; kaveh808
           "https://zig.news/feed"                   ; Zig News
           ,(youtube-rss "UCaxar6TBM-94_ezoS00fLkA") ; Day9TV
           ,(youtube-rss "UC0uTPqBCFIpZxlz_Lv1tk_g") ; Protesilaos Stavrou
