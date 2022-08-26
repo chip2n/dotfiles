@@ -30,12 +30,14 @@
         (if (featurep 'evil-lispy)
             (evil-lispy-mode 1)
           (lispy-mode 1))
+        (outshine-mode 1)
         (prettify-symbols-mode 1)
         (c/complete-mode 1))
     (progn
       (if (featurep 'evil-lispy)
           (evil-lispy-mode -1)
         (lispy-mode -1))
+      (outshine-mode -1)
       (prettify-symbols-mode -1)
       (c/complete-mode -1))))
 
