@@ -168,6 +168,38 @@ This checks in turn:
           ;; surrounding sexp for a function call.
           ((setq sym (function-at-point)) (describe-function sym)))))
 
+;;; Codegen
+
+(defun c/lisp-wrap-let ()
+  "Wrap expression at point inside LET."
+  (interactive)
+  (symex-wrap-round)
+  (forward-char)
+  (insert "let ")
+  (symex-create-round)
+  (symex-wrap-round)
+  (forward-char 2)
+  (save-excursion
+    (forward-char 2)
+    (insert "\n")
+    (symex-tidy))
+  (symex-insert-at-beginning))
+
+(defun c/lisp-wrap-with-slots ()
+  "Wrap expression at point inside WITH-SLOTS."
+  (interactive)
+  (symex-wrap-round)
+  (forward-char)
+  (insert "with-slots ")
+  (symex-create-round)
+  (forward-char 1)
+  (save-excursion
+    (forward-char 1)
+    (insert "\n")
+    (symex-tidy))
+  (symex-insert-at-beginning))
+
+
 (provide 'chip-code-lisp)
 
 ;;; chip-code-lisp.el ends here
