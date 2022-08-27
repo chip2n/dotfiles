@@ -39,6 +39,12 @@
 
 (setq user-mail-address "andreas@arvidsson.io")
 
+(defgroup chip ()
+  "Options for my personal configuration."
+  :group 'config
+  :prefix "chip-"
+  :tag "Chip")
+
 ;;; Straight
 
 (defvar bootstrap-version)

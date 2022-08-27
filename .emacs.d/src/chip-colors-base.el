@@ -22,9 +22,6 @@
 
 ;;; Code:
 
-(defgroup chip '()
-  "Faces and colors for the chip emacs theme")
-
 (defvar chip-base-colors--defaults
   `((foreground . ,(face-foreground 'default nil t))
     (background . ,(face-background 'default nil t))
