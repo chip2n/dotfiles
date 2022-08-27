@@ -313,6 +313,9 @@ The start timestamp of the clock entry is created `mins' minutes from the curren
 
 ;;; Misc
 
+;; Fold logbooks etc at startup
+(setq org-startup-folded 'all)
+
 ;; set org todo keywords
 (setq org-todo-keywords
       '((sequence "TODO(t)" "NEXT(n)" "WAIT(w@/!)" "HOLD(h@/!)" "|" "DONE(d)" "KILL(c@)")))
