@@ -63,14 +63,23 @@ Containing LEFT, and RIGHT aligned respectively."
 
 ;;; Modeline
 
+(defun chip-modeline-email ()
+  (let ((unread-count (shell-command-to-string "notmuch search --output=messages tag:unread | wc -l | tr -d '\n'")))
+    (when (not (string-equal unread-count "0"))
+      (concat
+       (chip-modeline--propertize-octicon "mail")
+       " "
+       unread-count))))
+
 (defun chip-modeline-fallback ()
   "Modeline used as a fallback if no other modeline is available"
   (chip-modeline-format
    '(chip-modeline-tag-evil-state
      chip-modeline-tag-major-mode
-     "  "
      chip-modeline-tag-vc
      chip-modeline-misc-info
+     "  "
+     chip-modeline-email
      chip-modeline-process-info
      "%e ")
    '(chip-modeline-minor-modes
@@ -101,6 +110,7 @@ Containing LEFT, and RIGHT aligned respectively."
   (if vc-mode
       (let ((backend (vc-backend buffer-file-name)))
         (concat
+         "  "
          (chip-modeline--propertize-octicon "git-branch")
          " "
          (substring-no-properties vc-mode (+ (if (eq backend 'Hg) 2 3) 2))))
