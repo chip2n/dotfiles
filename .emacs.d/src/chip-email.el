@@ -30,6 +30,39 @@
   :defer t
   :config
   (setq notmuch-show-logo nil)
+  (setq notmuch-show-header-line t)
+  (setq-default notmuch-search-oldest-first nil)
+
+  (setq notmuch-hello-sections
+        '(notmuch-hello-insert-saved-searches
+          notmuch-hello-insert-search
+          notmuch-hello-insert-recent-searches
+          notmuch-hello-insert-alltags))
+
+  (setq notmuch-saved-searches
+        `((:name "inbox" :query "tag:inbox" :key "i")
+          (:name "unread" :query "tag:unread" :key "u")
+          (:name "list" :query "tag:list" :key "l")
+          (:name "flagged" :query "tag:flagged" :key "f")
+          (:name "git"
+           :query "(from:*@github.com)"
+           :key ,(kbd "g"))
+          (:name "emacs" :query "tag:emacs" :key ,(kbd "e a"))
+          (:name "emacs-devel"
+           :query "(from:emacs-devel@gnu.org or to:emacs-devel@gnu.org)"
+           :sort-order newest-first
+           :key ,(kbd "e d"))
+          (:name "emacs-orgmode"
+           :query "(from:emacs-orgmode@gnu.org or to:emacs-orgmode@gnu.org)"
+           :sort-order newest-first
+           :key ,(kbd "e o"))
+          (:name "lispworks"
+           :query "from:lisp-hug@lispworks.com or to:lisp-hug@lispworks.com"
+           :key ,(kbd "w"))
+          (:name "sent" :query "tag:sent" :key "t")
+          (:name "drafts" :query "tag:draft" :key "d")
+          (:name "all" :query "*" :key "a")))
+
   ;; Remove html colors from UI
   (setq shr-use-colors nil
         shr-use-fonts nil))
@@ -59,6 +92,10 @@
 
 (require 'gnutls)
 (add-to-list 'gnutls-trustfiles (expand-file-name "~/.config/protonmail/bridge/cert.pem"))
+
+(defun c/mail-sync ()
+  (interactive)
+  (async-shell-command "mbsync -a"))
 
 (provide 'chip-email)
 

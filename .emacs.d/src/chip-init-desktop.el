@@ -52,6 +52,7 @@
 (require 'chip-code-elixir)
 (require 'chip-code-zig)
 (require 'chip-lang)
+(require 'chip-email)
 
 ;;; Package: paren-face
 
