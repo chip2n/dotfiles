@@ -1,6 +1,6 @@
 ;;; chip-code-lisp.el -*- lexical-binding: t -*-
 
-;; Copyright (C) 2021  Andreas Arvidsson
+;; Copyright (C) 2022  Andreas Arvidsson
 ;;
 ;; Author: Andreas Arvidsson <andreas@arvidsson.io>
 ;; Keywords: config
