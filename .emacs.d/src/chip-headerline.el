@@ -46,8 +46,11 @@
          (filename (file-name-nondirectory buffer-file-name)))
     (if (> (+ (length sl/full-header) 15)
            (window-body-width))
-        (propertize filename 'face 'chip-face-default)
-      (propertize (concat path filename) 'face 'chip-face-default))))
+        filename
+        ;; (propertize filename 'face 'chip-face-default)
+      (concat path filename)
+      ;; (propertize (concat path filename) 'face 'chip-face-default)
+      )))
 
 (defun chip-headerline-tag-buffer-position ()
   "Tag used to display where in the file the point is"
