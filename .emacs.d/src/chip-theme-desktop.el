@@ -30,6 +30,34 @@
 ;; Use minimum of 3 characters to avoid frequent resizing during window height change (e.g. during M-x)
 (setq-default display-line-numbers-width 3)
 
+;;; Dim unselected windows
+
+(defface c/dimmed-face
+  '((t :background "#1b1e24"))
+  ""
+  )
+
+(defface c/dimmed-face-header-line
+  '((t (:background "#21242b"
+        :foreground "#6b7385")))
+  "")
+;; (defface c/dimmed-face-header-line
+;;   '((t (:box (:line-width 4 :color "#21242b" :style nil)
+;;         :background "#21242b"
+;;         :foreground "#6b7385")))
+;;   "")
+
+(use-package auto-dim-other-buffers
+  :config
+  (setf auto-dim-other-buffers-affected-faces
+        '(;; (default . c/dimmed-face)
+          ;; (fringe . c/dimmed-face)
+          (header-line . c/dimmed-face-header-line)
+          (line-number-current-line . line-number))
+        )
+
+  (auto-dim-other-buffers-mode 1))
+
 (provide 'chip-theme-desktop)
 
 ;;; chip-theme-desktop.el ends here
