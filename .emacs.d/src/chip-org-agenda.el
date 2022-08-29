@@ -139,9 +139,14 @@
           (tags-todo "-HOLD-WAIT-refile/!"
                 ((org-agenda-overriding-header "\ntasks --------------------------------------------------------------------------")
 
-                 ;; Never show scheduled tasks - they will appear on the appropriate date
+                 ;; Never show scheduled tasks - they will appear on the
+                 ;; appropriate date
                  (org-agenda-tags-todo-honor-ignore-options t)
                  (org-agenda-todo-ignore-scheduled 'all)
+
+                 ;; Never show tasks with deadline - they will appear when
+                 ;; they're within the near future
+                 (org-agenda-todo-ignore-deadlines 'all)
 
                  ;; (org-agenda-skip-function #'c/org-agenda-skip-inbox)
                  (org-agenda-skip-function #'c/org-agenda--skip-non-root-tasks)))))))
