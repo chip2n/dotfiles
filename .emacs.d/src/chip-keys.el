@@ -97,7 +97,7 @@ If prefix is used, grep in current directory instead."
  "C-c g" 'chip/grep
 
  ;; org-mode agenda
- "C-c a" 'chip/org-agenda
+ "C-c a" 'c/org-agenda
 
  ;; org-mode capture
  "C-c e" 'chip/capture
