@@ -27,6 +27,8 @@
 
 ;;; Packages
 
+(use-package org)
+
 (use-package org-contrib
   :config
   ;; enable blocker properties for unnested dependencies
@@ -113,16 +115,6 @@ The start timestamp of the clock entry is created `mins' minutes from the curren
         (org-evaluate-time-range)))))
 
 (setq org-clock-sound "~/audio/waterdrop.wav")
-
-;;; Deadlines
-
-;; Deadlines are discretely displayed in the agenda 7 days before due
-;; date, and are extra highlighted 2 days before.
-(setq org-deadline-warning-days 7)
-(setq org-agenda-deadline-faces
-      '((1.0 . org-warning)
-        (0.7 . org-upcoming-deadline)
-        (0.0 . org-upcoming-distant-deadline)))
 
 ;;; Attachments
 
@@ -291,40 +283,78 @@ The start timestamp of the clock entry is created `mins' minutes from the curren
 
 (setq appt-disp-window-function #'c/appt-disp-window-function)
 
-;;; Archiving
+;;; Links
 
-;; Use `c/org-query-archived' to query and archive tasks
+(defun c/yes-or-no-cached-p (prompt)
+  (let ((cache-path (concat chip-config-cache-dir "yes-or-no-responses")))
+
+    ;; Ensure cache dir & file exists
+    (make-directory chip-config-cache-dir t)
+    (unless (file-exists-p cache-path)
+      (write-region "()" nil cache-path))
+
+    ;; Read cached responses
+    (let ((cached-responses (with-temp-buffer
+                              (insert-file-contents cache-path)
+                              (read (current-buffer)))))
+      (or (cdr (assoc prompt cached-responses))
+          (when (yes-or-no-p prompt)
+            (let ((remember? (yes-or-no-p "Remember this answer in the future? ")))
+              (when remember?
+                (push (cons prompt t) cached-responses)
+
+                ;; Write response into cache file
+                (with-temp-buffer
+                  (insert (prin1-to-string cached-responses))
+                  (write-region nil nil cache-path))))
+            t)))))
+
+(setq org-confirm-elisp-link-function 'c/yes-or-no-cached-p)
+
+;;; Archiving tasks
+
+;; I have a recurring task scheduled at the beginning of each month reminding me
+;; to archive old tasks. The rationale is to keep the agenda files reasonably
+;; small for better performance.
+
+;; I use org-ql to query all tasks that are completed or killed at before the
+;; beginning of last month. This ensures that I always have at least a month of
+;; completed tasks available in case I want to do a clock table.
+
+;; From the org-ql buffer, I can mark all tasks and bulk-archive them using the
+;; same keybindings as in the agenda.
 
 (use-package org-ql)
 
 (defun c/beginning-of-last-month ()
+  "Get the beginning of last month as a string of format YYYY-MM-dd."
   (let* ((daynr (string-to-number (format-time-string "%d" (current-time))))
          (a-month-ago (* 60 60 24 (+ daynr 1)))
          (last-month (format-time-string "%Y-%m-01" (time-subtract (current-time) (seconds-to-time a-month-ago)))))
     last-month))
 
-(defun c/org-query-archived ()
+(defun c/org-query-old-tasks ()
+  "Query all tasks that are completed or killed at before the
+beginning of last month."
   (interactive)
   (org-ql-search
     org-agenda-files
     `(and (done)
           (not (parent))
-          (ts-active :to ,(c/beginning-of-last-month)))))
+          (or
+           (ts-active :to ,(c/beginning-of-last-month))
+           (closed :to ,(c/beginning-of-last-month))))))
+
+;; Make sure to not alter task state when archiving
+(setq org-archive-mark-done nil)
 
 ;;; Misc
 
 ;; Fold logbooks etc at startup
 (setq org-startup-folded 'all)
 
-;; set org todo keywords
-(setq org-todo-keywords
-      '((sequence "TODO(t)" "NEXT(n)" "WAIT(w@/!)" "HOLD(h@/!)" "|" "DONE(d)" "KILL(c@)")))
-
 ;; add timestamp to completed todos
 (setq org-log-done 'time)
-
-;; make sure to not alter TODO state when archiving
-(setq org-archive-mark-done nil)
 
 ;; create automatic bookmarks for org captures
 (setq org-bookmark-names-plist
@@ -513,35 +543,7 @@ The start timestamp of the clock entry is created `mins' minutes from the curren
 
 (setq org-capture-templates
       `(("t" "TODO" entry (file "~/org/personal/refile.org")
-         "* TODO %?")
-        ("f" "Log fitness data" table-line (file+headline "~/org/personal/fitness.org" "Weight tracking")
-         "| %t | %? |   |")
-        ("w" "Workout")
-        ("wa" "Workout A" entry #'get-journal-path
-         "
-* Workout
-%T
-| Bulgarian Split Squat    | 3x10 | %?  |
-| Bench Press              | 3x10 |   |
-| Straight-Legged Deadlift | 3x10 |   |
-| Plank                    | 3x10 | - |
-" :clock-in t :clock-resume t)
-        ("wb" "Workout B" entry #'get-journal-path
-         "
-* Workout
-%T
-| Bulgarian Split Squat | 3x10 | %?  |
-| Seated Shoulder Press | 3x10 |   |
-| Bent Over Row         | 3x10 |   |
-| Plank                 | 3x10 | - |
-" :clock-in t :clock-resume t)
-        ("c" "Daily checklist" entry (file "~/org/remente/remente.org")
-         "* TODO Daily checklist
-- [ ] Check slack%?
-- [ ] Check email
-- [ ] Check missive"
-         :clock-in t
-         :clock-resume t)))
+         "* TODO %?")))
 
 ;; auto-saving org buffers after certain actions
 (defun save-org-buffers (&rest args)
@@ -592,49 +594,15 @@ The start timestamp of the clock entry is created `mins' minutes from the curren
       (concat str "─> "))))
 (advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)
 
-(defun chip/org-agenda ()
-  (interactive)
-  (org-agenda nil "c")
-  ;; (org-agenda-redo-all)
-  )
-
 (defun chip/dashboard ()
   (interactive)
   (delete-other-windows)
   (split-window-horizontally)
-  (chip/org-agenda)
+  (c/org-agenda)
   (chip/window-80)
   (window-preserve-size nil t t)
   (switch-to-buffer-other-window "*scratch*")
   (other-window 1))
-
-(require 'org-habit)
-
-(setq org-agenda-files
-      `(,(concat c/org-dir "personal/personal.org")
-        ,(concat c/org-dir "personal/refile.org")
-        ,(concat c/org-dir "remente/remente.org")))
-
-;; keep agenda filters after closing agenda buffer
-(setq org-agenda-persistent-filter t)
-
-;; prevent org-agenda from destroying splits
-(setq org-agenda-window-setup 'current-window)
-
-;; always start agenda on current day instead of mondays
-(setq org-agenda-start-on-weekday nil)
-
-;; show only today as default
-(setq org-agenda-span 'day)
-
-;; bury agenda buffer instead of killing it on quit
-(setq org-agenda-sticky t)
-
-(setq org-agenda-sorting-strategy
-      '((agenda habit-down time-up todo-state-up priority-down category-keep)
-       (todo priority-down category-keep)
-       (tags priority-down category-keep)
-       (search category-keep)))
 
 ;; force child TODOs to be done before parent can be done
 (setq org-enforce-todo-dependencies t)
@@ -647,500 +615,8 @@ The start timestamp of the clock entry is created `mins' minutes from the curren
 
 (setq org-stuck-projects (quote ("" nil nil "")))
 
-(setq org-agenda-tags-column -80)
-
-;; hide separators between agenda blocks
-(setq org-agenda-block-separator nil)
-
-;; don't dim blocked tasks
-(setq org-agenda-dim-blocked-tasks nil)
-
-;; remove agenda indentation
-(setq org-agenda-prefix-format
-      '((agenda . "%i%-12:c%?-12t% s")
-        (todo . "%i%-12:c")
-        (tags . "%i%-12:c")
-        (search . "%i%-12:c")))
-
-;; remove header
-(setq org-agenda-overriding-header "")
-
-;; format dates in a nicer way
-(setq org-agenda-format-date 'chip/org-agenda-format-date-aligned)
-
-(defun chip/org-agenda-format-date-aligned (date)
-  "Format a DATE string for display in the daily/weekly agenda.
-This function makes sure that dates are aligned for easy reading."
-  (require 'cal-iso)
-  (let* ((dayname (downcase (calendar-day-name date)))
-	 (day (cadr date))
-	 (day-of-week (calendar-day-of-week date))
-	 (month (car date))
-	 (monthname (downcase (calendar-month-name month)))
-	 (year (nth 2 date))
-	 (iso-week (org-days-to-iso-week
-		    (calendar-absolute-from-gregorian date)))
-	 (weekyear (cond ((and (= month 1) (>= iso-week 52))
-			  (1- year))
-			 ((and (= month 12) (<= iso-week 1))
-			  (1+ year))
-			 (t year)))
-	 (weekstring (if (= day-of-week 1)
-			 (format " w%02d" iso-week)
-		       "")))
-    (let* ((lhs dayname)
-           (rhs (format "%2d %s %4d" day monthname year))
-           (padding (- 80 (length lhs) (length rhs) 2))
-           (pad-str (make-string padding ?-))
-           (pattern (format "%%s%%%ds" padding)))
-      (format "%s %s %s" lhs pad-str rhs))))
-
-;; set agenda icons
-(setq org-agenda-scheduled-leaders `("" "(+%1d)"))
-(setq org-agenda-deadline-leaders `("(!!)" "(-%1d)" "(+%1d)"))
-
-;; make time grid as wide as the tag column
-(setq org-agenda-time-grid
-      '((daily today require-timed)
-        (800 1000 1200 1400 1600 1800 2000)
-        "......" "--------------------------------------------------------"))
-(setq org-agenda-current-time-string
-      "--------------------------------------------------------")
-
-(defun bh/find-project-task ()
-  "Move point to the parent (project) task if any"
-  (save-restriction
-    (widen)
-    (let ((parent-task (save-excursion (org-back-to-heading 'invisible-ok) (point))))
-      (while (org-up-heading-safe)
-        (when (member (nth 2 (org-heading-components)) org-todo-keywords-1)
-          (setq parent-task (point))))
-      (goto-char parent-task)
-      parent-task)))
-
-(defun bh/is-project-p ()
-  "Any task with a todo keyword subtask"
-  (save-restriction
-    (widen)
-    (let ((has-subtask)
-          (subtree-end (save-excursion (org-end-of-subtree t)))
-          (is-a-task (member (nth 2 (org-heading-components)) org-todo-keywords-1)))
-      (save-excursion
-        (forward-line 1)
-        (while (and (not has-subtask)
-                    (< (point) subtree-end)
-                    (re-search-forward "^\*+ " subtree-end t))
-          (when (member (org-get-todo-state) org-todo-keywords-1)
-            (setq has-subtask t))))
-      (and is-a-task has-subtask))))
-
-(defun bh/is-project-subtree-p ()
-  "Any task with a todo keyword that is in a project subtree.
-Callers of this function already widen the buffer view."
-  (let ((task (save-excursion (org-back-to-heading 'invisible-ok)
-                              (point))))
-    (save-excursion
-      (bh/find-project-task)
-      (if (equal (point) task)
-          nil
-        t))))
-
-(defun bh/is-task-p ()
-  "Any task with a todo keyword and no subtask"
-  (save-restriction
-    (widen)
-    (let ((has-subtask)
-          (subtree-end (save-excursion (org-end-of-subtree t)))
-          (is-a-task (member (nth 2 (org-heading-components)) org-todo-keywords-1)))
-      (save-excursion
-        (forward-line 1)
-        (while (and (not has-subtask)
-                    (< (point) subtree-end)
-                    (re-search-forward "^\*+ " subtree-end t))
-          (when (member (org-get-todo-state) org-todo-keywords-1)
-            (setq has-subtask t))))
-      (and is-a-task (not has-subtask)))))
-
-(defun bh/is-subproject-p ()
-  "Any task which is a subtask of another project"
-  (let ((is-subproject)
-        (is-a-task (member (nth 2 (org-heading-components)) org-todo-keywords-1)))
-    (save-excursion
-      (while (and (not is-subproject) (org-up-heading-safe))
-        (when (member (nth 2 (org-heading-components)) org-todo-keywords-1)
-          (setq is-subproject t))))
-    (and is-a-task is-subproject)))
-
-(defun bh/list-sublevels-for-projects-indented ()
-  "Set org-tags-match-list-sublevels so when restricted to a subtree we list all subtasks.
-  This is normally used by skipping functions where this variable is already local to the agenda."
-  (if (marker-buffer org-agenda-restrict-begin)
-      (setq org-tags-match-list-sublevels 'indented)
-    (setq org-tags-match-list-sublevels nil))
-  nil)
-
-(defun bh/list-sublevels-for-projects ()
-  "Set org-tags-match-list-sublevels so when restricted to a subtree we list all subtasks.
-  This is normally used by skipping functions where this variable is already local to the agenda."
-  (if (marker-buffer org-agenda-restrict-begin)
-      (setq org-tags-match-list-sublevels t)
-    (setq org-tags-match-list-sublevels nil))
-  nil)
-
-(defvar bh/hide-scheduled-and-waiting-next-tasks t)
-
-(defun bh/toggle-next-task-display ()
-  (interactive)
-  (setq bh/hide-scheduled-and-waiting-next-tasks (not bh/hide-scheduled-and-waiting-next-tasks))
-  (when  (equal major-mode 'org-agenda-mode)
-    (org-agenda-redo))
-  (message "%s WAIT and SCHEDULED NEXT Tasks" (if bh/hide-scheduled-and-waiting-next-tasks "Hide" "Show")))
-
-(defun bh/skip-stuck-projects ()
-  "Skip trees that are not stuck projects"
-  (save-restriction
-    (widen)
-    (let ((next-headline (save-excursion (or (outline-next-heading) (point-max)))))
-      (if (bh/is-project-p)
-          (let* ((subtree-end (save-excursion (org-end-of-subtree t)))
-                 (has-next ))
-            (save-excursion
-              (forward-line 1)
-              (while (and (not has-next) (< (point) subtree-end) (re-search-forward "^\\*+ NEXT " subtree-end t))
-                (unless (member "WAIT" (org-get-tags-at))
-                  (setq has-next t))))
-            (if has-next
-                nil
-              next-headline)) ; a stuck project, has subtasks but no next task
-        nil))))
-
-(defun bh/skip-non-projects ()
-  "Skip trees that are not projects"
-  (save-restriction
-    (widen)
-    (let ((subtree-end (save-excursion (org-end-of-subtree t))))
-      (cond
-       ((bh/is-project-p)
-        nil)
-       ((and (bh/is-project-subtree-p) (not (bh/is-task-p)))
-        nil)
-       (t
-        subtree-end)))))
-
-(defun bh/skip-non-tasks ()
-  "Show non-project tasks.
-Skip project and sub-project tasks, habits, and project related tasks."
-  (save-restriction
-    (widen)
-    (let ((next-headline (save-excursion (or (outline-next-heading) (point-max)))))
-      (cond
-       ((bh/is-task-p)
-        nil)
-       (t
-        next-headline)))))
-
-(defun bh/skip-project-tasks ()
-  "Show non-project tasks.
-Skip project and sub-project tasks, habits, and project related tasks."
-  (save-restriction
-    (widen)
-    (let* ((subtree-end (save-excursion (org-end-of-subtree t))))
-      (cond
-       ((bh/is-project-p)
-        subtree-end)
-       ((org-is-habit-p)
-        subtree-end)
-       ((bh/is-project-subtree-p)
-        subtree-end)
-       (t
-        nil)))))
-
-(defun bh/skip-non-project-tasks ()
-  "Show project tasks.
-Skip project and sub-project tasks, habits, and loose non-project tasks."
-  (save-restriction
-    (widen)
-    (let* ((subtree-end (save-excursion (org-end-of-subtree t)))
-           (next-headline (save-excursion (or (outline-next-heading) (point-max)))))
-      (cond
-       ((bh/is-project-p)
-        next-headline)
-       ((org-is-habit-p)
-        subtree-end)
-       ((and (bh/is-project-subtree-p)
-             (member (org-get-todo-state) (list "NEXT")))
-        subtree-end)
-       ((not (bh/is-project-subtree-p))
-        subtree-end)
-       (t
-        nil)))))
-
-(setq org-agenda-custom-commands
-      (quote (("N" "Notes" tags "NOTE"
-               ((org-agenda-overriding-header "Notes")
-                (org-tags-match-list-sublevels t)))
-              ("h" "Habits" tags-todo "STYLE=\"habit\""
-               ((org-agenda-overriding-header "Habits")
-                (org-agenda-sorting-strategy
-                 '(todo-state-down effort-up category-keep))))
-              ("c" "Agenda"
-               ((agenda "" nil)
-                (tags "refile"
-                      ((org-agenda-overriding-header "\nrefile -------------------------------------------------------------------------")
-                       (org-tags-match-list-sublevels nil)))
-                (tags-todo "-refile-KILL/!"
-                           ((org-agenda-overriding-header
-                             (if bh/hide-scheduled-and-waiting-next-tasks
-                                 "\ntasks --------------------------------------------------------------------------"
-                               "\ntasks (+wait +sched) -----------------------------------------------------------"))
-                            (org-agenda-skip-function 'bh/skip-project-tasks)
-                            (org-agenda-tags-todo-honor-ignore-options t)
-                            (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
-                            (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
-                            (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
-                            (org-agenda-sorting-strategy
-                             '(category-keep))))
-                (tags-todo
-                 "-hold-KILL/!"
-                           ((org-agenda-overriding-header "\nprojects -----------------------------------------------------------------------")
-                            (org-agenda-skip-function 'bh/skip-non-projects)
-                            (org-tags-match-list-sublevels 'indented)
-                            (org-agenda-sorting-strategy
-                             '(category-keep))))
-                (tags-todo "-hold-refile-KILL/!"
-                           ((org-agenda-overriding-header
-                             (if bh/hide-scheduled-and-waiting-next-tasks
-                                 "subtasks -----------------------------------------------------------------------"
-                               "subtasks (+wait +sched) --------------------------------------------------------"))
-                            (org-agenda-skip-function 'bh/skip-non-project-tasks)
-                            (org-agenda-tags-todo-honor-ignore-options t)
-                            (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
-                            (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
-                            (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
-                            (org-agenda-sorting-strategy
-                             '(category-keep)))))
-               nil))))
-
-(general-define-key
- "C-c o n" 'bh/org-todo
- "C-c o w" 'bh/widen)
-
-(setq org-todo-state-tags-triggers
-      (quote (("KILL" ("KILL" . t))
-              ("WAIT" ("WAIT" . t))
-              ("HOLD" ("WAIT") ("hold" . t))
-              (done ("WAIT") ("hold"))
-              ("TODO" ("WAIT") ("KILL") ("hold"))
-              ("NEXT" ("WAIT") ("KILL") ("hold"))
-              ("DONE" ("WAIT") ("KILL") ("hold")))))
-
-(defun chip/org-auto-exclude-function (tag)
-  "Automatic task exclusion in the agenda with / RET"
-  (and (cond
-        ((string= tag "hold")
-         t))
-       (concat "-" tag)))
-
-(setq org-agenda-auto-exclude-function 'chip/org-auto-exclude-function)
-
-;; - T (tasks) for C-c / t on the current buffer
-;; - N (narrow) narrows to this task subtree
-;; - U (up) narrows to the immediate parent task subtree without moving
-;; - P (project) narrows to the parent project subtree without moving
-;; - F (file) narrows to the current file or file of the existing restriction
-
-(defun bh/org-todo (arg)
-  (interactive "p")
-  (if (equal arg 4)
-      (save-restriction
-        (bh/narrow-to-org-subtree)
-        (org-show-todo-tree nil))
-    (bh/narrow-to-org-subtree)
-    (org-show-todo-tree nil)))
-
-(defun bh/widen ()
-  (interactive)
-  (if (equal major-mode 'org-agenda-mode)
-      (progn
-        (org-agenda-remove-restriction-lock)
-        (when org-agenda-sticky
-          (org-agenda-redo)))
-    (widen)))
-
-(add-hook 'org-agenda-mode-hook
-          #'(lambda () (org-defkey org-agenda-mode-map "W" (lambda () (interactive) (setq bh/hide-scheduled-and-waiting-next-tasks t) (bh/widen))))
-          'append)
-
-(defun bh/restrict-to-file-or-follow (arg)
-  "Set agenda restriction to 'file or with argument invoke follow mode.
-I don't use follow mode very often but I restrict to file all the time
-so change the default 'F' binding in the agenda to allow both"
-  (interactive "p")
-  (if (equal arg 4)
-      (org-agenda-follow-mode)
-    (widen)
-    (bh/set-agenda-restriction-lock 4)
-    (org-agenda-redo)
-    (beginning-of-buffer)))
-
-(add-hook 'org-agenda-mode-hook
-          #'(lambda () (org-defkey org-agenda-mode-map "F" 'bh/restrict-to-file-or-follow))
-          'append)
-
-(defun bh/narrow-to-org-subtree ()
-  ;; (widen)
-  ;; (org-narrow-to-subtree)
-  (save-restriction
-    (org-agenda-set-restriction-lock)))
-
-(defun bh/narrow-to-subtree ()
-  (interactive)
-  (if (equal major-mode 'org-agenda-mode)
-      (progn
-        (org-with-point-at (org-get-at-bol 'org-hd-marker)
-          (bh/narrow-to-org-subtree))
-        (when org-agenda-sticky
-          (org-agenda-redo)))
-    (bh/narrow-to-org-subtree)))
-
-(add-hook 'org-agenda-mode-hook
-          #'(lambda () (org-defkey org-agenda-mode-map "N" 'bh/narrow-to-subtree))
-          'append)
-
-(defun bh/narrow-up-one-org-level ()
-  (widen)
-  (save-excursion
-    (outline-up-heading 1 'invisible-ok)
-    (bh/narrow-to-org-subtree)))
-
-(defun bh/get-pom-from-agenda-restriction-or-point ()
-  (or (and (marker-position org-agenda-restrict-begin) org-agenda-restrict-begin)
-      (org-get-at-bol 'org-hd-marker)
-      (and (equal major-mode 'org-mode) (point))
-      org-clock-marker))
-
-(defun bh/narrow-up-one-level ()
-  (interactive)
-  (if (equal major-mode 'org-agenda-mode)
-      (progn
-        (org-with-point-at (bh/get-pom-from-agenda-restriction-or-point)
-          (bh/narrow-up-one-org-level))
-        (org-agenda-redo))
-    (bh/narrow-up-one-org-level)))
-
-(add-hook 'org-agenda-mode-hook
-          #'(lambda () (org-defkey org-agenda-mode-map "U" 'bh/narrow-up-one-level))
-          'append)
-
-(defun bh/narrow-to-org-project ()
-  (widen)
-  (save-excursion
-    (bh/find-project-task)
-    (bh/narrow-to-org-subtree)))
-
-(defun bh/narrow-to-project ()
-  (interactive)
-  (if (equal major-mode 'org-agenda-mode)
-      (progn
-        (org-with-point-at (bh/get-pom-from-agenda-restriction-or-point)
-          (bh/narrow-to-org-project)
-          (save-excursion
-            (bh/find-project-task)
-            (org-agenda-set-restriction-lock)))
-        (org-agenda-redo)
-        (beginning-of-buffer))
-    (bh/narrow-to-org-project)
-    (save-restriction
-      (org-agenda-set-restriction-lock))))
-
-(add-hook 'org-agenda-mode-hook
-          #'(lambda () (org-defkey org-agenda-mode-map "P" 'bh/narrow-to-project))
-          'append)
-
-(defvar bh/project-list nil)
-
-(defun bh/view-next-project ()
-  (interactive)
-  (let (num-project-left current-project)
-    (unless (marker-position org-agenda-restrict-begin)
-      (goto-char (point-min))
-      ; Clear all of the existing markers on the list
-      (while bh/project-list
-        (set-marker (pop bh/project-list) nil))
-      (re-search-forward "Tasks to Refile")
-      (forward-visible-line 1))
-
-    ; Build a new project marker list
-    (unless bh/project-list
-      (while (< (point) (point-max))
-        (while (and (< (point) (point-max))
-                    (or (not (org-get-at-bol 'org-hd-marker))
-                        (org-with-point-at (org-get-at-bol 'org-hd-marker)
-                          (or (not (bh/is-project-p))
-                              (bh/is-project-subtree-p)))))
-          (forward-visible-line 1))
-        (when (< (point) (point-max))
-          (add-to-list 'bh/project-list (copy-marker (org-get-at-bol 'org-hd-marker)) 'append))
-        (forward-visible-line 1)))
-
-    ; Pop off the first marker on the list and display
-    (setq current-project (pop bh/project-list))
-    (when current-project
-      (org-with-point-at current-project
-        (setq bh/hide-scheduled-and-waiting-next-tasks nil)
-        (bh/narrow-to-project))
-      ; Remove the marker
-      (setq current-project nil)
-      (org-agenda-redo)
-      (beginning-of-buffer)
-      (setq num-projects-left (length bh/project-list))
-      (if (> num-projects-left 0)
-          (message "%s projects left to view" num-projects-left)
-        (beginning-of-buffer)
-        (setq bh/hide-scheduled-and-waiting-next-tasks t)
-        (error "All projects viewed.")))))
-
-(add-hook 'org-agenda-mode-hook
-          #'(lambda () (org-defkey org-agenda-mode-map "V" 'bh/view-next-project))
-          'append)
-
 ;; This prevents too many headlines from being folded together when I'm
 ;; working with collapsed trees.
 (setq org-show-entry-below (quote ((default))))
-
-;; =C-c C-x <= turns on the agenda restriction lock for the current
-;; subtree.  This keeps your agenda focused on only this subtree.  Alarms
-;; and notifications are still active outside the agenda restriction.
-;; =C-c C-x >= turns off the agenda restriction lock returning your
-;; agenda view back to normal.
-
-;; I have added key bindings for the agenda to allow using =C-c C-x <= in
-;; the agenda to set the restriction lock to the current task directly.
-;; The following elisp accomplishes this.
-
-(add-hook 'org-agenda-mode-hook
-          #'(lambda () (org-defkey org-agenda-mode-map "\C-c\C-x<" 'bh/set-agenda-restriction-lock))
-          'append)
-
-(defun bh/set-agenda-restriction-lock (arg)
-  "Set restriction lock to current task subtree or file if prefix is specified"
-  (interactive "p")
-  (let* ((pom (bh/get-pom-from-agenda-restriction-or-point))
-         (tags (org-with-point-at pom (org-get-tags-at))))
-    (let ((restriction-type (if (equal arg 4) 'file 'subtree)))
-      (save-restriction
-        (cond
-         ((and (equal major-mode 'org-agenda-mode) pom)
-          (org-with-point-at pom
-            (org-agenda-set-restriction-lock restriction-type))
-          (org-agenda-redo))
-         ((and (equal major-mode 'org-mode) (org-before-first-heading-p))
-          (org-agenda-set-restriction-lock 'file))
-         (pom
-          (org-with-point-at pom
-            (org-agenda-set-restriction-lock restriction-type))))))))
-
-;; Limit restriction lock highlighting to the headline only
-(setq org-agenda-restriction-lock-highlight-subtree nil)
 
 (provide 'chip-org)
