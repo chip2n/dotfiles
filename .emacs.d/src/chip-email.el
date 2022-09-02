@@ -26,9 +26,17 @@
 
 ;;; Code:
 
+(defun c/notmuch-search-mark-read ()
+    (interactive)
+    (notmuch-search-remove-tag '("-unread"))
+    (forward-line))
+
 (use-package notmuch
   :defer t
+  :general (:keymaps 'notmuch-search-mode-map
+            "r" 'c/notmuch-search-mark-read)
   :config
+
   (setq notmuch-show-logo nil)
   (setq notmuch-show-header-line t)
   (setq-default notmuch-search-oldest-first nil)
