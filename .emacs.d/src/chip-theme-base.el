@@ -44,6 +44,9 @@
 ;; Highlight the current line
 (global-hl-line-mode +1)
 
+;; Use 4 spaces for tabs
+(setq-default tab-width 4)
+
 ;; Inhibit startup message
 (setq inhibit-startup-echo-area-message "chip")
 
