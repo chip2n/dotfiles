@@ -704,11 +704,12 @@ all elements."
           "https://hnrss.org/newest?comments=10"
           "https://lisp-journey.gitlab.io/index.xml"
           "https://lexi-lambda.github.io/feeds/all.rss.xml"
+          "https://stevelosh.com/rss.xml"           ; Steve Losh
           "https://kaveh808.medium.com/feed"        ; kaveh808
           "https://zig.news/feed"                   ; Zig News
-          ,(youtube-rss "UCaxar6TBM-94_ezoS00fLkA") ; Day9TV
-          ,(youtube-rss "UC0uTPqBCFIpZxlz_Lv1tk_g") ; Protesilaos Stavrou
-          ,(reddit-rss private/reddit-rss-feed "chip2n")
+          ;; ,(youtube-rss "UCaxar6TBM-94_ezoS00fLkA") ; Day9TV
+          ;; ,(youtube-rss "UC0uTPqBCFIpZxlz_Lv1tk_g") ; Protesilaos Stavrou
+          ;; ,(reddit-rss private/reddit-rss-feed "chip2n")
           ))
 
   (add-to-list 'evil-emacs-state-modes 'elfeed-search-mode)
