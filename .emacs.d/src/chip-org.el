@@ -348,6 +348,17 @@ beginning of last month."
 ;; Make sure to not alter task state when archiving
 (setq org-archive-mark-done nil)
 
+;;; LaTeX
+
+;; Use a bigger size for LaTeX previews
+(setq org-format-latex-options
+      (plist-put org-format-latex-options :scale 1.5))
+
+;;; Source blocks
+
+;; Use current window when editing source blocks
+(setq org-src-window-setup 'current-window)
+
 ;;; Misc
 
 ;; Fold logbooks etc at startup
@@ -522,7 +533,7 @@ beginning of last month."
 
 (setq org-tags-column -80)
 
-;; resize image according to ATTR_ORG if available
+;; resize image according to #+ATTR.* if available
 (setq org-image-actual-width nil)
 
 ;; add automatic newlines when lines get too long
