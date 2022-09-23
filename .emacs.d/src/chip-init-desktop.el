@@ -183,7 +183,8 @@ point reaches the beginning or end of the buffer, stop there."
    "C-e"   'chip/move-end-of-line
    "C-a"   'chip/move-beginning-of-line
    "C-c i" 'imenu
-   "C-s"   'avy-goto-char-timer
+   "C-s"   'isearch-forward
+   "C-r"   'isearch-backward
    "C-c s" 'avy-goto-char-timer
    "M-s"   'consult-line))
 
