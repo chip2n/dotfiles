@@ -3,8 +3,10 @@
 # key: sw
 # --
 class $1 extends StatefulWidget {
+  const $1({super.key});
+
   @override
-  _$1State createState() => _$1State();
+  State<$1> createState() => _$1State();
 }
 
 class _$1State extends State<$1> {
