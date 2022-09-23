@@ -31,6 +31,8 @@
 (defconst chip-config-src-dir (concat chip-config-dir "src/")
   "Path to emacs config src directory.")
 
+(defconst chip-config-cache-dir (concat chip-config-dir ".cache/"))
+
 (defconst chip-dev-dir "~/dev/"
   "Path to development directory.")
 
@@ -118,7 +120,13 @@
 (add-hook 'prog-mode-hook (lambda ()
                             (setq show-trailing-whitespace t)))
 
+;; Show message when garbage collection happens
+(setq-default garbage-collection-messages t)
+
 ;;; Platform initialization
+
+;; Use a large GC threshold for initialization
+(setf gc-cons-threshold 1073741824)
 
 ;; Fix for dired not working on Mac OS (requires `brew install coreutils`)
 (when (equal system-type 'darwin)
@@ -127,4 +135,12 @@
 (require 'chip-init-desktop)
 ;; (require 'chip-init-android)
 
+;;; Garbage collection
+
+;; Use GCMH to trigger GC when idle
+(use-package gcmh
+  :config
+  (c/diminish gcmh-mode)
+  (gcmh-mode 1)
+  (setf gcmh-idle-delay 5))
 ;;; init.el ends here
