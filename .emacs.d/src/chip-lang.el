@@ -83,6 +83,15 @@ Lisp function does not specify a special indentation."
  :keymaps '(emacs-lisp-mode-map lisp-interaction-mode-map)
   "C-c C-c" 'eval-defun)
 
+(use-package macrostep
+  :general (:keymaps 'emacs-lisp-mode-map
+            "C-c M-e" 'c/macrostep)
+  :config
+  (defun c/macrostep ()
+    (interactive)
+    (macrostep-mode 1)
+    (macrostep-expand)))
+
 ;;; Common Lisp
 
 (defun c/quicklisp-symlink (path)
@@ -240,17 +249,52 @@ Lisp function does not specify a special indentation."
   (let ((package (completing-read "Load package: " (sly-eval `(quicklisp:list-local-systems)))))
     (sly-eval `(quicklisp:quickload ,package))))
 
+;; (defun c/sly-display-over-repl (buffer alist)
+;;   "Use REPL window to display the buffer if it is open.
+;; This is intended to be used as an action function for
+;; display-buffer (through display-buffer-alist)."
+;;   (let ((repl-buffer (sly-mrepl--find-buffer)))
+;;     (when repl-buffer
+;;       (when-let ((repl-window (car (get-buffer-window-list repl-buffer))))
+;;         (select-window repl-window)
+;;         (switch-to-buffer buffer)
+;;         repl-window))))
+
+(defun c/sly-display-buffer (buffer alist)
+  "Use an existing SLY window to display the buffer.
+This is intended to be used as an action function for
+display-buffer (through display-buffer-alist)."
+  (message "Hello")
+  (let* ((repl-buffer (sly-mrepl--find-buffer))
+         (repl-window (and repl-buffer (car (get-buffer-window-list repl-buffer))))
+         (db-buffer (cl-find-if (lambda (b)
+                                 (get-buffer-window-list b))
+                               (sly-db-buffers)))
+         (db-window (and db-buffer (car (get-buffer-window-list db-buffer))))
+         (window-to-use (or repl-window db-window))
+         (buffer-to-use (or repl-buffer db-buffer)))
+    (when window-to-use
+      (select-window window-to-use)
+      (switch-to-buffer buffer)
+      window-to-use)))
+
 (use-package sly
   :config
   (require 'sly-autoloads)
 
   (setq inferior-lisp-program "/usr/bin/sbcl")
 
+  ;; Aim to reuse current SLY buffers when opening the inspector and debugger
+  (add-to-list 'display-buffer-alist '("\\*sly-inspector.*\\*" c/sly-display-buffer))
+  (add-to-list 'display-buffer-alist '("\\*sly-db.*\\*" c/sly-display-buffer))
+
   (after-load (evil)
     (add-to-list 'evil-emacs-state-modes 'sly-db-mode)
     (add-to-list 'evil-emacs-state-modes 'sly-inspector-mode)
-    (add-to-list 'evil-emacs-state-modes 'sly-xref-mode)
-    ;; (add-hook 'sly-xref-mode-hook (lambda () (interactive) (evil-emacs-state)))
+    ;; (add-to-list 'evil-emacs-state-modes 'sly-xref-mode)
+    (add-to-list 'evil-emacs-state-modes 'sly-stickers--replay-mode)
+    (add-to-list 'evil-emacs-state-modes 'sly-trace-dialog-mode)
+    (add-hook 'sly-xref-mode-hook 'evil-emacs-state)
     (add-hook 'sly-macroexpansion-minor-mode-hook 'evil-emacs-state)
     (add-hook 'sly-inspector-mode-hook 'evil-emacs-state)
 
@@ -271,7 +315,8 @@ Lisp function does not specify a special indentation."
 
   (general-define-key
    :keymaps 'sly-mode-map
-   [remap sly-mrepl] 'c/sly-mrepl-toggle)
+   [remap sly-mrepl] 'c/sly-mrepl-toggle
+   "C-x i" 'sly-import-symbol-at-point)
 
   (general-define-key
    :states '(normal)
