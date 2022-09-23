@@ -858,7 +858,9 @@ all elements."
 (use-package lsp-dart
   :defer t
   :config
-  (setq lsp-dart-sdk-dir "/home/chip/flutter/bin/cache/dart-sdk/")
+  (setq lsp-dart-line-length 120)
+  (setq lsp-dart-sdk-dir "~/snap/flutter/common/flutter/bin/cache/dart-sdk")
+  (setq lsp-dart-flutter-sdk-dir "~/snap/flutter/common/flutter")
   (add-hook 'dart-mode-hook 'lsp)
   (setq lsp-dart-dap-flutter-hot-reload-on-save t))
 
@@ -888,27 +890,29 @@ all elements."
 (defun flutter--find-project-root ()
   (locate-dominating-file (buffer-file-name) "pubspec.yaml"))
 
-(defun flutter-run ()
-  (interactive)
-  (let ((project-root (flutter--find-project-root)))
-    (if (not project-root)
-        (error "Not inside a flutter project (no pubspec.yaml found in any parent directory)."))
-    (pop-to-buffer (get-buffer-create "*flutter*"))
-    (cd project-root)
-    (shell (current-buffer))
-    (process-send-string nil "flutter run -d all --pid-file /tmp/flutter.pid\n")
-    (evil-normal-state)
-    (other-window -1)))
+(use-package flutter)
 
-(defun flutter-hot-reload ()
-  "Triggers a hot reload of the running flutter application"
-  (interactive)
-  (shell-command "kill -SIGUSR1 $(cat /tmp/flutter.pid)"))
+;; (defun flutter-run ()
+;;   (interactive)
+;;   (let ((project-root (flutter--find-project-root)))
+;;     (if (not project-root)
+;;         (error "Not inside a flutter project (no pubspec.yaml found in any parent directory)."))
+;;     (pop-to-buffer (get-buffer-create "*flutter*"))
+;;     (cd project-root)
+;;     (shell (current-buffer))
+;;     (process-send-string nil "flutter run -d all --pid-file /tmp/flutter.pid\n")
+;;     (evil-normal-state)
+;;     (other-window -1)))
 
-(defun flutter-hot-restart ()
-  "Triggers a hot restart of the running flutter application"
-  (interactive)
-  (shell-command "kill -SIGUSR2 $(cat /tmp/flutter.pid)"))
+;; (defun flutter-hot-reload ()
+;;   "Triggers a hot reload of the running flutter application"
+;;   (interactive)
+;;   (shell-command "kill -SIGUSR1 $(cat /tmp/flutter.pid)"))
+
+;; (defun flutter-hot-restart ()
+;;   "Triggers a hot restart of the running flutter application"
+;;   (interactive)
+;;   (shell-command "kill -SIGUSR2 $(cat /tmp/flutter.pid)"))
 
 (defun flutter--move-beginning-of-widget ()
   (re-search-backward (rx space))
