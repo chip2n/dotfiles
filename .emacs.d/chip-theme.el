@@ -1,3 +1,5 @@
+;; -*- after-save-hook: c/load-theme; -*-
+
 (deftheme chip)
 
 ;;; Groups
@@ -17,7 +19,7 @@
     (grey-2    . "#2c3039")
     (grey-3    . "#494e5a")
     (grey-4    . "#6b7385")
-    (grey-5    . "#b6bed0")
+    (grey-5    . "#8790a4")
     (red-1     . "#d98077")
     (red-2     . "#ffa398")
     (green-1   . "#89d2b0")
@@ -91,7 +93,8 @@
    (t spec)))
 
 (defun chip-theme--expand-face-def (def)
-  `(,(car def) ((((class color) (min-colors 89)) ,(chip-theme--resolve-colors (cadr def))))))
+  `(,(car def) ((((class color) (min-colors 89))
+                 ,(chip-theme--resolve-colors (cadr def))))))
 
 (define-theme chip
   (default (:foreground color-foreground
@@ -123,6 +126,7 @@
                              :background color-highlight-1
                              :bold t))
   (help-key-binding (:foreground pink-2 :underline t :bold t))
+  (bookmark-face (:background color-background :foreground color-comment))
 
   ;; Paren match
   (show-paren-match (:background color-highlight-2))
@@ -262,16 +266,16 @@
   (org-property-value (:foreground color-comment :slant italic))
   (org-document-info (:foreground color-comment :slant italic))
   (org-document-info-keyword (:foreground color-comment :slant italic))
-  (org-document-title (:foreground color-comment))
+  (org-document-title (:inherit default :underline t :weight bold))
   (org-special-keyword (:foreground color-comment :slant italic))
   (org-upcoming-deadline (:foreground white-1))
   (org-upcoming-distant-deadline (:foreground grey-4))
   (org-warning (:foreground color-error))
   (org-code (:foreground pink-2 :weight bold :inherit fixed-pitch))
   (org-verbatim (:foreground pink-2 :weight bold :inherit fixed-pitch))
-  (org-block-begin-line (:foreground color-comment :background grey-2 :extend t))
+  (org-block-begin-line (:background "#383d4a" :foreground grey-5 :extend t))
   (org-block (:background grey-2))
-  (org-block-end-line (:foreground color-comment :background grey-2 :extend t))
+  (org-block-end-line (:background "#383d4a" :foreground grey-5 :extend t))
   (org-mode-line-clock (:foreground nil))
 
   ;; Org bullets
@@ -329,6 +333,9 @@
   (magit-header-line nil)
   (magit-blame-highlight (:foreground color-comment :background grey-2))
   (git-commit-summary (:foreground white-1))
+
+  ;; Pulsar
+  ;; (pulsar-generic (:background grey-3))
 
   ;; git-gutter
   (git-gutter:added (:foreground green-2 :bold t))
@@ -390,6 +397,9 @@
   (cider-test-success-face (:foreground color-success :weight bold))
   (cider-test-failure-face (:background color-error   :foreground white-1 :weight bold))
   (cider-fringe-good-face (:foreground color-comment))
+
+  ;; comint
+  (comint-highlight-input (:inherit default))
 
   ;; SLIME faces
   (slime-repl-inputed-output-face (:foreground color-comment))
