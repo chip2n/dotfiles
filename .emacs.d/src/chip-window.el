@@ -38,6 +38,7 @@
    ;; "C-x 3"     (lambda () (interactive) (split-window-horizontally) (other-window 1))
    "C-c w u"   'winner-undo
    "C-c w r"   'winner-redo
+   "C-c w n"   'c/set-window-width
    "C-x +"     'chip/window-zoom
    "C-x -"     'chip/window-unzoom
    "C-x ="     'balance-windows
@@ -66,6 +67,13 @@
   (interactive)
   (evil-next-line)
   (scroll-up 1))
+
+(defun c/set-window-width (n)
+  "Set the selected window's width."
+  (interactive (list (read-number "Width: " 80)))
+  (adjust-window-trailing-edge (selected-window)
+                               (- (+ n (line-number-display-width) 3)
+                                  (window-width)) t))
 
 ;; Save window configurations as bookmarks
 (use-package burly
