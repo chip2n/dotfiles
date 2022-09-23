@@ -50,7 +50,6 @@
 (add-hook 'clojurescript-mode-hook #'c/code-lisp-mode)
 (add-hook 'slime-mode-hook #'c/code-lisp-mode)
 (add-hook 'slime-repl-mode-hook #'c/code-lisp-mode)
-(add-hook 'sly-mode-hook #'c/code-lisp-mode)
 (add-hook 'sly-mrepl-mode-hook #'c/code-lisp-mode)
 (add-hook 'racket-mode-hook #'c/code-lisp-mode)
 (add-hook 'scheme-mode-hook #'c/code-lisp-mode)
