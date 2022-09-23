@@ -24,7 +24,12 @@
 
 (defgroup chip-theme nil
   "Options for my personal theme")
-(load-theme 'chip t)
+
+(defun c/load-theme ()
+  (interactive)
+  (load-theme 'chip t))
+
+(c/load-theme)
 
 ;; Hide scroll bars
 (when (display-graphic-p)
