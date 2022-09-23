@@ -601,6 +601,7 @@ point reaches the beginning or end of the buffer, stop there."
 ;;; org-mode
 
 (require 'chip-org)
+(require 'chip-org-agenda)
 
 (require 'org-protocol)
 
@@ -632,37 +633,7 @@ point reaches the beginning or end of the buffer, stop there."
           ("s" "summary" entry
            "* Day summary\n%T\n%?\n\n%(org-clock-report-today)"
            :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")
-           :head "#+title: %<%Y-%m-%d>\n")
-
-
-          ("w" "Workout")
-          ("wa" "Workout A" entry
-           "
-* Workout
-%T
-| Bulgarian Split Squat    | 3x10 | %?  |
-| Bench Press              | 3x10 |   |
-| Straight-Legged Deadlift | 3x10 |   |
-| Plank                    | 3x10 | - |
-"
-           :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")
-           :head "#+title: %<%Y-%m-%d>\n"
-           :clock-in t
-           :clock-resume t)
-          ("wb" "Workout B" entry
-           "
-* Workout
-%T
-| Bulgarian Split Squat | 3x10 | %?  |
-| Seated Shoulder Press | 3x10 |   |
-| Bent Over Row         | 3x10 |   |
-| Plank                 | 3x10 | - |
-"
-           :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")
-           :head "#+title: %<%Y-%m-%d>\n"
-           :clock-in t
-           :clock-resume t)
-          ))
+           :head "#+title: %<%Y-%m-%d>\n")))
 
   (org-roam-setup))
 
