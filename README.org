@@ -9,3 +9,15 @@ My Arch linux configuration files
 - lemonbar-xft-git
 - sysstat (for CPU usage etc)
 - playerctl (for displaying current song)
+
+** Mac OS
+
+#+begin_src bash
+brew install coreutils
+brew install rg
+
+# Install fonts
+brew tap homebrew/cask-fonts
+brew install --cask font-iosevka
+brew install --cask font-jetbrains-mono
+#+end_src
