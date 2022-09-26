@@ -1,12 +1,12 @@
 * dotfiles
 
-My Arch linux configuration files
+Configuration files for Linux & Mac OS
 
-** Packages
+** Linux
+
+*** Packages
+
 - dmenu2
-
-*** Status bar
-- lemonbar-xft-git
 - sysstat (for CPU usage etc)
 - playerctl (for displaying current song)
 
