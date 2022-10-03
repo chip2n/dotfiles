@@ -156,6 +156,9 @@
 ;; Hide separators between agenda blocks
 (setq org-agenda-block-separator nil)
 
+;; Hide refile tags (shown in separate section anyways
+(setq org-agenda-hide-tags-regexp "refile")
+
 ;; Remove indentation from agenda blocks
 (setq org-agenda-prefix-format
       '((agenda . "%i%-12:c%?-12t% s")
