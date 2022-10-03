@@ -22,7 +22,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     ++
     layoutBindings conf
     ++
-    [ ((modMask .|. shiftMask, xK_c), kill)
+    [ ((modMask, xK_c), kill)
     , ((modMask, xK_comma), sendMessage (IncMasterN 1))
     , ((modMask, xK_period), sendMessage (IncMasterN (-1)))
     , ((modMask, xK_t), withFocused $ windows . W.sink)
