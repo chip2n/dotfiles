@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Disallow commits containing the text NOCOMMIT.
+
+# To add it to an existing repository, save it to .git/hooks/pre-commit
+# Remember to make it executable with chmod +x
+
+if git diff --cached | grep '^[+d].*NOCOMMIT'; then
+    echo
+    echo "Adding line containing NOCOMMIT"
+    exit 1
+fi
