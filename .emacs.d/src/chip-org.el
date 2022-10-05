@@ -364,6 +364,12 @@ beginning of last month."
 ;; Use current window when editing source blocks
 (setq org-src-window-setup 'current-window)
 
+;;; Effort estimation
+
+;; Use predetermined effort estimation values
+(customize-set-variable 'org-global-properties
+                        '(("Effort_ALL" . "0:05 0:10 0:15 0:30 0:45 1:00 2:00 4:00")))
+
 ;;; Misc
 
 ;; Fold logbooks etc at startup
