@@ -93,6 +93,11 @@
 ;; Enable background colors etc in quote and verse blocks
 (setq org-fontify-quote-and-verse-blocks t)
 
+;;; Scheduling
+
+;; Disable the calendar - doesn't work well when scheduling while capturing a task
+(setq org-read-date-popup-calendar nil)
+
 ;;; Clocking
 
 (defun c/org-add-clocked-time (mins)
