@@ -1,3 +1,25 @@
+;;; chip-prose.el --- Mode for focused writing  -*- lexical-binding: t -*-
+
+;; Copyright (C) 2022  Andreas Arvidsson
+;;
+;; Author: Andreas Arvidsson <andreas@arvidsson.io>
+;; Keywords: config
+;;
+;; This file is not part of GNU Emacs
+;;
+;; This file is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either version 3, or (at your option)
+;; any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; For a full copy of the GNU General Public License
+;; see <http://www.gnu.org/licenses/>.
+
 (require 'olivetti)
 
 (defgroup chip-prose
@@ -91,7 +113,8 @@
   :keymap '(("\C-c\C-c" . prose--finish)
             ("\C-c\C-k" . prose--clear)))
 
-(defun prose--enable ()
+(defvar prose--auto-save-timer nil)
+(defun prose--enable (buffer)
   (interactive)
   (olivetti-mode)
   (auto-fill-mode -1)
@@ -108,15 +131,38 @@
 
   ;; hide title / author ... keywords
   (setq-local org-hidden-keywords '(title author date email))
-  (prose--remove-stars))
+  (prose--remove-stars)
+
+  (prose--start-timer)
+  (add-hook 'kill-buffer-hook 'prose--cancel-timer))
+
+(defun prose--start-timer ()
+  (unless prose--auto-save-timer
+    (message "Enabling timer")
+    (setq prose--auto-save-timer
+          (run-with-idle-timer 10 t (lambda ()
+                                      (when-let ((buffer (get-buffer "*prose*")))
+                                        (with-current-buffer buffer
+                                          (save-buffer))))))))
+
+(defun prose--cancel-timer ()
+  (when (and prose-mode prose--auto-save-timer)
+    (cancel-timer prose--auto-save-timer)
+    (setq prose--auto-save-timer nil)))
 
 (defun prose ()
   (interactive)
-  (let ((buffer (get-buffer-create "*prose*")))
-    (switch-to-buffer buffer)
+  (let* ((filename "~/.emacs.d/.prose")
+         (buffer (find-file filename)))
 
-    (org-mode)
-    (prose-mode)
-    (prose--enable)))
+    (rename-buffer "*prose*")
+    (unless prose-mode
+      (org-mode)
+      (prose-mode)
+      (prose--enable buffer)
+
+      (goto-char (point-max)))))
 
 (provide 'chip-prose)
+
+ ;;; chip-prose.el ends here
