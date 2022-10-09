@@ -707,6 +707,7 @@ all elements."
           "https://stevelosh.com/rss.xml"           ; Steve Losh
           "https://kaveh808.medium.com/feed"        ; kaveh808
           "https://zig.news/feed"                   ; Zig News
+          "https://codewithandrea.com/rss.xml"      ; Code with Andrea
           ;; ,(youtube-rss "UCaxar6TBM-94_ezoS00fLkA") ; Day9TV
           ;; ,(youtube-rss "UC0uTPqBCFIpZxlz_Lv1tk_g") ; Protesilaos Stavrou
           ;; ,(reddit-rss private/reddit-rss-feed "chip2n")
