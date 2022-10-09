@@ -198,15 +198,67 @@ The start timestamp of the clock entry is created `mins' minutes from the curren
   "Face used for org-bullets."
   :group 'org-bullet)
 
-(defface org-headline-content
-  '((t (:inherit (default))))
-  "Face used for content portion of a headline"
+(defface org-bullet-headline-1
+  '((t (:inherit (org-level-1) :underline t)))
+  "Face used for content portion of a headline at level 1."
+  :group 'org-bullet)
+
+(defface org-bullet-headline-2
+  '((t (:inherit (org-level-2) :underline t)))
+  "Face used for content portion of a headline at level 2."
+  :group 'org-bullet)
+
+(defface org-bullet-headline-3
+  '((t (:inherit (org-level-3) :underline t)))
+  "Face used for content portion of a headline at level 3."
+  :group 'org-bullet)
+
+(defface org-bullet-headline-4
+  '((t (:inherit (org-level-4) :underline t)))
+  "Face used for content portion of a headline at level 4."
+  :group 'org-bullet)
+
+(defface org-bullet-headline-5
+  '((t (:inherit (org-level-5) :underline t)))
+  "Face used for content portion of a headline at level 5."
+  :group 'org-bullet)
+
+(defface org-bullet-headline-6
+  '((t (:inherit (org-level-6) :underline t)))
+  "Face used for content portion of a headline at level 6."
+  :group 'org-bullet)
+
+(defface org-bullet-headline-7
+  '((t (:inherit (org-level-7) :underline t)))
+  "Face used for content portion of a headline at level 7."
+  :group 'org-bullet)
+
+(defface org-bullet-headline-8
+  '((t (:inherit (org-level-8) :underline t)))
+  "Face used for content portion of a headline at level 8."
   :group 'org-bullet)
 
 (defcustom org-bullet-char ?\#
   "Replacement for * as header prefixes."
   :type 'characterp
   :group 'org-bullet)
+
+(defcustom org-bullet-headline-face
+  'org-headline-content
+  "Face used for headline text (minus the bullets and spaces)"
+  :type 'symbolp
+  :group 'org-bullet)
+
+(defun org-bullet--face-for-headline (level)
+  (cl-case level
+    (1 'org-bullet-headline-1)
+    (2 'org-bullet-headline-2)
+    (3 'org-bullet-headline-3)
+    (4 'org-bullet-headline-4)
+    (5 'org-bullet-headline-5)
+    (6 'org-bullet-headline-6)
+    (7 'org-bullet-headline-7)
+    (t 'org-bullet-headline-8)))
 
 (define-minor-mode org-bullet-mode
   "Bullet for org-mode"
@@ -218,21 +270,23 @@ The start timestamp of the clock entry is created `mins' minutes from the curren
                                            (goto-char (match-beginning 1))
                                            (org-heading-components))))
                                (todo (caddr header)))
-                          ;; Change bullet
-                          (put-text-property (match-beginning 1)
-                                             (- (match-end 1) 1)
-                                             'display
-                                             (propertize (make-string level org-bullet-char) 'face 'org-bullet))
+                          ;; Replace each bullet character with org-bullet-char
+                          (dotimes (i level)
+                            (put-text-property (+ (match-beginning 1) i)
+                                               (+ (match-beginning 1) i 1)
+                                               'display
+                                               (propertize (char-to-string org-bullet-char) 'face 'org-bullet)))
+
                           ;; Set face for headline content
                           (if todo
                               (put-text-property (+ (match-beginning 2) (length todo) 1)
                                                  (match-end 2)
                                                  'face
-                                                 'org-headline-content)
+                                                 (org-bullet--face-for-headline level))
                             (put-text-property (match-beginning 2)
-                                                 (match-end 2)
-                                                 'face
-                                                 'org-headline-content))
+                                               (match-end 2)
+                                               'face
+                                               (org-bullet--face-for-headline level)))
                           nil)))
                     ("^\\*+ .*[^\s]+\\([[:blank:]]+\\):.+:"
                      (0 (let* ((spaces (- (match-end 1) (match-beginning 1))))
@@ -535,7 +589,7 @@ beginning of last month."
 (setq org-indent-indentation-per-level 2)
 
 ;; Hide emphasis markers for a more readable document
-(setq org-hide-emphasis-markers t)
+;; (setq org-hide-emphasis-markers t)
 
 ;; prevent org source blocks from being indented
 (setq org-edit-src-content-indentation 0)
