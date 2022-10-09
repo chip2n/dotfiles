@@ -188,6 +188,16 @@ point reaches the beginning or end of the buffer, stop there."
    "C-c s" 'avy-goto-char-timer
    "M-s"   'consult-line))
 
+(defun c/isearch-kill-result ()
+  "Kill result of text marked by isearch."
+  (interactive)
+  (if (use-region-p)
+      (call-interactively 'kill-region)
+    (kill-region (point) isearch-other-end))
+  (isearch-exit))
+
+(define-key isearch-mode-map [(control w)] 'c/isearch-kill-result)
+
 (use-package evil-snipe
   :after (evil)
   :config
