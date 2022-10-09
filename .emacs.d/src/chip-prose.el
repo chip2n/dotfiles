@@ -83,6 +83,9 @@
   ""
   :group 'chip-prose)
 
+(defvar prose-finish-hook nil
+  "Hook called when prose is finished.")
+
 ;; TODO rename
 (defun prose--remove-stars ()
   (font-lock-add-keywords
@@ -98,9 +101,17 @@
 
 (defun prose--finish ()
   (interactive)
+  (save-buffer)
   (clipboard-kill-ring-save (point-min) (point-max))
+  ;; Not enough to save with clipboard-kill-ring-save if frame is killed
+  ;; immediately afterwards, so we use xclip to ensure it works properly in that
+  ;; case
+  (call-process "xclip" nil nil nil "-selection" "clipboard" (buffer-file-name))
   (message "Prose saved to kill ring.")
-  (bury-buffer))
+  (bury-buffer)
+  (when (frame-parameter (selected-frame) 'prose)
+    (delete-frame (selected-frame)))
+  (run-hooks 'prose-finish-hook))
 
 (defun prose--clear ()
   (interactive)

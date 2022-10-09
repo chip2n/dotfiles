@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Launch prose-mode in emacs as a separate frame
+
+emacsclient -c --frame-parameters='(quote (name . "prose") (minibuffer . nil) (prose . t))' -e '(progn (prose) (setq mode-line-format nil))'
