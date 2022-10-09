@@ -871,6 +871,7 @@ all elements."
   :config
   (add-to-list 'auto-mode-alist (cons (rx ".dart" eos) 'dart-mode))
   (add-hook 'dart-mode-hook 'flycheck-mode)
+  (add-hook 'dart-mode-hook 'outshine-mode)
   (add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml")
   (add-to-list 'projectile-project-root-files-bottom-up "BUILD")
 
