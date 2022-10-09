@@ -171,8 +171,10 @@
       (org-mode)
       (prose-mode)
       (prose--enable buffer)
+      (evil-emacs-state)
 
-      (goto-char (point-max)))))
+      ;; Goto end of buffer, skipping the last newline
+      (goto-char (- (point-max) 1)))))
 
 (provide 'chip-prose)
 
