@@ -15,6 +15,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     [ ((modMask, xK_Return), spawn $ (XMonad.terminal conf) ++ " -n slaveTerminal" )
     , ((modMask .|. shiftMask, xK_Return), spawn $ (XMonad.terminal conf) ++ " -n floatingTerminal" )
     , ((modMask, xK_BackSpace), spawn "emacsclient -c" )
+    , ((modMask, xK_semicolon), spawn "prose" )
     , ((modMask, xK_p), spawn $ "dmenu_run -h " ++ show barHeight ++" -nb '" ++ colorBarBg ++ "'"  )
     ]
     ++
