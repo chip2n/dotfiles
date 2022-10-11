@@ -637,6 +637,10 @@ point reaches the beginning or end of the buffer, stop there."
           ("s" "summary" entry
            "* Day summary\n%T\n%?\n\n%(org-clock-report-today)"
            :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")
+           :head "#+title: %<%Y-%m-%d>\n")
+          ("w" "week summary" entry
+           "* Week summary\n%T\n%?\n\n%(org-clock-report-week)"
+           :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")
            :head "#+title: %<%Y-%m-%d>\n")))
 
   (org-roam-setup))

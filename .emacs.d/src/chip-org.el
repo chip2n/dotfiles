@@ -418,6 +418,12 @@ beginning of last month."
 ;; Use current window when editing source blocks
 (setq org-src-window-setup 'current-window)
 
+;;; Capture templates
+
+(setq org-capture-templates
+      `(("t" "TODO" entry (file "~/org/personal/refile.org")
+         "* TODO %?")))
+
 ;;; Effort estimation
 
 ;; Use predetermined effort estimation values
@@ -617,10 +623,6 @@ beginning of last month."
   (let ((date (shell-command-to-string "echo -n $(date +%Y-%m-%d)")))
     (find-file (format "~/org/personal/roam/%s.org" date))))
 
-(setq org-capture-templates
-      `(("t" "TODO" entry (file "~/org/personal/refile.org")
-         "* TODO %?")))
-
 ;; auto-saving org buffers after certain actions
 (defun save-org-buffers (&rest args)
   (org-save-all-org-buffers))
@@ -656,8 +658,17 @@ beginning of last month."
   "Insert clock report for today's date."
   (let* ((today (shell-command-to-string "echo -n $(date +%Y-%m-%d)"))
          (org-clock-clocktable-default-properties
-          `(:scope agenda :maxlevel 2 :block ,(make-symbol today) :fileskip0 t :compact t)))
+          `(:scope agenda :maxlevel 2 :block today :fileskip0 t :compact t)))
     (org-clock-report)))
+
+(defun org-clock-report-week ()
+  "Insert clock report for this week."
+  (let* ((today (shell-command-to-string "echo -n $(date +%Y-%m-%d)"))
+         (org-clock-clocktable-default-properties
+          `(:scope agenda :maxlevel 2 :block thisweek :fileskip0 t :compact t)))
+    (org-clock-report)))
+
+
 
 ;; change look of indentation in clocktables
 (defun my-org-clocktable-indent-string (level)
