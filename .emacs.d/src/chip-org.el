@@ -96,7 +96,7 @@
 ;;; Scheduling
 
 ;; Disable the calendar - doesn't work well when scheduling while capturing a task
-(setq org-read-date-popup-calendar nil)
+;; (setq org-read-date-popup-calendar nil)
 
 ;;; Clocking
 
