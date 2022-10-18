@@ -245,7 +245,7 @@ ARG is the same as for `backward-kill-sexp'."
 
   (general-define-key
    :keymap 'prog-mode-map
-   "M-/" 'counsel-company)
+   "M-/" 'company-complete)
   (add-hook 'company-mode-hook 'chip/company-setup-keys)
   ;; prevent downcasing when autocompleting
   (setq company-dabbrev-downcase nil)
@@ -253,7 +253,7 @@ ARG is the same as for `backward-kill-sexp'."
   (setq evil-complete-previous-func 'complete-complete-cycle-previous)
 
   ;; show company completion with delay
-  (setq company-idle-delay 0.3)
+  (setq company-idle-delay nil)
 
   ;; show suggestions after entering one character.
   (setq company-minimum-prefix-length 1)

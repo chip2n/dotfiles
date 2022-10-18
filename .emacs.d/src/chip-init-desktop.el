@@ -196,7 +196,7 @@ point reaches the beginning or end of the buffer, stop there."
     (kill-region (point) isearch-other-end))
   (isearch-exit))
 
-(define-key isearch-mode-map [(control w)] 'c/isearch-kill-result)
+(define-key isearch-mode-map [(control shift w)] 'c/isearch-kill-result)
 
 (use-package evil-snipe
   :after (evil)
@@ -1167,12 +1167,21 @@ all elements."
 
 ;;; Utils
 
-(defun increment-number-at-point ()
-  (interactive)
-  (skip-chars-backward "0-9")
-  (or (looking-at "[0-9]+")
-      (error "No number at point"))
-  (replace-match (number-to-string (1+ (string-to-number (match-string 0))))))
+(defun increment-number-at-point (&optional arg)
+  "Increment the number forward from point by 'arg'."
+  (interactive "p*")
+  (save-excursion
+    (save-match-data
+      (let (inc-by field-width answer)
+        (setq inc-by (if arg arg 1))
+        (skip-chars-backward "0123456789")
+        (when (re-search-forward "[0-9]+" nil t)
+          (setq field-width (- (match-end 0) (match-beginning 0)))
+          (setq answer (+ (string-to-number (match-string 0) 10) inc-by))
+          (when (< answer 0)
+            (setq answer (+ (expt 10 field-width) answer)))
+          (replace-match (format (concat "%0" (int-to-string field-width) "d")
+                                 answer)))))))
 
 (defun decrement-number-at-point ()
   (interactive)
@@ -1301,6 +1310,17 @@ buffer in current window."
   (add-to-list 'auto-mode-alist '("\\.sface\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.heex\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.mjml\\'" . web-mode)))
+
+;;; speed-type
+
+(use-package speed-type
+  :config
+  (add-to-list 'evil-emacs-state-modes 'speed-type-mode))
+
+;;; google-this
+
+(use-package google-this)
+
 
 (provide 'chip-init-desktop)
 

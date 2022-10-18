@@ -223,6 +223,11 @@
   (lsp-lens-face (:foreground color-comment :slant italic))
   (lsp-lens-mouse-face (:foreground color-link :underline t :slant italic))
 
+  ;; Flycheck
+  (flycheck-info (:underline (:color green-1 :style wave)))
+  (flycheck-warning (:underline (:color yellow-1 :style wave)))
+  (flycheck-error (:underline (:color red-1 :style wave)))
+
   ;; Avy
   (avy-lead-face (:background red-1 :foreground grey-2 :weight bold))
   (avy-lead-face-0 (:background red-1 :foreground grey-2 :weight bold))

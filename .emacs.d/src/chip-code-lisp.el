@@ -94,13 +94,13 @@
 
 (use-package symex
   :config
-  (c/diminish symex-mode)
-  (c/diminish symex-editing-mode)
+  ;; (c/diminish symex-mode)
+  ;; (c/diminish symex-editing-mode)
   ;; Reverse up/down to match my mental model better
   (setq symex--user-evil-keyspec
       '(("j" . symex-go-up)
         ("k" . symex-go-down)
-        ("m" . mark-sexp)
+        ;; ("m" . mark-sexp)
         ("C-j" . symex-climb-branch)
         ("C-k" . symex-descend-branch)
         ("M-j" . symex-goto-highest)

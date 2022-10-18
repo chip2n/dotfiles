@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: freezed
+# key: freezed
+# --
+@freezed
+class $1 with _$$1 {
+  const factory $1({
+    $2
+  }) = _$1;
+}

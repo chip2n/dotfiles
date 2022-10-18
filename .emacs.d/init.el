@@ -143,4 +143,9 @@
   (c/diminish gcmh-mode)
   (gcmh-mode 1)
   (setf gcmh-idle-delay 5))
+
+;;; Emacs server
+
+(server-start)
+
 ;;; init.el ends here
