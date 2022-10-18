@@ -68,7 +68,8 @@
 (use-package forge
   :after magit
   :config
-  (add-to-list 'evil-emacs-state-modes 'forge-topic-mode))
+  (after-load (evil)
+    (add-to-list 'evil-emacs-state-modes 'forge-topic-mode)))
 
 (use-package ssh-agency
   :config
