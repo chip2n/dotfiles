@@ -35,10 +35,11 @@
 (require 'chip-modeline)
 (require 'chip-headerline)
 
-(require 'chip-evil)
+(when c/config-evil?
+  (require 'chip-evil))
+
 (require 'chip-window)
 (require 'chip-registers)
-;; (require 'chip-agenda)
 (require 'chip-project)
 
 (require 'chip-doc)
@@ -52,6 +53,7 @@
 (require 'chip-code-elixir)
 (require 'chip-code-zig)
 (require 'chip-lang)
+(require 'chip-present)
 (require 'chip-email)
 
 ;;; Package: paren-face
@@ -1315,7 +1317,8 @@ buffer in current window."
 
 (use-package speed-type
   :config
-  (add-to-list 'evil-emacs-state-modes 'speed-type-mode))
+  (after-load (evil)
+    (add-to-list 'evil-emacs-state-modes 'speed-type-mode)))
 
 ;;; google-this
 

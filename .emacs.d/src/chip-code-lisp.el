@@ -93,6 +93,7 @@
 ;;; Symex
 
 (use-package symex
+  :after (evil)
   :config
   ;; (c/diminish symex-mode)
   ;; (c/diminish symex-editing-mode)

@@ -22,7 +22,7 @@
 
 ;;; Code:
 
-(defconst c/config-evil? t
+(defconst c/config-evil? nil
   "If non-nil, load evil-mode & related packages.")
 
 (defconst chip-config-dir "~/.emacs.d/"
@@ -146,6 +146,7 @@
 
 ;;; Emacs server
 
-(server-start)
+(unless (server-running-p)
+  (server-start))
 
 ;;; init.el ends here
