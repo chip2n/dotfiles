@@ -75,8 +75,6 @@ If prefix is used, grep in current directory instead."
   (evil-jump-forward))
 
 (general-define-key
- :states '(emacs normal insert visual motion)
-
  ;; file system
  "C-f" 'chip/find-file
  "C-p" 'projectile-find-file
