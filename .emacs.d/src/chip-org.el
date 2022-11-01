@@ -618,7 +618,8 @@ beginning of last month."
         (date (shell-command-to-string "echo -n $(date +%Y%m%d)")))
     (format "~/org/remente/presentations/%s-%s/presentation.org" date name)))
 
-(add-hook 'org-capture-mode-hook 'evil-insert-state)
+(when c/config-evil?
+  (add-hook 'org-capture-mode-hook 'evil-insert-state))
 
 (defun get-journal-path ()
   (let ((date (shell-command-to-string "echo -n $(date +%Y-%m-%d)")))

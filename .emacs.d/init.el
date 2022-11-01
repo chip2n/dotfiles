@@ -22,6 +22,9 @@
 
 ;;; Code:
 
+(defconst c/mac? (equal system-type 'darwin)
+  "Returns t if running on a mac.")
+
 (defconst c/config-evil? nil
   "If non-nil, load evil-mode & related packages.")
 
@@ -129,8 +132,8 @@
 (setf gc-cons-threshold 1073741824)
 
 ;; Fix for dired not working on Mac OS (requires `brew install coreutils`)
-(when (equal system-type 'darwin)
-  (setq insert-directory-program "/usr/local/opt/coreutils/libexec/gnubin/ls"))
+(when c/mac?
+  (setq insert-directory-program "/opt/homebrew/bin/gls"))
 
 (require 'chip-init-desktop)
 ;; (require 'chip-init-android)

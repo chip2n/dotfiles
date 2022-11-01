@@ -76,14 +76,14 @@ If prefix is used, grep in current directory instead."
 
 (general-define-key
  ;; file system
- "C-f" 'chip/find-file
- "C-p" 'projectile-find-file
+ ;; "C-f" 'chip/find-file
+ ;; "C-p" 'projectile-find-file
  "C-x p" 'projectile-find-file
  "C-S-P" 'projectile-switch-project
  "C-x P" 'projectile-switch-project
 
  ;; buffers
- "C-b" 'chip/switch-buffer
+ ;; "C-b" 'chip/switch-buffer
  "C-x b" 'chip/switch-buffer
  "C-S-B" 'chip/switch-buffer-other-window
 
