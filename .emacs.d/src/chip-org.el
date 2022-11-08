@@ -665,9 +665,14 @@ beginning of last month."
 
 (defun org-clock-report-week ()
   "Insert clock report for this week."
-  (let* ((today (shell-command-to-string "echo -n $(date +%Y-%m-%d)"))
-         (org-clock-clocktable-default-properties
+  (let ((org-clock-clocktable-default-properties
           `(:scope agenda :maxlevel 2 :block thisweek :fileskip0 t :compact t)))
+    (org-clock-report)))
+
+(defun org-clock-report-month ()
+  "Insert clock report for this month."
+  (let* ((org-clock-clocktable-default-properties
+          `(:scope agenda :maxlevel 2 :block lastmonth :fileskip0 t :compact t)))
     (org-clock-report)))
 
 

@@ -68,7 +68,9 @@ If prefix is used, grep in current directory instead."
 
 (defun chip/history-back ()
   (interactive)
-  (evil-jump-backward))
+  (pop-global-mark)
+  ;(evil-jump-backward)
+  )
 
 (defun chip/history-forward ()
   (interactive)

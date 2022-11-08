@@ -171,7 +171,8 @@
       (org-mode)
       (prose-mode)
       (prose--enable buffer)
-      (evil-emacs-state)
+      (when c/config-evil?
+        (evil-emacs-state))
 
       ;; Goto end of buffer, skipping the last newline
       (goto-char (- (point-max) 1)))))

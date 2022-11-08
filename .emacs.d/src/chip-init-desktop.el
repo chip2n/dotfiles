@@ -181,7 +181,6 @@ point reaches the beginning or end of the buffer, stop there."
 
 (after-load (general)
   (general-define-key
-   :states '(normal insert visual emacs)
    "C-e"   'chip/move-end-of-line
    "C-a"   'chip/move-beginning-of-line
    "C-c i" 'imenu
@@ -643,6 +642,10 @@ point reaches the beginning or end of the buffer, stop there."
           ("w" "week summary" entry
            "* Week summary\n%T\n%?\n\n%(org-clock-report-week)"
            :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")
+           :head "#+title: %<%Y-%m-%d>\n")
+          ("m" "month summary" entry
+           "* Month summary\n%T\n%?\n\n%(org-clock-report-month)"
+           :if-new (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n")
            :head "#+title: %<%Y-%m-%d>\n")))
 
   (org-roam-setup))
@@ -729,8 +732,9 @@ all elements."
           ;; ,(reddit-rss private/reddit-rss-feed "chip2n")
           ))
 
-  (add-to-list 'evil-emacs-state-modes 'elfeed-search-mode)
-  (add-to-list 'evil-emacs-state-modes 'elfeed-show-mode)
+  (after-load (evil)
+    (add-to-list 'evil-emacs-state-modes 'elfeed-search-mode)
+    (add-to-list 'evil-emacs-state-modes 'elfeed-show-mode))
 
   ;; (general-define-key
   ;;  :states 'normal
@@ -876,11 +880,12 @@ all elements."
 (use-package lsp-dart
   :defer t
   :config
-  (setq lsp-dart-line-length 120)
+  (setq lsp-dart-line-length 80)
   (setq lsp-dart-sdk-dir "~/snap/flutter/common/flutter/bin/cache/dart-sdk")
   (setq lsp-dart-flutter-sdk-dir "~/snap/flutter/common/flutter")
   (add-hook 'dart-mode-hook 'lsp)
-  (setq lsp-dart-dap-flutter-hot-reload-on-save t))
+  (setq lsp-dart-dap-flutter-hot-reload-on-save t)
+  (setq lsp-dart-flutter-widget-guides nil))
 
 (use-package dart-mode
   :after (projectile)
@@ -1119,6 +1124,13 @@ all elements."
    "S-<next>" 'scroll-other-window
    "M-n" 'vterm-send-down
    "M-p" 'vterm-send-up)
+
+  ;; Unbind keys conflicting with my personal shortcuts
+  (add-hook 'vterm-mode-hook
+            (lambda ()
+              (local-unset-key (kbd "C-b"))
+              (local-unset-key (kbd "C-p"))))
+
   ;; line highlight flickers in vterm, so disable it
   (add-hook 'vterm-mode-hook (lambda () (setq-local global-hl-line-mode nil)))
   ;; reset window configuration when toggling back
