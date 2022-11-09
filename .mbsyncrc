@@ -1,0 +1,27 @@
+IMAPAccount protonmail
+Host 127.0.0.1
+Port 1143
+User andreas@arvidsson.io
+PassCmd "gpg -q --for-your-eyes-only --no-tty -d ~/.authinfo.gpg | awk 'FNR == 1 {print $8}'"
+SSLType STARTTLS
+SSLVersions TLSv1.2
+CertificateFile ~/.config/protonmail/bridge/cert.pem
+
+IMAPStore remote
+Account protonmail
+
+MaildirStore local
+Path ~/.mail/
+Inbox ~/.mail/INBOX/
+SubFolders Legacy
+
+Channel inbox
+Far :remote:
+Near :local:
+Patterns * 
+Create Both
+Expunge Both
+SyncState *
+
+Group protonmail
+Channel inbox
