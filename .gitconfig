@@ -24,3 +24,5 @@ user = chip2n
 
 [credential "https://github.com"]
 helper = !/usr/bin/gh auth git-credential
+[init]
+	templatedir = /home/chip/.git_template
