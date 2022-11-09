@@ -21,3 +21,13 @@ brew tap homebrew/cask-fonts
 brew install --cask font-iosevka
 brew install --cask font-jetbrains-mono
 #+end_src
+
+** Firefox styling
+
+1. Find firefox profile directory via Help -> More troubleshooting info.
+2. Create ~chrome/~ directory and symlink CSS files to it.
+3. Set toolkit.legacyUserProfileCustomizations.stylesheets to true in about:config.
+
+Open preferences for Tree Style Tabs and override stylesheet. Also set theme to
+Proton.
+
