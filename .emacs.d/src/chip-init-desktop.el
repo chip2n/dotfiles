@@ -22,6 +22,8 @@
 
 ;;; Code:
 
+(when c/mac? (require 'chip-init-mac))
+
 ;; (require 'chip-wm)
 
 (require 'chip-theme-desktop)
