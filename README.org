@@ -16,6 +16,10 @@ Configuration files for Linux & Mac OS
 brew install coreutils
 brew install rg
 
+# Email
+brew install isync
+brew install notmuch
+
 # Install fonts
 brew tap homebrew/cask-fonts
 brew install --cask font-iosevka
@@ -30,4 +34,3 @@ brew install --cask font-jetbrains-mono
 
 Open preferences for Tree Style Tabs and override stylesheet. Also set theme to
 Proton.
-

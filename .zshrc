@@ -35,3 +35,7 @@ alias cl='clear'
 alias woman,='sudo'
 alias feh='feh --scale-down'
 alias vimr='gvim /home/chip/.vim/vimrc'
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
