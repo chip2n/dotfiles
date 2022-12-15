@@ -56,6 +56,18 @@ org task quickly.")
          ,@body
          (kill-buffer ,project-root-buffer)))))
 
+(define-key project-prefix-map "m" #'magit-project-status)
+(define-key project-prefix-map "g" #'chip/grep)
+(define-key project-prefix-map "v" #'c/project-vterm)
+
+(setf project-switch-commands
+      '((project-find-file "Find file")
+        (project-find-dir "Find directory")
+        (project-eshell "Eshell")
+        (magit-project-status "Magit")
+        (c/project-vterm "Vterm")
+        (chip/grep "Grep")))
+
 (provide 'chip-project)
 
 ;;; chip-project.el ends here
