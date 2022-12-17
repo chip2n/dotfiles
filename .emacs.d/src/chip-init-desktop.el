@@ -189,7 +189,8 @@ point reaches the beginning or end of the buffer, stop there."
    "C-s"   'isearch-forward
    "C-r"   'isearch-backward
    "C-c s" 'avy-goto-char-timer
-   "M-s"   'consult-line))
+   "M-s"   'consult-line
+   "C-S-s" 'consult-line))
 
 (defun c/isearch-kill-result ()
   "Kill result of text marked by isearch."
@@ -393,7 +394,6 @@ point reaches the beginning or end of the buffer, stop there."
 
 (use-package treemacs
   :defer t
-  :after (evil)
   :config
   (setq treemacs-show-cursor nil)
   (setq treemacs-indentation 1)
@@ -468,6 +468,7 @@ point reaches the beginning or end of the buffer, stop there."
   (setq hl-todo-keyword-faces
         '(("TODO" . "#ffa398")
           ("FIXME" . "#ffa398")
+          ("NOCOMMIT" . "#ffa398")
           ("NOTE" . "#fbf2bf")
           ("OPTIMIZE" . "#fbf2bf")
           ("HACK" . "#fbf2bf"))))
@@ -666,7 +667,7 @@ point reaches the beginning or end of the buffer, stop there."
           org-roam-ui-open-on-start t))
 
 (use-package deft
-  :after (org evil)
+  :after (org)
   :bind
   ("C-c n d" . deft)
   :config
@@ -676,7 +677,8 @@ point reaches the beginning or end of the buffer, stop there."
   (setq deft-directory "/home/chip/org/personal/roam")
   (setq deft-use-filename-as-title nil)
   (setq deft-extensions '("txt" "text" "md" "markdown" "org" "gpg"))
-  (add-to-list 'evil-emacs-state-modes 'deft-mode)
+  (after-load (evil)
+    (add-to-list 'evil-emacs-state-modes 'deft-mode))
 
   ;; deft matches directory name as well, so we'll fix it by copying the
   ;; deft-filter-match-file function and changing one line.
@@ -947,13 +949,9 @@ all elements."
     (let ((version (completing-read "NVM version" chip/nvm-versions)))
       (nvm-use version (lambda () (vterm (format "*vterm-nvm-%s*" version)))))))
 
-(defun chip/nvm-12.10.0 ()
-  (interactive)
-  (nvm-use "v12.10.0"))
-
 (use-package nvm
   :config
-  (chip/nvm-12.10.0))
+  (nvm-use "v19.2.0"))
 
 (defun do-nvm-use (version)
   (interactive "sVersion: ")
@@ -1159,6 +1157,11 @@ all elements."
   "Switch to vterm buffer and send cd command."
   (vterm)
   (c/vterm-cd path))
+
+(defun c/project-vterm ()
+  "Switch to vterm buffer and cd to project root."
+  (interactive)
+  (c/vterm-toggle-cd (project-root (project-current t))))
 
 (use-package multi-term
   :config

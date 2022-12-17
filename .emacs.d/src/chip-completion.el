@@ -234,8 +234,8 @@ ARG is the same as for `backward-kill-sexp'."
 (defun chip/company-setup-keys ()
   "Setup keybindings for company mode"
   (interactive)
-  (define-key company-active-map (kbd "<return>") nil)
-  (define-key company-active-map (kbd "RET") nil)
+  ;; (define-key company-active-map (kbd "<return>") nil)
+  ;; (define-key company-active-map (kbd "RET") nil)
   (define-key company-active-map (kbd "<tab>") #'company-complete-selection))
 
 (use-package company

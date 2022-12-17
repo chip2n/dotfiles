@@ -216,11 +216,12 @@ Lisp function does not specify a special indentation."
   :config
   (require 'sly-macrostep-autoloads)
 
-  (add-hook 'macrostep-mode-hook
-            (lambda ()
-              (if macrostep-mode
-                  (evil-emacs-state)
-                (evil-normal-state)))))
+  (when c/config-evil?
+    (add-hook 'macrostep-mode-hook
+              (lambda ()
+                (if macrostep-mode
+                    (evil-emacs-state)
+                  (evil-normal-state))))))
 
 (defun sly-switch-package (package)
   (with-current-buffer (sly-mrepl--find-create (sly-current-connection))
@@ -264,7 +265,6 @@ Lisp function does not specify a special indentation."
   "Use an existing SLY window to display the buffer.
 This is intended to be used as an action function for
 display-buffer (through display-buffer-alist)."
-  (message "Hello")
   (let* ((repl-buffer (sly-mrepl--find-buffer))
          (repl-window (and repl-buffer (car (get-buffer-window-list repl-buffer))))
          (db-buffer (cl-find-if (lambda (b)
@@ -285,8 +285,9 @@ display-buffer (through display-buffer-alist)."
   (setq inferior-lisp-program "/usr/bin/sbcl")
 
   ;; Aim to reuse current SLY buffers when opening the inspector and debugger
-  (add-to-list 'display-buffer-alist '("\\*sly-inspector.*\\*" c/sly-display-buffer))
-  (add-to-list 'display-buffer-alist '("\\*sly-db.*\\*" c/sly-display-buffer))
+  ;(add-to-list 'display-buffer-alist '("\\*sly-inspector.*\\*" c/sly-display-buffer))
+  ;(add-to-list 'display-buffer-alist '("\\*sly-db.*\\*" c/sly-display-buffer))
+  ;(add-to-list 'display-buffer-alist '("\\*sly-mrepl.*\\*" c/sly-display-buffer))
 
   (after-load (evil)
     (add-to-list 'evil-emacs-state-modes 'sly-db-mode)
@@ -312,6 +313,9 @@ display-buffer (through display-buffer-alist)."
   (after-load (lispy)
     (setq lispy-use-sly t))
   (setq org-babel-lisp-eval-fn #'sly-eval)
+
+  ;; Push mark before jumping to definitions so that we can quickly get back with pop-global-mark
+  (advice-add 'sly-edit-definition :before (lambda (&rest rest) (push-mark)))
 
   (general-define-key
    :keymaps 'sly-mode-map
