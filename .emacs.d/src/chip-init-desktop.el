@@ -200,6 +200,16 @@ point reaches the beginning or end of the buffer, stop there."
     (kill-region (point) isearch-other-end))
   (isearch-exit))
 
+(defun c/isearch-done-beginning (&optional nopush edit)
+  "End current search at the start of the match.
+The default is to leave the cursor where it is, which is not as useful when searching forward."
+    (interactive)
+    (funcall #'isearch-done nopush edit)
+    (when (and isearch-forward isearch-other-end)
+      (goto-char isearch-other-end)))
+
+(define-key isearch-mode-map (kbd "<return>") 'c/isearch-done-beginning)
+(define-key isearch-mode-map (kbd "C-<return>") 'c/isearch-exit)
 (define-key isearch-mode-map [(control shift w)] 'c/isearch-kill-result)
 
 (use-package evil-snipe
