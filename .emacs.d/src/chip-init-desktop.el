@@ -68,13 +68,6 @@
 ;;   (global-paren-face-mode)
 ;;   (setq paren-face-regexp "[][(){}]"))
 
-;;; Package: all-the-icons
-
-;; Using fancy icons in some places (e.g. treemacs) to spice things up. This
-;; package includes icons from a bunch of different sources.
-
-(use-package all-the-icons)
-
 ;;; Security
 
 (require 'private)
@@ -867,8 +860,9 @@ all elements."
 (use-package clojure-mode
   :defer t
   :config
-  (add-hook 'clojure-mode 'outshine-mode)
-  (add-hook 'clojurescript-mode 'outshine-mode))
+  (after-load (outshine-mode)
+    (add-hook 'clojure-mode 'outshine-mode)
+    (add-hook 'clojurescript-mode 'outshine-mode)))
 
 (use-package cider
   :defer t
@@ -907,7 +901,8 @@ all elements."
   :config
   (add-to-list 'auto-mode-alist (cons (rx ".dart" eos) 'dart-mode))
   (add-hook 'dart-mode-hook 'flycheck-mode)
-  (add-hook 'dart-mode-hook 'outshine-mode)
+  (after-load (outshine-mode)
+    (add-hook 'dart-mode-hook 'outshine-mode))
   (add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml")
   (add-to-list 'projectile-project-root-files-bottom-up "BUILD")
 
@@ -996,7 +991,8 @@ all elements."
 
 (use-package typescript-mode
   :config
-  (add-hook 'typescript-mode-hook 'outshine-mode))
+  (after-load (outshine-mode)
+    (add-hook 'typescript-mode-hook 'outshine-mode)))
 
 (defun setup-tide-mode ()
   (interactive)

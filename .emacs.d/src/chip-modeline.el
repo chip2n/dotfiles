@@ -26,6 +26,20 @@
 (require 's)
 (require 'dash)
 
+(defun chip-modeline--propertize-octicon (name)
+  (propertize (all-the-icons-octicon name)
+              'face `(:family ,(all-the-icons-octicon-family) :height 1.0)
+              'display '(raise -0.05)))
+
+(defvar chip-modeline--icon-code (chip-modeline--propertize-octicon "code"))
+(defvar chip-modeline--icon-email (chip-modeline--propertize-octicon "mail"))
+(defvar chip-modeline--icon-terminal (chip-modeline--propertize-octicon "terminal"))
+(defvar chip-modeline--icon-bug (chip-modeline--propertize-octicon "bug"))
+(defvar chip-modeline--icon-check (chip-modeline--propertize-octicon "check"))
+(defvar chip-modeline--icon-pencil (chip-modeline--propertize-octicon "pencil"))
+(defvar chip-modeline--icon-vc (chip-modeline--propertize-octicon "git-branch"))
+(defvar chip-modeline--icon-autorevert (chip-modeline--propertize-octicon "sync"))
+
 (defun chip-modeline-format (left right)
   "Return a string of `window-width' length.
 Containing LEFT, and RIGHT aligned respectively."
@@ -48,11 +62,6 @@ Containing LEFT, and RIGHT aligned respectively."
 
 ;;; Theming
 
-(defun chip-modeline--propertize-octicon (name)
-  (propertize (all-the-icons-octicon name)
-              'face `(:family ,(all-the-icons-octicon-family) :height 1.0)
-              'display '(raise -0.05)))
-
 (defun chip-modeline--propertize-evil-state (s)
   (cond
    ((evil-insert-state-p) (propertize s 'face 'chip-face-evil-state-insert))
@@ -63,13 +72,17 @@ Containing LEFT, and RIGHT aligned respectively."
 
 ;;; Modeline
 
+(defvar c/email--unread-count 0)
+
+(defun c/email--unread-count-refresh ()
+  (c/async-shell (s "notmuch search --output=messages tag:unread | wc -l | tr -d '\n'")
+    (setq c/email--unread-count (string-to-number s))))
+
+(run-with-idle-timer 30 t 'c/email--unread-count-refresh)
+
 (defun chip-modeline-email ()
-  (let ((unread-count (shell-command-to-string "notmuch search --output=messages tag:unread | wc -l | tr -d '\n'")))
-    (when (not (string-equal unread-count "0"))
-      (concat
-       (chip-modeline--propertize-octicon "mail")
-       " "
-       unread-count))))
+  (when (not (= c/email--unread-count 0))
+    (concat chip-modeline--icon-email " " c/email--unread-count)))
 
 (defun chip-modeline-fallback ()
   "Modeline used as a fallback if no other modeline is available"
@@ -81,7 +94,8 @@ Containing LEFT, and RIGHT aligned respectively."
      "  "
      chip-modeline-email
      chip-modeline-process-info
-     "%e ")
+     "%e "
+     )
    '(chip-modeline-minor-modes
      "  ")))
 
@@ -95,14 +109,14 @@ Containing LEFT, and RIGHT aligned respectively."
                 ('org-agenda-mode "agenda")
                 (t (s-chop-suffix "-mode" (symbol-name major-mode)))))
         (icon (cond
-               ((eq major-mode 'org-mode) (chip-modeline--propertize-octicon "pencil"))
-               ((eq major-mode 'org-agenda-mode) (chip-modeline--propertize-octicon "check"))
-               ((eq major-mode 'messages-buffer-mode) (chip-modeline--propertize-octicon "bug"))
-               ((s-equals? (buffer-name) "*Warnings*") (chip-modeline--propertize-octicon "bug"))
-               ((eq major-mode 'vterm-mode) (chip-modeline--propertize-octicon "terminal"))
-               ((eq major-mode 'shell-mode) (chip-modeline--propertize-octicon "terminal"))
-               ((eq major-mode 'sshell-mode) (chip-modeline--propertize-octicon "terminal"))
-               (t (chip-modeline--propertize-octicon "code")))))
+               ((eq major-mode 'org-mode) chip-modeline--icon-pencil)
+               ((eq major-mode 'org-agenda-mode) chip-modeline--icon-check)
+               ((eq major-mode 'messages-buffer-mode) chip-modeline--icon-bug)
+               ((s-equals? (buffer-name) "*Warnings*") chip-modeline--icon-bug)
+               ((eq major-mode 'vterm-mode) chip-modeline--icon-terminal)
+               ((eq major-mode 'shell-mode) chip-modeline--icon-terminal)
+               ((eq major-mode 'sshell-mode) chip-modeline--icon-terminal)
+               (t chip-modeline--icon-code))))
     (concat icon " " name)))
 
 (defun chip-modeline-tag-vc ()
@@ -111,7 +125,7 @@ Containing LEFT, and RIGHT aligned respectively."
       (let ((backend (vc-backend buffer-file-name)))
         (concat
          "  "
-         (chip-modeline--propertize-octicon "git-branch")
+         chip-modeline--icon-vc
          " "
          (substring-no-properties vc-mode (+ (if (eq backend 'Hg) 2 3) 2))))
     ""))
@@ -203,7 +217,7 @@ want to use in the modeline *in lieu of* the original.")
   ;; Not sure why using the hook is needed
   (add-hook 'auto-revert-mode-hook
             (lambda ()
-              (c/diminish auto-revert-mode (concat " " (chip-modeline--propertize-octicon "sync")))))
+              (c/diminish auto-revert-mode (concat " " chip-modeline--icon-autorevert))))
   (c/diminish emacs-lisp-mode "elisp")
   (c/diminish org-indent-mode)
   (c/diminish org-src-mode)

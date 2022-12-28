@@ -58,6 +58,13 @@
 
   (auto-dim-other-buffers-mode 1))
 
+;;; Package: all-the-icons
+
+;; Using fancy icons in some places (e.g. treemacs) to spice things up. This
+;; package includes icons from a bunch of different sources.
+
+(use-package all-the-icons)
+
 (provide 'chip-theme-desktop)
 
 ;;; chip-theme-desktop.el ends here

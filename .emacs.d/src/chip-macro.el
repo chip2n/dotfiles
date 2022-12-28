@@ -42,6 +42,21 @@ Expands to:
          (after-load ,(cdr pkgs) ,@body))
     `(progn ,@body)))
 
+(cl-defmacro c/async-shell ((output cmd &key (name "c/async-shell")) &body body)
+  "Run a shell command asyncrously, and call body with output bound as a string."
+  (declare (indent 1))
+  (let ((gproc (gensym "proc"))
+        (gevent (gensym "event")))
+    `(let ((,gproc (start-process-shell-command ,name ,(concat "*" name "*") ,cmd)))
+       (set-process-sentinel
+        ,gproc
+        (lambda (,gproc ,gevent)
+          (when (string-equal "finished\n" ,gevent)
+            (let ((,output (with-current-buffer (process-buffer ,gproc) (buffer-string))))
+              ,@body)
+            (kill-buffer (process-buffer ,gproc)))))
+       ,gproc)))
+
 (provide 'chip-macro)
 
 ;;; chip-macro.el ends here
