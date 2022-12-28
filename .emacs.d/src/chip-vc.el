@@ -33,7 +33,7 @@
 
 (use-package magit
   :bind (("C-x g" . magit-status)
-         ("C-x G" . magit-file-dispatch))
+         ("C-x G" . magit-status-here))
 
   :general (:keymaps 'magit-blame-mode-map
             :states 'normal
