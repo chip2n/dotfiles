@@ -85,9 +85,8 @@ If prefix is used, grep in current directory instead."
  "C-x P" 'projectile-switch-project
 
  ;; buffers
- ;; "C-b" 'chip/switch-buffer
  "C-x b" 'chip/switch-buffer
- "C-S-B" 'chip/switch-buffer-other-window
+ "C-x C-b" 'ibuffer
 
  ;; navigation
  "C-o" 'chip/history-back
