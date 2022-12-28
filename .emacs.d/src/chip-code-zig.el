@@ -43,14 +43,20 @@
     (let ((step (completing-read "Select build step:" (c/zig--steps))))
       (zig--run-cmd (format "build %s" step)))))
 
+(defun c/zig-clean ()
+  (interactive)
+  (let ((root (projectile-locate-dominating-file (buffer-file-name) "build.zig")))
+    (delete-directory (expand-file-name "zig-out" root) t)
+    (delete-directory (expand-file-name "zig-cache" root) t)))
+
 (use-package zig-mode
   :after (lsp-mode)
   :bind (:map zig-mode-map
-         ("C-c C-r" . chip/zig-compile-run)
+         ("C-c C-r" . c/zig-compile-run)
          ("C-c C-b" . c/zig-build)
          ("C-c C-k" . kill-compilation)
-         ("C-c C-t" . chip/zig-test)
-         ("C-c C-d" . chip/zig-test-this))
+         ("C-c C-t" . c/zig-test)
+         ("C-c C-d" . c/zig-test-this))
   :config
   ;; formatting on save breaks lsp-mode
   ;; see https://github.com/ziglang/zig-mode/issues/49
@@ -67,35 +73,35 @@
     :major-modes '(zig-mode)
     :server-id 'zls)))
 
-(defun chip/zig--locate-root ()
+(defun c/zig--locate-root ()
   (locate-dominating-file default-directory "build.zig"))
 
-(defun chip/zig-compile ()
+(defun c/zig-compile ()
   "Compile using `zig build`."
   (interactive)
-  (let ((default-directory (chip/zig--locate-root)))
+  (let ((default-directory (c/zig--locate-root)))
     (zig--run-cmd c/zig-build-cmd)))
 
-(defun chip/zig-compile-run ()
+(defun c/zig-compile-run ()
   "Compile and run using `zig build run`."
   (interactive)
-  (let ((default-directory (chip/zig--locate-root)))
+  (let ((default-directory (c/zig--locate-root)))
     (zig--run-cmd "build run")))
 
-(defun chip/zig-test ()
+(defun c/zig-test ()
   "Test using `zig build test`."
   (interactive)
-  (let ((default-directory (chip/zig--locate-root)))
+  (let ((default-directory (c/zig--locate-root)))
     (zig--run-cmd "build test")))
 
-(defun chip/zig-test-this ()
+(defun c/zig-test-this ()
   "Test current file using `zig test`."
   (interactive)
-  (let ((default-directory (chip/zig--locate-root))
+  (let ((default-directory (c/zig--locate-root))
         (path (buffer-file-name)))
     (zig--run-cmd "test -lc" path)))
 
-(defun chip/zig-debug ()
+(defun c/zig-debug ()
   (interactive)
   (let ((existing (get-buffer "*gdb*")))
     (when existing (kill-buffer existing)))
