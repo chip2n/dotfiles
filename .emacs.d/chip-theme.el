@@ -129,7 +129,7 @@
   (bookmark-face (:background color-background :foreground color-comment))
 
   ;; Paren match
-  (show-paren-match (:background color-highlight-2))
+  (show-paren-match (:background red-2 :foreground color-background))
 
   ;; Header faces
   (header-line (:box (:line-width 4 :color color-background)
