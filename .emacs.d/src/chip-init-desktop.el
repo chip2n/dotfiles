@@ -446,9 +446,9 @@ The default is to leave the cursor where it is, which is not as useful when sear
 ;;; Package: deadgrep
 
 (use-package deadgrep
-  :after (evil)
   :config
-  (add-to-list 'evil-emacs-state-modes 'deadgrep-mode))
+  (after-load (evil)
+    (add-to-list 'evil-emacs-state-modes 'deadgrep-mode)))
 
 ;;; Package: rg
 
