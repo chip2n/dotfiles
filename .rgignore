@@ -1,0 +1,3 @@
+# Make ripgrep search these directories, even though they're "hi
+!.emacs.d
+!.xmonad
