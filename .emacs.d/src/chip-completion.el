@@ -94,6 +94,7 @@ targets."
 
 (use-package consult
   :config
+  (setq xref-show-xrefs-function 'consult-xref)
   (after-load (evil)
     ;; Remember point before search for `evil-jump-backward'
     (evil-set-command-property 'consult-line :jump t)))
