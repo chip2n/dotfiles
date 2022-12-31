@@ -3,6 +3,10 @@
 *.swp
 *.swo
 
+# Emacs files
+/.emacs.d/.prose
+/.emacs.d/projects
+
 # Random application configs
 .config/erl_observer
 .config/mapeditor.org
@@ -105,3 +109,17 @@
 /.config/guix/current
 /.config/nault/
 /.config/zls.json
+/.config/MuseScore/
+/.config/user-dirs.locale
+/.config/amsynth/
+/.config/builtin.zig
+/.config/chrysalis/
+/.config/jxbrowser/
+/.config/kritadisplayrc
+/.config/kritarc
+/.config/pudb/
+/.config/seergdb/
+/.config/shirakumo/
+/.config/sway/
+/.config/unityhub/
+/.config/user-dirs.dirs
