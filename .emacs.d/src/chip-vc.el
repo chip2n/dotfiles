@@ -92,6 +92,13 @@
   (after-load (diminish)
     (diminish 'git-gutter-mode)))
 
+;;; Ediff
+
+(use-package ediff
+  :config
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+  (setq ediff-split-window-function 'split-window-horizontally))
+
 (provide 'chip-vc)
 
 ;;; chip-vc.el ends here
