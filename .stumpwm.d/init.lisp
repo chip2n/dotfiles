@@ -2,7 +2,6 @@
 ;;
 ;; My stumpwm configuration
 
-;; TODO: Init lemon bar at startup (start script as well)
 ;; TODO: Refresh bar every 10s
 ;; TODO: Refresh bar on mullvad status change
 ;; TODO: Make "widgets" abstraction for bar - let them refresh at their own pace (cache the output of the other scripts)
@@ -14,10 +13,43 @@
 (in-package :stumpwm)
 
 (ql:quickload :slynk)
+(ql:quickload :alexandria)
+(ql:quickload :serapeum)
 (ql:quickload :str)
 (ql:quickload :cl-ppcre)
 (ql:quickload :bordeaux-threads)
 (ql:quickload :parse-float)
+
+(defvar config-dir
+  (directory-namestring
+   (truename (merge-pathnames (user-homedir-pathname) ".stumpwm.d")))
+  "Stumpwm config directory.")
+
+(defun load-custom (filename)
+  (let ((file (merge-pathnames (concat filename ".lisp") config-dir)))
+    (if (probe-file file)
+        (load file)
+        (format *error-output* "Module '~a' not found." file))))
+
+(defun load-custom-asdf (filename)
+  (let ((file (merge-pathnames (concat filename ".asd") config-dir)))
+    (if (probe-file file)
+        (asdf:operate 'asdf:load-op file)
+        (format *error-output* "Module '~a' not found." file))))
+
+(defparameter *window-names*
+  '(("Emacs" . "emacs")
+    ("st-256color" . "term")
+    ("spotify" . "spotify")
+    ("firefox" . "firefox")
+    ("Discord" . "discord")
+    ("Slack" . "slack")
+    ("jetbrains-studio" . "android-studio")
+    ("google-chrome" . "google-chrome")
+    ("signal" . "signal")))
+
+(ql:quickload :rofi)
+(setf rofi:*window-names* *window-names*)
 
 ;;; * Window tags
 
@@ -32,8 +64,10 @@
 ;; TODO If no bar is reading fifo, this blocks indefinitely and makes the WM unresponsive!
 ;;      Can we write in a thread to avoid this?
 (defun lemonbar-write (s)
-  (with-open-file (fifo #P"/tmp/panel.fifo" :direction :output :if-exists :append)
-    (format fifo "~a~%" s)))
+  (let ((path #P"/tmp/panel.fifo"))
+    (when (probe-file path)
+      (with-open-file (fifo path :direction :output :if-exists :append)
+        (format fifo "~a~%" s)))))
 
 (defun lemonbar-mullvad-status ()
   (let ((output (run-shell "mullvad status")))
@@ -89,15 +123,10 @@
 (defun lemonbar-date ()
   (str:concat " " (run-shell "date +'%Y-%m-%d'")))
 
-(defparameter *lemonbar-window-names*
-  '(("Emacs" . "emacs")
-    ("st-256color" . "term")
-    ("firefox" . "firefox")
-    ("Discord" . "discord")
-    ("Slack" . "slack")
-    ("jetbrains-studio" . "android-studio")
-    ("google-chrome" . "google-chrome")
-    ("signal" . "signal")))
+(defparameter *lemonbar-window-names* nil
+  "Text that should be displayed instead of the window class.")
+
+(setf *lemonbar-window-names* *window-names*)
 
 (defun lemonbar-windows ()
   (let* ((windows (sort-windows-by-number
@@ -135,6 +164,10 @@
            (lemonbar-refresh)
            (lemonbar-start-refresh-every seconds)))))
 
+(run-shell-command "lemonbar_start")
+(lemonbar-init)
+
+
 ;;; * Misc
 
 (defparameter *color-bg* "#21242b")
@@ -150,7 +183,8 @@
 (define-key *top-map* (kbd "s-p") (format nil "exec dmenu_run -h ~a -nb '~a'" *bar-height* *color-bg-light*))
 
 ;; Launch rofi (window switching)
-(define-key *top-map* (kbd "s-b") "exec rofi -show window")
+(define-key *top-map* (kbd "s-b") "rofi-windows")
+(define-key *top-map* (kbd "s-B") "rofi-pull-global")
 
 ;; Launch terminal
 (define-key *top-map* (kbd "s-RET") "exec st")
@@ -171,6 +205,26 @@
 (define-key *top-map* (kbd "s-N") "move-window down")
 (define-key *top-map* (kbd "s-E") "move-window up")
 (define-key *top-map* (kbd "s-I") "move-window right")
+
+;; Splitting
+(defcommand split-right () ()
+  (hsplit)
+  (move-focus :right))
+
+(defcommand split-left () ()
+  (hsplit))
+
+(defcommand split-up () ()
+  (vsplit))
+
+(defcommand split-down () ()
+  (vsplit)
+  (move-focus :down))
+
+(define-key *top-map* (kbd "s-C-i") "split-right")
+(define-key *top-map* (kbd "s-C-h") "split-left")
+(define-key *top-map* (kbd "s-C-e") "split-up")
+(define-key *top-map* (kbd "s-C-n") "split-down")
 
 ;; Group management
 (define-key *top-map* (kbd "s-g") "gselect")
@@ -226,6 +280,8 @@
    (lambda ()
      (slynk:create-server :port (parse-integer port) :dont-close t))
    :name "slynk-manual"))
+
+(slynk "4004")
 
 (set-font "-xos4-terminus-medium-r-normal--14-140-72-72-c-80-iso10646-*")
 
