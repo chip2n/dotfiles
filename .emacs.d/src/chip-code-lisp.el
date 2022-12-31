@@ -27,18 +27,18 @@
   :lighter nil
   (if c/code-lisp-mode
       (progn
-        ;; (if (featurep 'evil-lispy)
-        ;;     (evil-lispy-mode 1)
-        ;;   (lispy-mode 1))
-        (paredit-mode 1)
+        (if (featurep 'evil-lispy)
+            (evil-lispy-mode 1)
+          (lispy-mode 1))
+        ;; (paredit-mode 1)
         (outshine-mode 1)
         (prettify-symbols-mode 1)
         (c/complete-mode 1))
     (progn
-      ;; (if (featurep 'evil-lispy)
-      ;;     (evil-lispy-mode -1)
-      ;;   (lispy-mode -1))
-      (paredit-mode -1)
+      (if (featurep 'evil-lispy)
+          (evil-lispy-mode -1)
+        (lispy-mode -1))
+      ;; (paredit-mode -1)
       (outshine-mode -1)
       (prettify-symbols-mode -1)
       (c/complete-mode -1))))
@@ -67,22 +67,38 @@
 (general-define-key
  :keymaps 'c/code-lisp-mode-map
  "C-;" 'c/lisp-comment-sexp-at-point)
+;;; Paredit
+
+(use-package paredit
+  :config
+  (c/diminish paredit-mode))
 
 ;;; Lispy
 
 (use-package lispy
-  :disabled t
   :config
   (c/diminish lispy-mode)
 
   (setq lispy-close-quotes-at-end-p t)
+
   (general-unbind
     :keymaps '(lispy-mode-map)
     "M-o" ;; used for ace-window
     )
   (general-define-key
    :keymaps '(lispy-mode-map)
-   "S" 'lispy-splice))
+   "n" 'special-lispy-down
+   "p" 'special-lispy-up
+   "N" 'special-lispy-move-down
+   "P" 'special-lispy-move-up
+   "S" 'special-lispy-splice
+   "C-c l" 'lispy-backward)
+
+  ;; Enable lispy in minibuffer when using eval-expression
+  (defun conditionally-enable-lispy ()
+    (when (eq this-command 'eval-expression)
+      (lispy-mode 1)))
+  (add-hook 'minibuffer-setup-hook 'conditionally-enable-lispy))
 
 (when c/config-evil?
   (use-package evil-lispy
@@ -95,32 +111,33 @@
 ;;; Symex
 
 (use-package symex
+  :disabled t
   :after (evil)
   :config
   ;; (c/diminish symex-mode)
   ;; (c/diminish symex-editing-mode)
   ;; Reverse up/down to match my mental model better
   (setq symex--user-evil-keyspec
-      '(("j" . symex-go-up)
-        ("k" . symex-go-down)
-        ;; ("m" . mark-sexp)
-        ("C-j" . symex-climb-branch)
-        ("C-k" . symex-descend-branch)
-        ("M-j" . symex-goto-highest)
-        ("M-k" . symex-goto-lowest)
+        '(("j" . symex-go-up)
+          ("k" . symex-go-down)
+          ;; ("m" . mark-sexp)
+          ("C-j" . symex-climb-branch)
+          ("C-k" . symex-descend-branch)
+          ("M-j" . symex-goto-highest)
+          ("M-k" . symex-goto-lowest)
 
-        ;; I use this keybinding for switching windows
-        ("C-<tab>" . nil)))
+          ;; I use this keybinding for switching windows
+          ("C-<tab>" . nil)))
 
   (symex-initialize)
 
   ;; Override evaluation function - we're using sly instead of slime
   (defun symex-eval-common-lisp ()
-  "Eval last sexp.
+    "Eval last sexp.
 
 Accounts for different point location in evil vs Emacs mode."
-  (interactive)
-  (sly-eval-last-expression))
+    (interactive)
+    (sly-eval-last-expression))
 
   (defun symex-eval-definition-common-lisp ()
     "Eval entire containing definition."
@@ -130,8 +147,8 @@ Accounts for different point location in evil vs Emacs mode."
   (general-define-key
    :states 'normal
    :keymaps 'symex-mode-map
-   ;; :keymaps 'emacs-lisp-mode-map
-    "(" 'symex-mode-interface)
+    ;; :keymaps 'emacs-lisp-mode-map
+   "(" 'symex-mode-interface)
 
   (general-define-key
    :states 'insert
