@@ -9,6 +9,7 @@ Configuration files for Linux & Mac OS
 - dmenu2
 - sysstat (for CPU usage etc)
 - playerctl (for displaying current song)
+- dunst (desktop notifications)
 
 ** Mac OS
 
