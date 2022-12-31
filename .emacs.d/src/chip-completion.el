@@ -151,7 +151,6 @@ targets."
 (add-to-list 'completion-styles-alist '(basic-remote basic-remote-try-completion basic-remote-all-completions nil))
 
 (use-package orderless
-  :ensure t
   :custom (completion-styles '(orderless))
   :custom (completion-category-overrides '((file (styles basic-remote orderless partial-completion))))
   :config
