@@ -140,6 +140,13 @@
 (setq kill-buffer-query-functions
       (delq 'process-kill-buffer-query-function kill-buffer-query-functions))
 
+;;; Help
+
+(use-package helpful
+  :bind (("C-h k" . helpful-key)
+         ("C-h v" . helpful-variable)
+         ("C-h f" . helpful-function)))
+
 ;;; Text navigation
 
 (defun chip/move-end-of-line ()
