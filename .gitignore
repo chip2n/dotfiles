@@ -123,3 +123,5 @@
 /.config/sway/
 /.config/unityhub/
 /.config/user-dirs.dirs
+/.emacs.d/org-roam.db
+/.emacs.d/org-fc-reviews.tsv
