@@ -461,6 +461,7 @@ beginning of last month."
   :ensure t)
 
 (use-package org-gcal
+  :disabled t
   :ensure t
   :after org
   :config
