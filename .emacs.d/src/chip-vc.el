@@ -31,9 +31,14 @@
 (defun chip/magit-status-root-dir (dir)
   (magit-status (vc-find-root dir ".git")))
 
+(defun c/magit-status-here ()
+  (interactive)
+  (magit-status-here)
+  (recenter))
+
 (use-package magit
   :bind (("C-x g" . magit-status)
-         ("C-x G" . magit-status-here))
+         ("C-x G" . c/magit-status-here))
 
   :general (:keymaps 'magit-blame-mode-map
             :states 'normal
