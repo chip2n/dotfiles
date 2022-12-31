@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: painter
+# key: painter
+# --
+class $1Painter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    $0
+  }
+
+  @override
+  bool shouldRepaint($1Painter oldDelegate) {
+    return false;
+  }
+}
