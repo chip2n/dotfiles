@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# Download latest Zig nightly
+
+set -e
+
+INDEX_URL='https://ziglang.org/download/index.json'
+
+OUTPUT=$(curl -s $INDEX_URL | jq -r '.master."x86_64-linux".tarball,.master."x86_64-linux".shasum')
+
+TARBALL_URL=$(sed -n '1 p' <<< $OUTPUT)
+SHASUM=$(sed -n '2 p' <<< $OUTPUT)
+
+wget $TARBALL_URL -o TARBALL_PATH
+
+TARBALL=$(basename $TARBALL_
+ZIG_DIR=${TARBALL%.tar.xz}
+
+echo "$SHASUM  $TARBALL" | sha256sum --check
+
+tar -xf $TARBALL
+
