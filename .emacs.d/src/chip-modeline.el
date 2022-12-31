@@ -78,11 +78,12 @@ Containing LEFT, and RIGHT aligned respectively."
   (c/async-shell (s "notmuch search --output=messages tag:unread | wc -l | tr -d '\n'")
     (setq c/email--unread-count (string-to-number s))))
 
+(c/email--unread-count-refresh)
 (run-with-idle-timer 30 t 'c/email--unread-count-refresh)
 
 (defun chip-modeline-email ()
   (when (not (= c/email--unread-count 0))
-    (concat chip-modeline--icon-email " " c/email--unread-count)))
+    (concat chip-modeline--icon-email " " (format "%s" c/email--unread-count))))
 
 (defun chip-modeline-fallback ()
   "Modeline used as a fallback if no other modeline is available"
