@@ -608,7 +608,8 @@ The default is to leave the cursor where it is, which is not as useful when sear
    :keymaps 'lsp-mode-map
    "C-c C-a" 'lsp-execute-code-action
    "C-c C-c C-f" 'lsp-format-buffer
-   "C-c l" 'c/lsp-avy-lens)
+   "C-c l" 'c/lsp-avy-lens
+   "M-." 'lsp-find-definition)
   (general-define-key
    :keymaps 'lsp-mode-map
    :states '(normal)
