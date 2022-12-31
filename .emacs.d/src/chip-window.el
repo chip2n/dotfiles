@@ -136,7 +136,12 @@
 (use-package ace-window
   :config
   (c/diminish ace-window-mode)
-  (setq aw-dispatch-always t))
+  (setq aw-dispatch-always t)
+
+  ;; M-o M-o switches to next window
+  (add-to-list 'aw-dispatch-alist '(?\O c/next-window))
+  (setq aw-translate-char-function
+        (lambda (c) (if (= c ?\M-o) ?O c))))
 
 (use-package popper
   :bind (("C-<return>" . popper-toggle-latest)
