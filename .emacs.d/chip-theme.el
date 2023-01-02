@@ -99,10 +99,10 @@
 (define-theme chip
   (default (:foreground color-foreground
             :background color-background
-            :family "Jetbrains Mono"
+            :family "Iosevka"
             :height 100))
-  (fixed-pitch (:family "Jetbrains Mono" :height 100))
-  (variable-pitch (:family "Jetbrains Mono" :height 100))
+  (fixed-pitch (:family "Iosevka" :height 100))
+  (variable-pitch (:family "Iosevka" :height 100))
   (cursor (:background color-cursor))
   (parenthesis (:foreground color-comment))
 
@@ -123,7 +123,7 @@
   (line-number (:inherit default :foreground grey-3))
   (line-number-current-line (:inherit default
                              :foreground color-foreground
-                             :background color-highlight-1
+                             :background color-highlight-2
                              :bold t))
   (help-key-binding (:foreground pink-2 :underline t :bold t))
   (bookmark-face (:background color-background :foreground color-comment))
@@ -350,6 +350,9 @@
   ;; debugging
   (breakpoint-enabled (:foreground red-1))
   (breakpoint-disabled (:foreground color-comment))
+  (realgud-bp-line-enabled-face (:background color-diff-removed :extend t))
+  (realgud-overlay-arrow1 (:foreground red-1))
+  (realgud-bp-enabled-face (:foreground color-background))
 
   ;; Elfeed faces
   (message-header-name (:foreground grey-3 :weight bold))
@@ -488,6 +491,6 @@
 
   ;; Tabbar faces
   (tabbar-default
-    (:background red-1 :foreground blue-1)))
+   (:background red-1 :foreground blue-1)))
 
 (provide-theme 'chip)
