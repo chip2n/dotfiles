@@ -1076,6 +1076,7 @@ all elements."
 (require 'ob-lilypond)
 
 (use-package glsl-mode)
+(use-package wgsl-mode)
 
 (require 'bolt-mode)
 
