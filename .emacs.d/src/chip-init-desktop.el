@@ -145,7 +145,8 @@
 (use-package helpful
   :bind (("C-h k" . helpful-key)
          ("C-h v" . helpful-variable)
-         ("C-h f" . helpful-function)))
+         ("C-h f" . helpful-function)
+         ("C-h ." . helpful-at-point)))
 
 ;;; Text navigation
 
