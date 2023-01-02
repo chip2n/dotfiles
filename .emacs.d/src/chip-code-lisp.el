@@ -94,6 +94,8 @@
    "S" 'special-lispy-splice
    "C-c l" 'lispy-backward)
 
+  (lispy-define-key lispy-mode-map "k" 'lispy-kill-at-point)
+
   ;; Enable lispy in minibuffer when using eval-expression
   (defun conditionally-enable-lispy ()
     (when (eq this-command 'eval-expression)
