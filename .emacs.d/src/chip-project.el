@@ -58,7 +58,7 @@ org task quickly.")
 
 (define-key project-prefix-map "m" #'magit-project-status)
 (define-key project-prefix-map "g" #'chip/grep)
-(define-key project-prefix-map "v" #'c/project-vterm)
+(define-key project-prefix-map "t" #'c/project-vterm)
 
 (setf project-switch-commands
       '((project-find-file "Find file")
