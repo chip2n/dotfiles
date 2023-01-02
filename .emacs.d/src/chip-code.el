@@ -96,6 +96,9 @@ Interactively also sends a terminating newline."
 ;; of creating a new window in the current frame.
 (add-to-list 'display-buffer-alist '("*compilation*" nil (reusable-frames . t)))
 
+;; Always kill existing compilation buffers without confirmation
+(setq compilation-always-kill t)
+
 
 ;;; Error navigation
 
