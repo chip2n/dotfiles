@@ -312,6 +312,7 @@ The default is to leave the cursor where it is, which is not as useful when sear
             (binary-icon (icon "file-binary"))
             (lock-icon (icon "lock"))
             (settings-icon (icon "gear"))
+            (git-icon (icon "git-branch"))
             (parent-closed-icon "+")
             (parent-opened-icon "-"))
         (treemacs-create-theme "chip"
@@ -368,7 +369,7 @@ The default is to leave the cursor where it is, which is not as useful when sear
                           "scribble" "scss" "sh" "sql" "sqlite" "sql" "styles" "sv"
                           "tex" "toml" "tpp" "tridactylrc" "ts" "tsx" "v" "vagrantfile"
                           "vagrantfile" "vh" "vimperatorrc" "vimrc" "vrapperrc"
-                          "vue" "xml" "xsl" "yaml" "yml" "zsh" "zshrc"))
+                          "vue" "xml" "xsl" "yaml" "yml" "zig" "zsh" "zshrc"))
             (treemacs-create-icon
              :icon (format "  %s " book-icon)
              :extensions ("lrf" "lrx" "cbr" "cbz" "cb7" "cbt" "cba" "chm" "djvu"
@@ -388,7 +389,7 @@ The default is to leave the cursor where it is, which is not as useful when sear
              :extensions ("lock"))
             (treemacs-create-icon
              :icon (format "  %s " settings-icon)
-             :extensions ("cfg" "properties"))
+             :extensions ("cfg" "properties" "ini"))
             (treemacs-create-icon
              :icon (format "  %s " pdf-icon)
              :extensions ("pdf"))
@@ -400,11 +401,15 @@ The default is to leave the cursor where it is, which is not as useful when sear
              :extensions ("package.json" "package-lock.json"))
             (treemacs-create-icon
              :icon (format "  %s " text-icon)
-             :extensions (fallback)))))))
+             :extensions (fallback))
+            (treemacs-create-icon
+             :icon (format "  %s " git-icon)
+             :extensions ("git" "gitignore" "gitconfig" "gitmodules" "gitattributes")))))))
   (treemacs-load-theme "chip"))
 
 (use-package treemacs
   :defer t
+  :bind ("C-c f" . treemacs-select-window)
   :config
   (setq treemacs-show-cursor nil)
   (setq treemacs-indentation 1)
