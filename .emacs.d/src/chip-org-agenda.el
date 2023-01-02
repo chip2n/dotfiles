@@ -156,8 +156,8 @@
 ;; Hide separators between agenda blocks
 (setq org-agenda-block-separator nil)
 
-;; Hide refile tags (shown in separate section anyways
-(setq org-agenda-hide-tags-regexp "refile")
+;; Hide refile tags (shown in separate section anyways) and category tags
+(setq org-agenda-hide-tags-regexp "refile\\|remente\\|personal")
 
 ;; Remove indentation from agenda blocks
 (setq org-agenda-prefix-format
