@@ -222,7 +222,7 @@ want to use in the modeline *in lieu of* the original.")
   (c/diminish emacs-lisp-mode "elisp")
   (c/diminish org-indent-mode)
   (c/diminish org-src-mode)
-  (c/diminish flycheck-mode)
+  (add-hook 'flycheck-mode-hook (lambda () (c/diminish flycheck-mode)))
   (c/diminish visual-line-mode))
 
 (provide 'chip-modeline)
