@@ -13,7 +13,7 @@ SHASUM=$(sed -n '2 p' <<< $OUTPUT)
 
 wget $TARBALL_URL -o TARBALL_PATH
 
-TARBALL=$(basename $TARBALL_
+TARBALL=$(basename $TARBALL_URL)
 ZIG_DIR=${TARBALL%.tar.xz}
 
 echo "$SHASUM  $TARBALL" | sha256sum --check
