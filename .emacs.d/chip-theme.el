@@ -198,6 +198,8 @@
   (vertico-current (:foreground red-2 :background color-highlight-1))
   (vertico-group-title (:foreground color-comment))
   (vertico-group-separator (:foreground color-highlight-2 :strike-through t))
+  (vertico-posframe (:background grey-0))
+  (vertico-posframe-border (:background grey-0))
 
   ;; Marginalia
   (marginalia-documentation (:foreground color-comment))

@@ -218,6 +218,15 @@ ARG is the same as for `backward-kill-sexp'."
   :init
   (vertico-mode))
 
+(use-package vertico-posframe
+  :config
+  (vertico-posframe-mode 1)
+  (setq vertico-posframe-poshandler #'posframe-poshandler-frame-top-center)
+  (setq vertico-posframe-parameters '((left-fringe . 0)
+                                      (right-fringe . 0)))
+  (setq vertico-posframe-border-width 8)
+  (setq vertico-posframe-width 200))
+
 (define-minor-mode c/complete-mode
   "Enable code completion."
   :global nil
