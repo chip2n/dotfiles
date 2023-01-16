@@ -43,7 +43,7 @@ Expands to:
     `(progn ,@body)))
 
 (cl-defmacro c/async-shell ((output cmd &key (name "c/async-shell")) &body body)
-  "Run a shell command asyncrously, and call body with output bound as a string."
+  "Run a shell command asynchronously, and call body with output bound as a string."
   (declare (indent 1))
   (let ((gproc (gensym "proc"))
         (gevent (gensym "event")))
