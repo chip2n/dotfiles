@@ -826,22 +826,33 @@ all elements."
 
 (use-package pdf-tools
   :defer t
+  :magic ("%PDF" . pdf-view-mode)
   :config
   (pdf-tools-install)
-  (add-hook 'pdf-view-mode-hook (lambda () (blink-cursor-mode -1))))
+  (add-hook 'pdf-view-mode-hook (lambda () (blink-cursor-mode -1)))
+  (add-hook 'pdf-view-mode-hook 'c/pdf--setup-window))
 
-(straight-use-package
- '(pdf-continuous-scroll-mode
-   :type git
-   :host github
-   :repo "dalanicolai/pdf-continuous-scroll-mode.el"))
+(defun c/pdf--setup-window ()
+  "Setup PDF window, removing default header and fitting height"
+  ;; Seems like there's already spaced without the right fringe, so this centers the document a bit better
+  (setq right-fringe-width 0)
+  (setq header-line-format nil)
+  (pdf-view-fit-height-to-window))
+
+(defun c/pdf-fit-window ()
+  "Resize window to document width."
+  (interactive)
+  (let* ((current-width (window-size (selected-window) t t nil))
+         (size (car (pdf-view-image-size))))
+    (window-resize (selected-window) (- size current-width) t nil t)
+    (pdf-view-redisplay)))
 
 (use-package pomidor
   :config
   (setq pomidor-sound-tick nil
         pomidor-sound-tack nil
         ;; pomidor-sound-overwork (expand-file-name (concat pomidor-dir "overwork.wav"))
-	;; pomidor-sound-break-over (expand-file-name (concat (getenv "HOME") "/Music/overwork.wav"))
+	    ;; pomidor-sound-break-over (expand-file-name (concat (getenv "HOME") "/Music/overwork.wav"))
         ))
 
 ;;; Languages
