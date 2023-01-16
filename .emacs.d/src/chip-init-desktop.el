@@ -1283,9 +1283,16 @@ buffer in current window."
   (interactive)
   (let ((window (get-buffer-window (current-buffer))))
     (set-window-dedicated-p window (not (window-dedicated-p window)))
-    (setq window-size-fixed (window-dedicated-p window))
     (if (window-dedicated-p window)
         (message "%s: Can't touch this!" (current-buffer))
+      (message "%s is up for grabs." (current-buffer)))))
+
+(defun toggle-window-size-fixed ()
+  (interactive)
+  (let ((window (get-buffer-window (current-buffer))))
+    (setq window-size-fixed (not (window-size-fixed-p window)))
+    (if (window-size-fixed-p window)
+        (message "%s: Can't resize this!" (current-buffer))
       (message "%s is up for grabs." (current-buffer)))))
 
 (defun chip/window-80 ()
