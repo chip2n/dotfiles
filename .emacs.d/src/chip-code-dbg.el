@@ -89,25 +89,59 @@
 
 (defun c/gdb-attach ()
   (interactive)
-  (let* ((output (s-lines (shell-command-to-string "ps -u chip -o pid,comm")))
+  (let ((pid (c/get-pid))
+        (source-buf (current-buffer)))
+    (save-window-excursion
+      (gdb (format "gdb -i=mi attach %s" pid)))
+    (switch-to-buffer-other-window (gdb-get-buffer 'gdbmi))))
+
+(defun c/realgud-gdb-attach ()
+  (interactive)
+  (let ((pid (c/get-pid))
+        (source-buf (current-buffer)))
+    (save-window-excursion
+      (realgud:gdb-pid pid)
+      (realgud:attach-source-buffer source-buf))
+    (delete-other-windows)
+    (split-window-horizontally)
+    (other-window 1)
+    (switch-to-buffer (realgud:gdb-find-command-buffer pid))))
+
+(defun c/get-pid ()
+  "Get PID by name read from completing-read."
+  (unless (c/process-attach-permitted)
+    (let ((default-directory "/sudo::/"))
+      (shell-command "echo 0 | tee /proc/sys/kernel/yama/ptrace_scope")))
+  (let* ((output (s-lines (shell-command-to-string "ps ax -o pid,s,comm | awk '{if ($2 != \"Z\") { print } }'")))
          (lines (-filter (-compose #'not #'s-blank?) (cdr output)))
          (processes (mapcar (lambda (line)
                               (let* ((split (s-split " " (s-trim line)))
                                      (pid (string-to-number (s-trim (car split))))
-                                     (comm (s-trim (cadr split))))
+                                     (comm (s-trim (caddr split))))
                                 (cons comm pid)))
-                            lines))
-         (pid (-> (completing-read "Attach to process:" processes)
-                (assoc processes)
-                (cdr)))
-         (source-buf (current-buffer)))
-        (save-window-excursion
-          (realgud:gdb-pid pid)
-          (realgud:attach-source-buffer source-buf))
-        (delete-other-windows)
-        (split-window-horizontally)
-        (other-window 1)
-        (switch-to-buffer (realgud:gdb-find-command-buffer pid))))
+                            lines)))
+    (-> (completing-read "Attach to process:" processes)
+        (assoc processes)
+        (cdr))))
+
+(defun c/process-attach-permitted ()
+  "Check if attaching to process is allowed."
+  (with-temp-buffer
+    (insert-file-contents "/proc/sys/kernel/yama/ptrace_scope")
+    (string-equal (s-trim-right (buffer-string)) "0")))
+
+(defhydra c/gdb-hydra (:color amaranth :hint nil)
+  "
+^Stepping^         ^Breakpoints^
+^^^^^^^^-------------------------------------
+_n_: next          _b_: put breakpoint
+_s_: step          _k_: remove breakpoint
+"
+  ("n" gud-next)
+  ("s" gud-step)
+  ("b" gud-break)
+  ("k" gud-remove)
+  ("q" nil))
 
 (provide 'chip-code-dbg)
 
