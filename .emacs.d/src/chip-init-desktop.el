@@ -314,7 +314,8 @@ The default is to leave the cursor where it is, which is not as useful when sear
             (settings-icon (icon "gear"))
             (git-icon (icon "git-branch"))
             (parent-closed-icon "+")
-            (parent-opened-icon "-"))
+            (parent-opened-icon "-")
+            (cmake-icon (icon "tools")))
         (treemacs-create-theme "chip"
           :icon-directory "~/.emacs.d/icons"
           :config
@@ -404,13 +405,18 @@ The default is to leave the cursor where it is, which is not as useful when sear
              :extensions (fallback))
             (treemacs-create-icon
              :icon (format "  %s " git-icon)
-             :extensions ("git" "gitignore" "gitconfig" "gitmodules" "gitattributes")))))))
+             :extensions ("git" "gitignore" "gitconfig" "gitmodules" "gitattributes"))
+            (treemacs-create-icon
+             :icon (format "  %s " cmake-icon)
+             :extensions ("cmake" "CMakeLists.txt"))
+            )))))
   (treemacs-load-theme "chip"))
 
 (use-package treemacs
   :defer t
   :bind ("C-c f" . treemacs-select-window)
   :config
+  (setf treemacs-window-background-color (cons "#1b1e24f" "#21242b"))
   (setq treemacs-show-cursor nil)
   (setq treemacs-indentation 1)
   (setq treemacs-space-between-root-nodes nil)
