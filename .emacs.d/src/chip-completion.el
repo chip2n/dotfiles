@@ -221,6 +221,7 @@ ARG is the same as for `backward-kill-sexp'."
   (vertico-mode))
 
 (use-package vertico-posframe
+  :disabled t
   :config
   (vertico-posframe-mode 1)
   (setq vertico-posframe-poshandler #'posframe-poshandler-frame-top-center)
