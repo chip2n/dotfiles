@@ -170,7 +170,6 @@
   (term-color-yellow (:foreground yellow-2))
   (term-color-pink (:foreground pink-2))
   (term-color-magenta (:foreground magenta-2))
-  (term-color-magenta (:foreground magenta-2))
   (vterm-color-black (:foreground grey-3))
   (vterm-color-red (:foreground red-2))
   (vterm-color-blue (:foreground blue-2))
@@ -178,7 +177,16 @@
   (vterm-color-yellow (:foreground yellow-2))
   (vterm-color-pink (:foreground pink-2))
   (vterm-color-magenta (:foreground magenta-2))
-  (vterm-color-magenta (:foreground magenta-2))
+
+  ;; ANSI colors
+  (ansi-color-red (:foreground red-1))
+  (ansi-color-bright-red (:foreground red-2))
+  (ansi-color-blue (:foreground blue-1))
+  (ansi-color-bright-blue (:foreground blue-2))
+  (ansi-color-green (:foreground green-2))
+  (ansi-color-bright-green (:foreground green-2))
+  (ansi-color-yellow (:foreground yellow-2))
+  (ansi-color-bright-yellow (:foreground yellow-2))
 
   ;; compilation-mode
   (compilation-mode-line-exit (:foreground green-2))
