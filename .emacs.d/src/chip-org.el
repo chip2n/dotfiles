@@ -36,7 +36,9 @@
   (setq org-depend-tag-blocked nil)
 
   ;; enable easy templates
-  (require 'org-tempo))
+  (require 'org-tempo)
+
+  (require 'org-clock))
 
 (use-package org-fc
   :straight (org-fc
