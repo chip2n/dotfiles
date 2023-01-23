@@ -332,6 +332,12 @@ display-buffer (through display-buffer-alist)."
    :keymaps 'sly-popup-buffer-mode-map
     "q" 'quit-window))
 
+;;; C++
+
+(use-package cmake-mode)
+
+(setq-default c-basic-offset 4)
+
 ;;; Haskell
 
 (use-package lsp-haskell
@@ -361,8 +367,8 @@ display-buffer (through display-buffer-alist)."
   ;; See: https://emacs.stackexchange.com/q/35431/31683
   (after-load (evil)
     (evil-define-key 'normal haskell-mode-map
-      "o" 'haskell-evil-open-below
-      "O" 'haskell-evil-open-above)))
+                     "o" 'haskell-evil-open-below
+                     "O" 'haskell-evil-open-above)))
 
 ;;; Julia
 
