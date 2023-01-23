@@ -45,7 +45,7 @@
 (defun c/compile ()
   (interactive)
   (unless c/compilation-fun
-    (error "No compilation function specified (set c/compilation-fun variable)"))
+    (call-interactively #'compile))
   (funcall c/compilation-fun))
 
 ;;; Compile on save
