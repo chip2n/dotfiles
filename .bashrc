@@ -32,3 +32,4 @@ if [ -f '/home/chip/google-cloud-sdk/path.bash.inc' ]; then source '/home/chip/g
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/chip/google-cloud-sdk/completion.bash.inc' ]; then source '/home/chip/google-cloud-sdk/completion.bash.inc'; fi
+. "$HOME/.cargo/env"

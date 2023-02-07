@@ -229,6 +229,11 @@ The default is to leave the cursor where it is, which is not as useful when sear
   ;; turn off evil-snipe in magit
   (add-hook 'magit-mode-hook 'turn-off-evil-snipe-override-mode))
 
+;;; Regions
+
+(use-package expand-region
+  :bind (("C-c m" . er/expand-region)))
+
 ;;; File navigation
 
 (defun chip/open-config-file ()
@@ -650,8 +655,8 @@ The default is to leave the cursor where it is, which is not as useful when sear
   (setq org-roam-v2-ack t)
   :config
   ;; (setq org-roam-directory "/home/chip/tmp/roam")
-  (setq org-roam-directory "/home/chip/org/personal/roam")
-  (setq org-roam-dailies-directory "/home/chip/org/personal/roam/daily")
+  (setq org-roam-directory "~/org/personal/roam")
+  (setq org-roam-dailies-directory "~/org/personal/roam/daily")
   (setq org-roam-file-extensions '("org"))
 
   (setq org-roam-dailies-capture-templates
@@ -920,8 +925,8 @@ all elements."
   :defer t
   :config
   (setq lsp-dart-line-length 80)
-  (setq lsp-dart-sdk-dir "~/snap/flutter/common/flutter/bin/cache/dart-sdk")
-  (setq lsp-dart-flutter-sdk-dir "~/snap/flutter/common/flutter")
+  (setq lsp-dart-sdk-dir "~/flutter/bin/cache/dart-sdk")
+  (setq lsp-dart-flutter-sdk-dir "~/flutter")
   (add-hook 'dart-mode-hook 'lsp)
   (setq lsp-dart-dap-flutter-hot-reload-on-save t)
   (setq lsp-dart-flutter-widget-guides nil))
@@ -951,7 +956,9 @@ all elements."
 (defun flutter--find-project-root ()
   (locate-dominating-file (buffer-file-name) "pubspec.yaml"))
 
-(use-package flutter)
+(use-package flutter
+  :config
+  (setq flutter-sdk-path "~/flutter"))
 
 ;; csv
 
@@ -986,6 +993,7 @@ all elements."
       (nvm-use version (lambda () (vterm (format "*vterm-nvm-%s*" version)))))))
 
 (use-package nvm
+  :disabled t
   :config
   (nvm-use "v19.2.0"))
 

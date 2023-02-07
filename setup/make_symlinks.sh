@@ -13,7 +13,6 @@ ln -sf $DOTFILES/.compton.conf $HOME/.compton.conf
 ln -sf $DOTFILES/.config $HOME/.config
 ln -sf $DOTFILES/.emacs.d $HOME/.emacs.d
 ln -sf $DOTFILES/.ideavimrc $HOME/.ideavimrc
-ln -sf $DOTFILES/.mbsyncrc $HOME/.mbsyncrc
 ln -sf $DOTFILES/.nethackrc $HOME/.nethackrc
 ln -sf $DOTFILES/.sbclrc $HOME/.sbclrc
 ln -sf $DOTFILES/.slynkrc $HOME/.slynkrc
@@ -26,5 +25,8 @@ ln -sf $DOTFILES/.zshrc $HOME/.zshrc
 ln -sf $DOTFILES/audio $HOME/audio
 ln -sf $DOTFILES/git_template $HOME/.git_template
 ln -sf $DOTFILES/scripts $HOME/scripts
+
+ln -sf $DOTFILES/.mbsyncrc $HOME/.mbsyncrc
+ln -sf $DOTFILES/.notmuch-config $HOME/.notmuch-config
 
 ln -sf $HOME/storage/elfeed $HOME/.elfeed

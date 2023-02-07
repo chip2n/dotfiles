@@ -99,10 +99,10 @@
 (define-theme chip
   (default (:foreground color-foreground
             :background color-background
-            :family "Iosevka"
-            :height 100))
-  (fixed-pitch (:family "Iosevka" :height 100))
-  (variable-pitch (:family "Iosevka" :height 100))
+            :family "Jetbrains Mono"
+            :height 120))
+  (fixed-pitch (:family "Jetbrains Mono" :height 120))
+  (variable-pitch (:family "Jetbrains Mono" :height 120))
   (cursor (:background color-cursor))
   (parenthesis (:foreground color-comment))
 

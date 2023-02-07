@@ -116,6 +116,19 @@
 
 ;;; Emacs behavior
 
+;; Toggle between cmd/option as meta key (useful for macbook keyboard)
+(when (and (eq system-type 'darwin) (display-graphic-p))
+  (defun c/toggle-meta ()
+    (interactive)
+    (if (eq mac-option-modifier 'meta)
+        (progn
+          (setq mac-option-modifier 'super
+                mac-command-modifier 'meta)
+          (message "Using cmd as meta"))
+      (setq mac-option-modifier 'meta
+            mac-command-modifier 'super)
+      (message "Using option as meta"))))
+
 ;; break at line 80 by default when using functions like `fill-paragraph`
 (setq-default fill-column 80)
 

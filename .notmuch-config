@@ -11,7 +11,7 @@
 # configured here named ".notmuch".
 #
 [database]
-path=/home/chip/.mail
+path=$HOME/.mail
 
 # User configuration
 #
