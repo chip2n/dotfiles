@@ -452,6 +452,9 @@ The default is to leave the cursor where it is, which is not as useful when sear
 ;; show directories before files, and dotfiles first
 (setq dired-listing-switches "-aBhlv --group-directories-first")
 
+;; no confirm when copying directories recursively
+(setq dired-recursive-copies 'always)
+
 ;; start dired in emacs mode
 (after-load (evil)
   (add-to-list 'evil-emacs-state-modes 'dired-mode))
