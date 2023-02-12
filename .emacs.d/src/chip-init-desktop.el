@@ -748,7 +748,7 @@ all elements."
   (setq shr-inhibit-images t)           ; disable image loading when viewing entries
   (setq elfeed-feeds
         `(("http://feeds.feedburner.com/blogspot/hsDu" android) ; Android Developers Blog
-          ("http://oremacs.com/atom.xml" emacs) ; (or emacs)
+          ("http://oremacs.com/atom.xml" emacs)                 ; (or emacs)
           ("http://pragmaticemacs.com/feed/" emacs) ; Pragmatic Emacs
           ("https://emacsair.me/feed.xml" emacs)
           ("https://protesilaos.com/codelog.xml" emacs) ; Protesilaos Stavrou blog
@@ -758,13 +758,15 @@ all elements."
           "https://hnrss.org/newest?comments=10"
           "https://lisp-journey.gitlab.io/index.xml"
           "https://lexi-lambda.github.io/feeds/all.rss.xml"
-          "https://stevelosh.com/rss.xml"           ; Steve Losh
-          "https://kaveh808.medium.com/feed"        ; kaveh808
+          "https://stevelosh.com/rss.xml"    ; Steve Losh
+          "https://kaveh808.medium.com/feed" ; kaveh808
+          "https://nullprogram.com/feed/"    ; nullprogram
           "https://zig.news/feed"                   ; Zig News
           "https://codewithandrea.com/rss.xml"      ; Code with Andrea
-          ;; ,(youtube-rss "UCaxar6TBM-94_ezoS00fLkA") ; Day9TV
+          ,(youtube-rss "UCaxar6TBM-94_ezoS00fLkA") ; Day9TV
           ;; ,(youtube-rss "UC0uTPqBCFIpZxlz_Lv1tk_g") ; Protesilaos Stavrou
           ;; ,(reddit-rss private/reddit-rss-feed "chip2n")
+          "https://www.reddit.com/r/Zig/.rss" ; /r/zig
           ))
 
   (after-load (evil)
