@@ -230,16 +230,6 @@ ARG is the same as for `backward-kill-sexp'."
   (setq vertico-posframe-border-width 8)
   (setq vertico-posframe-width 200))
 
-(define-minor-mode c/complete-mode
-  "Enable code completion."
-  :global nil
-  (if c/complete-mode
-      (progn
-        (company-mode 1))
-    (company-mode 0)))
-
-(add-hook 'prog-mode-hook 'c/complete-mode)
-
 (defun chip/company-setup-keys ()
   "Setup keybindings for company mode"
   (interactive)
@@ -270,7 +260,17 @@ ARG is the same as for `backward-kill-sexp'."
   (setq company-selection-wrap-around t)
 
   ;; aligns annotation to the right hand side
-  (setq company-tooltip-align-annotations t))
+  (setq company-tooltip-align-annotations t)
+
+  (define-minor-mode c/complete-mode
+  "Enable code completion."
+  :global nil
+  (if c/complete-mode
+      (progn
+        (company-mode 1))
+    (company-mode 0)))
+
+  (add-hook 'prog-mode-hook 'c/complete-mode))
 
 (defun complete-complete-cycle-next (arg)
   (company-complete-common-or-cycle))

@@ -25,6 +25,8 @@
 (define-minor-mode c/code-lisp-mode
   "Mode for working with lisp code."
   :lighter nil
+  (require 'outshine)
+  (require 'lispy)
   (if c/code-lisp-mode
       (progn
         (if (featurep 'evil-lispy)
@@ -67,6 +69,7 @@
 (general-define-key
  :keymaps 'c/code-lisp-mode-map
  "C-;" 'c/lisp-comment-sexp-at-point)
+
 ;;; Paredit
 
 (use-package paredit
