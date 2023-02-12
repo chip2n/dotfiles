@@ -66,13 +66,7 @@
   (add-hook 'zig-mode-hook 'lsp)
 
   (after-load (outshine)
-    (add-hook 'zig-mode-hook 'outshine-mode))
-
-  (lsp-register-client
-   (make-lsp-client
-    :new-connection (lsp-stdio-connection "/home/chip/Downloads/x86_64-linux/zls")
-    :major-modes '(zig-mode)
-    :server-id 'zls)))
+    (add-hook 'zig-mode-hook 'outshine-mode)))
 
 (defun c/zig--locate-root ()
   (locate-dominating-file default-directory "build.zig"))
