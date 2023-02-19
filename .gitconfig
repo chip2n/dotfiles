@@ -2,6 +2,9 @@
 email = andreas@arvidsson.io
 name = chip2n
 
+[init]
+templatedir = ~/.git_template
+
 [alias]
 ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
 st = status
@@ -24,5 +27,3 @@ user = chip2n
 
 [credential "https://github.com"]
 helper = !/usr/bin/gh auth git-credential
-[init]
-	templatedir = /home/chip/.git_template
