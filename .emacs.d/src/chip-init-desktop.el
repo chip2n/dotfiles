@@ -140,6 +140,9 @@
 (setq kill-buffer-query-functions
       (delq 'process-kill-buffer-query-function kill-buffer-query-functions))
 
+;; don't ring bell on error
+(setq ring-bell-function 'ignore)
+
 ;;; Help
 
 (use-package helpful
