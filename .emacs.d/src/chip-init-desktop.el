@@ -764,7 +764,10 @@ all elements."
           "https://stevelosh.com/rss.xml"    ; Steve Losh
           "https://kaveh808.medium.com/feed" ; kaveh808
           "https://nullprogram.com/feed/"    ; nullprogram
-          "https://zig.news/feed"                   ; Zig News
+          "https://zig.news/feed"            ; Zig News
+          "https://kristoff.it/index.xml"    ; Loris Cro
+          "https://blog.orhun.dev/rss.xml"          ; Orhun's blog
+          "https://devlog.hexops.com/feed.xml"      ; Hexops
           "https://codewithandrea.com/rss.xml"      ; Code with Andrea
           ,(youtube-rss "UCaxar6TBM-94_ezoS00fLkA") ; Day9TV
           ;; ,(youtube-rss "UC0uTPqBCFIpZxlz_Lv1tk_g") ; Protesilaos Stavrou
