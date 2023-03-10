@@ -1210,7 +1210,7 @@ all elements."
   (vterm-send-return))
 
 (defun c/vterm-toggle-cd (path)
-  (interactive)
+  (interactive "D")
   "Switch to vterm buffer and send cd command."
   (vterm)
   (c/vterm-cd path))
