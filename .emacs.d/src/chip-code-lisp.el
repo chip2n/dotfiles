@@ -83,6 +83,7 @@
   (c/diminish lispy-mode)
 
   (setq lispy-close-quotes-at-end-p t)
+  (setq lispy-colon-p nil)
 
   (general-unbind
     :keymaps '(lispy-mode-map)
