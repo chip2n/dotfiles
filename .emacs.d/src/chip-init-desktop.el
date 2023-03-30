@@ -226,6 +226,9 @@ The default is to leave the cursor where it is, which is not as useful when sear
 (define-key isearch-mode-map (kbd "C-S-w") 'c/isearch-kill-result)
 (define-key isearch-mode-map (kbd "M-w") 'c/isearch-copy-result)
 
+;; Enable simple fuzzy matching in isearch
+(setq search-whitespace-regexp ".*?")
+
 (use-package evil-snipe
   :after (evil)
   :config
