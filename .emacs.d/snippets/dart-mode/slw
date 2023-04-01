@@ -3,7 +3,7 @@
 # key: slw
 # --
 class $1 extends StatelessWidget {
-    const $1({Key? key}) : super(key: key);
+    const $1({super.key});
 
     @override
     Widget build(BuildContext context) {
