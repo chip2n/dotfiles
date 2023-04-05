@@ -229,6 +229,8 @@ The default is to leave the cursor where it is, which is not as useful when sear
 ;; Enable simple fuzzy matching in isearch
 (setq search-whitespace-regexp ".*?")
 
+(use-package iedit)
+
 (use-package evil-snipe
   :after (evil)
   :config
