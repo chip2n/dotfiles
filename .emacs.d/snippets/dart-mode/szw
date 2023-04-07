@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: szw
+# key: szw
+# --
+const SizedBox(width: $1),$0
