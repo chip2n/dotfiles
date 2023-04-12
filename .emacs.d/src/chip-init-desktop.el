@@ -146,6 +146,9 @@
 ;; don't ring bell on error
 (setq ring-bell-function 'ignore)
 
+;; remove keybinding for suspend-frame, I keep hitting it accidentally because I'm a troglodyte
+(global-unset-key (kbd "C-z"))
+
 ;;; Help
 
 (use-package helpful
