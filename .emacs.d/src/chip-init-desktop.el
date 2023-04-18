@@ -1041,10 +1041,11 @@ all elements."
 
 (use-package js2-mode
   :defer t
+  :mode (("\\.js\\'" . js2-mode)
+         ("\\.jsx\\'" . js2-mode))
   :config
   (setq js-indent-level 2)
   (setq js2-skip-preprocessor-directives t) ; ignore shebangs
-  (add-to-list 'auto-mode-alist (cons (rx ".js" eos) 'js2-mode))
 
   ;; disable semicolon warnings
   (setq js2-strict-missing-semi-warning nil)
