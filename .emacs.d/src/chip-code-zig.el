@@ -61,7 +61,7 @@
   :config
   ;; formatting on save breaks lsp-mode
   ;; see https://github.com/ziglang/zig-mode/issues/49
-  (setq zig-format-on-save nil)
+  ;; (setq zig-format-on-save nil)
   (add-to-list 'lsp-language-id-configuration '(zig-mode . "zig"))
   (add-hook 'zig-mode-hook 'lsp)
 
