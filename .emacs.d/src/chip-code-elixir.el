@@ -76,9 +76,10 @@
 
 (defvar lsp-elixir--config-options (make-hash-table))
 
-(add-hook 'lsp-after-initialize-hook
-          (lambda ()
-            (lsp--set-configuration `(:elixirLS, lsp-elixir--config-options))))
+;; TODO This screws up other languages, so I'm disabling it for now
+;; (add-hook 'lsp-after-initialize-hook
+;;           (lambda ()
+;;             (lsp--set-configuration `(:elixirLS, lsp-elixir--config-options))))
 
 (use-package elixir-mode
   :after (lsp-mode)
