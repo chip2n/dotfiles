@@ -1,3 +1,6 @@
+straight/build-cache.el
+straight/build
+straight/repos
 use-package/
 .cache
 custom.el
