@@ -22,54 +22,6 @@
 
 ;;; Code:
 
-(define-minor-mode c/code-lisp-mode
-  "Mode for working with lisp code."
-  :lighter nil
-  (require 'outshine)
-  (require 'lispy)
-  (if c/code-lisp-mode
-      (progn
-        (if (featurep 'evil-lispy)
-            (evil-lispy-mode 1)
-          (lispy-mode 1))
-        ;; (paredit-mode 1)
-        (outshine-mode 1)
-        (prettify-symbols-mode 1)
-        (c/complete-mode 1))
-    (progn
-      (if (featurep 'evil-lispy)
-          (evil-lispy-mode -1)
-        (lispy-mode -1))
-      ;; (paredit-mode -1)
-      (outshine-mode -1)
-      (prettify-symbols-mode -1)
-      (c/complete-mode -1))))
-
-;; TODO move these
-(add-hook 'lisp-data-mode-hook #'c/code-lisp-mode)
-(add-hook 'emacs-lisp-mode-hook #'c/code-lisp-mode)
-(add-hook 'ielm-mode-hook #'c/code-lisp-mode)
-(add-hook 'clojure-mode-hook #'c/code-lisp-mode)
-(add-hook 'cider-repl-mode-hook #'c/code-lisp-mode)
-(add-hook 'clojurescript-mode-hook #'c/code-lisp-mode)
-(add-hook 'slime-mode-hook #'c/code-lisp-mode)
-(add-hook 'slime-repl-mode-hook #'c/code-lisp-mode)
-(add-hook 'sly-mrepl-mode-hook #'c/code-lisp-mode)
-(add-hook 'racket-mode-hook #'c/code-lisp-mode)
-(add-hook 'scheme-mode-hook #'c/code-lisp-mode)
-
-(defun c/lisp-comment-sexp-at-point ()
-  (interactive)
-  (save-excursion
-    (evil-lispy/enter-state-left)
-    (lispy-comment)
-    (lispy-quit))
-  (backward-char 3))
-
-(general-define-key
- :keymaps 'c/code-lisp-mode-map
- "C-;" 'c/lisp-comment-sexp-at-point)
-
 ;;; Paredit
 
 (use-package paredit
@@ -224,6 +176,55 @@ This checks in turn:
     (symex-tidy))
   (symex-insert-at-beginning))
 
+;;; Custom mode
+
+(define-minor-mode c/code-lisp-mode
+  "Mode for working with lisp code."
+  :lighter nil
+  (require 'outshine)
+  (require 'lispy)
+  (if c/code-lisp-mode
+      (progn
+        (if (featurep 'evil-lispy)
+            (evil-lispy-mode 1)
+          (lispy-mode 1))
+        ;; (paredit-mode 1)
+        (outshine-mode 1)
+        (prettify-symbols-mode 1)
+        (c/complete-mode 1))
+    (progn
+      (if (featurep 'evil-lispy)
+          (evil-lispy-mode -1)
+        (lispy-mode -1))
+      ;; (paredit-mode -1)
+      (outshine-mode -1)
+      (prettify-symbols-mode -1)
+      (c/complete-mode -1))))
+
+;; TODO move these
+(add-hook 'lisp-data-mode-hook #'c/code-lisp-mode)
+(add-hook 'emacs-lisp-mode-hook #'c/code-lisp-mode)
+(add-hook 'ielm-mode-hook #'c/code-lisp-mode)
+(add-hook 'clojure-mode-hook #'c/code-lisp-mode)
+(add-hook 'cider-repl-mode-hook #'c/code-lisp-mode)
+(add-hook 'clojurescript-mode-hook #'c/code-lisp-mode)
+(add-hook 'slime-mode-hook #'c/code-lisp-mode)
+(add-hook 'slime-repl-mode-hook #'c/code-lisp-mode)
+(add-hook 'sly-mrepl-mode-hook #'c/code-lisp-mode)
+(add-hook 'racket-mode-hook #'c/code-lisp-mode)
+(add-hook 'scheme-mode-hook #'c/code-lisp-mode)
+
+(defun c/lisp-comment-sexp-at-point ()
+  (interactive)
+  (save-excursion
+    (evil-lispy/enter-state-left)
+    (lispy-comment)
+    (lispy-quit))
+  (backward-char 3))
+
+(general-define-key
+ :keymaps 'c/code-lisp-mode-map
+ "C-;" 'c/lisp-comment-sexp-at-point)
 
 (provide 'chip-code-lisp)
 

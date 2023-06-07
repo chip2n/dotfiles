@@ -41,6 +41,7 @@
   (require 'org-clock))
 
 (use-package org-fc
+  :disabled t
   :straight (org-fc
              :type git :repo "https://git.sr.ht/~l3kn/org-fc"
              :files (:defaults "awk" "demo.org"))

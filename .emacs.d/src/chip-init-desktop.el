@@ -526,28 +526,6 @@ The default is to leave the cursor where it is, which is not as useful when sear
           ("OPTIMIZE" . "#fbf2bf")
           ("HACK" . "#fbf2bf"))))
 
-(use-package outshine
-  :defer t
-  :config
-  (c/diminish outshine-mode)
-  (c/diminish outline-minor-mode)
-  (general-define-key
-   :keymaps '(outshine-mode-map)
-   :states '(normal)
-   "TAB" 'outshine-cycle
-   "<backtab>" 'outshine-cycle-buffer)
-  (setq outshine-startup-folded-p nil)
-
-  ;; Fontify entire line (allows to use :extend on faces)
-  (setq outshine-fontify-whole-heading-line t)
-
-  ;; TODO make generic hook for all lisps (chip-lisp-mode-hook)
-  ;; TODO Move all of these to their separate config locations (with after-load)
-  (add-hook 'emacs-lisp-mode-hook 'outshine-mode)
-  (add-hook 'lisp-mode-hook 'outshine-mode)
-  (add-hook 'clojure-mode-hook 'outshine-mode)
-  (add-hook 'clojurescript-mode-hook 'outshine-mode))
-
 ;;; Comint
 
 ;; I always want comint to scroll to the bottom on output by default so that the
@@ -634,6 +612,14 @@ The default is to leave the cursor where it is, which is not as useful when sear
   (lsp-avy-lens)
   (lsp-lens-refresh t))
 
+(defun c/lsp--refresh-imenu (x)
+  "Refresh lsp-ui-imenu if active."
+  (when (and (bound-and-true-p lsp-mode)
+             (get-buffer lsp-ui-imenu-buffer-name))
+    (let ((buf (window-buffer (selected-window))))
+      (message "refreshing imenu")
+      (lsp-ui-imenu--refresh))))
+
 (use-package lsp-mode
   :config
   (setq lsp-prefer-flymake nil)
@@ -656,7 +642,11 @@ The default is to leave the cursor where it is, which is not as useful when sear
   (general-define-key
    :keymaps 'lsp-mode-map
    :states '(normal)
-   "gd" 'lsp-find-definition))
+   "gd" 'lsp-find-definition)
+
+  (setq lsp-ui-imenu-window-fix-width t)
+  (setq lsp-ui-imenu-window-width 35)
+  (add-to-list 'window-selection-change-functions #'c/lsp--refresh-imenu))
 
 (use-package lsp-ui)
 

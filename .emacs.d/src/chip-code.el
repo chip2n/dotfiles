@@ -119,6 +119,30 @@ Interactively also sends a terminating newline."
       (flycheck-previous-error)
     (previous-error)))
 
+;;; Outshine
+
+(use-package outshine
+  :defer t
+  :config
+  (c/diminish outshine-mode)
+  (c/diminish outline-minor-mode)
+  (general-define-key
+   :keymaps '(outshine-mode-map)
+   :states '(normal)
+   "TAB" 'outshine-cycle
+   "<backtab>" 'outshine-cycle-buffer)
+  (setq outshine-startup-folded-p nil)
+
+  ;; Fontify entire line (allows to use :extend on faces)
+  (setq outshine-fontify-whole-heading-line t)
+
+  ;; TODO make generic hook for all lisps (chip-lisp-mode-hook)
+  ;; TODO Move all of these to their separate config locations (with after-load)
+  (add-hook 'emacs-lisp-mode-hook 'outshine-mode)
+  (add-hook 'lisp-mode-hook 'outshine-mode)
+  (add-hook 'clojure-mode-hook 'outshine-mode)
+  (add-hook 'clojurescript-mode-hook 'outshine-mode))
+
 (provide 'chip-code)
 
 ;;; chip-code.el ends here
