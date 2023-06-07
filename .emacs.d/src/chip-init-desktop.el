@@ -51,8 +51,10 @@
 (require 'chip-completion)
 (require 'chip-code)
 (require 'chip-code-dbg)
+
 (require 'chip-code-lisp)
-(require 'chip-code-elixir)
+;; (require 'chip-code-elixir)
+(require 'chip-code-elixir2)
 (require 'chip-code-zig)
 (require 'chip-lang)
 ;(require 'chip-present)
@@ -387,7 +389,7 @@ The default is to leave the cursor where it is, which is not as useful when sear
                           "clj" "cljc" "cljs" "cpp" "css" "csv" "cxx" "dart"
                           "dockerfile" "dockerfile" "editorconfig" "eex" "el"
                           "elm" "ex" "exs" "fish" "gradle" "gitconfig" "gitignore" "go" "h"
-                          "hh" "hpp" "hs" "htm" "html" "hy" "ideavimrc" "inputrc"
+                          "heex" "hh" "hpp" "hs" "htm" "html" "hy" "ideavimrc" "inputrc"
                           "j2" "j2" "java" "jinja2" "jinja2" "jl" "js" "json" "jsx"
                           "kt" "kt" "kts" "lhs" "lisp" "lua" "lua" "makefile" "ml"
                           "mli" "nim" "nim" "nims" "nix" "perl" "pl" "plt" "pm"

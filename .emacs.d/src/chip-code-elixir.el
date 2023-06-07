@@ -84,6 +84,7 @@
 (use-package elixir-mode
   :after (lsp-mode)
   :defer t
+  :hook ((elixir-mode . electric-pair-local-mode))
   :config
   (setq lsp-clients-elixir-server-executable '("~/dev/elixir-ls/release/language_server.sh"))
   (add-hook 'elixir-mode-hook 'lsp)
