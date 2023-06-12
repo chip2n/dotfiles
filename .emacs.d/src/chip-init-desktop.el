@@ -26,6 +26,7 @@
 
 ;; (require 'chip-wm)
 
+(require 'private)
 (require 'chip-theme-desktop)
 (require 'chip-keys)
 
@@ -59,6 +60,7 @@
 (require 'chip-lang)
 ;(require 'chip-present)
 (require 'chip-email)
+(require 'chip-gpt)
 
 ;;; Package: paren-face
 
@@ -72,7 +74,6 @@
 
 ;;; Security
 
-(require 'private)
 (setq auth-sources '("~/.authinfo.gpg"))
 
 (use-package pass)
