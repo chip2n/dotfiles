@@ -72,6 +72,7 @@
  ("gnuplot-mode" . "601f6392986f0cba332c87678d31ae0d0a496ce7")
  ("golden-ratio-scroll-screen" . "ed82ac7e9129c7be5983b44def0b9239b54d4dcf")
  ("goto-chg" . "278cd3e6d5107693aa2bb33189ca503f22f227d0")
+ ("gptel" . "30700cc88a03885d47cf4c6da22407f5eb39f7ac")
  ("groovy-emacs-modes" . "7b8520b2e2d3ab1d62b35c426e17ac25ed0120bb")
  ("guile" . "ee33af6b4ef8fdaccbdf93c62b50fe17c07a1ade")
  ("haskell-mode" . "98d0e193a6157a810330e83e46717a37d5a4d236")
