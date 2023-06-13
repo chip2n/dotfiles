@@ -26,4 +26,7 @@
 ;; reddit
 (setq private/reddit-rss-feed "")
 
+;; openai
+(setq private/openai-key "")
+
 (provide 'private)
