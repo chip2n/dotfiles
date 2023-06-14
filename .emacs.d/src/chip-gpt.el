@@ -24,7 +24,8 @@
 
 (use-package gptel
   :config
-  (setq gptel-api-key private/openai-key))
+  (setq gptel-api-key private/openai-key)
+  (setq-default gptel-model "gpt-4"))
 
 (provide 'chip-gpt)
 
