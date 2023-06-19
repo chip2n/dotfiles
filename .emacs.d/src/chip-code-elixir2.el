@@ -4,6 +4,7 @@
 (setq lsp-clients-elixir-server-executable '("~/dev/elixir-ls/release/language_server.sh"))
 (add-hook 'elixir-ts-mode-hook 'lsp)
 (add-hook 'elixir-ts-mode-hook 'electric-pair-local-mode)
+(add-to-list 'auto-mode-alist '("\\.heex\\'" . elixir-ts-mode))
 
 (define-minor-mode c/code-elixir-mode
   "Mode for working with Elixir code."

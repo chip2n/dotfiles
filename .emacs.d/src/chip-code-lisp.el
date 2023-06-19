@@ -226,6 +226,261 @@ This checks in turn:
  :keymaps 'c/code-lisp-mode-map
  "C-;" 'c/lisp-comment-sexp-at-point)
 
+(defun c/quicklisp-symlink (path)
+  (interactive (list (read-directory-name "Select project to symlink: " chip-dev-dir)))
+  (make-symbolic-link (file-truename (s-chop-suffix "/" path)) "~/quicklisp/local-projects/"))
+
+;;; Sly
+
+(use-package sly
+  :config
+  (require 'sly-autoloads)
+  (setq inferior-lisp-program "/usr/bin/sbcl"))
+
+(defvar *c/sly-mrepl-prev-window* nil)
+;; (defun c/sly-mrepl-toggle ()
+;;   (interactive)
+;;   (let* ((current-window (selected-window))
+;;          (buffer (sly-mrepl--find-create (sly-current-connection)))
+;;          (win (get-buffer-window buffer)))
+
+;;     (if (eq (window-buffer current-window) buffer)
+;;         (progn
+;;           (when (window-live-p *c/sly-mrepl-prev-window*)
+;;             (select-window *c/sly-mrepl-prev-window*))
+;;           (setq *c/sly-mrepl-prev-window* nil))
+;;         (if win
+;;             (select-window win)
+;;           (switch-to-buffer-other-window buffer))
+;;       (setq *c/sly-mrepl-prev-window* current-window))
+
+;;     ;; Prevent repl from being selected by other-window (use keybinding instead)
+;;     (set-window-parameter win 'no-other-window t)
+;;     ))
+
+(defun c/sly-mrepl--open-bottom-window (buffer)
+  (display-buffer-in-side-window buffer '((side . bottom)
+                                          (slot . 0)
+                                          (dedicated . t)
+                                          (window-height . 12)
+                                          (window-parameters . ((no-other-window . t))))))
+
+(defun c/sly-mrepl--open-side-window (buffer)
+  (display-buffer-in-side-window buffer '((side . right)
+                                          (slot . 0)
+                                          (dedicated . t)
+                                          ;; (preserve-size . '(t . nil))
+                                          (window-width . 100)
+                                          ;; (window-parameters . ((no-other-window . t)))
+                                          )))
+
+(defun c/sly-mrepl--toggle (open-fn)
+  (let* ((current-window (selected-window))
+         (buffer (save-window-excursion (sly-mrepl--find-create (sly-current-connection))))
+         (win (get-buffer-window buffer)))
+
+    (if (eq (window-buffer current-window) buffer)
+        (progn
+          (when (window-live-p *c/sly-mrepl-prev-window*)
+            (select-window *c/sly-mrepl-prev-window*))
+          (setq *c/sly-mrepl-prev-window* nil))
+      (if win
+          (select-window win)
+        (funcall open-fn buffer))
+      (setq *c/sly-mrepl-prev-window* current-window))))
+
+(defun c/sly-mrepl-toggle ()
+  (interactive)
+  ;; (c/sly-mrepl--toggle #'c/sly-mrepl--open-bottom-window)
+  ;; (c/sly-mrepl--toggle #'c/sly-mrepl--open-side-window)
+  (c/sly-mrepl--toggle #'switch-to-buffer-other-window)
+  )
+
+(defun c/sly-apropos (string package)
+  "Search for a symbol, optionally limitid to a single package."
+  (interactive
+   (list (sly-read-from-minibuffer "Apropos external symbols: ")
+         (sly-read-package-name "Package (blank for all): "
+                                nil 'allow-blank)))
+  (sly-apropos string t package))
+
+(use-package sly-macrostep
+  :disabled t
+  :config
+  (require 'sly-macrostep-autoloads)
+
+  (when c/config-evil?
+    (add-hook 'macrostep-mode-hook
+              (lambda ()
+                (if macrostep-mode
+                    (evil-emacs-state)
+                  (evil-normal-state))))))
+
+(defun sly-switch-package (package)
+  (with-current-buffer (sly-mrepl--find-create (sly-current-connection))
+    (sly-mrepl--eval-for-repl `(slynk-mrepl:guess-and-set-package ,package))))
+
+(defun sly-init-with-package (package)
+  (cl-flet ((init ()
+                  (sly-eval `(quicklisp:quickload ,package))
+                  (sly-switch-package package)))
+    (if (sly-connected-p)
+        (init)
+      (sly-start :program inferior-lisp-program :init-function #'init))))
+
+(defvar c/sly-init-current--history nil)
+(defun c/sly-init-current ()
+  (interactive)
+  (let* ((system (completing-read "System: " c/sly-init-current--history nil nil (car c/sly-init-current--history) 'c/sly-init-current--history))
+         (pkg (format "#:%s" system)))
+    (sly-start :program inferior-lisp-program
+               :init-function (lambda ()
+                                (sly-eval `(quicklisp:quickload ,system))
+                                (sly-switch-package pkg)))))
+
+(defun c/sly-mrepl-quickload ()
+  (interactive)
+  (let ((package (completing-read "Load package: " (sly-eval `(quicklisp:list-local-systems)))))
+    (sly-eval `(quicklisp:quickload ,package))))
+
+;; (defun c/sly-display-over-repl (buffer alist)
+;;   "Use REPL window to display the buffer if it is open.
+;; This is intended to be used as an action function for
+;; display-buffer (through display-buffer-alist)."
+;;   (let ((repl-buffer (sly-mrepl--find-buffer)))
+;;     (when repl-buffer
+;;       (when-let ((repl-window (car (get-buffer-window-list repl-buffer))))
+;;         (select-window repl-window)
+;;         (switch-to-buffer buffer)
+;;         repl-window))))
+
+(defun c/sly-display-buffer (buffer alist)
+  "Use an existing SLY window to display the buffer.
+This is intended to be used as an action function for
+display-buffer (through display-buffer-alist)."
+  (let* ((repl-buffer (sly-mrepl--find-buffer))
+         (repl-window (and repl-buffer (car (get-buffer-window-list repl-buffer))))
+         (db-buffer (cl-find-if (lambda (b)
+                                 (get-buffer-window-list b))
+                               (sly-db-buffers)))
+         (db-window (and db-buffer (car (get-buffer-window-list db-buffer))))
+         (window-to-use (or repl-window db-window))
+         (buffer-to-use (or repl-buffer db-buffer)))
+    (when window-to-use
+      (select-window window-to-use)
+      (switch-to-buffer buffer)
+      window-to-use)))
+
+;; Old config - experimenting with a minimal one to fix some bugs
+(use-package sly
+  :disabled t
+  :config
+  (require 'sly-autoloads)
+
+  (setq inferior-lisp-program "/usr/bin/sbcl")
+
+  ;; Aim to reuse current SLY buffers when opening the inspector and debugger
+  ;; (add-to-list 'display-buffer-alist '("\\*sly-inspector.*\\*" c/sly-display-buffer))
+  ;; (add-to-list 'display-buffer-alist '("\\*sly-db.*\\*" c/sly-display-buffer))
+  ;; (add-to-list 'display-buffer-alist '("\\*sly-mrepl.*\\*" c/sly-display-buffer))
+
+  (after-load (evil)
+    (add-to-list 'evil-emacs-state-modes 'sly-db-mode)
+    (add-to-list 'evil-emacs-state-modes 'sly-inspector-mode)
+    ;; (add-to-list 'evil-emacs-state-modes 'sly-xref-mode)
+    (add-to-list 'evil-emacs-state-modes 'sly-stickers--replay-mode)
+    (add-to-list 'evil-emacs-state-modes 'sly-trace-dialog-mode)
+    (add-hook 'sly-xref-mode-hook 'evil-emacs-state)
+    (add-hook 'sly-macroexpansion-minor-mode-hook 'evil-emacs-state)
+    (add-hook 'sly-inspector-mode-hook 'evil-emacs-state)
+
+    (evil-add-command-properties #'sly-edit-definition :jump t))
+
+  (after-load (company)
+    (add-hook 'sly-mrepl-mode-hook 'company-mode))
+
+  (after-load (symex)
+    (add-hook 'sly-mrepl-mode-hook 'symex-mode))
+
+  (add-hook 'sly-mrepl-mode-hook
+            (lambda () (add-to-list 'sly-mrepl-shortcut-alist '("quickload" . c/sly-mrepl-quickload))))
+
+  (after-load (lispy)
+    (setq lispy-use-sly t))
+  (setq org-babel-lisp-eval-fn #'sly-eval)
+
+  ;; Push mark before jumping to definitions so that we can quickly get back with pop-global-mark
+  (advice-add 'sly-edit-definition :before (lambda (&rest rest) (push-mark)))
+
+  (general-define-key
+   :keymaps 'sly-mode-map
+   [remap sly-mrepl] 'c/sly-mrepl-toggle
+   "C-x i" 'sly-import-symbol-at-point)
+
+  (general-define-key
+   :states '(normal)
+   :keymaps 'sly-mode-map
+   "gd" 'sly-edit-definition)
+
+  (general-define-key
+   :states '(normal)
+   :keymaps 'sly-popup-buffer-mode-map
+   "q" 'quit-window))
+
+;;; Slime
+
+(use-package slime
+  :disabled t
+  :config
+  (c/diminish slime-autodoc-mode)
+  (c/diminish slime-mode)
+  (setq inferior-lisp-program "/usr/bin/sbcl")
+  ;; (setq inferior-lisp-program "/usr/bin/ecl")
+  (setq slime-description-autofocus t)
+  ;; (add-hook 'slime-repl-mode-hook 'header-mode)
+  (add-hook 'slime-macroexpansion-minor-mode-hook (lambda () (interactive) (evil-motion-state)))
+
+  (after-load (slime-company)
+    (slime-setup '(slime-fancy slime-asdf slime-cl-indent slime-company slime-fuzzy)))
+
+  (add-hook 'slime-xref-mode-hook (lambda () (interactive) (evil-emacs-state)))
+
+  (general-define-key
+   :states 'normal
+   :keymaps 'slime-mode-map
+   "gd" 'slime-edit-definition
+   "M-." 'slime-edit-definition ;; overridden by evil?
+   )
+  (general-define-key
+   :states 'normal
+   :keymaps 'slime-popup-buffer-mode-map
+   "q" 'slime-inspector-quit)
+
+  (general-define-key
+   :states 'normal
+   :keymaps 'slime-repl-mode-map
+   "gd" 'slime-edit-definition
+   "C-c i" 'slime-inspect-presentation-at-point)
+
+  (general-define-key
+   :keymaps 'slime-macroexpansion-minor-mode-map
+   "m" 'slime-macroexpand-1-inplace
+   "u" 'slime-macroexpand-undo
+   "g" 'slime-macroexpand-again
+   "q" 'slime-inspector-quit))
+
+(use-package slime-company
+  :disabled t
+  :after (company)
+  :config
+  (add-to-list 'company-backends #'company-slime)
+  (setq slime-company-completion 'fuzzy
+        slime-company-after-completion 'slime-company-just-one-space))
+
+(defun slime-enable-concurrent-hints ()
+  (interactive)
+  (setf slime-inhibit-pipelining nil))
+
 (provide 'chip-code-lisp)
 
 ;;; chip-code-lisp.el ends here
