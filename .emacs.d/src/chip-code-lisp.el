@@ -235,7 +235,7 @@ This checks in turn:
 (use-package sly
   :config
   (require 'sly-autoloads)
-  (setq inferior-lisp-program "/usr/bin/sbcl"))
+  (setq inferior-lisp-program "sbcl"))
 
 (defvar *c/sly-mrepl-prev-window* nil)
 ;; (defun c/sly-mrepl-toggle ()
@@ -377,7 +377,7 @@ display-buffer (through display-buffer-alist)."
   :config
   (require 'sly-autoloads)
 
-  (setq inferior-lisp-program "/usr/bin/sbcl")
+  (setq inferior-lisp-program "sbcl")
 
   ;; Aim to reuse current SLY buffers when opening the inspector and debugger
   ;; (add-to-list 'display-buffer-alist '("\\*sly-inspector.*\\*" c/sly-display-buffer))
@@ -434,7 +434,7 @@ display-buffer (through display-buffer-alist)."
   :config
   (c/diminish slime-autodoc-mode)
   (c/diminish slime-mode)
-  (setq inferior-lisp-program "/usr/bin/sbcl")
+  (setq inferior-lisp-program "sbcl")
   ;; (setq inferior-lisp-program "/usr/bin/ecl")
   (setq slime-description-autofocus t)
   ;; (add-hook 'slime-repl-mode-hook 'header-mode)
