@@ -22,9 +22,6 @@
 
 ;;; Code:
 
-(defconst c/mac? (equal system-type 'darwin)
-  "Returns t if running on a mac.")
-
 (defconst c/config-evil? nil
   "If non-nil, load evil-mode & related packages.")
 

@@ -3,4 +3,7 @@
   :config
   (exec-path-from-shell-initialize))
 
+(setq mac-option-modifier 'meta)
+(setq mac-command-modifier 'meta)
+
 (provide 'chip-init-mac)
