@@ -155,6 +155,11 @@
    #b00000000
    ])
 
+(defun c/set-font-size (size)
+  "Set font size interactively."
+  (interactive "nFont size: ")
+  (set-face-attribute 'default nil :height size))
+
 (provide 'chip-theme-base)
 
 ;;; chip-theme-base.el ends here
