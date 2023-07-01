@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: ontap
+# key: ontap
+# --
+onTap: () {
+    $0
+},
