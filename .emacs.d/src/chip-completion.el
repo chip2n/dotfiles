@@ -251,7 +251,7 @@ ARG is the same as for `backward-kill-sexp'."
   (setq evil-complete-next-func 'complete-complete-cycle-next)
   (setq evil-complete-previous-func 'complete-complete-cycle-previous)
 
-  ;; show company completion with delay
+  ;; disable automatic company trigger
   (setq company-idle-delay nil)
 
   ;; show suggestions after entering one character.

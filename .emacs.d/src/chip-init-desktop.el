@@ -198,7 +198,7 @@ point reaches the beginning or end of the buffer, stop there."
 (after-load (general)
   (general-define-key
    "C-e"   'chip/move-end-of-line
-   "C-a"   'chip/move-beginning-of-line
+   ;; "C-a"   'chip/move-beginning-of-line
    "C-c i" 'imenu
    "C-s"   'isearch-forward
    "C-r"   'isearch-backward
@@ -773,10 +773,12 @@ all elements."
           "https://hnrss.org/newest?comments=10"
           "https://lisp-journey.gitlab.io/index.xml"
           "https://lexi-lambda.github.io/feeds/all.rss.xml"
-          "https://stevelosh.com/rss.xml"    ; Steve Losh
-          "https://kaveh808.medium.com/feed" ; kaveh808
-          "https://nullprogram.com/feed/"    ; nullprogram
-          "https://zig.news/feed"            ; Zig News
+          "https://stevelosh.com/rss.xml"           ; Steve Losh
+          "https://kaveh808.medium.com/feed"        ; kaveh808
+          "https://nullprogram.com/feed/"           ; nullprogram
+          "https://ziglang.org/news/index.xml"      ; Zig News
+          "https://zig.news/feed"                   ; Zig News (unofficial)
+          "https://andrewkelley.me/rss.xml"         ; Andrew Kelley
           "https://mastodon.social/@andrewrk.rss"   ; Andrew Kelley mastodon
           "https://kristoff.it/index.xml"           ; Loris Cro
           "https://blog.orhun.dev/rss.xml"          ; Orhun's blog
@@ -893,11 +895,12 @@ all elements."
 ;;; Languages
 
 ;; Toggle evil emacs state when entering edebug mode
-(add-hook 'edebug-mode-hook
-          (lambda ()
-            (if (bound-and-true-p edebug-mode)
-                (evil-emacs-state)
-              (evil-normal-state))))
+(after-load (evil-mode)
+ (add-hook 'edebug-mode-hook
+           (lambda ()
+             (if (bound-and-true-p edebug-mode)
+                 (evil-emacs-state)
+               (evil-normal-state)))))
 
 (use-package geiser
   :after (evil)

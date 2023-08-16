@@ -77,15 +77,19 @@
 
 (defvar c/gdb-last-path nil)
 
-(defun c/gdb (path)
+(defun c/gdb (path args)
   (interactive
-   (let ((path (file-truename (read-file-name "Path to executable: " c/gdb-last-path c/gdb-last-path nil))))
+   (let ((path (file-truename (read-file-name "Path to executable: " c/gdb-last-path c/gdb-last-path nil)))
+         (args (when current-prefix-arg (read-from-minibuffer "Args: "))))
      (message path)
      (setq c/gdb-last-path path)
-     (list path)))
-  (let ((source-buf (current-buffer)))
+     (list path args)))
+  (let ((source-buf (current-buffer))
+        (cmd (if args
+                 (format "gdb -i=mi --args %s %s" path args)
+               (format "gdb -i=mi %s" path))))
     (delete-other-windows)
-    (gdb (format "gdb -i=mi %s" path))
+    (gdb cmd)
     (split-window-vertically)
     (switch-to-buffer source-buf)
     (chip/window-zoom)
@@ -94,8 +98,7 @@
     (other-window 1)
     (switch-to-buffer
      (gdb-get-buffer-create 'gdb-inferior-io))
-    (other-window 2)
-    ))
+    (other-window 2)))
 
 (setq gdb-restore-window-configuration-after-quit t)
 
@@ -144,7 +147,7 @@
                                      (comm (s-trim (caddr split))))
                                 (cons comm pid)))
                             lines)))
-    (-> (completing-read "Attach to process:" processes)
+    (-> (completing-read "Attach to process: " processes)
         (assoc processes)
         (cdr))))
 
