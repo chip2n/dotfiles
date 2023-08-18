@@ -99,6 +99,9 @@ Interactively also sends a terminating newline."
 ;; Always kill existing compilation buffers without confirmation
 (setq compilation-always-kill t)
 
+;; Scroll with output
+(setq compilation-scroll-output t)
+
 ;; Enable colors in compilation buffer
 (require 'ansi-color)
 (defun colorize-compilation-buffer ()
