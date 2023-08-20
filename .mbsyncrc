@@ -1,4 +1,4 @@
-IMAPAccount protonmail
+IMAPAccount proton
 Host 127.0.0.1
 Port 1143
 User andreas@arvidsson.io
@@ -7,21 +7,21 @@ SSLType STARTTLS
 SSLVersions TLSv1.2
 CertificateFile ~/.config/protonmail/bridge/cert.pem
 
-IMAPStore remote
-Account protonmail
+IMAPStore proton-remote
+Account proton
 
-MaildirStore local
-Path ~/.mail/
-Inbox ~/.mail/INBOX/
-SubFolders Legacy
+MaildirStore proton-local
+SubFolders Verbatim
+Path ~/.mail/proton/
+Inbox ~/.mail/inbox/
 
 Channel inbox
-Far :remote:
-Near :local:
+Far :proton-remote:
+Near :proton-local:
 Patterns * 
 Create Both
 Expunge Both
 SyncState *
 
-Group protonmail
+Group proton
 Channel inbox
