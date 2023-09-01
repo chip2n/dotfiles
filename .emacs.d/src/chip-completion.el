@@ -62,8 +62,8 @@ targets."
           embark-highlight-indicator
           embark-isearch-highlight-indicator))
 
-  (embark-define-keymap embark-project-map
-    "Keymap for actions when completing on project files.")
+  (defvar-keymap embark-project-map
+    :doc "Keymap for actions when completing on project files.")
 
   (define-key embark-file-map (kbd "t") 'c/embark-file-open-term)
   (define-key embark-file-map (kbd "a") 'c/embark-file-save-absolute-path)
