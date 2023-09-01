@@ -101,6 +101,7 @@
     (other-window 2)))
 
 (setq gdb-restore-window-configuration-after-quit t)
+(setq gdb-debuginfod-enable-setting t)
 
 ;; (defun c/gdb (path)
 ;;   (interactive "FPath to executable: ")
