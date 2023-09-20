@@ -915,6 +915,9 @@ all elements."
 (use-package geiser-guile
   :after (geiser))
 
+(use-package geiser-gambit
+  :after (geiser))
+
 (use-package racket-mode
   :defer t
   :config
