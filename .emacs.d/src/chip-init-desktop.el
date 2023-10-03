@@ -350,36 +350,20 @@ The default is to leave the cursor where it is, which is not as useful when sear
           :icon-directory "~/.emacs.d/icons"
           :config
           (progn
-            (treemacs-create-icon
-             :icon (format " %s\t" root-icon)
-             :extensions (root-open))
-            (treemacs-create-icon
-             :icon (format " %s\t" root-icon)
-             :extensions (root-closed))
-            (treemacs-create-icon
-             :icon (format "%s\t%s " parent-opened-icon dir-icon)
-             :extensions (dir-open))
-            (treemacs-create-icon
-             :icon (format "%s\t%s " parent-closed-icon dir-icon)
-             :extensions (dir-closed))
-            (treemacs-create-icon
-             :icon (format "%s\t%s " parent-opened-icon pkg-icon)
-             :extensions (tag-open))
-            (treemacs-create-icon
-             :icon (format "%s\t%s " parent-closed-icon pkg-icon)
-             :extensions (tag-closed))
-            (treemacs-create-icon
-             :icon (format "\t\t%s " tag-icon)
-             :extensions (tag-leaf))
-            (treemacs-create-icon
-             :icon (format "%s " error-icon)
-             :extensions (error))
-            (treemacs-create-icon
-             :icon (format "%s " warning-icon)
-             :extensions (warning))
-            (treemacs-create-icon
-             :icon (format "%s " info-icon)
-             :extensions (info))
+            (treemacs-create-icon :icon (format " %s\t" root-icon) :extensions (root-open))
+            (treemacs-create-icon :icon (format " %s\t" root-icon) :extensions (root-closed))
+            (treemacs-create-icon :icon (format "%s\t%s " parent-opened-icon dir-icon) :extensions (dir-open))
+            (treemacs-create-icon :icon (format "%s\t%s " parent-closed-icon dir-icon) :extensions (dir-closed))
+            (treemacs-create-icon :icon (format "%s\t%s " parent-opened-icon pkg-icon) :extensions (tag-open))
+            (treemacs-create-icon :icon (format "%s\t%s " parent-closed-icon pkg-icon) :extensions (tag-closed))
+            (treemacs-create-icon :icon (format "%s\t%s " parent-closed-icon dir-icon) :extensions ("src-closed"))
+            (treemacs-create-icon :icon (format "%s\t%s " parent-opened-icon dir-icon) :extensions ("src-open"))
+            (treemacs-create-icon :icon (format "%s\t%s " parent-closed-icon dir-icon) :extensions ("test-closed"))
+            (treemacs-create-icon :icon (format "%s\t%s " parent-opened-icon dir-icon) :extensions ("test-open"))
+            (treemacs-create-icon :icon (format "\t\t%s " tag-icon) :extensions (tag-leaf))
+            (treemacs-create-icon :icon (format "%s " error-icon) :extensions (error))
+            (treemacs-create-icon :icon (format "%s " warning-icon) :extensions (warning))
+            (treemacs-create-icon :icon (format "%s " info-icon) :extensions (info))
             (treemacs-create-icon
              :icon (format "  %s " media-icon)
              :extensions ("png" "jpg" "jpeg" "gif" "ico" "tif" "tiff" "svg" "bmp"
@@ -400,7 +384,7 @@ The default is to leave the cursor where it is, which is not as useful when sear
                           "scribble" "scss" "sh" "sql" "sqlite" "sql" "styles" "sv"
                           "tex" "toml" "tpp" "tridactylrc" "ts" "tsx" "v" "vagrantfile"
                           "vagrantfile" "vh" "vimperatorrc" "vimrc" "vrapperrc"
-                          "vue" "xml" "xsl" "yaml" "yml" "zig" "zsh" "zshrc"))
+                          "vue" "xml" "xsl" "yaml" "yml" "zig" "zsh" "zshrc" "deps.edn"))
             (treemacs-create-icon
              :icon (format "  %s " book-icon)
              :extensions ("lrf" "lrx" "cbr" "cbz" "cb7" "cbt" "cba" "chm" "djvu"
@@ -862,15 +846,14 @@ all elements."
    :password private/irc-password))
 
 (use-package pdf-tools
-  :defer t
-  :magic ("%PDF" . pdf-view-mode)
   :config
-  (pdf-tools-install)
+  (pdf-loader-install)
   (add-hook 'pdf-view-mode-hook (lambda () (blink-cursor-mode -1)))
   (add-hook 'pdf-view-mode-hook 'c/pdf--setup-window))
 
 (defun c/pdf--setup-window ()
   "Setup PDF window, removing default header and fitting height"
+  ;; (set-window-fringes (selected-window) 0 0)
   ;; Seems like there's already spaced without the right fringe, so this centers the document a bit better
   (setq right-fringe-width 0)
   (setq header-line-format nil)
@@ -936,7 +919,11 @@ all elements."
   (setq cider-test-show-report-on-success nil)
   (setq cider-auto-select-test-report-buffer nil)
   (eldoc-mode t)
-  (add-to-list 'evil-motion-state-modes 'cider-test-report-mode))
+  (after-load (evil)
+    (add-to-list 'evil-motion-state-modes 'cider-test-report-mode)))
+
+;; Always consider dir-locals setting the "dev" alias as safe
+(add-to-list 'safe-local-variable-values '(cider-clojure-cli-aliases . "dev"))
 
 (use-package inf-clojure
   :defer t)

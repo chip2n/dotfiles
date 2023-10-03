@@ -114,7 +114,13 @@ Interactively also sends a terminating newline."
   (interactive)
   (if (flycheck-next-error-pos 1 t)
       (flycheck-next-error)
-    (next-error)))
+    ;; If buffer with window already visible, switch to it before jumping to error
+    ;; This prevents two windows displaying the same buffer, which is the default behavior
+    (let* ((buffer (next-error-find-buffer))
+           (win (get-buffer-window buffer)))
+      (when win
+        (select-window win))
+      (next-error))))
 
 (defun c/prev-error ()
   (interactive)
