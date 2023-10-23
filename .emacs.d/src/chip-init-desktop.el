@@ -384,7 +384,7 @@ The default is to leave the cursor where it is, which is not as useful when sear
                           "scribble" "scss" "sh" "sql" "sqlite" "sql" "styles" "sv"
                           "tex" "toml" "tpp" "tridactylrc" "ts" "tsx" "v" "vagrantfile"
                           "vagrantfile" "vh" "vimperatorrc" "vimrc" "vrapperrc"
-                          "vue" "xml" "xsl" "yaml" "yml" "zig" "zsh" "zshrc" "deps.edn"))
+                          "vue" "xml" "xsl" "yaml" "yml" "zig" "zsh" "zshrc" "edn"))
             (treemacs-create-icon
              :icon (format "  %s " book-icon)
              :extensions ("lrf" "lrx" "cbr" "cbz" "cb7" "cbt" "cba" "chm" "djvu"
@@ -918,6 +918,8 @@ all elements."
   :config
   (setq cider-test-show-report-on-success nil)
   (setq cider-auto-select-test-report-buffer nil)
+  (setq cider-offer-to-open-cljs-app-in-browser nil)
+  (setq cider-test-fail-fast nil)
   (eldoc-mode t)
   (after-load (evil)
     (add-to-list 'evil-motion-state-modes 'cider-test-report-mode)))

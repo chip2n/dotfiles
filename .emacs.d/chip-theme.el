@@ -349,6 +349,10 @@
   (magit-blame-highlight (:foreground color-comment :background grey-2))
   (git-commit-summary (:foreground white-1))
 
+  ;; hexl-mode
+  (hexl-ascii-region (:background grey-2))
+  (hexl-address-region (:foreground grey-4))
+
   ;; Pulsar
   ;; (pulsar-generic (:background grey-3))
 
@@ -412,8 +416,8 @@
   (lispy-face-hint (:foreground grey-4 :weight bold))
 
   ;; CIDER
-  (cider-test-success-face (:foreground color-success :weight bold))
-  (cider-test-failure-face (:background color-error   :foreground white-1 :weight bold))
+  (cider-test-success-face (:foreground color-success :weight bold :underline t))
+  (cider-test-failure-face (:foreground color-error :weight bold :underline t))
   (cider-fringe-good-face (:foreground color-comment))
 
   ;; comint
