@@ -33,7 +33,8 @@
 (setq org-agenda-files
       `(,(concat c/org-dir "personal/personal.org")
         ,(concat c/org-dir "personal/refile.org")
-        ,(concat c/org-dir "remente/remente.org")))
+        ,(concat c/org-dir "remente/remente.org")
+        ,(concat c/org-dir "findity/findity.org")))
 
 ;;; Launching
 
@@ -157,7 +158,7 @@
 (setq org-agenda-block-separator nil)
 
 ;; Hide refile tags (shown in separate section anyways) and category tags
-(setq org-agenda-hide-tags-regexp "refile\\|remente\\|personal")
+(setq org-agenda-hide-tags-regexp "refile\\|remente\\|personal\\|findity")
 
 ;; Remove indentation from agenda blocks
 (setq org-agenda-prefix-format
