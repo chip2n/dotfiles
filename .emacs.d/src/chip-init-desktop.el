@@ -358,6 +358,8 @@ The default is to leave the cursor where it is, which is not as useful when sear
             (treemacs-create-icon :icon (format "%s\t%s " parent-closed-icon pkg-icon) :extensions (tag-closed))
             (treemacs-create-icon :icon (format "%s\t%s " parent-closed-icon dir-icon) :extensions ("src-closed"))
             (treemacs-create-icon :icon (format "%s\t%s " parent-opened-icon dir-icon) :extensions ("src-open"))
+            (treemacs-create-icon :icon (format "%s\t%s " parent-opened-icon dir-icon) :extensions ("build-open"))
+            (treemacs-create-icon :icon (format "%s\t%s " parent-closed-icon dir-icon) :extensions ("build-closed"))
             (treemacs-create-icon :icon (format "%s\t%s " parent-closed-icon dir-icon) :extensions ("test-closed"))
             (treemacs-create-icon :icon (format "%s\t%s " parent-opened-icon dir-icon) :extensions ("test-open"))
             (treemacs-create-icon :icon (format "\t\t%s " tag-icon) :extensions (tag-leaf))
@@ -422,8 +424,7 @@ The default is to leave the cursor where it is, which is not as useful when sear
              :extensions ("git" "gitignore" "gitconfig" "gitmodules" "gitattributes"))
             (treemacs-create-icon
              :icon (format "  %s " cmake-icon)
-             :extensions ("cmake" "CMakeLists.txt"))
-            )))))
+             :extensions ("cmake" "CMakeLists.txt")))))))
   (treemacs-load-theme "chip"))
 
 (use-package treemacs
@@ -1176,12 +1177,15 @@ all elements."
                     (abbreviate-file-name default-directory))))))
 (add-hook 'shell-mode-hook (lambda () (chip/header-shell)))
 
+(use-package eat)
+
 (use-package vterm
   :defer t
   :bind (("C-c t" . vterm)
          ("C-c T" . c/vterm-toggle-cd))
   :config
-  (setq vterm-shell "fish")
+  (unless c/mac?
+    (setq vterm-shell "fish"))
   (general-define-key
    :keymaps 'vterm-mode-map
    "<prior>" 'scroll-down-command
