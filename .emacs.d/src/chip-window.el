@@ -34,8 +34,6 @@
   (general-define-key
    "C-x 2"     'split-window-vertically
    "C-x 3"     'split-window-horizontally
-   ;; "C-x 2"     (lambda () (interactive) (split-window-vertically) (other-window 1))
-   ;; "C-x 3"     (lambda () (interactive) (split-window-horizontally) (other-window 1))
    "C-c w u"   'winner-undo
    "C-c w r"   'winner-redo
    "C-c w n"   'c/set-window-width
@@ -45,10 +43,61 @@
    "M-o"       'ace-window
    "C-<tab>"   'c/next-window
    "C-<iso-lefttab>"   'c/prev-window
+   "<next>" 'c/scroll-half-page-down
+   "<prior>" 'c/scroll-half-page-up
    "S-<next>"  'scroll-other-window
    "S-<prior>" 'scroll-other-window-down
    "S-<up>" 'c/prev-line-center
    "S-<down>" 'c/next-line-center))
+
+(setq scroll-margin 3)
+
+(defun c/window--top-line-number ()
+  (save-excursion
+    (move-to-window-line 0)
+    (1- (line-number-at-pos (point)))))
+
+(defun c/window--bottom-line-number ()
+  (save-excursion
+    (move-to-window-line (1- (truncate (window-screen-lines))))
+    (line-number-at-pos (point))))
+
+(defun c/window--get-line-number ()
+  (cdr (posn-actual-col-row (posn-at-point))))
+
+(defun c/scroll-half-page-up ()
+  "Scrolls exactly half page up keeping cursor/point position."
+  (interactive)
+  (let* ((line-win-pos (c/window--get-line-number))
+         (line-delta (/ (truncate (window-screen-lines)) 2))
+         (window-first-line (c/window--top-line-number)))
+    (if (<= (- window-first-line line-delta) 0)
+        (progn
+          (beginning-of-buffer)
+          (recenter-top-bottom 0)
+          (when (> (- line-win-pos line-delta) 0)
+            (forward-line (- line-win-pos line-delta))))
+      (progn
+        (scroll-down line-delta)
+        (move-to-window-line line-win-pos)))))
+
+(defun c/scroll-half-page-down ()
+  "Scrolls exactly half page down keeping cursor/point position."
+  (interactive)
+  (let* ((line-win-pos (c/window--get-line-number))
+         (line-delta (/ (truncate (window-screen-lines)) 2))
+         (window-bottom-line (c/window--bottom-line-number))
+         (last-buffer-line (1- (line-number-at-pos (point-max))))
+         (curr-line (1- (line-number-at-pos (point)))))
+    (if (>= (+ window-bottom-line line-delta) last-buffer-line)
+        (progn
+          (end-of-buffer)
+          (recenter-top-bottom -1)
+          (when (< (+ curr-line line-delta) last-buffer-line)
+            (forward-line (- (- last-buffer-line (+ curr-line line-delta))))))
+        (progn
+          (scroll-up line-delta)
+          (move-to-window-line line-win-pos)))))
 
 (defun c/next-window ()
   (interactive)
