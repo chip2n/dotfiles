@@ -40,6 +40,8 @@
 
 (when c/config-evil?
   (require 'chip-evil))
+(when c/config-meow?
+  (require 'chip-meow))
 
 (require 'chip-window)
 (require 'chip-registers)
