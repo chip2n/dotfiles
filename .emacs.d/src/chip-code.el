@@ -112,21 +112,29 @@ Interactively also sends a terminating newline."
 
 (defun c/next-error ()
   (interactive)
-  (if (flycheck-next-error-pos 1 t)
-      (flycheck-next-error)
-    ;; If buffer with window already visible, switch to it before jumping to error
-    ;; This prevents two windows displaying the same buffer, which is the default behavior
-    (let* ((buffer (next-error-find-buffer))
-           (win (get-buffer-window buffer)))
-      (when win
-        (select-window win))
-      (next-error))))
+  (cond
+   ((bound-and-true-p flycheck-mode)
+    (if (flycheck-next-error-pos 1 t)
+        (flycheck-next-error)
+      ;; If buffer with window already visible, switch to it before jumping to error
+      ;; This prevents two windows displaying the same buffer, which is the default behavior
+      (let* ((buffer (next-error-find-buffer))
+             (win (get-buffer-window buffer)))
+        (when win
+          (select-window win))
+        (next-error))))
+   ((bound-and-true-p flymake-mode)
+    (flymake-goto-next-error))))
 
 (defun c/prev-error ()
   (interactive)
-  (if (flycheck-next-error-pos 1 t)
-      (flycheck-previous-error)
-    (previous-error)))
+  (cond
+   ((bound-and-true-p flycheck-mode)
+    (if (flycheck-next-error-pos 1 t)
+        (flycheck-previous-error)
+      (previous-error)))
+   ((bound-and-true-p flymake-mode)
+    (flymake-goto-prev-error))))
 
 ;;; Outshine
 
