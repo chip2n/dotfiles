@@ -118,6 +118,17 @@
 ;; disable progressive speed when scrolling
 (setq mouse-wheel-progressive-speed nil)
 
+;; make mouse scrolling faster
+(setq mouse-wheel-scroll-amount
+      '(4
+        ((shift)
+         . hscroll)
+        ((meta))
+        ((control meta)
+         . global-text-scale)
+        ((control)
+         . text-scale)))
+
 ;; indent with spaces by default
 (setq-default indent-tabs-mode nil)
 (setq-default tabs-width 4)
@@ -154,6 +165,8 @@
 
 ;; remove keybinding for suspend-frame, I keep hitting it accidentally because I'm a troglodyte
 (global-unset-key (kbd "C-z"))
+
+(use-package undo-tree)
 
 ;;; Help
 

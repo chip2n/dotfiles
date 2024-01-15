@@ -45,8 +45,8 @@
    "C-<iso-lefttab>"   'c/prev-window
    "<next>" 'c/scroll-half-page-down
    "<prior>" 'c/scroll-half-page-up
-   "S-<next>"  'scroll-other-window
-   "S-<prior>" 'scroll-other-window-down
+   "S-<next>"  'c/scroll-half-page-down-other-window
+   "S-<prior>" 'c/scroll-half-page-up-other-window
    "S-<up>" 'c/prev-line-center
    "S-<down>" 'c/next-line-center))
 
@@ -98,6 +98,18 @@
         (progn
           (scroll-up line-delta)
           (move-to-window-line line-win-pos)))))
+
+(defun c/scroll-half-page-up-other-window ()
+  (interactive)
+  (other-window 1)
+  (c/scroll-half-page-up)
+  (other-window -1))
+
+(defun c/scroll-half-page-down-other-window ()
+  (interactive)
+  (other-window 1)
+  (c/scroll-half-page-down)
+  (other-window -1))
 
 (defun c/next-window ()
   (interactive)
