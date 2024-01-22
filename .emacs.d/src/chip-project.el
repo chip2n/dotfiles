@@ -56,17 +56,21 @@ org task quickly.")
          ,@body
          (kill-buffer ,project-root-buffer)))))
 
-(define-key project-prefix-map "m" #'magit-project-status)
-(define-key project-prefix-map "g" #'chip/grep)
-(define-key project-prefix-map "t" #'c/project-vterm)
-
-(setf project-switch-commands
-      '((project-find-file "Find file")
-        (project-find-dir "Find directory")
-        (project-eshell "Eshell")
-        (magit-project-status "Magit")
-        (c/project-vterm "Vterm")
-        (chip/grep "Grep")))
+(use-package project
+  :bind (:map project-prefix-map
+         ("m" . magit-project-status)
+         ("g" . c/grep)
+         ("t" . c/project-vterm))
+  :bind (("C-c p p" . projectile-switch-project)
+         ("C-c p f" . projectile-find-file))
+  :config
+  (setq project-switch-commands
+        '((project-find-file "find-file")
+          (project-find-dir "find-dir")
+          (project-eshell "eshell")
+          (magit-project-status "magit")
+          (c/project-vterm "vterm")
+          (c/grep "grep"))))
 
 (provide 'chip-project)
 
