@@ -61,8 +61,8 @@ org task quickly.")
          ("m" . magit-project-status)
          ("g" . c/grep)
          ("t" . c/project-vterm))
-  :bind (("C-c p p" . projectile-switch-project)
-         ("C-c p f" . projectile-find-file))
+  :bind (("C-c p p" . project-switch-project)
+         ("C-c p f" . project-find-file))
   :config
   (setq project-switch-commands
         '((project-find-file "find-file")

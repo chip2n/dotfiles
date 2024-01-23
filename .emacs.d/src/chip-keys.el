@@ -77,13 +77,6 @@ If prefix is used, grep in current directory instead."
   (evil-jump-forward))
 
 (general-define-key
- ;; file system
- ;; "C-f" 'chip/find-file
- ;; "C-p" 'projectile-find-file
- "C-x p" 'projectile-find-file
- "C-S-P" 'projectile-switch-project
- "C-x P" 'projectile-switch-project
-
  ;; buffers
  "C-x b" 'chip/switch-buffer
  "C-x C-b" 'ibuffer
