@@ -40,7 +40,7 @@
   (interactive)
   (consult-buffer-other-window))
 
-(defun chip/grep (prefix)
+(defun c/grep (prefix)
   "Grep in current projectile directory.
 If prefix is used, grep in current directory instead."
   (interactive "P")
@@ -93,7 +93,7 @@ If prefix is used, grep in current directory instead."
  "C-S-o" 'chip/history-forward
 
  ;; searching
- "C-c g" 'chip/grep
+ "C-c g" 'c/grep
 
  ;; org-mode agenda
  "C-c a" 'c/org-agenda
