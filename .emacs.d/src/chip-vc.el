@@ -37,7 +37,9 @@
   (recenter))
 
 (use-package magit
-  :bind (("C-x g" . magit-status)
+  :bind (("C-c v" . magit-status)
+         ("C-c V" . c/magit-status-here)
+         ("C-x g" . magit-status)
          ("C-x G" . c/magit-status-here))
 
   :general (:keymaps 'magit-blame-mode-map

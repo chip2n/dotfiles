@@ -77,7 +77,11 @@ If prefix is used, grep in current directory instead."
   (evil-jump-forward))
 
 (general-define-key
+ ;; file system
+ "C-c f" 'chip/find-file
+
  ;; buffers
+ "C-c b" 'chip/switch-buffer
  "C-x b" 'chip/switch-buffer
  "C-x C-b" 'ibuffer
 

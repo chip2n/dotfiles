@@ -48,6 +48,8 @@
 (defun meow-setup ()
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-colemak)
   (setq meow-use-clipboard t)
+  ;; Allow SPC <char> to use commands defined in keymaps other than mode-specific-map
+  (setq meow-keypad-leader-dispatch "C-c")
   (meow-motion-overwrite-define-key
    ;; Use e to move up, n to move down.
    ;; Since special modes usually use n to move down, we only overwrite e here.
