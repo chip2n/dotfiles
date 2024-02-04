@@ -22,24 +22,78 @@
 
 ;;; Code:
 
-;; Download bookmark-plus from emacs wiki if it doesn't already exist
-(let ((bookmarkplus-dir "~/.emacs.d/src/bookmark-plus/")
-      (emacswiki-base "https://www.emacswiki.org/emacs/download/")
-      (bookmark-files '("bookmark+.el" "bookmark+-mac.el" "bookmark+-bmu.el" "bookmark+-key.el" "bookmark+-lit.el" "bookmark+-1.el")))
-  (require 'url)
-  (add-to-list 'load-path bookmarkplus-dir)
-  (make-directory bookmarkplus-dir t)
-  (mapcar (lambda (arg)
-            (let ((local-file (concat bookmarkplus-dir arg)))
-              (unless (file-exists-p local-file)
-                (url-copy-file (concat emacswiki-base arg) local-file t))))
-          bookmark-files)
-  (require 'bookmark+))
+(require 'cl)
 
-(defun c/bookmark-jump-persist-point (bookmark &optional flip-use-region-p)
-  (interactive (list (bookmark-completing-read "Jump to bookmark" (bmkp-default-bookmark-name))
-                     current-prefix-arg))
-  (bookmark-jump bookmark 'pop-to-buffer-same-window))
+(use-package bookmark+
+  :straight nil
+  :demand t
+  :load-path "~/.emacs.d/src/bookmark-plus/"
+  :bind (("C-c w p" . pin/add)
+         ("M-1" . pin/jump-1)
+         ("M-2" . pin/jump-2)
+         ("M-3" . pin/jump-3)
+         ("M-4" . pin/jump-4))
+  :init
+  ;; Download bookmark-plus from emacs wiki if it doesn't already exist
+  (let ((bookmarkplus-dir "~/.emacs.d/src/bookmark-plus/")
+        (emacswiki-base "https://www.emacswiki.org/emacs/download/")
+        (bookmark-files '("bookmark+.el" "bookmark+-mac.el" "bookmark+-bmu.el" "bookmark+-key.el" "bookmark+-lit.el" "bookmark+-1.el")))
+    (require 'url)
+    (add-to-list 'load-path bookmarkplus-dir)
+    (make-directory bookmarkplus-dir t)
+    (mapcar (lambda (arg)
+              (let ((local-file (concat bookmarkplus-dir arg)))
+                (unless (file-exists-p local-file)
+                  (url-copy-file (concat emacswiki-base arg) local-file t))))
+            bookmark-files))
+  :config
+  ;; Skip saving the bookmark position so that we can use bookmarks without
+  ;; any stored positions
+  (setq bmkp-save-new-location-flag nil))
+
+;;;; Pin
+
+;; This is a simple clone of Harpoon, using bookmark+ functionality
+
+(defun pin/add (num)
+  (interactive "cNumber:")
+  (assert (cl-digit-char-p num))
+  (setf num (string-to-number (char-to-string num)))
+  (pin/bookmark-set-no-position (format "<pin> %s" (buffer-name (current-buffer))))
+  (bmkp-make-bookmark-temporary (car bookmark-alist))
+  (bmkp-add-tags (car bookmark-alist) (list "pin"))
+  (bmkp-set-tag-value (car bookmark-alist) "pin" num))
+
+(defun pin/jump-to (num)
+  (cl-loop for bookmark in bookmark-alist
+           for v = (bmkp-get-tag-value bookmark "pin")
+           when (and v (= v num))
+           return (bookmark-jump bookmark)))
+
+(defun pin/jump-1 ()
+  (interactive)
+  (pin/jump-to 1))
+
+(defun pin/jump-2 ()
+  (interactive)
+  (pin/jump-to 2))
+
+(defun pin/jump-3 ()
+  (interactive)
+  (pin/jump-to 3))
+
+(defun pin/jump-4 ()
+  (interactive)
+  (pin/jump-to 4))
+
+(defun pin/bookmark-set-no-position (&optional name parg interactivep no-refresh-p)
+  (interactive (list nil current-prefix-arg t))
+  (save-excursion
+    (goto-char (point-min))
+    (bookmark-set name parg interactivep no-refresh-p)
+    (bookmark-set-position (car bookmark-alist) nil)
+    (bookmark-set-front-context-string (car bookmark-alist) nil)
+    (bookmark-set-rear-context-string (car bookmark-alist) nil)))
 
 (provide 'chip-bookmark)
 

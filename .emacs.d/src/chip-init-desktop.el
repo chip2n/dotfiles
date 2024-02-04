@@ -45,6 +45,7 @@
 
 (require 'chip-window)
 (require 'chip-registers)
+(require 'chip-bookmark)
 (require 'chip-project)
 
 (require 'chip-doc)
