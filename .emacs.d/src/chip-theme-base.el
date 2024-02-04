@@ -135,30 +135,35 @@
    #b00000000
    ])
 
-(define-fringe-bitmap 'bookmark-fringe-mark
-  [#b00000000
-   #b00000000
-   #b00000000
-   #b00000000
-   #b00000000
-   #b00111111
-   #b00111111
-   #b00111111
-   #b00111111
-   #b00111111
-   #b00111111
-   #b00111111
-   #b00110011
-   #b00100001
-   #b00000000
-   #b00000000
-   #b00000000
-   ])
+;; (define-fringe-bitmap 'bookmark-fringe-mark
+;;   [#b00000000
+;;    #b00000000
+;;    #b00000000
+;;    #b00000000
+;;    #b00000000
+;;    #b00111111
+;;    #b00111111
+;;    #b00111111
+;;    #b00111111
+;;    #b00111111
+;;    #b00111111
+;;    #b00111111
+;;    #b00110011
+;;    #b00100001
+;;    #b00000000
+;;    #b00000000
+;;    #b00000000
+;;    ]
+;;   )
+
+(setq bookmark-fringe-mark nil)
 
 (defun c/set-font-size (size)
   "Set font size interactively."
   (interactive "nFont size: ")
-  (set-face-attribute 'default nil :height size))
+  (set-face-attribute 'default nil :height size)
+  (set-face-attribute 'variable-pitch nil :height size)
+  (set-face-attribute 'fixed-pitch nil :height size))
 
 (provide 'chip-theme-base)
 

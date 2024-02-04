@@ -274,6 +274,11 @@ The default is to leave the cursor where it is, which is not as useful when sear
 (use-package expand-region
   :bind (("C-c m" . er/expand-region)))
 
+;; Allow C-w, M-w etc operate on current line if no region active
+(use-package whole-line-or-region
+  :config
+  (whole-line-or))
+
 ;;; File navigation
 
 (defun chip/open-config-file ()
@@ -444,7 +449,7 @@ The default is to leave the cursor where it is, which is not as useful when sear
 
 (use-package treemacs
   :defer t
-  :bind ("C-c f" . treemacs-select-window)
+  :bind ("C-c F" . treemacs-select-window)
   :config
   (setf treemacs-window-background-color (cons "#1b1e24f" "#21242b"))
   (setq treemacs-show-cursor nil)
@@ -923,7 +928,11 @@ all elements."
   (add-to-list 'auto-mode-alist (cons (rx ".rkt" eos) 'racket-mode)))
 
 (use-package clojure-mode
+  :after (lsp-mode)
   :defer t
+  :hook ((clojure-mode . lsp)
+         (clojurec-mode . lsp)
+         (clojurescript-mode . lsp))
   :config
   (after-load (outshine-mode)
     (add-hook 'clojure-mode 'outshine-mode)
@@ -1419,7 +1428,6 @@ buffer in current window."
                                  ("elixir" . "\\.heex\\'")
                                  ("elixir" . "\\.sface\\'")))
   (add-to-list 'auto-mode-alist '("\\.sface\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.heex\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.mjml\\'" . web-mode)))
 
 ;;; speed-type

@@ -146,6 +146,12 @@
   (mode-line-evil-state-motion (:foreground color-evil-motion))
   (mode-line-evil-state-emacs (:foreground color-evil-emacs))
 
+  ;; Meow
+  (meow-position-highlight-number (:foreground color-foreground))
+  (meow-position-highlight-number-1 (:foreground color-foreground))
+  (meow-position-highlight-number-2 (:foreground color-foreground))
+  (meow-position-highlight-number-3 (:foreground color-foreground))
+
   ;; Info
   (Info-quoted (:foreground pink-2 :bold t))
   (info-menu-star (:inherit default))

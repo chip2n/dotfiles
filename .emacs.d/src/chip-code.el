@@ -29,8 +29,7 @@
   :lighter nil
   :keymap `((,(kbd "M-n") . c/next-error)
             (,(kbd "M-p") . c/prev-error)
-            (,(kbd "C-c c") . c/compile)
-            (,(kbd "C-c C-f") . c/format-buffer)))
+            (,(kbd "C-c c") . c/compile)))
 
 (add-hook 'prog-mode-hook 'c/code-mode)
 

@@ -57,7 +57,7 @@
          ("C-c C-k" . kill-compilation)
          ("C-c C-t" . c/zig-test)
          ("C-c C-d" . c/zig-test-this))
-  :hook ((zig-mode . electric-pair-local-mode))
+  ;; :hook ((zig-mode . electric-pair-local-mode))
   :config
   ;; formatting on save breaks lsp-mode
   ;; see https://github.com/ziglang/zig-mode/issues/49
