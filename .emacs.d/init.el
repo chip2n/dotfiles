@@ -25,7 +25,7 @@
 (defconst c/config-evil? nil
   "If non-nil, load evil-mode & related packages.")
 
-(defconst c/config-meow? t
+(defconst c/config-meow? nil
   "If non-nil, load meow-mode & related packages.")
 
 (defconst chip-config-dir "~/.emacs.d/"
