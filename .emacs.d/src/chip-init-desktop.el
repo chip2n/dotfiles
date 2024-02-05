@@ -278,7 +278,7 @@ The default is to leave the cursor where it is, which is not as useful when sear
 ;; Allow C-w, M-w etc operate on current line if no region active
 (use-package whole-line-or-region
   :config
-  (whole-line-or))
+  (whole-line-or-region-global-mode))
 
 ;;; File navigation
 
