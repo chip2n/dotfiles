@@ -22,7 +22,7 @@
 
 ;;; Code:
 
-(require 'cl)
+(require 'cl-lib)
 
 (use-package bookmark+
   :straight nil
@@ -59,10 +59,12 @@
   (interactive "cNumber:")
   (assert (cl-digit-char-p num))
   (setf num (string-to-number (char-to-string num)))
-  (pin/bookmark-set-no-position (format "<pin> %s" (buffer-name (current-buffer))))
-  (bmkp-make-bookmark-temporary (car bookmark-alist))
-  (bmkp-add-tags (car bookmark-alist) (list "pin"))
-  (bmkp-set-tag-value (car bookmark-alist) "pin" num))
+  (let ((name (format "<pin> %s" (buffer-name (current-buffer)))))
+    (pin/bookmark-set-no-position name)
+    (let ((bookmark (bmkp-get-bookmark name)))
+      (bmkp-make-bookmark-temporary bookmark)
+      (bmkp-add-tags bookmark (list "pin"))
+      (bmkp-set-tag-value bookmark "pin" num))))
 
 (defun pin/jump-to (num)
   (cl-loop for bookmark in bookmark-alist
