@@ -61,6 +61,10 @@
   (setf num (string-to-number (char-to-string num)))
   (let ((name (format "<pin> %s" (buffer-name (current-buffer)))))
     (pin/bookmark-set-no-position name)
+	(cl-loop for bookmark in bookmark-alist
+             for v = (bmkp-get-tag-value bookmark "pin")
+             when (and v (= v num))
+             do (bookmark-delete bookmark))
     (let ((bookmark (bmkp-get-bookmark name)))
       (bmkp-make-bookmark-temporary bookmark)
       (bmkp-add-tags bookmark (list "pin"))
