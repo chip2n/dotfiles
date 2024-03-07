@@ -24,9 +24,18 @@
 
 ;;; Paredit
 
+(defun c/paredit-RET-repl-advice (original-function &rest args)
+  (cond
+   ((eq major-mode 'sly-mrepl-mode) (sly-mrepl-return))
+   ((string-equal (buffer-name (current-buffer)) "*ielm*") (ielm-return))
+   (t (apply original-function args))))
+
 (use-package paredit
+  :bind (:map paredit-mode-map
+         ("M-s" . nil))
   :config
-  (c/diminish paredit-mode))
+  (c/diminish paredit-mode)
+  (advice-add 'paredit-RET :around 'c/paredit-RET-repl-advice))
 
 ;;; Lispy
 
@@ -34,22 +43,30 @@
   :config
   (c/diminish lispy-mode)
 
-  (setq lispy-close-quotes-at-end-p t)
+  ;; (setq lispy-close-quotes-at-end-p t)
   (setq lispy-colon-p nil)
 
   (general-unbind
     :keymaps '(lispy-mode-map)
-    "M-o" ;; used for ace-window
+    "M-o" ;; ace-window
+    "M-i" ;; completion-at-point
     )
   (general-define-key
    :keymaps '(lispy-mode-map)
    "n" 'special-lispy-down
-   "p" 'special-lispy-up
+   "e" 'special-lispy-up
+   "h" 'special-lispy-left
+   "i" 'special-lispy-right
    "N" 'special-lispy-move-down
-   "P" 'special-lispy-move-up
+   "E" 'special-lispy-move-up
    "S" 'special-lispy-splice
-   "C-c l" 'lispy-backward)
+   "v" 'special-lispy-eval
+   "V" 'special-lispy-eval-and-insert
+   "TAB" 'special-lispy-tab
+   "M-(" 'lispy-wrap-round)
 
+  (define-key lispy-mode-map-lispy (kbd "[") nil)
+  (define-key lispy-mode-map-lispy (kbd "]") nil)
   (lispy-define-key lispy-mode-map "k" 'lispy-kill-at-point)
 
   ;; Enable lispy in minibuffer when using eval-expression
@@ -191,7 +208,8 @@ This checks in turn:
         ;; (paredit-mode 1)
         (outshine-mode 1)
         (prettify-symbols-mode 1)
-        (c/complete-mode 1))
+        ;; (c/complete-mode 1)
+        )
     (progn
       (if (featurep 'evil-lispy)
           (evil-lispy-mode -1)
@@ -199,7 +217,8 @@ This checks in turn:
       ;; (paredit-mode -1)
       (outshine-mode -1)
       (prettify-symbols-mode -1)
-      (c/complete-mode -1))))
+      ;; (c/complete-mode -1)
+      )))
 
 ;; TODO move these
 (add-hook 'lisp-data-mode-hook #'c/code-lisp-mode)
@@ -214,17 +233,17 @@ This checks in turn:
 (add-hook 'racket-mode-hook #'c/code-lisp-mode)
 (add-hook 'scheme-mode-hook #'c/code-lisp-mode)
 
-(defun c/lisp-comment-sexp-at-point ()
-  (interactive)
-  (save-excursion
-    (evil-lispy/enter-state-left)
-    (lispy-comment)
-    (lispy-quit))
-  (backward-char 3))
+;; (defun c/lisp-comment-sexp-at-point ()
+;;   (interactive)
+;;   (save-excursion
+;;     (evil-lispy/enter-state-left)
+;;     (lispy-comment)
+;;     (lispy-quit))
+;;   (backward-char 3))
 
-(general-define-key
- :keymaps 'c/code-lisp-mode-map
- "C-;" 'c/lisp-comment-sexp-at-point)
+;; (general-define-key
+;;  :keymaps 'c/code-lisp-mode-map
+;;  "C-;" 'c/lisp-comment-sexp-at-point)
 
 (defun c/quicklisp-symlink (path)
   (interactive (list (read-directory-name "Select project to symlink: " chip-dev-dir)))
@@ -235,7 +254,11 @@ This checks in turn:
 (use-package sly
   :config
   (require 'sly-autoloads)
-  (setq inferior-lisp-program "sbcl"))
+  (sly-symbol-completion-mode -1)
+  (setq inferior-lisp-program "sbcl")
+  (after-load (sly-mrepl)
+    (add-to-list 'sly-mrepl-shortcut-alist '("quickload" . c/sly-mrepl-quickload))
+    (add-to-list 'sly-mrepl-shortcut-alist '("quickload & switch" . c/sly-mrepl-quickload-and-switch))))
 
 (defvar *c/sly-mrepl-prev-window* nil)
 ;; (defun c/sly-mrepl-toggle ()
@@ -297,7 +320,7 @@ This checks in turn:
   )
 
 (defun c/sly-apropos (string package)
-  "Search for a symbol, optionally limitid to a single package."
+  "Search for a symbol, optionally limited to a single package."
   (interactive
    (list (sly-read-from-minibuffer "Apropos external symbols: ")
          (sly-read-package-name "Package (blank for all): "
@@ -343,6 +366,11 @@ This checks in turn:
   (let ((package (completing-read "Load package: " (sly-eval `(quicklisp:list-local-systems)))))
     (sly-eval `(quicklisp:quickload ,package))))
 
+(defun c/sly-mrepl-quickload-and-switch ()
+  (interactive)
+  (let ((package (car (c/sly-mrepl-quickload))))
+    (sly-switch-package package)))
+
 ;; (defun c/sly-display-over-repl (buffer alist)
 ;;   "Use REPL window to display the buffer if it is open.
 ;; This is intended to be used as an action function for
@@ -361,8 +389,8 @@ display-buffer (through display-buffer-alist)."
   (let* ((repl-buffer (sly-mrepl--find-buffer))
          (repl-window (and repl-buffer (car (get-buffer-window-list repl-buffer))))
          (db-buffer (cl-find-if (lambda (b)
-                                 (get-buffer-window-list b))
-                               (sly-db-buffers)))
+                                  (get-buffer-window-list b))
+                                (sly-db-buffers)))
          (db-window (and db-buffer (car (get-buffer-window-list db-buffer))))
          (window-to-use (or repl-window db-window))
          (buffer-to-use (or repl-buffer db-buffer)))
