@@ -11,5 +11,9 @@
         "editor.suggestSelection": "first",
         "editor.tabCompletion": "onlySnippets",
         "editor.wordBasedSuggestions": false
-    }
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true,
+      },
+    "zig.zls.path": "/home/chip/.local/bin/zls"
 }
