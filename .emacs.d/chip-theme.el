@@ -234,6 +234,10 @@
   (company-scrollbar-bg (:background grey-3))
   (company-scrollbar-fg (:background green-2))
 
+  ;; Corfu
+  (corfu-current (:background grey-2 :foreground white-1))
+  (corfu (:background grey-2 :foreground white-1))
+
   ;; LSP
   (lsp-lsp-flycheck-warning-unnecessary-face (:underline (:color color-warning :style wave)))
   (lsp-lens-face (:foreground color-comment :slant italic))
@@ -354,6 +358,10 @@
   (magit-header-line nil)
   (magit-blame-highlight (:foreground color-comment :background grey-2))
   (git-commit-summary (:foreground white-1))
+
+  ;; bookmark+
+  (bmkp-heading (:foreground color-foreground :bold t))
+  (bmkp-local-directory (:foreground pink-2))
 
   ;; hexl-mode
   (hexl-ascii-region (:background grey-2))
