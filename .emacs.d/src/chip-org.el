@@ -595,6 +595,8 @@ beginning of last month."
 
 (advice-add 'org-babel-execute-src-block :around 'ob-shell-buffer-org-babel-execute-src-block)
 
+(setq org-babel-lisp-eval-fn #'sly-eval)
+
 (setq org-startup-indented nil)
 (setq org-adapt-indentation nil)
 (setq org-indent-indentation-per-level 2)
