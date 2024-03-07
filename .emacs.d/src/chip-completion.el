@@ -238,6 +238,7 @@ ARG is the same as for `backward-kill-sexp'."
   (define-key company-active-map (kbd "<tab>") #'company-complete-selection))
 
 (use-package company
+  :disabled t
   :custom (company-tooltip-maximum-width 120)
   :config
   (c/diminish company-mode)
@@ -263,12 +264,12 @@ ARG is the same as for `backward-kill-sexp'."
   (setq company-tooltip-align-annotations t)
 
   (define-minor-mode c/complete-mode
-  "Enable code completion."
-  :global nil
-  (if c/complete-mode
-      (progn
-        (company-mode 1))
-    (company-mode 0)))
+    "Enable code completion."
+    :global nil
+    (if c/complete-mode
+        (progn
+          (company-mode 1))
+      (company-mode 0)))
 
   (add-hook 'prog-mode-hook 'c/complete-mode))
 
@@ -279,12 +280,34 @@ ARG is the same as for `backward-kill-sexp'."
   (company-complete-common-or-cycle -1))
 
 (use-package company-box
+  :disabled t
   :after (company)
   :hook (company-mode . company-box-mode)
   :custom (company-box-scrollbar nil)
   :custom (company-box-tooltip-maximum-width 120)
   :config
   (c/diminish company-box-mode))
+
+;;; Corfu
+
+(use-package corfu
+  :bind (("M-i" . completion-at-point)
+         :map corfu-map
+         ("SPC" . corfu-insert-separator))
+  :init
+  (global-corfu-mode 1)
+  :config
+  (setq corfu-auto nil)
+  (setq corfu-quit-no-match 'separator)
+  (setq corfu-min-width 40))
+
+(use-package dabbrev
+  :bind (("M-/" . dabbrev-completion)
+         ("C-M-/" . dabbrev-expand))
+  :config
+  (add-to-list 'dabbrev-ignored-buffer-regexps "\\` ")
+  (add-to-list 'dabbrev-ignored-buffer-modes 'doc-view-mode)
+  (add-to-list 'dabbrev-ignored-buffer-modes 'pdf-view-mode))
 
 ;;; Ivy configuration (disabled)
 
