@@ -125,3 +125,13 @@
 /.config/user-dirs.dirs
 /.emacs.d/org-roam.db
 /.emacs.d/org-fc-reviews.tsv
+/.config/Mullvad VPN/
+/.config/PopTracker/
+/.config/citra-emu/
+/.config/deluge/
+/.config/filezilla/
+/.config/go/
+/.config/gzdoom/
+/.config/jgit/
+/.config/pharo-launcher/
+/.config/pharo/
