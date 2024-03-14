@@ -287,25 +287,6 @@ The default is to leave the cursor where it is, which is not as useful when sear
   (interactive)
   (find-file (concat chip-config-dir "init.el")))
 
-(use-package projectile
-  :config
-  (c/diminish projectile-mode)
-
-  (add-to-list 'projectile-globally-ignored-directories "*node_modules")
-  (setq projectile-enable-caching nil)
-  ;; we remove -o flag so that untracked files are not included
-  ;; this is mainly so that they don't always appear as the first search
-  (setq projectile-git-command "git ls-files -zc --exclude-standard")
-  (setq projectile-indexing-method 'alien)
-  (projectile-register-project-type 'shadow-cljs '("shadow-cljs.edn")
-                                    :src-dir "src/main"
-                                    :test-dir "src/test"
-                                    :test-suffix "_test")
-  (projectile-mode))
-
-;; (use-package counsel-projectile
-;;   :after (counsel projectile))
-
 ;;; Package: Treemacs
 
 (defun chip/treemacs-setup-keys ()

@@ -72,6 +72,27 @@ org task quickly.")
           (c/project-vterm "vterm")
           (c/grep "grep"))))
 
+(use-package projectile
+  :disabled t
+  :config
+  (c/diminish projectile-mode)
+
+  (add-to-list 'projectile-globally-ignored-directories "*node_modules")
+  (setq projectile-enable-caching nil)
+  ;; we remove -o flag so that untracked files are not included
+  ;; this is mainly so that they don't always appear as the first search
+  (setq projectile-git-command "git ls-files -zc --exclude-standard")
+  (setq projectile-indexing-method 'alien)
+  (projectile-register-project-type 'shadow-cljs '("shadow-cljs.edn")
+                                    :src-dir "src/main"
+                                    :test-dir "src/test"
+                                    :test-suffix "_test")
+  (projectile-mode))
+
+(use-package counsel-projectile
+  :disabled t
+  :after (counsel projectile))
+
 (provide 'chip-project)
 
 ;;; chip-project.el ends here
