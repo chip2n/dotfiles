@@ -969,7 +969,7 @@ all elements."
 (use-package lsp-dart
   :defer t
   :config
-  (setq lsp-dart-line-length 80)
+  (setq lsp-dart-line-length 120)
   (setq lsp-dart-sdk-dir "~/flutter/bin/cache/dart-sdk")
   (setq lsp-dart-flutter-sdk-dir "~/flutter")
   (add-hook 'dart-mode-hook 'lsp)
