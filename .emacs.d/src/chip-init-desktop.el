@@ -1002,6 +1002,8 @@ all elements."
   (locate-dominating-file (buffer-file-name) "pubspec.yaml"))
 
 (use-package flutter
+  :hook (dart-mode . (lambda ()
+                       (add-hook 'after-save-hook #'flutter-run-or-hot-reload nil t)))
   :config
   (setq flutter-sdk-path "~/flutter"))
 
