@@ -50,7 +50,7 @@
     (delete-directory (expand-file-name "zig-cache" root) t)))
 
 (use-package zig-mode
-  :after (lsp-mode)
+  ;; :after (lsp-mode)
   :bind (:map zig-mode-map
          ("C-c C-r" . c/zig-compile-run)
          ("C-c C-b" . c/zig-build)
@@ -63,7 +63,9 @@
   ;; see https://github.com/ziglang/zig-mode/issues/49
   ;; (setq zig-format-on-save nil)
   (add-to-list 'lsp-language-id-configuration '(zig-mode . "zig"))
-  (add-hook 'zig-mode-hook 'lsp)
+  (setq zig-format-on-save nil)
+  ;; (add-hook 'zig-mode-hook 'lsp)
+  (add-hook 'zig-mode-hook 'eglot-ensure)
 
   (after-load (outshine)
     (add-hook 'zig-mode-hook 'outshine-mode)))
@@ -81,7 +83,7 @@
   "Compile and run using `zig build run`."
   (interactive)
   (let ((default-directory (c/zig--locate-root)))
-    (zig--run-cmd "build run")))
+    (zig--run-cmd "build" nil "run")))
 
 (defun c/zig-test ()
   "Test using `zig build test`."

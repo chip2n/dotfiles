@@ -67,7 +67,7 @@ Containing LEFT, and RIGHT aligned respectively."
    ((evil-insert-state-p) (propertize s 'face 'chip-face-evil-state-insert))
    ((evil-emacs-state-p) (propertize s 'face 'chip-face-evil-state-emacs))
    ((evil-visual-state-p) (propertize s 'face 'chip-face-evil-state-visual))
-   (symex-editing-mode (propertize s 'face 'chip-face-evil-state-emacs))
+   ;; (symex-editing-mode (propertize s 'face 'chip-face-evil-state-emacs))
    (t (propertize s 'face 'chip-face-evil-state-normal))))
 
 ;;; Modeline

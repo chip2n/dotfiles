@@ -290,6 +290,8 @@ ARG is the same as for `backward-kill-sexp'."
 
 ;;; Corfu
 
+(setq completion-ignore-case t)
+
 (use-package corfu
   :bind (("M-i" . completion-at-point)
          :map corfu-map

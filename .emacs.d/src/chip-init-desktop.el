@@ -61,6 +61,8 @@
 ;; (require 'chip-code-elixir)
 (require 'chip-code-elixir2)
 (require 'chip-code-zig)
+(require 'chip-code-nim)
+(require 'chip-code-sql)
 (require 'chip-lang)
 ;(require 'chip-present)
 (require 'chip-email)
@@ -639,6 +641,14 @@ The default is to leave the cursor where it is, which is not as useful when sear
 
 (use-package lsp-ui)
 
+;;; eglot
+
+(use-package eglot
+  :ensure nil
+  :config
+  (add-hook 'eglot-managed-mode-hook
+            (lambda () (eglot-inlay-hints-mode -1))))
+
 ;;; org-mode
 
 (require 'chip-org)
@@ -962,7 +972,7 @@ all elements."
   :defer t
   :config
   (add-to-list 'auto-mode-alist (cons (rx ".dart" eos) 'dart-mode))
-  (add-hook 'dart-mode-hook 'flycheck-mode)
+  ;; (add-hook 'dart-mode-hook 'flycheck-mode)
   (after-load (outshine-mode)
     (add-hook 'dart-mode-hook 'outshine-mode))
   (add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml")

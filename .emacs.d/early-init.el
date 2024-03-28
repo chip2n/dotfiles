@@ -9,4 +9,5 @@
 (unless c/mac?
   (menu-bar-mode -1))
 
-(tool-bar-mode -1)
+(unless c/mac?
+  (tool-bar-mode -1))

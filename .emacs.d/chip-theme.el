@@ -2,6 +2,10 @@
 
 (deftheme chip)
 
+;; Mac needs this after early-init
+(when c/mac?
+  (tool-bar-mode -1))
+
 ;;; Groups
 
 (defgroup chip-theme ()
@@ -362,6 +366,12 @@
   ;; bookmark+
   (bmkp-heading (:foreground color-foreground :bold t))
   (bmkp-local-directory (:foreground pink-2))
+
+  ;; Ediff
+  (ediff-even-diff-A (:background grey-3))
+  (ediff-odd-diff-A (:background grey-4))
+  (ediff-even-diff-B (:background grey-3))
+  (ediff-odd-diff-B (:background grey-4))
 
   ;; hexl-mode
   (hexl-ascii-region (:background grey-2))
