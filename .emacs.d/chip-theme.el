@@ -188,6 +188,9 @@
   (vterm-color-pink (:foreground pink-2))
   (vterm-color-magenta (:foreground magenta-2))
 
+  ;; EAT colors
+  (eat-term-color-0 (:foreground grey-3))
+
   ;; ANSI colors
   (ansi-color-red (:foreground red-1))
   (ansi-color-bright-red (:foreground red-2))

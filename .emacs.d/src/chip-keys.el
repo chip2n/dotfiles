@@ -82,6 +82,7 @@ If prefix is used, grep in current directory instead."
 
  ;; buffers
  "C-c b" 'chip/switch-buffer
+ "C-c B" 'ibuffer
  "C-x b" 'chip/switch-buffer
  "C-x C-b" 'ibuffer
 

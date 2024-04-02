@@ -34,9 +34,19 @@
   (general-define-key
    "C-x 2"     'split-window-vertically
    "C-x 3"     'split-window-horizontally
+   "C-c w 2"   'split-window-vertically
+   "C-c w 3"   'split-window-horizontally
    "C-c w u"   'winner-undo
    "C-c w r"   'winner-redo
-   "C-c w n"   'c/set-window-width
+   "C-c w n"   'windmove-down
+   "C-c w e"   'windmove-up
+   "C-c w h"   'windmove-left
+   "C-c w i"   'windmove-right
+   "C-c w o"   'ace-window
+   "C-c w w"   'c/set-window-width
+   "C-c w z"   'zoom-mode
+   "C-c w f"   'delete-other-windows
+   "C-c w k"   'delete-window
    "C-x +"     'chip/window-zoom
    "C-x -"     'chip/window-unzoom
    "C-x ="     'balance-windows
