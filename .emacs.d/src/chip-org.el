@@ -662,6 +662,9 @@ beginning of last month."
 (setq org-clock-clocktable-default-properties
       '(:scope agenda :maxlevel 2 :block today :fileskip0 t :compact t))
 
+;; display full number of hours in durations (clock tables etc)
+(setq org-duration-format 'h:mm)
+
 (defun org-clock-report-today ()
   "Insert clock report for today's date."
   (let* ((today (shell-command-to-string "echo -n $(date +%Y-%m-%d)"))

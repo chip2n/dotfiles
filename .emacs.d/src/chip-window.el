@@ -55,6 +55,8 @@
    "C-<iso-lefttab>"   'c/prev-window
    "<next>" 'c/scroll-half-page-down
    "<prior>" 'c/scroll-half-page-up
+   "C-v" 'c/scroll-half-page-down
+   "M-v" 'c/scroll-half-page-up
    "S-<next>"  'c/scroll-half-page-down-other-window
    "S-<prior>" 'c/scroll-half-page-up-other-window
    "S-<up>" 'c/prev-line-center

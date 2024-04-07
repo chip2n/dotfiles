@@ -89,7 +89,7 @@
   "Test using `zig build test`."
   (interactive)
   (let ((default-directory (c/zig--locate-root)))
-    (zig--run-cmd "build test")))
+    (zig--run-cmd "build" nil "test")))
 
 (defun c/zig-test-this ()
   "Test current file using `zig test`."

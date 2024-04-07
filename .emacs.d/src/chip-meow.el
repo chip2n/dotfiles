@@ -91,7 +91,7 @@
    '("A" . meow-open-below)
    '("b" . meow-back-word)
    '("B" . meow-back-symbol)
-   '("c" . meow-change)
+   '("c" . meow-change-save)
    '("d" . meow-delete)
    '("e" . meow-prev)
    '("E" . meow-prev-expand)
