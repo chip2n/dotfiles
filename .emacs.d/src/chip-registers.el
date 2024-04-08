@@ -35,8 +35,14 @@
   (recenter-top-bottom))
 
 (general-define-key
- "C-c r" 'c/jump-to-register
- "C-c R" 'consult-register-store)
+ "C-c r @" 'point-to-register
+ "C-c r +" 'increment-register
+ "C-c r p" 'insert-register
+ "C-c r n" 'number-to-register
+ "C-c r y" 'copy-to-register
+ "C-c r j" 'c/jump-to-register
+ ;; "C-c R" 'consult-register-store
+ )
 
 (provide 'chip-registers)
 
