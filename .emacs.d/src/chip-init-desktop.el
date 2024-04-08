@@ -628,6 +628,7 @@ The default is to leave the cursor where it is, which is not as useful when sear
    :keymaps 'lsp-mode-map
    "C-c C-a" 'lsp-execute-code-action
    "C-c C-c C-f" 'lsp-format-buffer
+   "C-c <TAB>" 'lsp-format-buffer
    "C-c l" 'c/lsp-avy-lens
    "M-." 'lsp-find-definition)
   (general-define-key
@@ -645,6 +646,8 @@ The default is to leave the cursor where it is, which is not as useful when sear
 
 (use-package eglot
   :ensure nil
+  :bind (:map eglot-mode-map
+         ("C-c <TAB>" . eglot-format))
   :config
   (add-hook 'eglot-managed-mode-hook
             (lambda () (eglot-inlay-hints-mode -1))))
