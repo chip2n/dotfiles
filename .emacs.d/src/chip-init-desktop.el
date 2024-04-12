@@ -469,6 +469,9 @@ The default is to leave the cursor where it is, which is not as useful when sear
 ;; no confirm when copying directories recursively
 (setq dired-recursive-copies 'always)
 
+;; if two dired windows visible, autocomplete the other buffers path
+(setq dired-dwim-target 1)
+
 ;; start dired in emacs mode
 (after-load (evil)
   (add-to-list 'evil-emacs-state-modes 'dired-mode))
@@ -996,8 +999,9 @@ all elements."
   (locate-dominating-file (buffer-file-name) "pubspec.yaml"))
 
 (use-package flutter
-  :hook (dart-mode . (lambda ()
-                       (add-hook 'after-save-hook #'flutter-run-or-hot-reload nil t)))
+  ;; :hook (dart-mode . (lambda () (add-hook 'after-save-hook #'flutter-run-or-hot-reload nil t)))
+  :bind (:map dart-mode-map
+         ("C-c c" . flutter-run-or-hot-reload))
   :config
   (setq flutter-sdk-path "~/flutter"))
 

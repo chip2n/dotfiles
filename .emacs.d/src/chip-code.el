@@ -29,7 +29,8 @@
   :lighter nil
   :keymap `((,(kbd "M-n") . c/next-error)
             (,(kbd "M-p") . c/prev-error)
-            (,(kbd "C-c c") . c/compile)))
+            ;; (,(kbd "C-c c") . c/compile)
+            ))
 
 (add-hook 'prog-mode-hook 'c/code-mode)
 
@@ -40,12 +41,12 @@
 
 ;; Allows me to specify custom compilation commands using dir locals, modes etc
 ;; to have a unified keybinding for it
-(defvar c/compilation-fun nil)
-(defun c/compile ()
-  (interactive)
-  (unless c/compilation-fun
-    (call-interactively #'compile))
-  (funcall c/compilation-fun))
+;; (defvar c/compilation-fun nil)
+;; (defun c/compile ()
+;;   (interactive)
+;;   (unless c/compilation-fun
+;;     (call-interactively #'compile))
+;;   (funcall c/compilation-fun))
 
 ;;; Compile on save
 
