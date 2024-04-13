@@ -1181,7 +1181,15 @@ all elements."
                     (abbreviate-file-name default-directory))))))
 (add-hook 'shell-mode-hook (lambda () (chip/header-shell)))
 
-(use-package eat)
+(defun c/eat--update-hl-line ()
+  (cond
+   ((bound-and-true-p eat--char-mode) (hl-line-mode -1))
+   ((bound-and-true-p eat--semi-char-mode) (hl-line-mode -1))
+   (t (hl-line-mode 1))))
+
+(use-package eat
+  :hook ((eat--semi-char-mode . c/eat--update-hl-line)
+         (eat--char-mode . c/eat--update-hl-line)))
 
 (use-package vterm
   :defer t
