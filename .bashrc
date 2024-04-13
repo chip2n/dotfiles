@@ -1,7 +1,3 @@
-#
-# ~/.bashrc
-#
-
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -32,7 +28,6 @@ if [ -f '/home/chip/google-cloud-sdk/path.bash.inc' ]; then source '/home/chip/g
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/chip/google-cloud-sdk/completion.bash.inc' ]; then source '/home/chip/google-cloud-sdk/completion.bash.inc'; fi
-. "$HOME/.cargo/env"
 
 vterm_printf() {
     if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ]); then
@@ -50,3 +45,12 @@ vterm_prompt_end(){
     vterm_printf "51;A$(whoami)@$(hostname):$(pwd)"
 }
 PS1=$PS1'\[$(vterm_prompt_end)\]'
+
+# Automatically added by the Guix install script.
+if [ -n "$GUIX_ENVIRONMENT" ]; then
+    if [[ $PS1 =~ (.*)"\\$" ]]; then
+        PS1="${BASH_REMATCH[1]} [env]\\\$ "
+    fi
+fi
+
+eval "$(direnv hook bash)"
