@@ -904,27 +904,6 @@ all elements."
                  (evil-emacs-state)
                (evil-normal-state)))))
 
-(use-package geiser
-  :after (evil)
-  :defer t
-  :config
-  ;; (setq geiser-chicken-binary "chicken-csi")
-  ;; (setq geiser-active-implementations '(guile))
-  ;; (setq geiser-default-implementation 'guile)
-  ;; (add-hook 'geiser-repl-mode-hook 'evil-lispy-mode)
-  (add-to-list 'evil-emacs-state-modes 'geiser-debug-mode))
-
-(use-package geiser-guile
-  :after (geiser))
-
-(use-package geiser-gambit
-  :after (geiser))
-
-(use-package racket-mode
-  :defer t
-  :config
-  (add-to-list 'auto-mode-alist (cons (rx ".rkt" eos) 'racket-mode)))
-
 (use-package clojure-mode
   :after (lsp-mode)
   :defer t

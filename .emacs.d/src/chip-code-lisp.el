@@ -509,6 +509,40 @@ display-buffer (through display-buffer-alist)."
   (interactive)
   (setf slime-inhibit-pipelining nil))
 
+;;; Scheme
+
+(use-package geiser
+  :defer t
+  :hook ((geiser-repl-mode . lispy-mode))
+  :config
+  (setq geiser-active-implementations '(guile))
+  (setq geiser-default-implementation 'guile)
+  (after-load (meow)
+    (add-to-list 'meow-mode-state-list '(geiser-repl-mode . normal))))
+
+(defun c/geiser-guile-spawn (file)
+  "Start a separate guile process and connect to it."
+  (interactive "fFile: ")
+  (message file)
+  (start-process "guile" "*guile*" "guile" "--listen=1661" (expand-file-name file))
+  ;; Need to wait for the REPL server to initialize
+  ;; TODO We can probably do better than this...
+  (sleep-for 0.5)
+  (geiser-connect (geiser-repl--get-impl "Connect to Scheme implementation: ") "localhost" 1661))
+
+(use-package geiser-guile
+  :defer t
+  :after (geiser))
+
+(use-package geiser-gambit
+  :defer t
+  :after (geiser))
+
+(use-package racket-mode
+  :defer t
+  :config
+  (add-to-list 'auto-mode-alist (cons (rx ".rkt" eos) 'racket-mode)))
+
 (provide 'chip-code-lisp)
 
 ;;; chip-code-lisp.el ends here
