@@ -37,11 +37,11 @@
        (s-lines)
        (-map (lambda (line) (car (s-split " " (s-trim line)))))))
 
-(defun c/zig-build ()
-  (interactive)
-  (let ((default-directory (projectile-locate-dominating-file (buffer-file-name) "build.zig")))
-    (let ((step (completing-read "Select build step:" (c/zig--steps))))
-      (zig--run-cmd (format "build %s" step)))))
+;; (defun c/zig-build ()
+;;   (interactive)
+;;   (let ((default-directory (c/zig--locate-root)))
+;;     (let ((step (completing-read "Select build step:" (c/zig--steps))))
+;;       (zig--run-cmd (format "build %s" step)))))
 
 (defun c/zig-clean ()
   (interactive)
@@ -53,10 +53,9 @@
   ;; :after (lsp-mode)
   :bind (:map zig-mode-map
          ("C-c C-r" . c/zig-compile-run)
-         ("C-c C-b" . c/zig-build)
+         ("C-c C-c" . c/zig-compile)
          ("C-c C-k" . kill-compilation)
-         ("C-c C-t" . c/zig-test)
-         ("C-c C-d" . c/zig-test-this))
+         ("C-c C-t" . c/zig-test))
   ;; :hook ((zig-mode . electric-pair-local-mode))
   :config
   ;; formatting on save breaks lsp-mode
@@ -73,30 +72,25 @@
 (defun c/zig--locate-root ()
   (locate-dominating-file default-directory "build.zig"))
 
-(defun c/zig-compile ()
-  "Compile using `zig build`."
-  (interactive)
+(defun c/zig--run-cmd (cmd &rest args)
   (let ((default-directory (c/zig--locate-root)))
-    (zig--run-cmd c/zig-build-cmd)))
+    (save-buffer)
+    (apply 'zig--run-cmd cmd nil args)))
+
+(defun c/zig-compile ()
+  "Compile and run using `zig build`."
+  (interactive)
+  (c/zig--run-cmd "build"))
 
 (defun c/zig-compile-run ()
   "Compile and run using `zig build run`."
   (interactive)
-  (let ((default-directory (c/zig--locate-root)))
-    (zig--run-cmd "build" nil "run")))
+  (c/zig--run-cmd "build" "run"))
 
 (defun c/zig-test ()
   "Test using `zig build test`."
   (interactive)
-  (let ((default-directory (c/zig--locate-root)))
-    (zig--run-cmd "build" nil "test")))
-
-(defun c/zig-test-this ()
-  "Test current file using `zig test`."
-  (interactive)
-  (let ((default-directory (c/zig--locate-root))
-        (path (buffer-file-name)))
-    (zig--run-cmd "test -lc" path)))
+  (c/zig--run-cmd "build" "test"))
 
 (defun c/zig-debug ()
   (interactive)
