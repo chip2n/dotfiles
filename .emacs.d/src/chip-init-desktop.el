@@ -171,6 +171,14 @@
 
 (use-package undo-tree)
 
+;;; direnv
+
+(use-package direnv
+  :config
+  ;; It's always OK to run `direnv-update-environment' automatically - the tool
+  ;; itself handles the security aspect.
+  (add-to-list 'safe-local-variable-values '(eval direnv-update-environment)))
+
 ;;; Help
 
 (use-package helpful
