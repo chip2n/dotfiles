@@ -1195,14 +1195,42 @@ all elements."
    ((bound-and-true-p eat--semi-char-mode) (hl-line-mode -1))
    (t (hl-line-mode 1))))
 
+;; TODO support prefix args
+(defun c/eat ()
+  (interactive)
+  (let ((win (get-buffer-window "*eat*")))
+    (if win
+        (select-window win)
+      (eat))))
+
+(defun c/eat-cd (path)
+  (interactive "D")
+  "Switch to eat buffer and send cd command."
+  (c/eat)
+  (switch-to-buffer "*eat*")
+  (eat-term-send-string eat-terminal (format "cd %s" path))
+  (eat-self-input 1 'return))
+
 (use-package eat
+  :straight (:host codeberg
+             :repo "akib/emacs-eat"
+             :files ("*.el" ("term" "term/*.el") "*.texi"
+                     "*.ti" ("terminfo/e" "terminfo/e/*")
+                     ("terminfo/65" "terminfo/65/*")
+                     ("integration" "integration/*")
+                     (:exclude ".dir-locals.el" "*-tests.el")))
+  :custom
+  (eat-shell-prompt-annotation-failure-margin-indicator ">")
+  (eat-shell-prompt-annotation-success-margin-indicator "⚬")
+  :bind (("C-c t" . c/eat)
+         ("C-c T" . c/eat-cd))
   :hook ((eat--semi-char-mode . c/eat--update-hl-line)
          (eat--char-mode . c/eat--update-hl-line)))
 
 (use-package vterm
   :defer t
-  :bind (("C-c t" . vterm)
-         ("C-c T" . c/vterm-toggle-cd))
+  ;; :bind (("C-c t" . vterm)
+  ;;        ("C-c T" . c/vterm-toggle-cd))
   :config
   (unless c/mac?
     (setq vterm-shell "fish"))

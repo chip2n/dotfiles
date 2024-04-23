@@ -42,7 +42,9 @@
 (setq inhibit-startup-screen t)
 
 ;; Highlight the current line
-(global-hl-line-mode +1)
+;; (global-hl-line-mode +1)
+(add-hook 'prog-mode-hook #'hl-line-mode)
+(add-hook 'text-mode-hook #'hl-line-mode)
 
 ;; Use 4 spaces for tabs
 (setq-default tab-width 4)

@@ -140,4 +140,8 @@ Lisp function does not specify a special indentation."
 (use-package swift-mode
   :mode "\\.swift\\'")
 
+;;; Lua
+
+(use-package lua-mode)
+
 (provide 'chip-lang)

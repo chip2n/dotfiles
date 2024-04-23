@@ -258,7 +258,9 @@ This checks in turn:
   (setq inferior-lisp-program "sbcl")
   (after-load (sly-mrepl)
     (add-to-list 'sly-mrepl-shortcut-alist '("quickload" . c/sly-mrepl-quickload))
-    (add-to-list 'sly-mrepl-shortcut-alist '("quickload & switch" . c/sly-mrepl-quickload-and-switch))))
+    (add-to-list 'sly-mrepl-shortcut-alist '("quickload & switch" . c/sly-mrepl-quickload-and-switch)))
+  (after-load (meow)
+    (add-to-list 'meow-mode-state-list '(sly-mrepl-mode . normal))))
 
 (defvar *c/sly-mrepl-prev-window* nil)
 ;; (defun c/sly-mrepl-toggle ()
@@ -352,10 +354,19 @@ This checks in turn:
       (sly-start :program inferior-lisp-program :init-function #'init))))
 
 (defvar c/sly-init-current--history nil)
+
 (defun c/sly-init-current ()
   (interactive)
-  (let* ((system (completing-read "System: " c/sly-init-current--history nil nil (car c/sly-init-current--history) 'c/sly-init-current--history))
-         (pkg (format "#:%s" system)))
+  (let* ((system-dir
+          (locate-dominating-file
+           (buffer-file-name)
+           (lambda (dir)
+             (or
+              (s-ends-with-p ".asd" dir)
+              (and (not (f-file-p dir))
+                   (seq-find (lambda (f) (s-ends-with-p ".asd" f)) (directory-files dir)))))))
+         (system (f-base (seq-find (lambda (f) (s-ends-with-p ".asd" f)) (directory-files system-dir))))
+         (pkg (sly-current-package)))
     (sly-start :program inferior-lisp-program
                :init-function (lambda ()
                                 (sly-eval `(quicklisp:quickload ,system))
