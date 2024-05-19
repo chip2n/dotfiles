@@ -60,6 +60,7 @@
 (require 'chip-code-c)
 ;; (require 'chip-code-elixir)
 (require 'chip-code-elixir2)
+(require 'chip-code-flutter)
 (require 'chip-code-zig)
 (require 'chip-code-nim)
 (require 'chip-code-sql)
