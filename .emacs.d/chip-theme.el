@@ -190,6 +190,13 @@
 
   ;; EAT colors
   (eat-term-color-0 (:foreground grey-3))
+  (eat-term-color-1 (:foreground red-2))
+  (eat-term-color-2 (:foreground green-2))
+  (eat-term-color-3 (:foreground yellow-2))
+  (eat-term-color-4 (:foreground blue-2))
+  (eat-shell-prompt-annotation-success (:foreground color-background))
+  (eat-shell-prompt-annotation-running (:foreground color-background))
+  (eat-shell-prompt-annotation-failure (:foreground red-2))
 
   ;; ANSI colors
   (ansi-color-red (:foreground red-1))
