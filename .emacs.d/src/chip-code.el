@@ -124,7 +124,7 @@ Interactively also sends a terminating newline."
           (select-window win))
         (next-error))))
    ((bound-and-true-p flymake-mode)
-    (flymake-goto-next-error))))
+    (flymake-goto-next-error nil nil t))))
 
 (defun c/prev-error ()
   (interactive)
@@ -134,7 +134,7 @@ Interactively also sends a terminating newline."
         (flycheck-previous-error)
       (previous-error)))
    ((bound-and-true-p flymake-mode)
-    (flymake-goto-prev-error))))
+    (flymake-goto-prev-error nil nil t))))
 
 ;;; Outshine
 
