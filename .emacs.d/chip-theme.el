@@ -258,9 +258,14 @@
   (lsp-lens-mouse-face (:foreground color-link :underline t :slant italic))
 
   ;; Flycheck
-  (flycheck-info (:underline (:color green-1 :style wave)))
-  (flycheck-warning (:underline (:color yellow-1 :style wave)))
-  (flycheck-error (:underline (:color red-1 :style wave)))
+  (flycheck-info (:underline (:color green-1)))
+  (flycheck-warning (:underline (:color yellow-1)))
+  (flycheck-error (:underline (:color red-1)))
+
+  ;; Flymake
+  (flymake-note (:underline (:color green-1)))
+  (flymake-warning (:underline (:color yellow-1)))
+  (flymake-error (:underline (:color red-1)))
 
   ;; Avy
   (avy-lead-face (:background red-1 :foreground grey-2 :weight bold))

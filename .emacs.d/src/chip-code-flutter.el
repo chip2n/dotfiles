@@ -33,26 +33,17 @@
   (setq lsp-dart-flutter-widget-guides nil))
 
 (use-package dart-mode
-  :after (projectile)
   :defer t
+  ;; :hook ((dart-mode . eglot-ensure))
   :config
   (add-to-list 'auto-mode-alist (cons (rx ".dart" eos) 'dart-mode))
   ;; (add-hook 'dart-mode-hook 'flycheck-mode)
+  ;; (add-hook 'dart-mode-hook 'eglot-ensure)
   (after-load (outshine-mode)
     (add-hook 'dart-mode-hook 'outshine-mode))
-  (add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml")
-  (add-to-list 'projectile-project-root-files-bottom-up "BUILD")
 
-  (general-define-key
-   :states 'normal
-   :keymaps 'dart-mode-map
-   "gd" 'dart-server-goto)
-
-  (general-define-key
-   :prefix "C-c"
-   :states 'normal
-   :keymaps 'dart-mode-map
-   "f" 'dart-server-format))
+  ;; NOTE: This probably screws up other projects
+  (setq project-vc-ignores '("android/" "build/" "ios/" "linux/" "macos/" "web/" "windows/")))
 
 (defun flutter--find-project-root ()
   (locate-dominating-file (buffer-file-name) "pubspec.yaml"))
@@ -66,21 +57,22 @@
 
 (defun c/flutter-build-runner ()
   (interactive)
-  (let* ((program "dart")
-         (buffer (get-buffer-create "*build-runner*"))
-         (proc-alive (comint-check-proc buffer))
-         (process (get-buffer-process buffer)))
-    ;; if the process is dead then re-create the process and reset the
-    ;; mode.
-    (unless proc-alive
-      (with-current-buffer buffer
-        (apply 'make-comint-in-buffer "Build runner" buffer
-               program nil '("run" "build_runner" "watch"))
-        ;; (cassandra-mode)
-        ))
-    ;; Regardless, provided we have a valid buffer, we pop to it.
-    (when buffer
-      (pop-to-buffer buffer))))
+  (with-dominating-file-dir "pubspec.yaml"
+    (let* ((program "dart")
+           (buffer (get-buffer-create "*build-runner*"))
+           (proc-alive (comint-check-proc buffer))
+           (process (get-buffer-process buffer)))
+      ;; if the process is dead then re-create the process and reset the
+      ;; mode.
+      (unless proc-alive
+        (with-current-buffer buffer
+          (apply 'make-comint-in-buffer "Build runner" buffer
+                 program nil '("run" "build_runner" "watch"))
+          ;; (cassandra-mode)
+          ))
+      ;; Regardless, provided we have a valid buffer, we pop to it.
+      (when buffer
+        (pop-to-buffer buffer)))))
 
 (provide 'chip-code-flutter)
 

@@ -37,17 +37,8 @@ org task quickly.")
   (unless c/project-org-id (error "Set c/project-org-id variable to the ID of the org header for this project."))
   (org-id-goto c/project-org-id))
 
-(defmacro with-project-root (&rest body)
-  "Run `body' in the root of the project as located by projectile."
-  (let ((project-root-buffer (gensym)))
-    `(save-excursion
-       (let ((,project-root-buffer (find-file-noselect (projectile-project-root))))
-         (set-buffer ,project-root-buffer)
-         ,@body
-         (kill-buffer ,project-root-buffer)))))
-
 (defmacro with-dominating-file-dir (filename &rest body)
-  "Run `body' in the root of the project as located by projectile."
+  "Run `body' in the directory of the file of a given `filename'."
   (declare (indent defun))
   (let ((project-root-buffer (gensym)))
     `(save-excursion

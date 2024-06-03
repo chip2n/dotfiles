@@ -170,6 +170,16 @@
 ;; remove keybinding for suspend-frame, I keep hitting it accidentally because I'm a troglodyte
 (global-unset-key (kbd "C-z"))
 
+;; skip duplicated marks
+(defun c/multi-pop-to-mark (orig-fun &rest args)
+  "Call ORIG-FUN until the cursor moves.
+Try the repeated popping up to 10 times."
+  (let ((p (point)))
+    (dotimes (i 10)
+      (when (= p (point))
+        (apply orig-fun args)))))
+(advice-add 'pop-to-mark-command :around #'c/multi-pop-to-mark)
+
 (use-package undo-tree)
 
 ;;; direnv
@@ -650,7 +660,10 @@ The default is to leave the cursor where it is, which is not as useful when sear
 
   (setq lsp-ui-imenu-window-fix-width t)
   (setq lsp-ui-imenu-window-width 35)
-  (add-to-list 'window-selection-change-functions #'c/lsp--refresh-imenu))
+  (add-to-list 'window-selection-change-functions #'c/lsp--refresh-imenu)
+
+  ;; fix to make language server not mess up my imports
+  (setq lsp-apply-edits-after-file-operations nil))
 
 (use-package lsp-ui)
 
@@ -659,7 +672,8 @@ The default is to leave the cursor where it is, which is not as useful when sear
 (use-package eglot
   :ensure nil
   :bind (:map eglot-mode-map
-         ("C-c <TAB>" . eglot-format))
+         ("C-c <TAB>" . eglot-format)
+         ("C-c C-a" . eglot-code-actions))
   :config
   (add-hook 'eglot-managed-mode-hook
             (lambda () (eglot-inlay-hints-mode -1))))
@@ -950,48 +964,6 @@ all elements."
   (c/diminish anaconda-mode))
 
 (use-package pyvenv)
-
-(use-package lsp-dart
-  :defer t
-  :config
-  (setq lsp-dart-line-length 120)
-  (setq lsp-dart-sdk-dir "~/flutter/bin/cache/dart-sdk")
-  (setq lsp-dart-flutter-sdk-dir "~/flutter")
-  (add-hook 'dart-mode-hook 'lsp)
-  (setq lsp-dart-dap-flutter-hot-reload-on-save t)
-  (setq lsp-dart-flutter-widget-guides nil))
-
-(use-package dart-mode
-  :after (projectile)
-  :defer t
-  :config
-  (add-to-list 'auto-mode-alist (cons (rx ".dart" eos) 'dart-mode))
-  ;; (add-hook 'dart-mode-hook 'flycheck-mode)
-  (after-load (outshine-mode)
-    (add-hook 'dart-mode-hook 'outshine-mode))
-  (add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml")
-  (add-to-list 'projectile-project-root-files-bottom-up "BUILD")
-
-  (general-define-key
-   :states 'normal
-   :keymaps 'dart-mode-map
-   "gd" 'dart-server-goto)
-
-  (general-define-key
-   :prefix "C-c"
-   :states 'normal
-   :keymaps 'dart-mode-map
-   "f" 'dart-server-format))
-
-(defun flutter--find-project-root ()
-  (locate-dominating-file (buffer-file-name) "pubspec.yaml"))
-
-(use-package flutter
-  ;; :hook (dart-mode . (lambda () (add-hook 'after-save-hook #'flutter-run-or-hot-reload nil t)))
-  :bind (:map dart-mode-map
-         ("C-c c" . flutter-run-or-hot-reload))
-  :config
-  (setq flutter-sdk-path "~/flutter"))
 
 ;; csv
 
