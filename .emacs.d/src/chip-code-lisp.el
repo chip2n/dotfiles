@@ -162,6 +162,47 @@ This checks in turn:
           ;; surrounding sexp for a function call.
           ((setq sym (function-at-point)) (describe-function sym)))))
 
+;; Toggle evil emacs state when entering edebug mode
+(after-load (evil-mode)
+ (add-hook 'edebug-mode-hook
+           (lambda ()
+             (if (bound-and-true-p edebug-mode)
+                 (evil-emacs-state)
+               (evil-normal-state)))))
+
+;;; Clojure
+
+(use-package clojure-mode
+  :after (lsp-mode)
+  :defer t
+  :hook ((clojure-mode . lsp)
+         (clojurec-mode . lsp)
+         (clojurescript-mode . lsp))
+  :config
+  (after-load (outshine-mode)
+    (add-hook 'clojure-mode 'outshine-mode)
+    (add-hook 'clojurescript-mode 'outshine-mode)))
+
+(use-package cider
+  :defer t
+  :config
+  (setq cider-test-show-report-on-success nil)
+  (setq cider-auto-select-test-report-buffer nil)
+  (setq cider-offer-to-open-cljs-app-in-browser nil)
+  (setq cider-test-fail-fast nil)
+  (eldoc-mode t)
+  (after-load (evil)
+    (add-to-list 'evil-motion-state-modes 'cider-test-report-mode)))
+
+;; Always consider dir-locals setting the "dev" alias as safe
+(add-to-list 'safe-local-variable-values '(cider-clojure-cli-aliases . "dev"))
+
+(use-package inf-clojure
+  :defer t)
+
+(use-package clj-refactor
+  :defer t)
+
 ;;; Codegen
 
 (defun c/lisp-wrap-let ()
@@ -409,62 +450,6 @@ display-buffer (through display-buffer-alist)."
       (select-window window-to-use)
       (switch-to-buffer buffer)
       window-to-use)))
-
-;; Old config - experimenting with a minimal one to fix some bugs
-(use-package sly
-  :disabled t
-  :config
-  (require 'sly-autoloads)
-
-  (setq inferior-lisp-program "sbcl")
-
-  ;; Aim to reuse current SLY buffers when opening the inspector and debugger
-  ;; (add-to-list 'display-buffer-alist '("\\*sly-inspector.*\\*" c/sly-display-buffer))
-  ;; (add-to-list 'display-buffer-alist '("\\*sly-db.*\\*" c/sly-display-buffer))
-  ;; (add-to-list 'display-buffer-alist '("\\*sly-mrepl.*\\*" c/sly-display-buffer))
-
-  (after-load (evil)
-    (add-to-list 'evil-emacs-state-modes 'sly-db-mode)
-    (add-to-list 'evil-emacs-state-modes 'sly-inspector-mode)
-    ;; (add-to-list 'evil-emacs-state-modes 'sly-xref-mode)
-    (add-to-list 'evil-emacs-state-modes 'sly-stickers--replay-mode)
-    (add-to-list 'evil-emacs-state-modes 'sly-trace-dialog-mode)
-    (add-hook 'sly-xref-mode-hook 'evil-emacs-state)
-    (add-hook 'sly-macroexpansion-minor-mode-hook 'evil-emacs-state)
-    (add-hook 'sly-inspector-mode-hook 'evil-emacs-state)
-
-    (evil-add-command-properties #'sly-edit-definition :jump t))
-
-  (after-load (company)
-    (add-hook 'sly-mrepl-mode-hook 'company-mode))
-
-  (after-load (symex)
-    (add-hook 'sly-mrepl-mode-hook 'symex-mode))
-
-  (add-hook 'sly-mrepl-mode-hook
-            (lambda () (add-to-list 'sly-mrepl-shortcut-alist '("quickload" . c/sly-mrepl-quickload))))
-
-  (after-load (lispy)
-    (setq lispy-use-sly t))
-  (setq org-babel-lisp-eval-fn #'sly-eval)
-
-  ;; Push mark before jumping to definitions so that we can quickly get back with pop-global-mark
-  (advice-add 'sly-edit-definition :before (lambda (&rest rest) (push-mark)))
-
-  (general-define-key
-   :keymaps 'sly-mode-map
-   [remap sly-mrepl] 'c/sly-mrepl-toggle
-   "C-x i" 'sly-import-symbol-at-point)
-
-  (general-define-key
-   :states '(normal)
-   :keymaps 'sly-mode-map
-   "gd" 'sly-edit-definition)
-
-  (general-define-key
-   :states '(normal)
-   :keymaps 'sly-popup-buffer-mode-map
-   "q" 'quit-window))
 
 ;;; Slime
 

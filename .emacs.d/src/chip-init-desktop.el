@@ -919,45 +919,6 @@ all elements."
 
 ;;; Languages
 
-;; Toggle evil emacs state when entering edebug mode
-(after-load (evil-mode)
- (add-hook 'edebug-mode-hook
-           (lambda ()
-             (if (bound-and-true-p edebug-mode)
-                 (evil-emacs-state)
-               (evil-normal-state)))))
-
-(use-package clojure-mode
-  :after (lsp-mode)
-  :defer t
-  :hook ((clojure-mode . lsp)
-         (clojurec-mode . lsp)
-         (clojurescript-mode . lsp))
-  :config
-  (after-load (outshine-mode)
-    (add-hook 'clojure-mode 'outshine-mode)
-    (add-hook 'clojurescript-mode 'outshine-mode)))
-
-(use-package cider
-  :defer t
-  :config
-  (setq cider-test-show-report-on-success nil)
-  (setq cider-auto-select-test-report-buffer nil)
-  (setq cider-offer-to-open-cljs-app-in-browser nil)
-  (setq cider-test-fail-fast nil)
-  (eldoc-mode t)
-  (after-load (evil)
-    (add-to-list 'evil-motion-state-modes 'cider-test-report-mode)))
-
-;; Always consider dir-locals setting the "dev" alias as safe
-(add-to-list 'safe-local-variable-values '(cider-clojure-cli-aliases . "dev"))
-
-(use-package inf-clojure
-  :defer t)
-
-(use-package clj-refactor
-  :defer t)
-
 (use-package anaconda-mode
   :config
   (add-hook 'python-mode-hook 'anaconda-mode)
