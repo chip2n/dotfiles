@@ -462,36 +462,40 @@ display-buffer (through display-buffer-alist)."
   ;; (setq inferior-lisp-program "/usr/bin/ecl")
   (setq slime-description-autofocus t)
   ;; (add-hook 'slime-repl-mode-hook 'header-mode)
-  (add-hook 'slime-macroexpansion-minor-mode-hook (lambda () (interactive) (evil-motion-state)))
+  ;; (add-hook 'slime-macroexpansion-minor-mode-hook (lambda () (interactive) (evil-motion-state)))
 
-  (after-load (slime-company)
-    (slime-setup '(slime-fancy slime-asdf slime-cl-indent slime-company slime-fuzzy)))
+  ;; (after-load (slime-company)
+  ;;   (slime-setup '(slime-fancy slime-asdf slime-cl-indent slime-company slime-fuzzy)))
 
-  (add-hook 'slime-xref-mode-hook (lambda () (interactive) (evil-emacs-state)))
+  ;; (add-hook 'slime-xref-mode-hook (lambda () (interactive) (evil-emacs-state)))
 
-  (general-define-key
-   :states 'normal
-   :keymaps 'slime-mode-map
-   "gd" 'slime-edit-definition
-   "M-." 'slime-edit-definition ;; overridden by evil?
-   )
-  (general-define-key
-   :states 'normal
-   :keymaps 'slime-popup-buffer-mode-map
-   "q" 'slime-inspector-quit)
+  (after-load (meow)
+    (add-to-list 'meow-mode-state-list '(slime-repl-mode . normal)))
 
-  (general-define-key
-   :states 'normal
-   :keymaps 'slime-repl-mode-map
-   "gd" 'slime-edit-definition
-   "C-c i" 'slime-inspect-presentation-at-point)
+  ;; (general-define-key
+  ;;  :states 'normal
+  ;;  :keymaps 'slime-mode-map
+  ;;  "gd" 'slime-edit-definition
+  ;;  "M-." 'slime-edit-definition ;; overridden by evil?
+  ;;  )
+  ;; (general-define-key
+  ;;  :states 'normal
+  ;;  :keymaps 'slime-popup-buffer-mode-map
+  ;;  "q" 'slime-inspector-quit)
 
-  (general-define-key
-   :keymaps 'slime-macroexpansion-minor-mode-map
-   "m" 'slime-macroexpand-1-inplace
-   "u" 'slime-macroexpand-undo
-   "g" 'slime-macroexpand-again
-   "q" 'slime-inspector-quit))
+  ;; (general-define-key
+  ;;  :states 'normal
+  ;;  :keymaps 'slime-repl-mode-map
+  ;;  "gd" 'slime-edit-definition
+  ;;  "C-c i" 'slime-inspect-presentation-at-point)
+
+  ;; (general-define-key
+  ;;  :keymaps 'slime-macroexpansion-minor-mode-map
+  ;;  "m" 'slime-macroexpand-1-inplace
+  ;;  "u" 'slime-macroexpand-undo
+  ;;  "g" 'slime-macroexpand-again
+  ;;  "q" 'slime-inspector-quit)
+  )
 
 (use-package slime-company
   :disabled t
