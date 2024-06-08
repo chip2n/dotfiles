@@ -13,10 +13,13 @@ alias vim='nvim'
 alias web='qutebrowser --backend webengine'
 alias wifi='sudo wifi-menu'
 alias weather='curl wttr.in/Gothenburg'
-PS1='\[\e[1;30m\]>>  \[\e[m\]'
 
 export LS_COLORS="di=1;34:"
 export _JAVA_AWT_WM_NONREPARENTING=1
+
+export HISTCONTROL=ignoreboth:erasedups
+export HISTSIZE=100000
+export HISTFILESIZE=100000
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
@@ -41,10 +44,14 @@ vterm_printf() {
     fi
 }
 
-vterm_prompt_end(){
-    vterm_printf "51;A$(whoami)@$(hostname):$(pwd)"
-}
-PS1=$PS1'\[$(vterm_prompt_end)\]'
+# Prompt
+PS1="\[\e[00;34m\]\[\e[0m\]\W\[\e[00;34m\]> \[\e[0m\]"
+# vterm_prompt_end(){
+#     vterm_printf "51;A$(whoami)@$(hostname):$(pwd)"
+# }
+# PS1=$PS1'\[$(vterm_prompt_end)\]'
+[ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
+  source "$EAT_SHELL_INTEGRATION_DIR/bash"
 
 # Automatically added by the Guix install script.
 if [ -n "$GUIX_ENVIRONMENT" ]; then

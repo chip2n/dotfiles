@@ -9,6 +9,7 @@ export PATH=$HOME/Android/Sdk/platform-tools:$PATH
 export PATH=$HOME/Android/Sdk/tools/bin:$PATH
 export PATH=$HOME/Android/Sdk/emulator:$PATH
 export PATH=$HOME/scripts:$PATH
+export PATH=$HOME/flutter/bin:$PATH
 
 GUIX_PROFILE="/home/chip/.guix-profile"
 . "$GUIX_PROFILE/etc/profile"
