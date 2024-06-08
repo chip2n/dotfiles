@@ -303,6 +303,35 @@ This checks in turn:
   (after-load (meow)
     (add-to-list 'meow-mode-state-list '(sly-mrepl-mode . normal))))
 
+;; Indent certain HTML symbol trees differently (for cl-who and spinneret)
+(progn
+  (defun c/cl-indent (symbol indent)
+    "Set the indentation of SYMBOL to INDENT."
+    (put symbol 'common-lisp-indent-function
+         (if (symbolp indent)
+             (get indent 'common-lisp-indent-function)
+           indent)))
+
+  (defvar *c/cl-html-symbols*
+    (list :a :abbr :acronym :address :applet :area :article :aside :audio :b
+          :base :basefont :bdi :bdo :big :blockquote :body :br :button :canvas
+          :caption :center :cite :code :col :colgroup :command :datalist :dd
+          :del :details :dfn :dir :div :dl :dt :em :embed :fieldset :figcaption
+          :figure :font :footer :form :frame :frameset :h1 :h2 :h3 :h4 :h5 :h6
+          :head :header :hgroup :hr :html :i :iframe :img :input :ins :keygen
+          :kbd :label :legend :li :link :main :map :mark :menu :meta :meter :nav
+          :noframes :noscript :object :ol :optgroup :option :output :p :param
+          :pre :progress :q :rp :rt :ruby :s :samp :script :section :select
+          :small :source :span :strike :strong :style :sub :summary :sup :table
+          :tbody :td :textarea :tfoot :th :thead :time :title :tr :track :tt :u
+          :ul :var :video :wbr))
+
+  (dolist (symbol *c/cl-html-symbols*)
+    (c/cl-indent symbol '(&body))))
+
+;; Indent make-instance calls a bit nicer
+(c/cl-indent 'make-instance '(&body))
+
 (defvar *c/sly-mrepl-prev-window* nil)
 ;; (defun c/sly-mrepl-toggle ()
 ;;   (interactive)
