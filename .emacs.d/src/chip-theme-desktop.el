@@ -61,7 +61,10 @@
 
 (defface c/dimmed-face-header-line
   '((t (:background "#21242b"
-        :foreground "#6b7385")))
+        :foreground "#6b7385"
+        :underline nil
+        :overline "#21242b"
+        :box (:line-width 4 :color "#21242b"))))
   "")
 ;; (defface c/dimmed-face-header-line
 ;;   '((t (:box (:line-width 4 :color "#21242b" :style nil)

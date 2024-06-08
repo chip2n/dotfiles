@@ -107,7 +107,7 @@
             :height 100))
   (fixed-pitch (:family "Iosevka" :height 100))
   (variable-pitch (:family "Iosevka" :height 100))
-  (cursor (:background color-cursor))
+  (cursor (:background blue-2))
   (parenthesis (:foreground color-comment))
 
   ;; Highlighting faces
@@ -136,17 +136,22 @@
   (show-paren-match (:background red-2 :foreground color-background))
 
   ;; Header faces
-  (header-line (:box (:line-width 4 :color color-background)
-                :background color-background
+  (header-line (:box (:line-width 4 :color grey-1)
+                :underline nil
+                :overline blue-2
+                :bold nil
+                :background grey-1
                 :foreground color-foreground))
 
   ;; Mode line faces
   (mode-line (:background color-modeline-active :foreground color-foreground))
-  (mode-line-inactive (:background color-modeline-inactive :foreground color-comment))
+  ;; (mode-line (:foreground color-foreground))
+  (mode-line-active (:background grey-2 :foreground color-foreground :overline blue-2))
+  (mode-line-inactive (:background grey-2 :foreground color-comment :overline grey-2))
+  ;; (mode-line-inactive (:foreground color-comment))
   (mode-line-highlight (:background nil :foreground color-foreground))
   (mode-line-evil-state-normal (:foreground color-evil-normal))
-  (mode-line-evil-state-insert (:foreground color-evil-insert))
-  (mode-line-evil-state-visual (:foreground color-evil-visual))
+  (mode-line-evil-state-insert (:foreground color-evil-insert))(mode-line-evil-state-visual (:foreground color-evil-visual))
   (mode-line-evil-state-motion (:foreground color-evil-motion))
   (mode-line-evil-state-emacs (:foreground color-evil-emacs))
 
@@ -543,7 +548,11 @@
   (message-separator (:weight bold :foreground green-2))
 
   ;; Tabbar faces
-  (tabbar-default
-   (:background red-1 :foreground blue-1)))
+  (tab-bar (:background grey-2
+            :foreground color-foreground
+            :bold nil))
+
+  (tab-bar-tab (:background grey-2))
+  (tab-bar-tab-inactive (:background grey-2)))
 
 (provide-theme 'chip)
