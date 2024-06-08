@@ -30,6 +30,28 @@
 ;; Use minimum of 3 characters to avoid frequent resizing during window height change (e.g. during M-x)
 (setq-default display-line-numbers-width 3)
 
+;;; Tab bar
+
+(tab-bar-mode +1)
+(setq tab-bar-close-button-show nil)
+(setq tab-bar-format '(c/tab-bar
+                       ;; tab-bar-format-tabs tab-bar-separator
+                       tab-bar-format-align-right
+                       ;; tab-bar-format-global
+                       ))
+(setq tab-bar-auto-width-max '(500 50))
+
+(defun c/tab-bar ()
+  (concat
+   " "
+   (propertize (all-the-icons-fileicon "emacs")
+               'face `(:family ,(all-the-icons-fileicon-family) :height 0.8)
+               'display '(raise -0.0))
+   " "
+   (system-name)
+   " | "
+   (buffer-name)))
+
 ;;; Dim unselected windows
 
 (defface c/dimmed-face
