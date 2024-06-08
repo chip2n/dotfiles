@@ -30,7 +30,9 @@
   (setq lsp-dart-flutter-sdk-dir "~/flutter")
   (add-hook 'dart-mode-hook 'lsp)
   (setq lsp-dart-dap-flutter-hot-reload-on-save t)
-  (setq lsp-dart-flutter-widget-guides nil))
+  (setq lsp-dart-flutter-widget-guides nil)
+  (setq lsp-dart-closing-labels nil)
+  (setq lsp-dart-closing-labels-size 1.0))
 
 (use-package dart-mode
   :defer t
@@ -62,14 +64,11 @@
            (buffer (get-buffer-create "*build-runner*"))
            (proc-alive (comint-check-proc buffer))
            (process (get-buffer-process buffer)))
-      ;; if the process is dead then re-create the process and reset the
-      ;; mode.
+      ;; If the process is dead then re-create the process and reset the mode.
       (unless proc-alive
         (with-current-buffer buffer
           (apply 'make-comint-in-buffer "Build runner" buffer
-                 program nil '("run" "build_runner" "watch"))
-          ;; (cassandra-mode)
-          ))
+                 program nil '("run" "build_runner" "watch"))))
       ;; Regardless, provided we have a valid buffer, we pop to it.
       (when buffer
         (pop-to-buffer buffer)))))
