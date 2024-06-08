@@ -16,11 +16,11 @@
   (cl-case major-mode
     ('treemacs-mode " λ projects")
     ('org-agenda-mode " λ agenda")
+    ('eat-mode " λ term")
+    ('flutter-mode " λ flutter")
     (t
      (if (bound-and-true-p prose-mode)
-                   `(:propertize " "
-                                 face
-                                 chip-face-prose)
+         `(:propertize " " face chip-face-prose)
        (if (buffer-file-name)
            (chip-headerline--format-filepath)
          (chip-headerline--format-buffer))))))
