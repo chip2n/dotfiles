@@ -22,6 +22,27 @@
 
 ;;; Code:
 
+(require 'f)
+(require 's)
+
+(defun c/clone-sexp ()
+  (interactive)
+  (mark-sexp)
+  (kill-ring-save (region-beginning) (region-end))
+  (yank)
+  (newline)
+  (deactivate-mark)
+  (indent-for-tab-command))
+
+(defun c/transpose-sexps-reverse (arg)
+  (interactive "*p")
+  (transpose-sexps (- arg)))
+
+(defun c/comment-sexp ()
+  (interactive)
+  (mark-sexp)
+  (paredit-comment-dwim))
+
 ;;; Paredit
 
 (defun c/paredit-RET-repl-advice (original-function &rest args)
@@ -36,6 +57,54 @@
   :config
   (c/diminish paredit-mode)
   (advice-add 'paredit-RET :around 'c/paredit-RET-repl-advice))
+
+(defhydra c/paredit-hydra (:color amaranth :hint nil)
+  "
+^Navigation^     ^Editing^             ^Wrapping^         ^Eval^                 ^Utils^
+^^———————  ^^—————————   ^^————————  ^^——————————  ^^—————————
+_f_: forward     _c_: clone            _(_: wrap-round    _e_: eval-last-sexp    _;_: comment
+_b_: backward    _k_: kill             _{_: wrap-curly    _E_: eval-defun
+_u_: up          _l_: forward-slurp    _[_: wrap-square
+_d_: down        _L_: backward-barf    _<_: wrap-angled
+^ ^              _j_: forward-barf
+^ ^              _J_: backward-slurp   _)_: close-round
+^ ^              _s_: splice           _}_: close-curly
+^ ^              _r_: raise            _]_: close-square
+^ ^              _t_: transpose-sexps  _>_: close-angled
+"
+  ("f" paredit-forward)
+  ("b" paredit-backward)
+  ("u" paredit-backward-up)
+  ("d" paredit-forward-down)
+
+  ("c" c/clone-sexp)
+  ("k" kill-sexp)
+  ("l" paredit-forward-slurp-sexp)
+  ("J" paredit-backward-slurp-sexp)
+  ("j" paredit-forward-barf-sexp)
+  ("L" paredit-backward-barf-sexp)
+  ("s" paredit-splice-sexp)
+  ("r" paredit-raise-sexp)
+  ("e" eval-last-sexp)
+  ("E" eval-defun)
+  ("t" transpose-sexps)
+  ("T" c/transpose-sexps-reverse)
+
+  ("(" paredit-wrap-round)
+  ("{" paredit-wrap-curly)
+  ("[" paredit-wrap-square)
+  ("<" paredit-wrap-angled)
+
+  (")" paredit-close-round)
+  ("}" paredit-close-curly)
+  ("]" paredit-close-square)
+  (">" paredit-close-angled)
+
+  (";" c/comment-sexp)
+  ("i" meow-insert :color blue)
+
+  ("C-/" undo)
+  ("q" nil))
 
 ;;; Lispy
 
