@@ -1156,6 +1156,7 @@ all elements."
   :custom
   (eat-shell-prompt-annotation-failure-margin-indicator ">")
   (eat-shell-prompt-annotation-success-margin-indicator "⚬")
+  (eat-enable-shell-prompt-annotation nil)
   :bind (("C-c t" . c/eat)
          ("C-c T" . c/eat-cd))
   :bind (:map eat-semi-char-mode-map
