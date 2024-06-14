@@ -207,14 +207,58 @@
 (setf (alist-get ?l avy-dispatch-alist) 'c/avy-action-kill-lines)
 
 (use-package ace-window
+  :after (posframe)
   :config
   (c/diminish ace-window-mode)
   (setq aw-dispatch-always t)
+  (ace-window-posframe-mode)
+  (setq aw-posframe-position-handler #'posframe-poshandler-window-bottom-left-corner)
 
   ;; M-o M-o switches to next window
   (add-to-list 'aw-dispatch-alist '(?\O c/next-window))
   (setq aw-translate-char-function
-        (lambda (c) (if (= c ?\M-o) ?O c))))
+        (lambda (c) (if (= c ?\M-o) ?O c)))
+
+  (defun aw-window< (wnd1 wnd2)
+    "Redefinind aw-window< to do row-major ordering."
+    (let* ((f1 (window-frame wnd1))
+           (f2 (window-frame wnd2))
+           (e1 (window-edges wnd1))
+           (e2 (window-edges wnd2))
+           (p1 (frame-position f1))
+           (p2 (frame-position f2))
+           (nl (or (null (car p1)) (null (car p2)))))
+      (cond ((and (not nl) (< (car p1) (car p2)))
+             (not aw-reverse-frame-list))
+            ((and (not nl) (> (car p1) (car p2)))
+             aw-reverse-frame-list)
+            ((< (cadr e1) (cadr e2))
+             t)
+            ((> (cadr e1) (cadr e2))
+             nil)
+            ((< (car e1) (car e2))
+             t))))
+
+  (defun aw--lead-overlay-posframe (path leaf)
+    "Redefining aw--lead-overlay-posframe to display the labels slightly differently."
+    (let* ((wnd (cdr leaf))
+           (str (format " %s " (apply #'string path)))
+           ;; It's important that buffer names are not unique across
+           ;; multiple invocations: posframe becomes very slow when
+           ;; creating new frames, and so being able to reuse old ones
+           ;; makes a huge difference. What defines "able to reuse" is
+           ;; something like: a frame exists which hasn't been deleted
+           ;; (with posframe-delete) and has the same configuration as
+           ;; the requested new frame.
+           (bufname (format " *aw-posframe-buffer-%s*" path)))
+      (with-selected-window wnd
+        (push bufname aw--posframe-frames)
+        (posframe-show bufname
+                       :string str
+                       :poshandler aw-posframe-position-handler
+                       :font (face-font 'aw-leading-char-face)
+                       :foreground-color (face-foreground 'aw-leading-char-face nil t)
+                       :background-color (face-background 'aw-leading-char-face nil t))))))
 
 (use-package popper
   :bind (("C-<return>" . popper-toggle-latest)

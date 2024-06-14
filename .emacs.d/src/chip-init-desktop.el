@@ -1158,6 +1158,8 @@ all elements."
   (eat-shell-prompt-annotation-success-margin-indicator "⚬")
   :bind (("C-c t" . c/eat)
          ("C-c T" . c/eat-cd))
+  :bind (:map eat-semi-char-mode-map
+         ("M-o" . ace-window))
   :hook ((eat--semi-char-mode . c/eat--update-hl-line)
          (eat--char-mode . c/eat--update-hl-line)))
 
