@@ -2,4 +2,4 @@
 # name: pads
 # key: pads
 # --
-EdgeInsets.symmetric($1),
+EdgeInsets.symmetric($0),

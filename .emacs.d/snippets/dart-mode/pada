@@ -2,4 +2,4 @@
 # name: pada
 # key: pada
 # --
-EdgeInsets.all($1),
+EdgeInsets.all($0),
