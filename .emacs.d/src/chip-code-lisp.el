@@ -641,6 +641,13 @@ display-buffer (through display-buffer-alist)."
   :config
   (add-to-list 'auto-mode-alist (cons (rx ".rkt" eos) 'racket-mode)))
 
+;;;  Janet
+
+(use-package janet-mode
+  :mode "\\.janet\\'"
+  :config
+  (add-hook 'janet-mode-hook #'c/code-lisp-mode))
+
 (provide 'chip-code-lisp)
 
 ;;; chip-code-lisp.el ends here
