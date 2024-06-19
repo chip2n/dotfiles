@@ -278,7 +278,7 @@
 
   ;; ace-window
   (aw-background-face (:foreground grey-3))
-  (aw-leading-char-face (:foreground color-foreground))
+  (aw-leading-char-face (:background blue-2 :foreground color-background))
 
   ;; Swiper
   (swiper-line-face (:background color-highlight-1 :extend t))
