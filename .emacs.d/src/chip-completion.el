@@ -47,7 +47,7 @@ targets."
        (interactive)
        (with-demoted-errors "%s"
          (require 'ace-window)
-         (if (= (length (window-list)) 1)
+         (if (= (length (cl-remove-if #'treemacs-is-treemacs-window? (window-list))) 1)
              (switch-to-buffer-other-window (current-buffer))
            (let ((aw-dispatch-always t))
              (aw-switch-to-window (aw-select nil))))
