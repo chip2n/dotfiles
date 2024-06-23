@@ -4,13 +4,13 @@
   (name 'chip)
   (url "https://github.com/chip2n/guix-channel.git")
   (branch "main")
-  (commit "b155d6308322e7155509a0f50a2eb81b5af8637f"))
+  (commit "851d24395445399e2b10c3bad94f141d20ce1c34"))
  ;; Guix channel
  (channel
   (name 'guix)
   (url "https://git.savannah.gnu.org/git/guix.git")
   (branch "master")
-  (commit "5a95cf76e1d0f9fdff5b232b42337c657b76d1d4")
+  (commit "d69270b696a9badd0ba91fd1ec94f6f292ac1a53")
   (introduction
    (make-channel-introduction
     "9edb3f66fd807b096b48283debdcddccfea34bad"
@@ -20,6 +20,8 @@
  (channel
   (name 'nonguix)
   (url "https://gitlab.com/nonguix/nonguix")
+  (branch "master")
+  (commit "877ed8cc4eee26ddde3d7d200c19c370c6bf7cb1")
   ;; Enable signature verification:
   (introduction
    (make-channel-introduction
