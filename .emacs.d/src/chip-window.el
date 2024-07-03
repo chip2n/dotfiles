@@ -216,6 +216,7 @@
 
   ;; M-o M-o switches to next window
   (add-to-list 'aw-dispatch-alist '(?\O c/next-window))
+  (add-to-list 'aw-dispatch-alist '(?\h aw-split-window-horz "Split Horz Window"))
   (setq aw-translate-char-function
         (lambda (c) (if (= c ?\M-o) ?O c)))
 
@@ -266,47 +267,47 @@
   :config
   (setf popper-mode-line nil))
 
-;; (defun c/split-window-sensibly (&optional window)
-;;   "Attempt to sensibly split the window.
-;; WINDOW defaults to current window. If two non-dedicated windows already exist,
-;; do not split. Otherwise, split along the longest edge."
-;;   (let ((windows (-filter (-compose 'not 'window-dedicated-p)
-;;                           (window-list)))
-;;         (window (or window (selected-window))))
-;;     (when (< (length windows) 2)
-;;       (with-selected-window window
-;;         (if (> (frame-inner-height) (frame-inner-width))
-;;             (split-window-below)
-;;           (split-window-right))))))
+(defun c/split-window-sensibly (&optional window)
+  "Attempt to sensibly split the window.
+WINDOW defaults to current window. If two non-dedicated windows already exist,
+do not split. Otherwise, split along the longest edge."
+  (let ((windows (-filter (-compose 'not 'window-dedicated-p)
+                          (window-list)))
+        (window (or window (selected-window))))
+    (when (< (length windows) 2)
+      (with-selected-window window
+        (if (> (frame-inner-height) (frame-inner-width))
+            (split-window-below)
+          (split-window-right))))))
 
-;; (setq split-window-preferred-function 'c/split-window-sensibly)
+(setq split-window-preferred-function 'c/split-window-sensibly)
 
-;; (defun count-visible-buffers (&optional frame)
-;;   "Count how many buffers are currently being shown. Defaults to selected frame."
-;;   (length (mapcar #'window-buffer (window-list frame))))
+(defun count-visible-buffers (&optional frame)
+  "Count how many buffers are currently being shown. Defaults to selected frame."
+  (length (mapcar #'window-buffer (window-list frame))))
 
-;; (defun do-not-split-more-than-two-windows (window &optional horizontal)
-;;   (if (and horizontal (> (count-visible-buffers) 1))
-;;       nil
-;;     t))
+(defun do-not-split-more-than-two-windows (window &optional horizontal)
+  (if (and horizontal (> (count-visible-buffers) 1))
+      nil
+    t))
 
-;; (advice-add 'window-splittable-p :before-while #'do-not-split-more-than-two-windows)
+(advice-add 'window-splittable-p :before-while #'do-not-split-more-than-two-windows)
 
-(setq split-height-threshold 120
-      split-width-threshold 160)
+;; (setq split-height-threshold 120
+;;       split-width-threshold 160)
 
-(defun my-split-window-sensibly (&optional window)
-    "replacement `split-window-sensibly' function which prefers vertical splits"
-    (interactive)
-    (let ((window (or window (selected-window))))
-        (or (and (window-splittable-p window t)
-                 (with-selected-window window
-                     (split-window-right)))
-            (and (window-splittable-p window)
-                 (with-selected-window window
-                     (split-window-below))))))
+;; (defun my-split-window-sensibly (&optional window)
+;;     "replacement `split-window-sensibly' function which prefers vertical splits"
+;;     (interactive)
+;;     (let ((window (or window (selected-window))))
+;;         (or (and (window-splittable-p window t)
+;;                  (with-selected-window window
+;;                      (split-window-right)))
+;;             (and (window-splittable-p window)
+;;                  (with-selected-window window
+;;                      (split-window-below))))))
 
-(setq split-window-preferred-function #'my-split-window-sensibly)
+;; (setq split-window-preferred-function #'my-split-window-sensibly)
 
 (provide 'chip-window)
 
