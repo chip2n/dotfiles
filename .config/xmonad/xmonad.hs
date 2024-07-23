@@ -5,17 +5,17 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Util.Run
 import Config.Theme
 import Config.Keys
-import Config.DBus
+--import Config.DBus
 import Config.LogHook    (myLogHook)
 import Config.ManageHook (myManageHook)
 import Config.Layout     (myLayout)
 
 main = do
-    dbus <- initDBus
+    --dbus <- initDBus
     spawnPipe "~/scripts/launch_polybar.sh"
-    xmonad $ myConfig dbus
+    xmonad myConfig
 
-myConfig dbus = ewmh . docks $ def
+myConfig = ewmh . docks $ def
     { terminal          = "st"
     , workspaces        = ["1", "2", "3", "4", "5"]
     , focusFollowsMouse = False
@@ -29,6 +29,5 @@ myConfig dbus = ewmh . docks $ def
 
     , layoutHook      = myLayout
     , manageHook      = myManageHook
-    , logHook         = myLogHook dbus
-    , handleEventHook = docksEventHook
+    , logHook         = myLogHook
     }
