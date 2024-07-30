@@ -1402,6 +1402,12 @@ buffer in current window."
 
 (use-package google-this)
 
+;;; verb
+
+(use-package verb
+  :after (org)
+  :config
+  (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
 
 (provide 'chip-init-desktop)
 
