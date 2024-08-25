@@ -21,12 +21,8 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
   time.timeZone = "Europe/Stockholm";
-
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "sv_SE.UTF-8";
     LC_IDENTIFICATION = "sv_SE.UTF-8";
@@ -43,7 +39,6 @@
     enable = true;
     desktopManager.plasma5.enable = true;
 
-    # Configure keymap in X11
     xkb = {
       layout = "us";
       variant = "colemak";
@@ -72,7 +67,6 @@
     };
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.chip = {
     isNormalUser = true;
     description = "Andreas Arvidsson";
@@ -84,37 +78,13 @@
     packages = with pkgs; [];
   };
 
-  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
     emacs
     vim
-    git
+    pass
   ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -124,16 +94,31 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
 
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry-gtk2;
+    enableSSHSupport = true;
+  };
+
+  programs.git.enable = true;
+
   home-manager.users.chip = { config, pkgs, ... }: {
     home.packages = with pkgs; [
       direnv
       firefox
       ripgrep
+      synergy
     ];
     programs.bash.enable = true;
 
     home.stateVersion = "24.05";
 
     xdg.configFile.emacs.source = config.lib.file.mkOutOfStoreSymlink /home/chip/dev/dotfiles/.emacs.d;
+
+    programs.git = {
+      enable = true;
+      userEmail = "andreas@arvidsson.io";
+      userName = "chip2n";
+    };
   };
 }
