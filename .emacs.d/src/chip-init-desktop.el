@@ -63,6 +63,7 @@
 (require 'chip-code-flutter)
 (require 'chip-code-zig)
 (require 'chip-code-nim)
+(require 'chip-code-nix)
 (require 'chip-code-sql)
 (require 'chip-lang)
 ;(require 'chip-present)
