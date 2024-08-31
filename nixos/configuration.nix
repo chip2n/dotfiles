@@ -103,24 +103,4 @@
   };
 
   programs.git.enable = true;
-
-  home-manager.users.chip = { config, pkgs, ... }: {
-    home.packages = with pkgs; [
-      direnv
-      firefox
-      ripgrep
-      synergy
-    ];
-    programs.bash.enable = true;
-
-    home.stateVersion = "24.05";
-
-    xdg.configFile.emacs.source = config.lib.file.mkOutOfStoreSymlink /home/chip/dev/dotfiles/.emacs.d;
-
-    programs.git = {
-      enable = true;
-      userEmail = "andreas@arvidsson.io";
-      userName = "chip2n";
-    };
-  };
 }
