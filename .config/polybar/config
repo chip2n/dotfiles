@@ -22,7 +22,6 @@ alert = #bd2c40
 inherit = bar/base
 monitor = eDP-1
 modules-left = host
-modules-center = xmonad
 modules-right = music memory cpu wlan battery date
 tray-position = right
 tray-padding = 10
@@ -32,7 +31,6 @@ tray-padding = 10
 inherit = bar/base
 monitor = DP1
 modules-left = host
-modules-center = xmonad
 modules-right = music memory cpu wlan battery date
 tray-position = right
 tray-padding = 10
@@ -41,7 +39,6 @@ tray-padding = 10
 [bar/multi_support_xmonad]
 inherit = bar/base
 monitor = eDP1
-modules-center = xmonad
 
 [bar/single_bspwm]
 inherit = bar/base
@@ -91,8 +88,8 @@ padding-right = 0
 module-margin-left = 1
 module-margin-right = 1
 
-;font-0 = fixed:pixelsize=10;1
-font-0 = xos4 Terminus:pixelsize=12;1
+font-0 = Iosevka:pixelsize=10;1
+;font-0 = xos4 Terminus:pixelsize=12;1
 ;font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-1 = Siji:pixelsize=10;1
 ;tray-transparent = true
@@ -111,11 +108,6 @@ font-1 = Siji:pixelsize=10;1
 
 cursor-click = pointer
 cursor-scroll = ns-resize
-
-[module/xmonad]
-type = custom/script
-exec = /home/chip/.local/bin/xmonad-info-dbus-exe
-tail = true
 
 [module/xwindow]
 type = internal/xwindow
@@ -217,7 +209,7 @@ label-song-ellipsis = true
 
 [module/music]
 type = custom/script
-exec = '/home/chip/scripts/polybar_spotify'
+exec = 'polybar_spotify'
 tail = true
 interval = 0
 
@@ -225,7 +217,7 @@ label = %output%
 
 [module/host]
 type = custom/script
-exec = '/home/chip/scripts/polybar_host'
+exec = 'polybar_host'
 interval = 100
 
 label = %output%
@@ -324,7 +316,7 @@ label = %date% %time%
 
 [module/volume]
 type = custom/script
-exec = '/home/chip/scripts/polybar_volume'
+exec = 'polybar_volume'
 interval = 100
 
 label = %output%
