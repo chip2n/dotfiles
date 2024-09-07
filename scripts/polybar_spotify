@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Uses playerctl to extract artist and song title for polybar.
 # Will truncate song title if too long (looking at you, Grateful Dead)

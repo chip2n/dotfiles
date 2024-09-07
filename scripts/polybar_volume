@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 VOL=`amixer get Master | awk 'FNR == 5 {print $4}' | tr -d '[]%'`
 STATUS=`amixer get Master | awk 'FNR == 5 {print $6}' | tr -d '[]'`
