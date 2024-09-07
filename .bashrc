@@ -4,14 +4,8 @@
 alias ls='ls --color=auto -h --group-directories-first'
 alias sz='du -sk * | sort -n'
 alias g='git'
-alias c='cabal'
-alias cl='clear'
-alias woman,='sudo'
-alias feh='feh --scale-down'
+alias c='clear'
 alias top='htop'
-alias vim='nvim'
-alias web='qutebrowser --backend webengine'
-alias wifi='sudo wifi-menu'
 alias weather='curl wttr.in/Gothenburg'
 
 export LS_COLORS="di=1;34:"
@@ -26,12 +20,7 @@ export HISTFILESIZE=100000
 # Fix for using SBCL in emacs properly
 unset SBCL_HOME
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/chip/google-cloud-sdk/path.bash.inc' ]; then source '/home/chip/google-cloud-sdk/path.bash.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/chip/google-cloud-sdk/completion.bash.inc' ]; then source '/home/chip/google-cloud-sdk/completion.bash.inc'; fi
-
+# Emacs vterm
 vterm_printf() {
     if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ]); then
         # Tell tmux to pass the escape sequences through
@@ -46,18 +35,10 @@ vterm_printf() {
 
 # Prompt
 PS1="\[\e[00;34m\]\[\e[0m\]\W\[\e[00;34m\]> \[\e[0m\]"
-# vterm_prompt_end(){
-#     vterm_printf "51;A$(whoami)@$(hostname):$(pwd)"
-# }
-# PS1=$PS1'\[$(vterm_prompt_end)\]'
+
+# Emacs EAT
 [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
   source "$EAT_SHELL_INTEGRATION_DIR/bash"
 
-# Automatically added by the Guix install script.
-if [ -n "$GUIX_ENVIRONMENT" ]; then
-    if [[ $PS1 =~ (.*)"\\$" ]]; then
-        PS1="${BASH_REMATCH[1]} [env]\\\$ "
-    fi
-fi
-
+# direnv
 eval "$(direnv hook bash)"
