@@ -28,13 +28,10 @@
 (defconst c/config-meow? t
   "If non-nil, load meow-mode & related packages.")
 
-(defconst chip-config-dir "~/.emacs.d/"
-  "Path to emacs config directory.")
-
-(defconst chip-config-src-dir (concat chip-config-dir "src/")
+(defconst chip-config-src-dir (concat user-emacs-directory "src/")
   "Path to emacs config src directory.")
 
-(defconst chip-config-cache-dir (concat chip-config-dir ".cache/"))
+(defconst chip-config-cache-dir (concat user-emacs-directory ".cache/"))
 
 (defconst chip-dev-dir "~/dev/"
   "Path to development directory.")
@@ -75,12 +72,12 @@
 
 (defun chip/native-compile ()
   (interactive)
-  (native-compile-async chip-config-dir 'recursively))
+  (native-compile-async user-emacs-directory 'recursively))
 
 ;;; Load path
 
 (add-to-list 'load-path chip-config-src-dir)
-(add-to-list 'load-path (concat chip-config-dir "scripts"))
+(add-to-list 'load-path (concat user-emacs-directory "scripts"))
 
 ;;; Dependencies
 

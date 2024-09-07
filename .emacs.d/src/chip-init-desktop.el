@@ -102,11 +102,11 @@
 (setq shell-file-name "/bin/bash")
 
 ;; save backups in separate directory
-(setq backup-directory-alist `(("." . ,(concat chip-config-dir ".backups"))))
+(setq backup-directory-alist `(("." . ,(concat user-emacs-directory ".backups"))))
 
 ;; save auto saves in separate directory
 (setq auto-save-file-name-transforms
-      `((".*" ,(concat chip-config-dir ".auto-saves") t)))
+      `((".*" ,(concat user-emacs-directory ".auto-saves") t)))
 
 ;; save custom variables to separate file (not loaded)
 (setq custom-file (concat user-emacs-directory "/custom.el"))
@@ -307,7 +307,7 @@ The default is to leave the cursor where it is, which is not as useful when sear
 (defun chip/open-config-file ()
   "Open Emacs configuration file."
   (interactive)
-  (find-file (concat chip-config-dir "init.el")))
+  (find-file (concat user-emacs-directory "init.el")))
 
 ;;; Package: Treemacs
 
@@ -371,7 +371,7 @@ The default is to leave the cursor where it is, which is not as useful when sear
             (parent-opened-icon "-")
             (cmake-icon (icon "tools")))
         (treemacs-create-theme "chip"
-          :icon-directory (concat chip-config-dir "icons")
+          :icon-directory (concat user-emacs-directory "icons")
           :config
           (progn
             (treemacs-create-icon :icon (format " %s\t" root-icon) :extensions (root-open))
