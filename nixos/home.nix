@@ -102,7 +102,7 @@
     enable = true;
     package = pkgs.emacs-gtk;
   };
-  xdg.configFile.emacs.source = config.lib.file.mkOutOfStoreSymlink ../.emacs.d;
+  xdg.configFile.emacs.source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dev/dotfiles/.emacs.d";
 
   home.file.".background-image".source = ../.background-image;
 

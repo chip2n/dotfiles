@@ -102,11 +102,11 @@
 (setq shell-file-name "/bin/bash")
 
 ;; save backups in separate directory
-(setq backup-directory-alist `(("." . "~/.emacs.d/.backups")))
+(setq backup-directory-alist `(("." . ,(concat chip-config-dir ".backups"))))
 
 ;; save auto saves in separate directory
 (setq auto-save-file-name-transforms
-      `((".*" "~/.emacs.d/.auto-saves" t)))
+      `((".*" ,(concat chip-config-dir ".auto-saves") t)))
 
 ;; save custom variables to separate file (not loaded)
 (setq custom-file (concat user-emacs-directory "/custom.el"))
@@ -371,7 +371,7 @@ The default is to leave the cursor where it is, which is not as useful when sear
             (parent-opened-icon "-")
             (cmake-icon (icon "tools")))
         (treemacs-create-theme "chip"
-          :icon-directory "~/.emacs.d/icons"
+          :icon-directory (concat chip-config-dir "icons")
           :config
           (progn
             (treemacs-create-icon :icon (format " %s\t" root-icon) :extensions (root-open))

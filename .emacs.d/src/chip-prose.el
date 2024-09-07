@@ -163,7 +163,7 @@
 
 (defun prose ()
   (interactive)
-  (let* ((filename "~/.emacs.d/.prose")
+  (let* ((filename (concat chip-config-dir ".prose"))
          (buffer (find-file filename)))
 
     (rename-buffer "*prose*")

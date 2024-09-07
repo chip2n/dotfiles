@@ -79,9 +79,8 @@
 
 ;;; Load path
 
-(add-to-list 'load-path "~/.emacs.d/new")
 (add-to-list 'load-path chip-config-src-dir)
-(add-to-list 'load-path "~/.emacs.d/scripts")
+(add-to-list 'load-path (concat chip-config-dir "scripts"))
 
 ;;; Dependencies
 

@@ -27,7 +27,7 @@
 (use-package bookmark+
   :straight nil
   :demand t
-  :load-path "~/.emacs.d/src/bookmark-plus/"
+  :load-path "bookmark-plus/"
   :bind (("C-c w p" . pin/add)
          ("M-1" . pin/jump-1)
          ("M-2" . pin/jump-2)
@@ -35,7 +35,7 @@
          ("M-4" . pin/jump-4))
   :init
   ;; Download bookmark-plus from emacs wiki if it doesn't already exist
-  (let ((bookmarkplus-dir "~/.emacs.d/src/bookmark-plus/")
+  (let ((bookmarkplus-dir (concat user-emacs-directory "bookmark-plus/"))
         (emacswiki-base "https://www.emacswiki.org/emacs/download/")
         (bookmark-files '("bookmark+.el" "bookmark+-mac.el" "bookmark+-bmu.el" "bookmark+-key.el" "bookmark+-lit.el" "bookmark+-1.el")))
     (require 'url)
