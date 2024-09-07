@@ -37,7 +37,13 @@
 
   services.xserver = {
     enable = true;
-    desktopManager.plasma5.enable = true;
+    desktopManager.wallpaper = { combineScreens = false; mode = "scale"; };
+
+    windowManager.xmonad = {
+      enable = true;
+      enableContribAndExtras = true;
+      config = builtins.readFile ../.config/xmonad/xmonad.hs;
+    };
 
     xkb = {
       layout = "us";
@@ -47,11 +53,21 @@
     autoRepeatInterval = 25;
   };
 
- services.kanata = {
-   enable = true;
-   keyboards.default = {
-     extraDefCfg = "process-unmapped-keys yes";
-     config = ''
+  programs.dconf.enable = true;
+
+  fonts.packages = with pkgs; [
+    siji
+  ];
+  fonts.fontconfig.enable = true;
+  fonts.fontconfig.allowBitmaps = true;
+
+  programs.thunar.enable = true;
+
+  services.kanata = {
+    enable = true;
+    keyboards.default = {
+      extraDefCfg = "process-unmapped-keys yes";
+      config = ''
 (defsrc
   caps
 )
@@ -81,9 +97,10 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
-    emacs
     vim
     pass
+    killall
+    wget
   ];
 
   # This value determines the NixOS release from which the default
