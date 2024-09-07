@@ -7,7 +7,7 @@
     };
   };
   outputs = { self, nixpkgs, home-manager, ... }@inputs: {
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.chipt0p-l470 = nixpkgs.lib.nixosSystem rec {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
       modules = [
