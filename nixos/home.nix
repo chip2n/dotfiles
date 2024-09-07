@@ -3,6 +3,7 @@
 {
   home.username = "chip";
   home.homeDirectory = "/home/chip";
+  home.sessionPath = [ "$HOME/.local/bin" ];
 
   home.packages = with pkgs; [
     direnv
