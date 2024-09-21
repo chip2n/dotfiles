@@ -68,7 +68,8 @@
    '("7" . meow-digit-argument)
    '("8" . meow-digit-argument)
    '("9" . meow-digit-argument)
-   '("0" . meow-digit-argument))
+   '("0" . meow-digit-argument)
+   '("SPC" . execute-extended-command))
   (meow-normal-define-key
    '("0" . meow-expand-0)
    '("1" . meow-expand-1)
