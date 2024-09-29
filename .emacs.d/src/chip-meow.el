@@ -45,6 +45,22 @@
   (interactive "cTill:")
   (meow-till -1 ch))
 
+(defun c/meow-append ()
+  "Move to the end of selection, switch to INSERT state."
+  (interactive)
+  (if meow--temp-normal
+      (progn
+        (message "Quit temporary normal mode")
+        (meow--switch-state 'motion))
+    (if (not (region-active-p))
+        (when (and (not (use-region-p))
+                   (< (point) (point-max))
+                   (not (eolp)))
+          (forward-char 1))
+      (meow--direction-forward)
+      (meow--cancel-selection))
+    (meow--switch-state 'insert)))
+
 (defun meow-setup ()
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-colemak)
   (setq meow-use-clipboard t)
@@ -69,7 +85,8 @@
    '("8" . meow-digit-argument)
    '("9" . meow-digit-argument)
    '("0" . meow-digit-argument)
-   '("SPC" . execute-extended-command))
+   '("SPC" . execute-extended-command)
+   '("TAB" . other-window))
   (meow-normal-define-key
    '("0" . meow-expand-0)
    '("1" . meow-expand-1)
@@ -88,7 +105,7 @@
    '("[" . meow-beginning-of-thing)
    '("]" . meow-end-of-thing)
    '("/" . meow-visit)
-   '("a" . meow-append)
+   '("a" . c/meow-append)
    '("A" . meow-open-below)
    '("b" . meow-back-word)
    '("B" . meow-back-symbol)
