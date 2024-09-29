@@ -676,7 +676,10 @@ The default is to leave the cursor where it is, which is not as useful when sear
          ("C-c C-a" . eglot-code-actions))
   :config
   (add-hook 'eglot-managed-mode-hook
-            (lambda () (eglot-inlay-hints-mode -1))))
+            (lambda () (eglot-inlay-hints-mode -1)))
+  ;; Disable logging completely to improve performance (it seems that eglot
+  ;; pretty prints JSON when logging which slows things down)
+  (setf eglot-events-buffer-size 0))
 
 ;;; org-mode
 
