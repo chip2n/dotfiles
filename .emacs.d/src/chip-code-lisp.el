@@ -613,8 +613,8 @@ display-buffer (through display-buffer-alist)."
   :defer t
   :hook ((geiser-repl-mode . lispy-mode))
   :config
-  (setq geiser-active-implementations '(guile))
-  (setq geiser-default-implementation 'guile)
+  (setq geiser-active-implementations '(guile racket))
+  (setq geiser-default-implementation 'racket)
   (after-load (meow)
     (add-to-list 'meow-mode-state-list '(geiser-repl-mode . normal))))
 
@@ -633,6 +633,10 @@ display-buffer (through display-buffer-alist)."
   :after (geiser))
 
 (use-package geiser-gambit
+  :defer t
+  :after (geiser))
+
+(use-package geiser-racket
   :defer t
   :after (geiser))
 
