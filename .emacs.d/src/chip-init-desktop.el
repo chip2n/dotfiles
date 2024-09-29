@@ -808,7 +808,6 @@ all elements."
           "https://ziglang.org/news/index.xml"      ; Zig News
           "https://zig.news/feed"                   ; Zig News (unofficial)
           "https://andrewkelley.me/rss.xml"         ; Andrew Kelley
-          "https://mastodon.social/@andrewrk.rss"   ; Andrew Kelley mastodon
           "https://kristoff.it/index.xml"           ; Loris Cro
           "https://blog.orhun.dev/rss.xml"          ; Orhun's blog
           "https://devlog.hexops.com/feed.xml"      ; Hexops
