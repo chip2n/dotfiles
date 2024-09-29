@@ -157,6 +157,7 @@
 (setq select-enable-clipboard t)
 
 (add-hook 'image-mode-hook 'auto-revert-mode)
+(add-hook 'image-mode-hook (lambda () (blink-cursor-mode -1)))
 
 ;; skip confirmation when killing processes
 (setq kill-buffer-query-functions
