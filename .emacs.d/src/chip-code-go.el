@@ -22,7 +22,8 @@
 
 ;;; Code:
 
-(use-package go-mode)
+(use-package go-mode
+  :hook (go-mode . eglot-ensure))
 
 (provide 'chip-code-go)
 
