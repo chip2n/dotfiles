@@ -1165,7 +1165,10 @@ all elements."
   :bind (:map eat-semi-char-mode-map
          ("M-o" . ace-window))
   :hook ((eat--semi-char-mode . c/eat--update-hl-line)
-         (eat--char-mode . c/eat--update-hl-line)))
+         (eat--char-mode . c/eat--update-hl-line))
+  :config
+  (when c/mac?
+    (setq eat-shell "bash")))
 
 (use-package vterm
   :defer t
