@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+# Get all TODO comments introduced between two commits
+
+git diff -U0 $1 $2 | awk '
+  /^diff --git a\// {
+    file = $3
+    sub(/^a\//, "", file)
+  }
+  /^@@/ {
+    split($2, a, ",")
+    line_number = substr(a[1], 2)
+  }
+  /^\+.*TODO/ {
+    # Increment line number if lines are added before
+    print file ":" line_number " " substr($0, 2)
+    line_number++
+  }
+'
