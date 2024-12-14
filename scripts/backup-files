@@ -1,4 +1,3 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
 rsync -avL /home/chip/org/ /mnt/samsung/backups/org-$(date +%Y%m%d)
-rsync -avL /home/chip/.mail/ /mnt/samsung/backups/mail-$(date +%Y%m%d)
