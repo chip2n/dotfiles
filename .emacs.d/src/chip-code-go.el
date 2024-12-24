@@ -22,8 +22,30 @@
 
 ;;; Code:
 
+(defun c/go-run ()
+  (interactive)
+  (compile "go run ."))
+
+(defun c/go-build ()
+  (interactive)
+  (compile "go build ."))
+
+(defun c/go-test ()
+  (interactive)
+  (compile "go test"))
+
 (use-package go-mode
-  :hook (go-mode . eglot-ensure))
+  :hook (go-mode . eglot-ensure)
+  :bind (:map go-mode-map
+         ("C-c C-r" . c/go-run)
+         ("C-c C-c" . c/go-build)
+         ("C-c C-k" . kill-compilation)
+         ("C-c C-t" . c/go-test)))
+
+;; (use-package go-ts-mode
+;;   :config
+;;   (setq go-ts-mode-indent-offset 4))
+;; (use-package templ-ts-mode)
 
 (provide 'chip-code-go)
 
