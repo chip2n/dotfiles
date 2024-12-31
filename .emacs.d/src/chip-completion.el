@@ -96,6 +96,7 @@ targets."
   :config
   (setq consult-async-input-debounce 0.1)
   (setq consult-async-input-throttle 0.1)
+  (setf consult-fontify-max-size 102400)
   (setq xref-show-xrefs-function 'consult-xref)
   (after-load (evil)
     ;; Remember point before search for `evil-jump-backward'
