@@ -29,4 +29,7 @@
 ;; openai
 (setq private/openai-key "")
 
+;; anthropic
+(setq private/anthropic-key "")
+
 (provide 'private)

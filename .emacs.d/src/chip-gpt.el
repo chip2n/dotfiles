@@ -25,7 +25,10 @@
 (use-package gptel
   :config
   (setq gptel-api-key private/openai-key)
-  (setq-default gptel-model "gpt-4o"))
+  (setq-default gptel-model "gpt-4o")
+  (setq-default gptel-default-mode 'org-mode)
+  (setq-default gptel-track-media t)
+  (gptel-make-anthropic "Claude" :stream t :key private/anthropic-key))
 
 (use-package aider
   :straight (:host github :repo "tninja/aider.el" :files ("aider.el"))
