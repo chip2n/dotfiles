@@ -61,6 +61,7 @@
 ;; (require 'chip-code-elixir)
 (require 'chip-code-go)
 (require 'chip-code-elixir2)
+(require 'chip-code-ruby)
 (require 'chip-code-flutter)
 (require 'chip-code-zig)
 (require 'chip-code-nim)
