@@ -27,6 +27,13 @@
   (setq gptel-api-key private/openai-key)
   (setq-default gptel-model "gpt-4o"))
 
+(use-package aider
+  :straight (:host github :repo "tninja/aider.el" :files ("aider.el"))
+  :config
+  (setq aider-args '("--model" "anthropic/claude-3-5-sonnet-20241022"
+                     "--no-auto-commits"))
+  (setenv "ANTHROPIC_API_KEY" private/anthropic-key))
+
 (provide 'chip-gpt)
 
 ;;; chip-code-gpt.el ends here
