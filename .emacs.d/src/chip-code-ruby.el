@@ -27,6 +27,22 @@
   :hook ((ruby-mode . robe-mode)
          (ruby-ts-mode . robe-mode)))
 
+(defun c/rails-dev ()
+  (interactive)
+  (with-dominating-file-dir "Gemfile"
+    (let* ((program "bin/dev")
+           (buffer (get-buffer-create "*rails-server*"))
+           (proc-alive (comint-check-proc buffer))
+           (process (get-buffer-process buffer)))
+      ;; If the process is dead then re-create the process and reset the mode.
+      (unless proc-alive
+        (with-current-buffer buffer
+          (apply 'make-comint-in-buffer "Rails" buffer
+                 program nil nil)))
+      ;; Regardless, provided we have a valid buffer, we pop to it.
+      (when buffer
+        (pop-to-buffer buffer)))))
+
 (provide 'chip-code-ruby)
 
 ;;; chip-code-ruby.el ends here
