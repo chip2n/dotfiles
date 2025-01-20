@@ -704,7 +704,7 @@ The default is to leave the cursor where it is, which is not as useful when sear
   (setq org-roam-v2-ack t)
   :config
   ;; (setq org-roam-directory "/home/chip/tmp/roam")
-  (setq org-roam-directory "~/org/personal/roam")
+  (setq org-roam-directory c/org-roam-dir)
   (setq org-roam-dailies-directory "~/org/personal/roam/daily")
   (setq org-roam-file-extensions '("org"))
   (defcustom org-roam-file-exclude-regexp (list "daily/")

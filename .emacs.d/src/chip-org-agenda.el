@@ -58,7 +58,7 @@ org-agenda--todo-keyword-regex.")
   (remove-if #'file-directory-p
    (split-string
     (shell-command-to-string
-     (concat "grep --include=\"*.org\" -rl -e '" c/org-agenda--todo-keyword-regex "' " org-roam-directory))
+     (concat "grep --include=\"*.org\" -rl -e '" c/org-agenda--todo-keyword-regex "' " c/org-roam-dir))
     "\n")))
 
 (defun c/org-agenda-files ()

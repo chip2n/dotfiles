@@ -39,6 +39,9 @@
 (defconst c/org-dir "~/org/"
   "Path to org files.")
 
+(defconst c/org-roam-dir (concat c/org-dir "personal/roam/")
+  "Path to org-roam files.")
+
 (setq user-mail-address "andreas@arvidsson.io")
 
 (defgroup chip ()
