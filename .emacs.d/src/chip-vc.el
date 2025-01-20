@@ -59,18 +59,8 @@
   ;; show magit in current window
   (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
 
-  ;; start magit commit buffers in evil insert mode
-  (after-load (evil)
-    (add-hook 'git-commit-mode-hook 'evil-insert-state))
-
-  ;; add magit as ivy actions
-  (after-load (ivy counsel projectile)
-    (ivy-add-actions
-     'counsel-projectile
-     '(("v" chip/magit-status-root-dir "magit")))
-    (ivy-add-actions
-     'counsel-projectile-find-file
-     '(("v" chip/magit-status-root-dir "magit")))))
+  ;; show all untracked files
+  (setq magit-status-show-untracked-files "all"))
 
 (use-package forge
   :after magit
