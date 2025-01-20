@@ -40,7 +40,7 @@
 
 (defvar c/org-agenda--todo-keyword-regex
   (concat
-   (reduce (lambda (cur acc)
+   (-reduce (lambda (cur acc)
              (concat acc "\\|" cur))
            (mapcar (lambda (entry) (concat "\\* " entry))
                    '("TODO" "NEXT" "WAIT" "HOLD")))
