@@ -38,9 +38,36 @@
 
 ;;; Launching
 
+(defvar c/org-agenda--todo-keyword-regex
+  (concat
+   (reduce (lambda (cur acc)
+             (concat acc "\\|" cur))
+           (mapcar (lambda (entry) (concat "\\* " entry))
+                   '("TODO" "NEXT" "WAIT" "HOLD")))
+   "\\|SCHEDULED\\|DEADLINE")
+  "Regex which filters all TODO keywords")
+
+(defun org-agenda--calculate-files-for-regex (regex)
+  "Yields a fresh array with all files containing todos which match REGEX.
+
+Uses grep to discover all files containing anything stored in
+org-agenda--todo-keyword-regex.")
+
+(defun c/org-agenda-files-extra ()
+  "Find extra files to include in Agenda (searching for relevant org-roam files)."
+  (remove-if #'file-directory-p
+   (split-string
+    (shell-command-to-string
+     (concat "grep --include=\"*.org\" -rl -e '" c/org-agenda--todo-keyword-regex "' " org-roam-directory))
+    "\n")))
+
+(defun c/org-agenda-files ()
+  (append org-agenda-files (c/org-agenda-files-extra)))
+
 (defun c/org-agenda ()
   (interactive)
-  (org-agenda nil "c"))
+  (let ((org-agenda-files (c/org-agenda-files)))
+    (org-agenda nil "c")))
 
 ;;; Task states
 

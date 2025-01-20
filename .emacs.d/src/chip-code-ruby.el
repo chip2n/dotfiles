@@ -37,6 +37,7 @@
       ;; If the process is dead then re-create the process and reset the mode.
       (unless proc-alive
         (with-current-buffer buffer
+          (setenv "SOLID_QUEUE_IN_PUMA" "1")
           (apply 'make-comint-in-buffer "Rails" buffer
                  program nil nil)))
       ;; Regardless, provided we have a valid buffer, we pop to it.

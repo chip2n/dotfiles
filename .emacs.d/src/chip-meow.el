@@ -61,6 +61,38 @@
       (meow--cancel-selection))
     (meow--switch-state 'insert)))
 
+(defun c/meow-extend-to-end-of-thing (thing)
+  "Extend selection to the end of THING."
+  (interactive (list (meow-thing-prompt "Extend to end of: ")))
+  (if (not (use-region-p))
+      (meow-end-of-thing thing)
+    (save-window-excursion
+      (let ((back (equal 'backward (meow--thing-get-direction 'end)))
+            (bounds (meow--parse-inner-of-thing-char thing)))
+        (let ((beg (min (point) (mark))))
+          (when bounds
+            (thread-first
+              (meow--make-selection '(select . transient)
+                                    (if back (cdr bounds) beg)
+                                    (if back beg (cdr bounds)))
+              (meow--select))))))))
+
+(defun c/meow-extend-to-beginning-of-thing (thing)
+  "Extend selection to the beginning of THING."
+  (interactive (list (meow-thing-prompt "Extend to beginning of: ")))
+  (if (not (use-region-p))
+      (meow-beginning-of-thing thing)
+    (save-window-excursion
+      (let ((back (equal 'backward (meow--thing-get-direction 'beginning)))
+            (bounds (meow--parse-inner-of-thing-char thing)))
+        (let ((end (max (point) (mark))))
+          (when bounds
+            (thread-first
+              (meow--make-selection '(select . transient)
+                                    (if back end (car bounds))
+                                    (if back (car bounds) end))
+              (meow--select))))))))
+
 (defun meow-setup ()
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-colemak)
   (setq meow-use-clipboard t)
@@ -85,7 +117,7 @@
    '("8" . meow-digit-argument)
    '("9" . meow-digit-argument)
    '("0" . meow-digit-argument)
-   '("SPC" . execute-extended-command)
+   ;; '("SPC" . execute-extended-command)
    '("TAB" . other-window))
   (meow-normal-define-key
    '("0" . meow-expand-0)
@@ -104,6 +136,8 @@
    '("." . meow-bounds-of-thing)
    '("[" . meow-beginning-of-thing)
    '("]" . meow-end-of-thing)
+   '("{" . c/meow-extend-to-beginning-of-thing)
+   '("}" . c/meow-extend-to-end-of-thing)
    '("/" . meow-visit)
    '("a" . c/meow-append)
    '("A" . meow-open-below)

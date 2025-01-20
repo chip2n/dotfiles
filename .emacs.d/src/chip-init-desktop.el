@@ -707,6 +707,8 @@ The default is to leave the cursor where it is, which is not as useful when sear
   (setq org-roam-directory "~/org/personal/roam")
   (setq org-roam-dailies-directory "~/org/personal/roam/daily")
   (setq org-roam-file-extensions '("org"))
+  (defcustom org-roam-file-exclude-regexp (list "daily/")
+    "Files matching this regular expression are excluded from the Org-roam.")
 
   (setq org-roam-dailies-capture-templates
         '(
@@ -734,14 +736,13 @@ The default is to leave the cursor where it is, which is not as useful when sear
 (use-package simple-httpd)
 
 (use-package org-roam-ui
-  :straight
-    (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
-    :after org-roam
-    :config
-    (setq org-roam-ui-sync-theme t
-          org-roam-ui-follow t
-          org-roam-ui-update-on-save t
-          org-roam-ui-open-on-start t))
+  :straight (:host github :repo "org-roam/org-roam-ui" :branch "main" :files ("*.el" "out"))
+  :after org-roam
+  :config
+  (setq org-roam-ui-sync-theme t
+        org-roam-ui-follow t
+        org-roam-ui-update-on-save t
+        org-roam-ui-open-on-start t))
 
 (use-package deft
   :after (org)
@@ -1044,13 +1045,6 @@ all elements."
 
 (use-package groovy-mode)
 
-(use-package rustic
-  :config
-  (setq rustic-lsp-server 'rust-analyzer)
-  (setq rustic-compile-backtrace 1)
-  (add-hook 'rustic-mode-hook
-            (lambda () (setq company-backends '(company-capf)))))
-
 (use-package yaml-mode)
 
 (defun chip/yaml-toggle-fold ()
@@ -1071,27 +1065,15 @@ all elements."
 
 (require 'ob-lilypond)
 
-(use-package glsl-mode)
+(use-package glsl-mode
+  :bind (:map glsl-mode-map
+         ("C-c C-r" . c/zig-compile-run)
+         ("C-c C-c" . c/zig-compile)
+         ("C-c C-k" . kill-compilation)
+         ("C-c C-t" . c/zig-test)))
 (use-package wgsl-mode)
 
 (require 'bolt-mode)
-
-(use-package gdscript-mode
-  :config
-  ;; suppress unknown notification errors.
-  (add-hook 'gdscript-mode-hook 'lsp)
-  (advice-add #'lsp--get-message-type :around #'lsp--gdscript-ignore-errors))
-
-(defun lsp--gdscript-ignore-errors (original-function &rest args)
-  "Ignore the error message resulting from Godot not replying to the `JSONRPC' request."
-  (if (string-equal major-mode "gdscript-mode")
-      (let ((json-data (nth 0 args)))
-        (if (and (string= (gethash "jsonrpc" json-data "") "2.0")
-                 (not (gethash "id" json-data nil))
-                 (not (gethash "method" json-data nil)))
-            nil ; (message "Method not found")
-          (apply original-function args)))
-    (apply original-function args)))
 
 ;;; Autoremote
 
@@ -1396,7 +1378,8 @@ buffer in current window."
                                  ("elixir" . "\\.heex\\'")
                                  ("elixir" . "\\.sface\\'")))
   (add-to-list 'auto-mode-alist '("\\.sface\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.mjml\\'" . web-mode)))
+  (add-to-list 'auto-mode-alist '("\\.mjml\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode)))
 
 ;;; speed-type
 
@@ -1417,5 +1400,18 @@ buffer in current window."
   (define-key org-mode-map (kbd "C-c C-r") verb-command-map))
 
 (provide 'chip-init-desktop)
+
+;;; just-mode
+
+(use-package just-mode)
+
+;;; occur
+
+(use-package emacs
+  :bind (:map occur-mode-map
+         ("n" . occur-next)
+         ("p" . occur-prev))
+  :hook ((occur-mode . next-error-follow-minor-mode))
+  )
 
 ;;; chip-init-desktop.el ends here

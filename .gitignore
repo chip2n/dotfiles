@@ -135,3 +135,22 @@
 /.config/jgit/
 /.config/pharo-launcher/
 /.config/pharo/
+/.config/.firebase-auth/
+/.config/.android
+/.config/Docker Desktop
+/.config/Element
+/.config/Vampire_Survivors*
+/.config/audacity
+/.config/bolt-launcher
+/.config/clojure
+/.config/dlv
+/.config/dlv
+/.config/furnace
+/.config/ghc
+/.config/google-chrome-for-testing
+/.config/hypr
+/.config/imhex
+/.config/mpv
+/.config/nix
+/.config/racket
+/.config/river

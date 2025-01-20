@@ -40,6 +40,17 @@
 
   (require 'org-clock))
 
+(require 'org-bars)
+(add-hook 'org-mode-hook #'org-bars-mode)
+(setq org-bars-color-options '(:only-one-color t
+                               :bar-color "#494e5a"))
+(setq org-bars-stars '(:empty "•" :invisible "•" :visible "•"))
+
+;; (use-package org-superstar
+;;   :hook ((org-mode . org-superstar-mode))
+;;   :config
+;;   (setq org-superstar-headline-bullets-list (list ?>)))
+
 (use-package org-fc
   :disabled t
   :straight (org-fc
@@ -47,21 +58,7 @@
              :files (:defaults "awk" "demo.org"))
   :custom (org-fc-directories '("~/org/personal/lang"))
   :config
-  (require 'org-fc-hydra)
-  (after-load (evil)
-    (evil-define-minor-mode-key '(normal insert emacs) 'org-fc-review-flip-mode
-      (kbd "RET") 'org-fc-review-flip
-      (kbd "n") 'org-fc-review-flip
-      (kbd "s") 'org-fc-review-suspend-card
-      (kbd "q") 'org-fc-review-quit)
-
-    (evil-define-minor-mode-key '(normal insert emacs) 'org-fc-review-rate-mode
-      (kbd "a") 'org-fc-review-rate-again
-      (kbd "h") 'org-fc-review-rate-hard
-      (kbd "g") 'org-fc-review-rate-good
-      (kbd "e") 'org-fc-review-rate-easy
-      (kbd "s") 'org-fc-review-suspend-card
-      (kbd "q") 'org-fc-review-quit)))
+  (require 'org-fc-hydra))
 
 ;;; Keybindings
 
@@ -310,7 +307,7 @@ The start timestamp of the clock entry is created `mins' minutes from the curren
         (font-lock-remove-keywords nil keyword)
         (font-lock-fontify-buffer)))))
 
-(add-hook 'org-mode-hook 'org-bullet-mode)
+;; (add-hook 'org-mode-hook 'org-bullet-mode)
 
 ;;; Notifications
 
@@ -597,7 +594,7 @@ beginning of last month."
 
 (setq org-babel-lisp-eval-fn #'sly-eval)
 
-(setq org-startup-indented nil)
+(setq org-startup-indented t)
 (setq org-adapt-indentation nil)
 (setq org-indent-indentation-per-level 2)
 
@@ -645,7 +642,7 @@ beginning of last month."
 (advice-add 'org-todo :after 'save-org-buffers)
 
 (setq org-refile-targets '((nil :maxlevel . 3)
-                           (org-agenda-files :maxlevel . 3)))
+                           (c/org-agenda-files :maxlevel . 3)))
 (setq org-refile-use-outline-path 'file)
 (setq org-outline-path-complete-in-steps nil)
 
