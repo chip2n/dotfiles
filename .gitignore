@@ -1,13 +1,8 @@
-# Vim temporary files
 *~
 *.swp
 *.swo
-
-# Emacs files
 /.emacs.d/.prose
 /.emacs.d/projects
-
-# Random application configs
 .config/erl_observer
 .config/mapeditor.org
 .config/SunVox
@@ -154,3 +149,8 @@
 /.config/nix
 /.config/racket
 /.config/river
+/.config/guix/current
+/.lsp
+/.config/guix/shell-authorized-directories
+/.config/guix/testing
+/.config/xmonad/.stack-work
