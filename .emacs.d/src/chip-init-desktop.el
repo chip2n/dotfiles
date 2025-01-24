@@ -694,12 +694,17 @@ The default is to leave the cursor where it is, which is not as useful when sear
 (use-package gnuplot)
 (use-package gnuplot-mode)
 
+(defun c/org-roam-dailies-capture-today ()
+  (interactive)
+  (let ((org-agenda-files (c/org-agenda-files)))
+    (org-roam-dailies-capture-today)))
+
 (use-package org-roam
   :bind (("C-c n l" . org-roam-buffer-toggle)
          ("C-c n t" . org-roam-dailies-find-today)
          ("C-c n f" . org-roam-node-find)
          ("C-c n i" . org-roam-node-insert)
-         ("C-c n c" . org-roam-dailies-capture-today))
+         ("C-c n c" . c/org-roam-dailies-capture-today))
   :init
   (setq org-roam-v2-ack t)
   :config
