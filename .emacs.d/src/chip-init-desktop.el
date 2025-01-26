@@ -188,6 +188,7 @@ Try the repeated popping up to 10 times."
 (use-package direnv
   :config
   (direnv-mode)
+  (setq direnv-always-show-summary nil)
   ;; It's always OK to run `direnv-update-environment' automatically - the tool
   ;; itself handles the security aspect.
   (add-to-list 'safe-local-variable-values '(eval direnv-update-environment)))
