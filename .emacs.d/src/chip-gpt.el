@@ -28,6 +28,10 @@
   (setq-default gptel-model "gpt-4o")
   (setq-default gptel-default-mode 'org-mode)
   (setq-default gptel-track-media t)
+  (setq gptel-prompt-prefix-alist
+        '((markdown-mode . "# ")
+          (org-mode . "* ")
+          (text-mode . "# ")))
   (gptel-make-anthropic "Claude" :stream t :key private/anthropic-key))
 
 (use-package aider
