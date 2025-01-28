@@ -38,8 +38,7 @@
   :straight (:host github :repo "tninja/aider.el" :files ("aider.el"))
   :config
   (setq aider-args '("--model" "anthropic/claude-3-5-sonnet-20241022"
-                     "--no-auto-commits"))
-  (setenv "ANTHROPIC_API_KEY" private/anthropic-key))
+                     "--no-auto-commits")))
 
 (provide 'chip-gpt)
 
