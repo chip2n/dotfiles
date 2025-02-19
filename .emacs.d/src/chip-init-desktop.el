@@ -846,11 +846,6 @@ all elements."
   ;;  "p" 'elfeed-show-prev)
   )
 
-(use-package emms
-  :config
-  (emms-all)
-  (emms-default-players))
-
 (use-package slack
   :commands (slack-start)
   :init
