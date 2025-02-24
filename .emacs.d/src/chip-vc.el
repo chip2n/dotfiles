@@ -60,7 +60,10 @@
   (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
 
   ;; show all untracked files
-  (setq magit-status-show-untracked-files "all"))
+  (setq magit-status-show-untracked-files "all")
+
+  ;; show word-granularity within diff hunks
+  (setq magit-diff-refine-hunk t))
 
 (use-package forge
   :after magit
