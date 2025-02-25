@@ -323,6 +323,7 @@ This checks in turn:
           (lispy-mode 1))
         ;; (paredit-mode 1)
         (outshine-mode 1)
+        (setq prettify-symbols-alist '(("lambda" . 955)))
         (prettify-symbols-mode 1)
         ;; (c/complete-mode 1)
         )
