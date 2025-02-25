@@ -252,14 +252,20 @@ This checks in turn:
     (add-hook 'clojure-mode 'outshine-mode)
     (add-hook 'clojurescript-mode 'outshine-mode)))
 
+(defun c/cider--setup ()
+  (lispy-mode 1))
+
 (use-package cider
   :defer t
+  :hook ((cider-repl-mode . c/cider--setup))
   :config
   (setq cider-test-show-report-on-success nil)
   (setq cider-auto-select-test-report-buffer nil)
   (setq cider-offer-to-open-cljs-app-in-browser nil)
   (setq cider-test-fail-fast nil)
   (eldoc-mode t)
+  (after-load (meow)
+    (add-to-list 'meow-mode-state-list '(cider-repl-mode . normal)))
   (after-load (evil)
     (add-to-list 'evil-motion-state-modes 'cider-test-report-mode)))
 
@@ -335,7 +341,6 @@ This checks in turn:
 (add-hook 'emacs-lisp-mode-hook #'c/code-lisp-mode)
 (add-hook 'ielm-mode-hook #'c/code-lisp-mode)
 (add-hook 'clojure-mode-hook #'c/code-lisp-mode)
-(add-hook 'cider-repl-mode-hook #'c/code-lisp-mode)
 (add-hook 'clojurescript-mode-hook #'c/code-lisp-mode)
 (add-hook 'slime-mode-hook #'c/code-lisp-mode)
 (add-hook 'slime-repl-mode-hook #'c/code-lisp-mode)
