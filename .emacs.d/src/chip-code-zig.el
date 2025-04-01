@@ -22,41 +22,21 @@
 
 ;;; Code:
 
-(defun c/zig--steps ()
-  "Get list of all available build steps."
-  (->> (with-temp-buffer
-         (insert (shell-command-to-string "zig build --help"))
-         (beginning-of-buffer)
-         (search-forward "Steps:")
-         (delete-region (point-min) (point))
-         (next-line)
-         (re-search-forward "^[[:space:]]*$")
-         (delete-region (point) (point-max))
-         (buffer-string))
-       (s-trim)
-       (s-lines)
-       (-map (lambda (line) (car (s-split " " (s-trim line)))))))
-
-;; (defun c/zig-build ()
-;;   (interactive)
-;;   (let ((default-directory (c/zig--locate-root)))
-;;     (let ((step (completing-read "Select build step:" (c/zig--steps))))
-;;       (zig--run-cmd (format "build %s" step)))))
-
-(defun c/zig-clean ()
-  (interactive)
-  (let ((root (projectile-locate-dominating-file (buffer-file-name) "build.zig")))
-    (delete-directory (expand-file-name "zig-out" root) t)
-    (delete-directory (expand-file-name "zig-cache" root) t)))
+(defun c/zig--setup ()
+  ;; zig-mode sets this, but it forces each zig buffer to have `zig build` as a
+  ;; default command, while I usually want to use the same command in multiple
+  ;; buffers
+  (kill-local-variable 'compile-command))
 
 (use-package zig-mode
   ;; :after (lsp-mode)
   :bind (:map zig-mode-map
-         ("C-c C-r" . c/zig-compile-run)
          ("C-c C-c" . c/zig-compile)
+         ("C-c C-r" . c/zig-recompile)
          ("C-c C-k" . kill-compilation)
          ("C-c C-t" . c/zig-test))
   ;; :hook ((zig-mode . electric-pair-local-mode))
+  :hook ((zig-mode . c/zig--setup))
   :config
   ;; formatting on save breaks lsp-mode
   ;; see https://github.com/ziglang/zig-mode/issues/49
@@ -69,28 +49,27 @@
   (after-load (outshine)
     (add-hook 'zig-mode-hook 'outshine-mode)))
 
-(defun c/zig--locate-root ()
-  (locate-dominating-file default-directory "build.zig"))
-
-(defun c/zig--run-cmd (cmd &rest args)
-  (let ((default-directory (c/zig--locate-root)))
-    (save-buffer)
-    (apply 'zig--run-cmd cmd nil args)))
+(defun c/zig-clean ()
+  (interactive)
+  (let ((root (locate-dominating-file default-directory "build.zig")))
+    (delete-directory (expand-file-name "zig-out" root) t)
+    (delete-directory (expand-file-name ".zig-cache" root) t)))
 
 (defun c/zig-compile ()
-  "Compile and run using `zig build`."
   (interactive)
-  (c/zig--run-cmd "build"))
+  (let ((default-directory (locate-dominating-file default-directory "build.zig")))
+    (call-interactively 'compile)))
 
-(defun c/zig-compile-run ()
-  "Compile and run using `zig build run`."
+(defun c/zig-recompile ()
   (interactive)
-  (c/zig--run-cmd "build" "run"))
+  (let ((default-directory (locate-dominating-file default-directory "build.zig")))
+    (call-interactively 'recompile)))
 
 (defun c/zig-test ()
   "Test using `zig build test`."
   (interactive)
-  (c/zig--run-cmd "build" "test"))
+  (let ((default-directory (locate-dominating-file default-directory "build.zig")))
+    (compilation-start "zig build test")))
 
 (defun c/zig-debug ()
   (interactive)
