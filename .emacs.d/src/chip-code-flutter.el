@@ -25,7 +25,7 @@
 (use-package lsp-dart
   :defer t
   :config
-  (setq lsp-dart-line-length 120)
+  (setq lsp-dart-line-length 80)
   (setq lsp-dart-sdk-dir "~/flutter/bin/cache/dart-sdk")
   (setq lsp-dart-flutter-sdk-dir "~/flutter")
   (add-hook 'dart-mode-hook 'lsp)
@@ -72,6 +72,18 @@
       ;; Regardless, provided we have a valid buffer, we pop to it.
       (when buffer
         (pop-to-buffer buffer)))))
+
+(defun c/flutter-run-cljd ()
+  (interactive)
+  "Run ClojureDart Flutter project."
+  (let* ((root-dir (or (locate-dominating-file default-directory "pubspec.yaml")
+                       (error "This does not appear to be a Flutter project (pubspec.yaml not found)")))
+         (default-directory root-dir)
+         (buffer (get-buffer-create "*cljd*"))
+         (alive (comint-check-proc "*cljd*")))
+    (unless alive
+      (make-comint-in-buffer "Flutter" buffer "clj" nil "-M:cljd" "flutter"))
+    (switch-to-buffer buffer)))
 
 (provide 'chip-code-flutter)
 
