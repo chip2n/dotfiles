@@ -666,7 +666,9 @@ The default is to leave the cursor where it is, which is not as useful when sear
   (add-to-list 'window-selection-change-functions #'c/lsp--refresh-imenu)
 
   ;; fix to make language server not mess up my imports
-  (setq lsp-apply-edits-after-file-operations nil))
+  (setq lsp-apply-edits-after-file-operations nil)
+
+  (add-to-list 'lsp-file-watch-ignored-directories "[/\\\\]build\\'"))
 
 (use-package lsp-ui)
 
