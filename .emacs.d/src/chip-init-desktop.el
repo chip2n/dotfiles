@@ -1417,4 +1417,10 @@ buffer in current window."
   :hook ((occur-mode . next-error-follow-minor-mode))
   )
 
+;;; anki-editor
+
+(use-package anki-editor
+  :defer t
+  :straight (:host github :repo "anki-editor/anki-editor"))
+
 ;;; chip-init-desktop.el ends here
