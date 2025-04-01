@@ -256,7 +256,9 @@ This checks in turn:
   (lispy-mode 1))
 
 (use-package cider
-  :defer t
+  ;; I need to set cider-jack-in-nrepl-middlewares in dir local variable, so we
+  ;; need to load CIDER before opening a clojure file
+  :demand t
   :hook ((cider-repl-mode . c/cider--setup))
   :config
   (setq cider-test-show-report-on-success nil)
@@ -264,6 +266,14 @@ This checks in turn:
   (setq cider-offer-to-open-cljs-app-in-browser nil)
   (setq cider-test-fail-fast nil)
   (eldoc-mode t)
+
+  ;; Custom indentation
+  (define-clojure-indent
+    ;; Biff
+    (biff/submit-tx 1)
+    ;; ClojureDart
+    (build 1))
+
   (after-load (meow)
     (add-to-list 'meow-mode-state-list '(cider-repl-mode . normal)))
   (after-load (evil)
@@ -649,7 +659,8 @@ display-buffer (through display-buffer-alist)."
 (use-package racket-mode
   :defer t
   :config
-  (add-to-list 'auto-mode-alist (cons (rx ".rkt" eos) 'racket-mode)))
+  (add-to-list 'auto-mode-alist (cons (rx ".rkt" eos) 'racket-mode))
+  (add-hook 'racket-mode-hook #'racket-xp-mode))
 
 ;;;  Janet
 
