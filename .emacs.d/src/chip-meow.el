@@ -182,6 +182,8 @@
    '("X" . meow-backward-delete)
    '("y" . meow-save)
    '("z" . meow-pop-selection)
+   '("<" . meow-pop-to-mark)
+   '(">" . meow-unpop-to-mark)
    '("'" . repeat)
    '("<escape>" . ignore)))
 
