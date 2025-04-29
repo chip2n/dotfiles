@@ -37,7 +37,7 @@
 (use-package aider
   :straight (:host github :repo "tninja/aider.el" :files ("aider.el"))
   :config
-  (setq aider-args '("--model" "anthropic/claude-3-5-sonnet-20241022"
+  (setq aider-args '("--model" "anthropic/claude-3-7-sonnet-latest"
                      "--no-auto-commits")))
 
 (provide 'chip-gpt)
