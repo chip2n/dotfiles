@@ -27,17 +27,46 @@
   ;; This can prevent to edit them by accident.
   (when (string-match "/\.nimble/" (or (buffer-file-name) "")) (read-only-mode 1))
 
-  (local-set-key (kbd "M->") 'nim-indent-shift-right)
-  (local-set-key (kbd "M-<") 'nim-indent-shift-left)
+  ;; (local-set-key (kbd "M->") 'nim-indent-shift-right)
+  ;; (local-set-key (kbd "M-<") 'nim-indent-shift-left)
   (electric-indent-local-mode 0)
-  (auto-fill-mode 0))
+  (auto-fill-mode 0)
+  (indent-guide-mode 1))
+
+(defun c/locate-dominating-file-rx (rx)
+  "Like `locate-dominating-file', but searches using a regex."
+  (cl-flet ((correct-dir? ()
+                         (let ((files (directory-files default-directory)))
+                           (seq-some (lambda (file) (string-match-p rx file)) files))))
+    (with-temp-buffer
+      (while (and (not (correct-dir?)) (not (equal "/" default-directory)))
+        (cd ".."))
+      (when (correct-dir?)
+        default-directory))))
+
+(defun c/nim-compile ()
+  (interactive)
+  (when-let ((default-directory (c/locate-dominating-file-rx "\\.nimble$")))
+    (call-interactively 'compile)))
+
+(defun c/nim-recompile ()
+  (interactive)
+  (when-let ((default-directory (c/locate-dominating-file-rx "\\.nimble$")))
+    (call-interactively 'recompile)))
 
 (use-package nim-mode
-  :hook ((nim-mode . c/nim--setup)))
+  :hook ((nim-mode . c/nim--setup))
+  :bind (:map nim-mode-map
+         ("C-c C-c" . c/nim-compile)
+         ("C-c C-r" . c/nim-recompile)
+         :map nimscript-mode-map
+         ("C-c C-c" . c/nim-compile)
+         ("C-c C-r" . c/nim-recompile)))
 
 (use-package indent-guide
   :config
-  (setq indent-guide-char "│"))
+  (setq indent-guide-char "│")
+  (setq indent-guide-recursive t))
 
 (provide 'chip-code-nim)
 
