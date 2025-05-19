@@ -37,6 +37,13 @@
 ;;       (meow--cancel-selection))
 ;;     (meow--switch-state 'insert)))
 
+(defun c/meow-change-save ()
+  "Like `meow-change-save`, but calles `meow-change-char' if no region is active."
+  (interactive)
+  (if (region-active-p)
+      (call-interactively #'meow-change-save)
+    (call-interactively #'meow-change-char)))
+
 (defun c/meow-find-reverse (ch)
   (interactive "cFind:")
   (meow-find -1 ch))
@@ -143,7 +150,7 @@
    '("A" . meow-open-below)
    '("b" . meow-back-word)
    '("B" . meow-back-symbol)
-   '("c" . meow-change-save)
+   '("c" . c/meow-change-save)
    '("d" . meow-delete)
    '("e" . meow-prev)
    '("E" . meow-prev-expand)
