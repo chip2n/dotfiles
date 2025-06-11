@@ -654,7 +654,6 @@ The default is to leave the cursor where it is, which is not as useful when sear
    "C-c C-a" 'lsp-execute-code-action
    "C-c C-c C-f" 'lsp-format-buffer
    "C-c <TAB>" 'lsp-format-buffer
-   "C-c l" 'c/lsp-avy-lens
    "M-." 'lsp-find-definition)
   (general-define-key
    :keymaps 'lsp-mode-map
@@ -1149,7 +1148,17 @@ all elements."
   :bind (("C-c t" . c/eat)
          ("C-c T" . c/eat-cd))
   :bind (:map eat-semi-char-mode-map
-         ("M-o" . ace-window))
+         ("M-0" . nil)
+         ("M-1" . nil)
+         ("M-2" . nil)
+         ("M-3" . nil)
+         ("M-4" . nil)
+         ("M-5" . nil)
+         ("M-6" . nil)
+         ("M-7" . nil)
+         ("M-8" . nil)
+         ("M-9" . nil)
+         ("M-o" . nil))
   :hook ((eat--semi-char-mode . c/eat--update-hl-line)
          (eat--char-mode . c/eat--update-hl-line))
   :config

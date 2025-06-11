@@ -47,6 +47,7 @@
    "C-c w z"   'zoom-mode
    "C-c w f"   'delete-other-windows
    "C-c w k"   'delete-window
+   "C-c l"     'recenter-top-bottom
    "C-x +"     'chip/window-zoom
    "C-x -"     'chip/window-unzoom
    "C-x ="     'balance-windows
