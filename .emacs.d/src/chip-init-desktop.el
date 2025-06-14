@@ -1073,11 +1073,14 @@ all elements."
 
 (use-package glsl-mode
   :bind (:map glsl-mode-map
-         ("C-c C-r" . c/zig-compile-run)
-         ("C-c C-c" . c/zig-compile)
-         ("C-c C-k" . kill-compilation)
-         ("C-c C-t" . c/zig-test)))
-(use-package wgsl-mode)
+         ("C-c C-c" . c/smart-compile)
+         ("C-c C-r" . c/smart-recompile)
+         ("C-c C-k" . kill-compilation))
+  :mode (("\\.vs\\'" . glsl-mode)
+         ("\\.fs\\'" . glsl-mode))
+  :config
+  (after-load (outshine-mode)
+    (add-hook 'glsl-mode-hook 'outshine-mode)))
 
 (require 'bolt-mode)
 
