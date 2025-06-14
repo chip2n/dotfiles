@@ -143,6 +143,9 @@
 ;; Use a large GC threshold for initialization
 (setf gc-cons-threshold 1073741824)
 
+;; Language servers often generate large responses
+(setq read-process-output-max (* 10 1024 1024))
+
 ;; Fix for dired not working on Mac OS (requires `brew install coreutils`)
 (when c/mac?
   (setq insert-directory-program "/opt/homebrew/bin/gls"))

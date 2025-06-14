@@ -621,9 +621,6 @@ The default is to leave the cursor where it is, which is not as useful when sear
   (yas-global-mode 1)
   (add-to-list 'yas-snippet-dirs (locate-user-emacs-file "snippets")))
 
-;; language servers often generate large responses
-(setq read-process-output-max (* 1024 1024))
-
 ;;; Package: lsp-mode
 
 (defun c/lsp-avy-lens ()
