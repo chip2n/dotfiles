@@ -246,6 +246,7 @@ point reaches the beginning or end of the buffer, stop there."
    "C-s"   'isearch-forward
    "C-r"   'isearch-backward
    "C-c s" 'avy-goto-char-timer
+   "C-c l" 'avy-goto-line
    "M-s"   'consult-line
    "C-S-s" 'consult-line))
 
