@@ -69,6 +69,7 @@
 (require 'chip-code-nim)
 (require 'chip-code-nix)
 (require 'chip-code-sql)
+(require 'chip-code-sh)
 (require 'chip-lang)
 ;(require 'chip-present)
 (require 'chip-email)
