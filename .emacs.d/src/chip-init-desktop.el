@@ -57,6 +57,7 @@
 (require 'chip-code-dbg)
 
 (require 'chip-code-lisp)
+(require 'chip-code-forth)
 (require 'chip-code-c)
 ;; (require 'chip-code-elixir)
 (require 'chip-code-go)
