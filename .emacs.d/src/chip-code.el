@@ -48,6 +48,56 @@
 ;;     (call-interactively #'compile))
 ;;   (funcall c/compilation-fun))
 
+;;; Smart compile
+
+(defvar c/project-language-identifiers
+  '((nim . ".\\.nimble$")
+    (zig . "build.zig$")))
+
+(defun c/identify-project-language ()
+  (let* ((contains-file?
+          (lambda (pattern)
+            (let ((files (directory-files default-directory)))
+              (seq-some (lambda (file) (string-match-p pattern file)) files))))
+         (identify-project
+          (lambda ()
+            (cl-loop for (lang . pattern) in c/project-language-identifiers
+                     when (funcall contains-file? pattern)
+                     return lang))))
+    (with-temp-buffer
+      (while (and (null (funcall identify-project)) (not (equal "/" default-directory)))
+        (cd ".."))
+      (when-let ((lang (funcall identify-project)))
+        (cons lang default-directory)))))
+
+(defun c/smart-compile ()
+  "Run compile command in correct directory based on project."
+  (interactive)
+  (save-buffer)
+  (let ((project (c/identify-project-language)))
+    (case (car project)
+      (nim (c/nim-compile))
+      (zig (c/zig-compile))
+      (t (let ((root (project-root (project-current))))
+           (if root
+               (let ((default-directory root))
+                 (call-interactively #'compile))
+             (call-interactively #'compile)))))))
+
+(defun c/smart-recompile ()
+  "Run compile command in correct directory based on project."
+  (interactive)
+  (save-buffer)
+  (let ((project (c/identify-project-language)))
+    (case (car project)
+      (nim (c/nim-recompile))
+      (zig (c/zig-recompile))
+      (t (let ((root (project-root (project-current))))
+           (if root
+               (let ((default-directory root))
+                 (call-interactively #'recompile))
+             (call-interactively #'recompile)))))))
+
 ;;; Compile on save
 
 ;; Stolen from: https://rtime.ciirc.cvut.cz/~sojka/blog/compile-on-save/

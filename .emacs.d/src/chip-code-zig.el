@@ -31,8 +31,8 @@
 (use-package zig-mode
   ;; :after (lsp-mode)
   :bind (:map zig-mode-map
-         ("C-c C-c" . c/zig-compile)
-         ("C-c C-r" . c/zig-recompile)
+         ("C-c C-c" . c/smart-compile)
+         ("C-c C-r" . c/smart-recompile)
          ("C-c C-k" . kill-compilation)
          ("C-c C-t" . c/zig-test))
   ;; :hook ((zig-mode . electric-pair-local-mode))

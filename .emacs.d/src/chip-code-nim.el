@@ -57,11 +57,11 @@
 (use-package nim-mode
   :hook ((nim-mode . c/nim--setup))
   :bind (:map nim-mode-map
-         ("C-c C-c" . c/nim-compile)
-         ("C-c C-r" . c/nim-recompile)
+         ("C-c C-c" . c/smart-compile)
+         ("C-c C-r" . c/smart-recompile)
          :map nimscript-mode-map
-         ("C-c C-c" . c/nim-compile)
-         ("C-c C-r" . c/nim-recompile)))
+         ("C-c C-c" . c/smart-compile)
+         ("C-c C-r" . c/smart-recompile)))
 
 (use-package indent-guide
   :config
