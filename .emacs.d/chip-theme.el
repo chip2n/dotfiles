@@ -553,6 +553,10 @@
             :bold nil))
 
   (tab-bar-tab (:background grey-2))
-  (tab-bar-tab-inactive (:background grey-2)))
+  (tab-bar-tab-inactive (:background grey-2))
+
+  ;; indent-guide
+  (indent-guide-face (:foreground grey-3))
+  )
 
 (provide-theme 'chip)
