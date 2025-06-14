@@ -125,7 +125,8 @@
    '("9" . meow-digit-argument)
    '("0" . meow-digit-argument)
    ;; '("SPC" . execute-extended-command)
-   '("TAB" . other-window))
+   '("TAB" . other-window)
+   '("u" . meow-universal-argument))
   (meow-normal-define-key
    '("0" . meow-expand-0)
    '("1" . meow-expand-1)
