@@ -29,6 +29,26 @@
                                                (label . +))))
 (setq c-default-style "chip-c-style")
 
+(use-package cc-mode
+  :ensure nil
+  :bind (:map c-mode-map
+         ("C-c C-c" . c/smart-compile)
+         ("C-c C-r" . c/smart-recompile)))
+
+(use-package make-mode
+  :ensure nil
+  :bind (:map makefile-gmake-mode-map
+         ("C-c C-c" . c/smart-compile)
+         ("C-c C-r" . c/smart-recompile)))
+
+(use-package citre
+  :init
+  (require 'citre-config)
+  :config
+  (setq citre-readtags-program "/usr/bin/readtags")
+  (setq citre-ctags-program "/usr/bin/ctags")
+  )
+
 (provide 'chip-code-c)
 
 ;;; chip-code-c.el ends here
