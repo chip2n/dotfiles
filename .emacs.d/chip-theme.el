@@ -45,7 +45,7 @@
     (color-modeline-inactive . grey-2)
     (color-highlight-1       . grey-2)
     (color-highlight-2       . grey-3)
-    (color-border            . grey-2)
+    (color-border            . grey-3)
     (color-headline-1        . white-1)
     (color-headline-2        . white-1)
     (color-headline-3        . white-1)
@@ -136,18 +136,18 @@
   (show-paren-match (:background red-2 :foreground color-background))
 
   ;; Header faces
-  (header-line (:box (:line-width 4 :color grey-1)
-                :underline nil
-                :overline blue-2
-                :bold nil
-                :background grey-1
+  (header-line (:box (:line-width 2 :color grey-2)
+                :underline grey-3
+                ;; :overline grey-3
+                :bold t
+                :background grey-2
                 :foreground color-foreground))
 
   ;; Mode line faces
   (mode-line (:background color-modeline-active :foreground color-foreground))
   ;; (mode-line (:foreground color-foreground))
-  (mode-line-active (:background grey-2 :foreground color-foreground :overline blue-2))
-  (mode-line-inactive (:background grey-2 :foreground color-comment :overline grey-2))
+  (mode-line-active (:background grey-2 :foreground color-foreground :overline color-border))
+  (mode-line-inactive (:background grey-2 :foreground color-comment :overline color-border))
   ;; (mode-line-inactive (:foreground color-comment))
   (mode-line-highlight (:background nil :foreground color-foreground))
   (mode-line-evil-state-normal (:foreground color-evil-normal))
@@ -550,9 +550,10 @@
   ;; Tabbar faces
   (tab-bar (:background grey-2
             :foreground color-foreground
+            :underline color-border
             :bold nil))
 
-  (tab-bar-tab (:background grey-2))
+  (tab-bar-tab (:background grey-2 ))
   (tab-bar-tab-inactive (:background grey-2))
 
   ;; indent-guide

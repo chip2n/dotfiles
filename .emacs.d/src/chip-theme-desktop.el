@@ -32,25 +32,25 @@
 
 ;;; Tab bar
 
-(tab-bar-mode +1)
-(setq tab-bar-close-button-show nil)
-(setq tab-bar-format '(c/tab-bar
-                       ;; tab-bar-format-tabs tab-bar-separator
-                       tab-bar-format-align-right
-                       ;; tab-bar-format-global
-                       ))
-(setq tab-bar-auto-width-max '(500 50))
+;; (tab-bar-mode +1)
+;; (setq tab-bar-close-button-show nil)
+;; (setq tab-bar-format '(c/tab-bar
+;;                        ;; tab-bar-format-tabs tab-bar-separator
+;;                        tab-bar-format-align-right
+;;                        ;; tab-bar-format-global
+;;                        ))
+;; (setq tab-bar-auto-width-max '(500 50))
 
-(defun c/tab-bar ()
-  (concat
-   " "
-   (propertize (all-the-icons-fileicon "emacs")
-               'face `(:family ,(all-the-icons-fileicon-family) :height 0.8)
-               'display '(raise -0.0))
-   " "
-   (system-name)
-   " | "
-   (buffer-name)))
+;; (defun c/tab-bar ()
+;;   (concat
+;;    " "
+;;    (propertize (all-the-icons-fileicon "emacs")
+;;                'face `(:family ,(all-the-icons-fileicon-family) :height 0.8)
+;;                'display '(raise -0.0))
+;;    " "
+;;    (system-name)
+;;    " | "
+;;    (buffer-name)))
 
 ;;; Dim unselected windows
 
@@ -60,11 +60,12 @@
   )
 
 (defface c/dimmed-face-header-line
-  '((t (:background "#21242b"
-        :foreground "#6b7385"
-        :underline nil
-        :overline "#21242b"
-        :box (:line-width 4 :color "#21242b"))))
+  '((t (:background "#2c3039"
+        :foreground "#8790a4"
+        :underline "#494e5a"
+        :bold nil
+        ;; :overline "#21242b"
+        :box (:line-width 2 :color "#2c3039"))))
   "")
 ;; (defface c/dimmed-face-header-line
 ;;   '((t (:box (:line-width 4 :color "#21242b" :style nil)
