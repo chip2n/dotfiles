@@ -71,6 +71,7 @@
 (require 'chip-code-sql)
 (require 'chip-code-godot)
 (require 'chip-code-sh)
+(require 'chip-code-gleam)
 (require 'chip-lang)
 ;(require 'chip-present)
 (require 'chip-email)
