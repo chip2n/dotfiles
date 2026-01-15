@@ -646,6 +646,7 @@ The default is to leave the cursor where it is, which is not as useful when sear
   (setq lsp-eldoc-enable-hover nil)
   (setq lsp-enable-xref nil)
   (setq lsp-ui-sideline-enable nil)
+  (setq lsp-auto-execute-action nil)
   ;; (setq lsp-ui-doc-enable nil)
   (setq lsp-lens-enable nil)
   (setq lsp-auto-guess-root nil)
