@@ -13,6 +13,7 @@ import XMonad.Hooks.ManageHelpers
 import qualified XMonad.StackSet as W
 import XMonad.Config.Desktop
 import XMonad.Actions.CycleWS
+import XMonad.Actions.PhysicalScreens
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
 import XMonad.Util.Run
@@ -113,9 +114,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. shiftMask .|. controlMask, xK_q), io (exitWith ExitSuccess))
     ]
     ++
-    [((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
-       | (key, sc) <- zip [xK_q, xK_f, xK_w] [0..]
-       , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
+    [((modMask, key), viewScreen def sc) | (key, sc) <- zip [xK_q, xK_w, xK_f] [0..]]
+    ++
+    [((modMask .|. shiftMask, key), sendToScreen def sc) | (key, sc) <- zip [xK_q, xK_w, xK_f] [0..]]
 
 workspaceBindings conf@(XConfig {XMonad.modMask = modMask,
                                  XMonad.workspaces = workspaces}) =
