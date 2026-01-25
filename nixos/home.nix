@@ -139,6 +139,9 @@
     enable = true;
     userEmail = "andreas@arvidsson.io";
     userName = "chip2n";
+    extraConfig = {
+      init.templateDir = "${config.home.homeDirectory}/dev/dotfiles/git_template";
+    };
   };
 
   programs.emacs = {
