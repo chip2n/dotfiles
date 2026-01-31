@@ -1,5 +1,8 @@
 { config, pkgs, inputs, ... }:
 
+let
+  godot = pkgs.callPackage ./godot.nix {};
+in
 {
   imports =
     [
@@ -122,6 +125,7 @@
     vim
     # emacs
     wget
+    godot
   ];
 
   # This value determines the NixOS release from which the default
