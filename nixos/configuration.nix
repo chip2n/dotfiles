@@ -120,12 +120,15 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    # fuse
     git
     vim
-    # emacs
     wget
     godot
+    blender
+    rtmpdump
+    file
+    gdb
+    clang-tools
   ];
 
   # This value determines the NixOS release from which the default
@@ -147,7 +150,12 @@ in
   fonts.fontconfig.allowBitmaps = true;
 
   programs.thunar.enable = true;
-  programs.steam.enable = true;
+  programs.steam = {
+    enable = true;
+    extraPackages = [
+      pkgs.rtmpdump # For loop hero
+    ];
+  };
 
   hardware.graphics = {
     enable = true;
@@ -195,6 +203,8 @@ in
       end
     '';
   };
+
+  services.flatpak.enable = true;
 
   programs.gnupg.agent = {
     enable = true;

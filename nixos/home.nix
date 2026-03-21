@@ -12,7 +12,6 @@
     vlc
     deluge-gtk
     unzip
-    claude-code
     gnumake
     gcc
     pavucontrol
@@ -24,6 +23,7 @@
     rofi
     polybar
     ghostty
+    bun
     (st.overrideAttrs (oldAttrs: rec {
       src = fetchFromGitHub {
         owner = "chip2n";
