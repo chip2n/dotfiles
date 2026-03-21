@@ -18,7 +18,7 @@
       fsType = "ext4";
     };
 
-  fileSystems."/media" =
+  fileSystems."/old" =
     { device = "/dev/mapper/luks-949a094d-c9ae-419b-8cd7-b7e5f3d0a2fd";
       fsType = "ext4";
     };
