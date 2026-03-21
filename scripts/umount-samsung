@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 umount /mnt/samsung
 cryptsetup close samsung
