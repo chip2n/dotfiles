@@ -9,6 +9,7 @@ in
       ./hardware-configuration.nix
       ./audio.nix
       ./wm/xmonad.nix
+      ./jellyfin.nix
       inputs.home-manager.nixosModules.default
       inputs.sops-nix.nixosModules.sops
     ];
