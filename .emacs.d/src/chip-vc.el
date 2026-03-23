@@ -36,6 +36,18 @@
   (magit-status-here)
   (recenter))
 
+(defun chip/magit-read-worktree-directory-sibling (prompt branch)
+  "Like `magit-read-worktree-directory-sibling' but uses \"--worktree-\" separator."
+  (let* ((path (directory-file-name default-directory))
+         (name (file-name-nondirectory path)))
+    (read-directory-name
+     prompt (file-name-directory path) nil nil
+     (concat (if (string-match "--worktree-" name)
+                 (substring name 0 (match-beginning 0))
+               name)
+             "--worktree-"
+             (and branch (string-replace "/" "-" branch))))))
+
 (use-package magit
   :bind (("C-c v" . magit-status)
          ("C-c V" . c/magit-status-here)
@@ -63,7 +75,11 @@
   (setq magit-status-show-untracked-files "all")
 
   ;; show word-granularity within diff hunks
-  (setq magit-diff-refine-hunk t))
+  (setq magit-diff-refine-hunk t)
+
+  ;; use --worktree- separator for worktree directories
+  (setq magit-read-worktree-directory-function
+        #'chip/magit-read-worktree-directory-sibling))
 
 (use-package forge
   :after magit
