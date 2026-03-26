@@ -40,6 +40,18 @@
   (setq aider-args '("--model" "anthropic/claude-3-7-sonnet-latest"
                      "--no-auto-commits")))
 
+(use-package agent-shell
+  ;; :ensure-system-package
+  ;; Add agent installation configs here
+  ;; ((claude . "brew install claude-code")
+  ;;  (claude-code-acp . "npm install -g @zed-industries/claude-code-acp"))
+  :config
+  (setq agent-shell-header-style 'text)
+
+  ;; Unbind C-<tab> keybinding
+  (define-key agent-shell-mode-map (kbd "C-<tab>") nil)
+  )
+
 (provide 'chip-gpt)
 
 ;;; chip-code-gpt.el ends here
