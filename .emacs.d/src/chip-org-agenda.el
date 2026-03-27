@@ -55,7 +55,7 @@ org-agenda--todo-keyword-regex.")
 
 (defun c/org-agenda-files-extra ()
   "Find extra files to include in Agenda (searching for relevant org-roam files)."
-  (remove-if #'file-directory-p
+  (cl-remove-if #'file-directory-p
    (split-string
     (shell-command-to-string
      (concat "grep --include=\"*.org\" -rl -e '" c/org-agenda--todo-keyword-regex "' " c/org-roam-dir))
