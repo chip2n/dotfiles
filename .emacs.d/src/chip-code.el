@@ -75,7 +75,7 @@
   (interactive)
   (save-buffer)
   (let ((project (c/identify-project-language)))
-    (case (car project)
+    (cl-case (car project)
       (nim (c/nim-compile))
       (zig (c/zig-compile))
       (t (let ((root (project-root (project-current))))

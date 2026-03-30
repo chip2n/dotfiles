@@ -67,6 +67,7 @@
 
   ;; don't show line numbers in magit buffers
   (add-hook 'magit-mode-hook (lambda () (display-line-numbers-mode -1)))
+  (add-hook 'magit-status-sections-hook #'magit-insert-worktrees t)
 
   ;; show magit in current window
   (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)

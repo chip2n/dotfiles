@@ -154,3 +154,4 @@
 /.config/guix/shell-authorized-directories
 /.config/guix/testing
 /.config/xmonad/.stack-work
+/.agent-shell/

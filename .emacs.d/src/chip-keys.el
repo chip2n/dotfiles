@@ -125,6 +125,20 @@ If prefix is used, grep in current directory instead."
  "+" 'text-scale-increase
  "-" 'text-scale-decrease)
 
+;;; Transient
+
+(global-set-key (kbd "C-c z") 'c/agent-menu)
+
+(use-package transient
+  :config
+  (transient-define-prefix c/agent-menu ()
+    "Agent commands."
+    ["Agent"
+     ("s" "Shell" agent-shell-new-shell)
+     ("r" "Review" agent-review)
+     ("m" "Manager" agent-shell-manager-toggle)
+     ("z" agent-shell)]))
+
 ;;; Hydra
 
 (use-package hydra)

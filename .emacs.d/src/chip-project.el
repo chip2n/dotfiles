@@ -47,11 +47,29 @@ org task quickly.")
          ,@body
          (kill-buffer ,project-root-buffer)))))
 
+(defvar c/project--refreshing nil
+  "Non-nil when project list is being refreshed, to prevent re-entrancy.")
+
+(defun c/project-remember-projects-under (dir &optional depth)
+  "Remember all projects under DIR up to DEPTH levels deep (default 1).
+Only adds projects that are not already known, preserving the existing order."
+  (let ((depth (or depth 1))
+        (known (mapcar #'car project--list)))
+    (when (> depth 0)
+      (dolist (subdir (directory-files dir t "\\`[^.]"))
+        (when (file-directory-p subdir)
+          (let ((project (project--find-in-directory subdir)))
+            (if (and project (consp project))
+                (unless (member (project-root project) known)
+                  (project-remember-project project))
+              (c/project-remember-projects-under subdir (1- depth)))))))))
+
 (use-package project
   :bind (:map project-prefix-map
          ("m" . magit-project-status)
          ("g" . c/grep)
-         ("t" . c/project-vterm))
+         ("t" . c/project-vterm)
+         ("a" . c/project-agent-shell-switch))
   :bind (("C-c p p" . project-switch-project)
          ("C-c p f" . project-find-file))
   :config
@@ -61,7 +79,15 @@ org task quickly.")
           (project-eshell "eshell")
           (magit-project-status "magit")
           (c/project-vterm "vterm")
-          (c/grep "grep"))))
+          (c/grep "grep")
+          (c/project-agent-shell-switch "agent-shell")))
+
+  ;; Every time we run a project command, we refresh the projects to pick up new worktrees etc
+  (advice-add 'project-known-project-roots :before
+              (lambda (&rest _)
+                (unless c/project--refreshing
+                  (let ((c/project--refreshing t))
+                    (c/project-remember-projects-under "~/dev"))))))
 
 (use-package projectile
   :disabled t
