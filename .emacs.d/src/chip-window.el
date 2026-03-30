@@ -149,11 +149,23 @@
                                (- (+ n (line-number-display-width) 3)
                                   (window-width)) t))
 
-;; Save window configurations as bookmarks
-(use-package burly
-  :bind (("C-c w s" . burly-bookmark-windows))
-  :config
-  (setq burly-bookmark-prefix "win: "))
+(use-package activities
+  :straight (:host github :repo "alphapapa/activities.el")
+  :init
+  (activities-mode)
+  ;; Prevent `edebug' default bindings from interfering.
+  (setq edebug-inhibit-emacs-lisp-mode-bindings t)
+  (setq activities-bookmark-store t)
+  :bind
+  (("C-x C-a C-n" . activities-new)
+   ("C-x C-a C-d" . activities-define)
+   ("C-x C-a C-a" . activities-resume)
+   ("C-x C-a C-s" . activities-suspend)
+   ("C-x C-a C-k" . activities-kill)
+   ("C-x C-a RET" . activities-switch)
+   ("C-x C-a b" . activities-switch-buffer)
+   ("C-x C-a g" . activities-revert)
+   ("C-x C-a l" . activities-list)))
 
 ;; Automatic window zooming
 (use-package zoom
