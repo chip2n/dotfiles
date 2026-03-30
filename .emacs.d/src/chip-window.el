@@ -108,9 +108,9 @@
           (recenter-top-bottom -1)
           (when (< (+ curr-line line-delta) last-buffer-line)
             (forward-line (- (- last-buffer-line (+ curr-line line-delta))))))
-        (progn
-          (scroll-up line-delta)
-          (move-to-window-line line-win-pos)))))
+      (progn
+        (scroll-up line-delta)
+        (move-to-window-line line-win-pos)))))
 
 (defun c/scroll-half-page-up-other-window ()
   (interactive)
