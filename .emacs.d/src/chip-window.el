@@ -79,7 +79,7 @@
   (cdr (posn-actual-col-row (posn-at-point))))
 
 (defun c/scroll-half-page-up ()
-  "Scrolls exactly half page up keeping cursor/point position."
+  "Scrolls exactly half page up kee ping cursor/point position."
   (interactive)
   (let* ((line-win-pos (c/window--get-line-number))
          (line-delta (/ (truncate (window-screen-lines)) 2))
