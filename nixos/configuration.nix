@@ -7,6 +7,7 @@ in
   imports =
     [
       ./hardware-configuration.nix
+      ./synergy.nix
       ./audio.nix
       ./wm/xmonad.nix
       ./jellyfin.nix
@@ -42,8 +43,6 @@ in
   networking.networkmanager.enable = true;
 
   networking.firewall.enable = true;
-  # Open port 24800 for Synergy
-  networking.firewall.allowedTCPPorts = [ 24800 ];
 
   time.timeZone = "Europe/Stockholm";
 
@@ -185,25 +184,6 @@ in
 
   services.mullvad-vpn.enable = true;
   services.mullvad-vpn.package = pkgs.mullvad-vpn;
-
-  services.synergy.server = {
-    enable = true;
-    autoStart = true;
-    screenName = "chipb0x";
-    configFile = pkgs.writeText "synergy.conf" ''
-      section: screens
-        chipb0x:
-        MacBook-Pro-M1:
-      end
-
-      section: links
-        chipb0x:
-          down = MacBook-Pro-M1
-        MacBook-Pro-M1:
-          up = chipb0x
-      end
-    '';
-  };
 
   services.flatpak.enable = true;
 
