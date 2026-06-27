@@ -34,7 +34,7 @@ vterm_printf() {
 }
 
 # Prompt
-PS1="\[\e[00;34m\]\[\e[0m\]\W\[\e[00;34m\]> \[\e[0m\]"
+PS1="\[\e[00;31m\]\$ \[\e[0m\]\W\[\e[00;34m\]> \[\e[0m\]"
 
 # Emacs EAT
 [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
