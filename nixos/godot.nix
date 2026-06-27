@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 let
-  version = "4.6-stable";
+  version = "4.7-stable";
   runtimeLibs = with pkgs; [
     vulkan-loader
     libGL
@@ -28,7 +28,7 @@ in pkgs.stdenv.mkDerivation {
 
   src = pkgs.fetchurl {
     url = "https://github.com/godotengine/godot/releases/download/${version}/Godot_v${version}_linux.x86_64.zip";
-    sha256 = "6bcc59dfd1d670e918c77eae06e82b9dc5699de13d353dc3a4b3b6b307b6dc06";
+    sha256 = "0b1a6c54c2c619c12e169fe9241edda4b81080b519451cec2984bf0d2c6cb73c";
   };
 
   nativeBuildInputs = with pkgs; [ unzip autoPatchelfHook makeWrapper ];
