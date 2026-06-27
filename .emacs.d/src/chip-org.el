@@ -40,11 +40,11 @@
 
   (require 'org-clock))
 
-(require 'org-bars)
-(add-hook 'org-mode-hook #'org-bars-mode)
-(setq org-bars-color-options '(:only-one-color t
-                               :bar-color "#494e5a"))
-(setq org-bars-stars '(:empty "•" :invisible "•" :visible "•"))
+;; (require 'org-bars)
+;; (add-hook 'org-mode-hook #'org-bars-mode)
+;; (setq org-bars-color-options '(:only-one-color t
+;;                                :bar-color "#494e5a"))
+;; (setq org-bars-stars '(:empty "•" :invisible "•" :visible "•"))
 
 ;; (use-package org-superstar
 ;;   :hook ((org-mode . org-superstar-mode))
