@@ -41,6 +41,7 @@
   ;;  (claude-code-acp . "npm install -g @zed-industries/claude-code-acp"))
   :config
   (setq agent-shell-header-style 'text)
+  (setq agent-shell-anthropic-claude-acp-command '("claude-agent-acp"))
 
   ;; Unbind C-<tab> keybinding
   (define-key agent-shell-mode-map (kbd "C-<tab>") nil)
@@ -100,6 +101,9 @@ If the user types a new name, start a new shell and rename the buffer."
 
 (use-package agent-shell-manager
   :straight (:host github :repo "jethrokuan/agent-shell-manager"))
+
+(use-package agent-shell-attention
+  :straight (:host github :repo "ultronozm/agent-shell-attention.el"))
 
 (provide 'chip-gpt)
 
