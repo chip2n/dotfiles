@@ -16,7 +16,6 @@
     gcc
     pavucontrol
     pass
-    direnv
     vulkan-tools
     killall
     ripgrep
@@ -128,6 +127,11 @@
   in {
     enable = true;
     bashrcExtra = extraBashConfig;
+  };
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
   };
 
   programs.htop = {
