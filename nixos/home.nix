@@ -21,7 +21,6 @@
     ripgrep
     rofi
     polybar
-    ghostty
     bun
     (st.overrideAttrs (oldAttrs: rec {
       src = fetchFromGitHub {
@@ -245,6 +244,18 @@
         "toolkit.telemetry.updatePing.enabled" = false;
       };
     };
+  };
+
+  programs.ghostty.enable = true;
+  programs.ghostty.settings = {
+    font-family = "Iosevka";
+    window-padding-x = 8;
+    window-padding-y = 8;
+    background = "#21242b";
+    window-decoration = "none";
+    keybind = [
+      "ctrl+y=paste_from_clipboard"
+    ];
   };
 
   # Desktop wallpaper
