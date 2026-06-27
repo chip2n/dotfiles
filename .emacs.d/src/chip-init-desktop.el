@@ -871,34 +871,6 @@ all elements."
   :config
   (setq alert-default-style 'libnotify))
 
-(require 'erc)
-
-(setq erc-prompt " ")
-(setq erc-fill-column 90)
-
-(setq erc-track-exclude-types '("JOIN" "NICK" "PART" "QUIT" "MODE"
-                                "324" "329" "332" "333" "353" "477"))
-(setq erc-track-exclude-server-buffer t)
-
-;; Hide join/part/quit messages from users who have been idle for over an hour
-(setq erc-lurker-hide-list '("JOIN" "PART" "QUIT"))
-(setq erc-lurker-threshold-time 3600)
-
-;; Keep emacs from recentering erc buffers
-(add-to-list 'erc-mode-hook (lambda ()
-                              (display-line-numbers-mode -1)
-                              (set (make-local-variable 'scroll-conservatively) 100)))
-
-(setq erc-email-userid (concat private/irc-nick "/irc.libera.chat"))
-
-(defun chip/run-erc ()
-  (interactive)
-  (erc-tls
-   :server private/irc-server
-   :port private/irc-port
-   :nick private/irc-nick
-   :password private/irc-password))
-
 (use-package pdf-tools
   :config
   (pdf-loader-install)
